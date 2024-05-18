@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rent_hub/view/pages/splash_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/theme/theme_provider.dart';
 
@@ -11,13 +12,15 @@ class MainApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
+      
     return  MaterialApp(
       theme: ref.watch(themeProvider),
-      home: const Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+      // home: const Scaffold(
+      //   body: Center(
+      //     child: Text('Hello World!'),
+      //   ),
+      // ),
+      home: SplashScreen(),
     );
   }
 }
