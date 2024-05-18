@@ -17,7 +17,7 @@ class AddProduct {
   final txtPicOffer = "Pick your offer";
   final txtDescription = "Description";
   final txtDescriptionProduct = "Give a brief description for your product ";
-  final String txtBtn = "POST NOW";
+  final txtBtn = "POST NOW";
 }
 
 @riverpod
