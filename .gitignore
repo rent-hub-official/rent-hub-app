@@ -46,5 +46,5 @@ app.*.map.json
 /pubspec.lock
 
 # Ignore generated files
-*.g.dart
-*.freezed.dart
+**/*.g.dart
+**/*.freezed.dart

@@ -10,4 +10,6 @@ class AppColorPalettes {
   static const blueGrey800 = Color(0xFF1F2C4E);
   static const silver300 = Color(0xFFCFCFCF);
   static const grey200 = Color(0xFFAAAAAA);
+  static const grey600 = Color(0xFF606060);
+  static const grey900 = Color(0xFF191919);
 }
