@@ -10,7 +10,6 @@ dependencies:
   flutter:
     sdk: flutter
   go_router: ^14.1.1
-  google_fonts: ^6.2.1
   riverpod_annotation: ^2.3.5
 
 dev_dependencies:
