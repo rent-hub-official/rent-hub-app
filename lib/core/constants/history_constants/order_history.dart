@@ -1,13 +1,13 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'order_history.g.dart';
 class OrderHistory {
-  final String txtHeading = "Booking History";
-  final String txtPendingOrder = "Pending Order";
-  final String txtCompletedOrder = "Completed Order";
-  final String txtAccept = "Accept";
-  final String txRejectt = "Reject";
-  final String txtEnterCode = "Enter the unique code";
-  final String txtConfirm = "Confirm";
+  final  txtHeading = "Booking History";
+  final  txtPendingOrder = "Pending Order";
+  final  txtCompletedOrder = "Completed Order";
+  final  txtAccept = "Accept";
+  final  txRejectt = "Reject";
+  final  txtEnterCode = "Enter the unique code";
+  final  txtConfirm = "Confirm";
 }
 
 @riverpod

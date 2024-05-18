@@ -2,10 +2,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'onboarding2.g.dart';
 
 class Onboarding2 {
-  final String txtHeading = "find your destination";
-  final String txtSubHeading =
+  final  txtHeading = "find your destination";
+  final  txtSubHeading =
       "Rent what you need, when you need it Sign up now for convenience!";
-  final String txtSkip = "Skip";
+  final  txtSkip = "Skip";
 }
 
 @riverpod

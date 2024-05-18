@@ -1,9 +1,10 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'product_screen.g.dart';
+
 class ProductScreen {
-  final String txtPerday = "/day";
-  final String txtDescription = "Description";
-  final String btn = "Rent Now";
+  final txtPerday = "/day";
+  final txtDescription = "Description";
+  final txtbtn = "Rent Now";
 }
 
 @riverpod

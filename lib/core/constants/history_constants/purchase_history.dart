@@ -1,17 +1,17 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'purchase_history.g.dart';
 class PurchaseHistory {
-  final String txtHeading = "Purchase History";
-  final String txtOngoingOrders = "Ongoing Orders";
-  final String txtCompletedOrders = "Completed Orders";
-  final String txtOrderplaced = "Order placed";
-  final String txtPaymentSuccessful = "Payment Successful";
-  final String txtOrderconfirmed = "Order confirmed by the Owner";
-  final String txtSuccessful = "Service Successful";
-  final String txtOR = "OR";
-  final String txtsubHeading =
+  final  txtHeading = "Purchase History";
+  final  txtOngoingOrders = "Ongoing Orders";
+  final  txtCompletedOrders = "Completed Orders";
+  final  txtOrderplaced = "Order placed";
+  final  txtPaymentSuccessful = "Payment Successful";
+  final  txtOrderconfirmed = "Order confirmed by the Owner";
+  final  txtSuccessful = "Service Successful";
+  final  txtOR = "OR";
+  final  txtsubHeading =
       "you can’t cancel service after shares the unique code to the seller";
-  final String txtBtn = "Cancel";
+  final  txtBtn = "Cancel";
 }
 
 @riverpod

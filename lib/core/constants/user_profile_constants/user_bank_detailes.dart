@@ -1,19 +1,20 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'user_bank_detailes.g.dart';
+
 class UserBankAccount {
-  final String txtCancel = "Cancel";
-  final String txtHeading = "Bank account details";
-  final String txtBank = "Bank";
-  final String txtSelectBank = "Select Bank";
-  final String txtName = "Name";
-  final String txtHolderName = "Accounut holder’s name";
-  final String txtIFSCCode = "IFSC Code";
-  final String txtAccountNumber = "Account Number";
-  final String txtConfirm = "Account Number Confirm";
-  final String txtAccountNo = "Account number";
-  final String txt =
+  final txtCancel = "Cancel";
+  final txtHeading = "Bank account details";
+  final txtBank = "Bank";
+  final txtSelectBank = "Select Bank";
+  final txtName = "Name";
+  final txtHolderName = "Accounut holder’s name";
+  final txtIFSCCode = "IFSC Code";
+  final txtAccountNumber = "Account Number";
+  final txtConfirm = "Account Number Confirm";
+  final txtAccountNo = "Account number";
+  final txt =
       "By adding this bank account, I agree to RentHub T&Cs regarding topping up \nfrom bank account";
-  final String txtBtn = "ADD ACCOUNT";
+  final txtBtn = "ADD ACCOUNT";
 }
 
 @riverpod

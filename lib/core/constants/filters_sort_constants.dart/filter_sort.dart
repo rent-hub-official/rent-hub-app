@@ -1,30 +1,30 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'filter_sort.g.dart';
 class FilterSort {
-  final String txtHeading = "Filters & sort";
-  final String txtProductType = "Product Type";
-  final String txtLocation = "Location";
-  final String txtPriceRange = "Price Range";
-  final String txtSortBy = "Sort by";
-  final String txtOrder = "Order";
-  final String txtAll = "All";
-  final String txtHouse = "House";
-  final String txtVehicle = "Vehicle";
-  final String txtCloths = "Cloths";
-  final String txtTools = "Tools";
-  final String txtEnterLocation = "Enter your location";
-  final String txtResetAllBtn = "Reset All";
-  final String txtApplyBtn = "Apply";
-  final String txtPriceRange1 = "0-999";
-  final String txtPriceRange2 = "1000-9999";
-  final String txtPriceRange3 = "10000-99999";
-  final String txtPriceRange4 = "100000-999999";
-  final String txtPriceRange5 = "1000000-9999999";
-  final String txtTitle = "Title";
-  final String txtDateCreated = "Date Created";
-  final String txtDateModified = "Date Modified";
-  final String txtAscending = "Ascending";
-  final String txtDescending = "Descending";
+  final  txtHeading = "Filters & sort";
+  final  txtProductType = "Product Type";
+  final  txtLocation = "Location";
+  final  txtPriceRange = "Price Range";
+  final  txtSortBy = "Sort by";
+  final  txtOrder = "Order";
+  final  txtAll = "All";
+  final  txtHouse = "House";
+  final  txtVehicle = "Vehicle";
+  final  txtCloths = "Cloths";
+  final  txtTools = "Tools";
+  final  txtEnterLocation = "Enter your location";
+  final  txtResetAllBtn = "Reset All";
+  final  txtApplyBtn = "Apply";
+  final  txtPriceRange1 = "0-999";
+  final  txtPriceRange2 = "1000-9999";
+  final  txtPriceRange3 = "10000-99999";
+  final  txtPriceRange4 = "100000-999999";
+  final  txtPriceRange5 = "1000000-9999999";
+  final  txtTitle = "Title";
+  final  txtDateCreated = "Date Created";
+  final  txtDateModified = "Date Modified";
+  final  txtAscending = "Ascending";
+  final  txtDescending = "Descending";
 }
 
 @riverpod

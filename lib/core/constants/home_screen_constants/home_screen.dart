@@ -1,6 +1,6 @@
 class HomeScreen {
   
-  final String txtsub = "Near from you";
-  final String productName = "BMW 5 series";
+  final  txtsub = "Near from you";
+  final  productName = "BMW 5 series";
 
 }

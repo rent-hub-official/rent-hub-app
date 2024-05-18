@@ -2,8 +2,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'chat_box.g.dart';
 
 class ChatBox {
-  final String txtHeading = "ChatBox";
-  final String txtType = "Type Something";
+  final txtHeading = "ChatBox";
+  final txtType = "Type Something";
 }
 
 @riverpod
