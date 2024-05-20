@@ -11,6 +11,7 @@ part 'dark_theme.g.dart';
 final _darktheme = ThemeData(
     brightness: Brightness.dark,
     scaffoldBackgroundColor: AppColorPalettes.grey1000,
+    appBarTheme: const AppBarTheme(backgroundColor: AppColorPalettes.grey1000),
     extensions: [
       //AppColorExtension
       AppColorExtension(
