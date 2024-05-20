@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class RoundedbtnWidget extends StatelessWidget {
   final Function() onTap;
   final IconData icon;
-  final Color backgroundclr;
+  final Color? backgroundclr;
   final double? radius;
   const RoundedbtnWidget({
     super.key,

@@ -26,7 +26,6 @@ class ProductCardWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final apptheme = AppTheme.of(context);
-    // final hp = ref.watch(homeScreenProvider);
 
     return InkWell(
       borderRadius:
@@ -34,6 +33,7 @@ class ProductCardWidget extends ConsumerWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
+          boxShadow: [apptheme.shadows.primary],
           borderRadius: BorderRadius.circular(
             apptheme.spaces.space_200,
           ),
@@ -47,8 +47,8 @@ class ProductCardWidget extends ConsumerWidget {
               bottom: 0,
               right: 0,
               child: Container(
-                width: 90,
-                height: 30,
+                width: apptheme.spaces.space_300 * 4,
+                height: apptheme.spaces.space_400,
                 decoration: BoxDecoration(
                   color: apptheme.colors.primary,
                   borderRadius: BorderRadius.only(
@@ -130,8 +130,8 @@ class ProductCardWidget extends ConsumerWidget {
                             ),
                             Padding(
                               padding: EdgeInsets.only(
-                                  top: apptheme.spaces.space_250,
-                                  bottom: apptheme.spaces.space_25),
+                                top: apptheme.spaces.space_125,
+                              ),
                               child: Row(
                                 children: [
                                   const Icon(
@@ -140,7 +140,7 @@ class ProductCardWidget extends ConsumerWidget {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(
-                                        left: apptheme.spaces.space_100,
+                                        left: apptheme.spaces.space_50,
                                         right: apptheme.spaces.space_100),
                                     child: Text(productLocation),
                                   ),
@@ -151,7 +151,6 @@ class ProductCardWidget extends ConsumerWidget {
                           ],
                         ),
                       ),
-                      // SizedBox(height: apptheme.spaces.space_600)
                     ],
                   ),
                 ],
