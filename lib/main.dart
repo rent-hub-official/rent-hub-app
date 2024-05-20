@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rent_hub/view/pages/splash_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/theme/theme_provider.dart';
+import 'package:rent_hub/view/pages/home_screen.dart';
+import 'package:rent_hub/core/widgets/textfeild_widget.dart';
 
 void main() {
   runApp(const ProviderScope(child: MainApp()));
@@ -11,18 +12,15 @@ class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
-      
-    return  MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp(
       theme: ref.watch(themeProvider),
       // home: const Scaffold(
       //   body: Center(
       //     child: Text('Hello World!'),
       //   ),
       // ),
-      home: SplashScreen(),
+      home: HomeScreen(),
     );
   }
 }
-
-

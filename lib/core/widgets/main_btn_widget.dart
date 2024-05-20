@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rent_hub/core/theme/app_theme.dart';
 
 class MainBtnWidget extends StatelessWidget {
   final Function() onTap;
@@ -12,27 +13,27 @@ class MainBtnWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final apptheme = AppTheme.of(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: onTap,
-        child: SizedBox(
-          width: double.infinity,
-          height: 50,
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.amber,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: SizedBox(
+        width: double.infinity,
+        height: 50,
+        child: ElevatedButton(
+          onPressed: onTap,
+          style: ElevatedButton.styleFrom(
+            shadowColor: Colors.white,
+            backgroundColor: apptheme.colors.primary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(apptheme.spaces.space_100),
             ),
-            child: Text(
-              btnTxt,
-              style: const TextStyle(
-                  color: Colors.white, fontSize: Checkbox.width),
-            ),
+            padding: EdgeInsets.symmetric(
+                horizontal: apptheme.spaces.space_200,
+                vertical: apptheme.spaces.space_100),
+          ),
+          child: Text(
+            btnTxt,
+            style: apptheme.typography.buttonText,
           ),
         ),
       ),

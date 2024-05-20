@@ -1,33 +1,42 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/theme/color_palette.dart';
 
-class ProductCardWidget extends StatelessWidget {
+class ProductCardWidget extends ConsumerWidget {
   final String productName;
   final double price;
   final String productLocation;
-  final double destance;
+  final double distance;
+  final String img;
+  final Function() onTap;
+  final String belowbtn;
 
   const ProductCardWidget({
     super.key,
     required this.productName,
     required this.price,
     required this.productLocation,
-    required this.destance,
+    required this.distance,
+    required this.img,
+    required this.onTap,
+    required this.belowbtn,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final apptheme = AppTheme.of(context);
+    // final hp = ref.watch(homeScreenProvider);
 
     return InkWell(
-      onTap: () {
-        log('message');
-      },
+      borderRadius:
+          BorderRadius.all(Radius.circular(apptheme.spaces.space_200)),
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(
+            apptheme.spaces.space_200,
+          ),
           color: apptheme.colors.cardBackground,
         ),
         width: double.infinity,
@@ -43,94 +52,106 @@ class ProductCardWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: apptheme.colors.primary,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(14),
+                    topLeft: Radius.circular(apptheme.spaces.space_200),
+                    bottomRight: Radius.circular(apptheme.spaces.space_200),
                   ),
                 ),
-                child: const Center(
+                child: Center(
                     child: Text(
-                  'Rent Now',
+                  belowbtn,
+                  style: apptheme.typography.buttonText,
                 )),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8),
+              padding: EdgeInsets.all(apptheme.spaces.space_100),
               child: Stack(
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        width: double.infinity, // Corrected MediaQuery usage
+                        width: double.infinity,
                         height: 120,
-
                         decoration: BoxDecoration(
-                          image: const DecorationImage(
-                              image: NetworkImage(
-                                  'https://static.autox.com/uploads/2022/06/Mahindra-Scorpio-N.jpg'),
-                              fit: BoxFit.cover),
-                          boxShadow: const [
-                            BoxShadow(),
-                          ],
-                          borderRadius: BorderRadius.circular(12),
+                          image: DecorationImage(
+                              image: NetworkImage(img), fit: BoxFit.cover),
+                          borderRadius:
+                              BorderRadius.circular(apptheme.spaces.space_100),
                         ),
                         child: Stack(
                           children: [
                             Positioned(
-                              top: 8,
-                              left: 8,
+                              top: apptheme.spaces.space_100,
+                              left: apptheme.spaces.space_100,
                               child: CircleAvatar(
                                 radius: 17,
-                                backgroundColor: Colors.white.withOpacity(0.3),
-                                child: const Icon(Icons.favorite),
+                                backgroundColor:
+                                    AppColorPalettes.white500.withOpacity(0.4),
+                                child: const Icon(
+                                  Icons.favorite,
+                                  color: AppColorPalettes.white500,
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 8),
-                            child: Row(
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: apptheme.spaces.space_100,
+                            left: apptheme.spaces.space_100,
+                            right: apptheme.spaces.space_100),
+                        child: Column(
+                          children: [
+                            Row(
                               children: [
                                 Expanded(
                                   child: Text(
-                                    'datahgdhsldkdodghfjkbnbgcxdzaghkkhj',
+                                    productName,
                                     style: apptheme.typography.h3SemiBold,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                                Text(
-                                  '${'price'}/perDay',
-                                  style: apptheme.typography.bodyLargeSemiBold,
+                                RichText(
+                                  text: TextSpan(
+                                    style:
+                                        apptheme.typography.bodyLargeSemiBold,
+                                    children: [
+                                      TextSpan(text: '$price'),
+                                      TextSpan(
+                                        text: '/Day',
+                                        style: apptheme.typography.bodySmall,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
-                          ),
-                          SizedBox(height: 8),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.place,
-                                size: 16,
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: apptheme.spaces.space_250,
+                                  bottom: apptheme.spaces.space_25),
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.place_outlined,
+                                    size: 20,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: apptheme.spaces.space_100,
+                                        right: apptheme.spaces.space_100),
+                                    child: Text(productLocation),
+                                  ),
+                                  Text('$distance Km away')
+                                ],
                               ),
-                              Text(
-                                'Kannur, Kerala',
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 8, top: 5),
-                                child: Text(
-                                  '10KM farAway',
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              Spacer(),
-                            ],
-                          ),
-                        ],
-                      )
+                            )
+                          ],
+                        ),
+                      ),
+                      // SizedBox(height: apptheme.spaces.space_600)
                     ],
                   ),
                 ],
