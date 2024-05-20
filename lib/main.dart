@@ -11,18 +11,10 @@ class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
-      
-    return  MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp(
       theme: ref.watch(themeProvider),
-      // home: const Scaffold(
-      //   body: Center(
-      //     child: Text('Hello World!'),
-      //   ),
-      // ),
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }
-
-
