@@ -4,36 +4,35 @@ import 'package:rent_hub/core/theme/app_theme.dart';
 class TextFeildWidget extends StatelessWidget {
   final String labeltxt;
   final String hinttxt;
-  final IconData? suffixicon;
-  final IconData? prefixicon;
+  final Icon? suffixicon;
+  final Icon? prefixicon;
   final TextEditingController textController;
-  final Function() onTap;
+  final String? Function(String?)? validator;
   const TextFeildWidget({
     super.key,
     required this.labeltxt,
     required this.hinttxt,
-    required this.onTap,
     required this.textController,
     this.suffixicon,
     this.prefixicon,
+    required this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
-    final color = AppTheme.of(context).colors;
-    final typography = AppTheme.of(context).typography;
     final space = AppTheme.of(context).spaces;
     return Padding(
       padding: EdgeInsets.all(space.space_200),
-      child: TextField(
+      child: TextFormField(
+        validator: validator,
         controller: textController,
         decoration: InputDecoration(
-          prefixIcon: Icon(prefixicon),
+          prefixIcon: prefixicon,
           labelText: labeltxt,
           hintText: hinttxt,
-          suffixIcon: IconButton(
-            icon: Icon(suffixicon),
-            onPressed: onTap,
+          suffixIcon: suffixicon,
+          errorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red),
           ),
         ),
       ),
