@@ -12,6 +12,8 @@ dependencies:
   flutter_riverpod: ^2.5.1
   go_router: ^14.1.1
   riverpod_annotation: ^2.3.5
+  otp_text_field: ^1.1.3
+
 
 dev_dependencies:
   flutter_test:
