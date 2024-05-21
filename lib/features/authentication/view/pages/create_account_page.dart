@@ -117,7 +117,7 @@ class CreateAccountPage extends ConsumerWidget {
                     CircleAvatar(
                       maxRadius: theme.spaces.space_200 * 6,
                     ),
-                    Positioned(
+                    const Positioned(
                       bottom: 10,
                       right: 10,
                       child: CircleAvatar(
@@ -155,7 +155,7 @@ class CreateAccountPage extends ConsumerWidget {
                 child: Center(
                   child: Text(
                     ref.watch(createAccountProvider).txtbtn,
-                    style: theme.typography.buttonText.copyWith(),
+                    style: theme.typography.buttonText,
                   ),
                 ),
               ),
