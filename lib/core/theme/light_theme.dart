@@ -22,7 +22,7 @@ final _lighttheme = ThemeData(
         btnText: AppColorPalettes.black500,
         border: AppColorPalettes.grey600,
         bottomNavBorder: AppColorPalettes.grey600,
-        cardBackground: AppColorPalettes.silver300,
+        cardBackground: AppColorPalettes.grey100,
       ),
       //AppSpaceExtension
       AppSpaceExtension.fromBaseSpace(8),
