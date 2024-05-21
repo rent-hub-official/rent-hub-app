@@ -21,6 +21,7 @@ class TextFeildWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final space = AppTheme.of(context).spaces;
+    final apptheme = AppTheme.of(context);
     return Padding(
       padding: EdgeInsets.all(space.space_200),
       child: TextFormField(
@@ -29,11 +30,13 @@ class TextFeildWidget extends StatelessWidget {
         decoration: InputDecoration(
           prefixIcon: prefixicon,
           labelText: labeltxt,
+          labelStyle: apptheme.typography.body,
           hintText: hinttxt,
+          hintStyle: apptheme.typography.body,
           suffixIcon: suffixicon,
-          errorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red),
-          ),
+          errorBorder: OutlineInputBorder(
+              // borderSide: BorderSide(color: colorpa),
+              ),
         ),
       ),
     );
