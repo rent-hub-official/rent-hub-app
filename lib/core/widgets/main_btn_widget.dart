@@ -13,27 +13,26 @@ class MainBtnWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final apptheme = AppTheme.of(context);
     return Padding(
-      padding: EdgeInsets.all(apptheme.spaces.space_100),
+      padding: EdgeInsets.all(context.spaces.space_100),
       child: SizedBox(
         width: double.infinity,
-        height: apptheme.spaces.space_600,
+        height: context.spaces.space_600,
         child: ElevatedButton(
           onPressed: onTap,
           style: ElevatedButton.styleFrom(
             shadowColor: Colors.white,
-            backgroundColor: apptheme.colors.primary,
+            backgroundColor: context.colors.primary,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(apptheme.spaces.space_100),
+              borderRadius: BorderRadius.circular(context.spaces.space_100),
             ),
             padding: EdgeInsets.symmetric(
-                horizontal: apptheme.spaces.space_200,
-                vertical: apptheme.spaces.space_100),
+                horizontal: context.spaces.space_200,
+                vertical: context.spaces.space_100),
           ),
           child: Text(
             btnTxt,
-            style: apptheme.typography.buttonText,
+            style: context.typography.buttonText,
           ),
         ),
       ),

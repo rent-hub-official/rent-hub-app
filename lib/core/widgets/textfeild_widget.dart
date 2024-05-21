@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/theme/color_palette.dart';
 
 class TextFeildWidget extends StatelessWidget {
   final String labeltxt;
@@ -20,23 +21,21 @@ class TextFeildWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final space = AppTheme.of(context).spaces;
-    final apptheme = AppTheme.of(context);
     return Padding(
-      padding: EdgeInsets.all(space.space_200),
+      padding: EdgeInsets.all(context.spaces.space_200),
       child: TextFormField(
         validator: validator,
         controller: textController,
         decoration: InputDecoration(
           prefixIcon: prefixicon,
           labelText: labeltxt,
-          labelStyle: apptheme.typography.body,
+          labelStyle: context.typography.body,
           hintText: hinttxt,
-          hintStyle: apptheme.typography.body,
+          hintStyle: context.typography.body,
           suffixIcon: suffixicon,
-          errorBorder: OutlineInputBorder(
-              // borderSide: BorderSide(color: colorpa),
-              ),
+          errorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: AppColorPalettes.red500),
+          ),
         ),
       ),
     );

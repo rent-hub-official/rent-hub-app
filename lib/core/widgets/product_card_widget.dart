@@ -25,19 +25,16 @@ class ProductCardWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final apptheme = AppTheme.of(context);
-
     return InkWell(
-      borderRadius:
-          BorderRadius.all(Radius.circular(apptheme.spaces.space_200)),
+      borderRadius: BorderRadius.all(Radius.circular(context.spaces.space_200)),
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          boxShadow: [apptheme.shadows.primary],
+          boxShadow: [context.shadows.primary],
           borderRadius: BorderRadius.circular(
-            apptheme.spaces.space_200,
+            context.spaces.space_200,
           ),
-          color: apptheme.colors.cardBackground,
+          color: context.colors.cardBackground,
         ),
         width: double.infinity,
         // height: 200,
@@ -47,24 +44,24 @@ class ProductCardWidget extends ConsumerWidget {
               bottom: 0,
               right: 0,
               child: Container(
-                width: apptheme.spaces.space_300 * 4,
-                height: apptheme.spaces.space_400,
+                width: context.spaces.space_300 * 4,
+                height: context.spaces.space_400,
                 decoration: BoxDecoration(
-                  color: apptheme.colors.primary,
+                  color: context.colors.primary,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(apptheme.spaces.space_200),
-                    bottomRight: Radius.circular(apptheme.spaces.space_200),
+                    topLeft: Radius.circular(context.spaces.space_200),
+                    bottomRight: Radius.circular(context.spaces.space_200),
                   ),
                 ),
                 child: Center(
                     child: Text(
                   belowbtn,
-                  style: apptheme.typography.buttonText,
+                  style: context.typography.buttonText,
                 )),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(apptheme.spaces.space_100),
+              padding: EdgeInsets.all(context.spaces.space_100),
               child: Stack(
                 children: [
                   Column(
@@ -72,20 +69,20 @@ class ProductCardWidget extends ConsumerWidget {
                     children: [
                       Container(
                         width: double.infinity,
-                        height: apptheme.spaces.space_400 * 4,
+                        height: context.spaces.space_400 * 4,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               image: NetworkImage(img), fit: BoxFit.cover),
                           borderRadius:
-                              BorderRadius.circular(apptheme.spaces.space_100),
+                              BorderRadius.circular(context.spaces.space_100),
                         ),
                         child: Stack(
                           children: [
                             Positioned(
-                              top: apptheme.spaces.space_100,
-                              left: apptheme.spaces.space_100,
+                              top: context.spaces.space_100,
+                              left: context.spaces.space_100,
                               child: CircleAvatar(
-                                radius: apptheme.spaces.space_200,
+                                radius: context.spaces.space_200,
                                 backgroundColor:
                                     AppColorPalettes.white500.withOpacity(0.4),
                                 child: const Icon(
@@ -99,9 +96,9 @@ class ProductCardWidget extends ConsumerWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                            top: apptheme.spaces.space_100,
-                            left: apptheme.spaces.space_100,
-                            right: apptheme.spaces.space_100),
+                            top: context.spaces.space_100,
+                            left: context.spaces.space_100,
+                            right: context.spaces.space_100),
                         child: Column(
                           children: [
                             Row(
@@ -109,19 +106,18 @@ class ProductCardWidget extends ConsumerWidget {
                                 Expanded(
                                   child: Text(
                                     productName,
-                                    style: apptheme.typography.h3SemiBold,
+                                    style: context.typography.h3SemiBold,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                                 RichText(
                                   text: TextSpan(
-                                    style:
-                                        apptheme.typography.bodyLargeSemiBold,
+                                    style: context.typography.bodyLargeSemiBold,
                                     children: [
                                       TextSpan(text: '$price'),
                                       TextSpan(
                                         text: '/Day',
-                                        style: apptheme.typography.bodySmall,
+                                        style: context.typography.bodySmall,
                                       ),
                                     ],
                                   ),
@@ -130,18 +126,18 @@ class ProductCardWidget extends ConsumerWidget {
                             ),
                             Padding(
                               padding: EdgeInsets.only(
-                                top: apptheme.spaces.space_125,
+                                top: context.spaces.space_125,
                               ),
                               child: Row(
                                 children: [
                                   Icon(
                                     Icons.place_outlined,
-                                    size: apptheme.spaces.space_250,
+                                    size: context.spaces.space_250,
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(
-                                        left: apptheme.spaces.space_50,
-                                        right: apptheme.spaces.space_100),
+                                        left: context.spaces.space_50,
+                                        right: context.spaces.space_100),
                                     child: Text(productLocation),
                                   ),
                                   Text('$distance Km away')
