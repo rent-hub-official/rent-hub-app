@@ -19,7 +19,7 @@ class NonAppropriatePathException implements Exception {
 }
 
 class IllegalFloatingActionButtonSizeException implements Exception {
-  String _cause;
+  final String _cause;
 
   IllegalFloatingActionButtonSizeException(this._cause) : super();
 
@@ -30,7 +30,7 @@ class IllegalFloatingActionButtonSizeException implements Exception {
 class GapItem extends StatelessWidget {
   final double width;
 
-  GapItem({required this.width});
+  const GapItem({super.key, required this.width});
 
   @override
   Widget build(BuildContext context) => Container(width: width);
@@ -53,11 +53,11 @@ class SafeAreaValues {
 
 class VisibleAnimator extends StatefulWidget {
   const VisibleAnimator({
-    Key? key,
+    super.key,
     required this.child,
     required this.showController,
     required this.curve,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final Curve curve;
