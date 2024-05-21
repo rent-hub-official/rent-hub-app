@@ -4,24 +4,21 @@ import 'package:rent_hub/core/theme/extensions/app_shadow_extension.dart';
 import 'package:rent_hub/core/theme/extensions/app_typography_extension.dart';
 import 'package:rent_hub/core/theme/extensions/space_extension.dart';
 
-class AppTheme {
-  final BuildContext context;
 
-  AppTheme.of(this.context);
-
+extension AppThemes on BuildContext {
   AppColorExtension get colors {
-    return Theme.of(context).extension<AppColorExtension>()!;
+    return Theme.of(this).extension<AppColorExtension>()!;
   }
 
   AppSpaceExtension get spaces {
-    return Theme.of(context).extension<AppSpaceExtension>()!;
+    return Theme.of(this).extension<AppSpaceExtension>()!;
   }
 
   AppTypographyExtension get typography {
-    return Theme.of(context).extension<AppTypographyExtension>()!;
+    return Theme.of(this).extension<AppTypographyExtension>()!;
   }
 
   ShadowExtension get shadows {
-    return Theme.of(context).extension<ShadowExtension>()!;
+    return Theme.of(this).extension<ShadowExtension>()!;
   }
 }

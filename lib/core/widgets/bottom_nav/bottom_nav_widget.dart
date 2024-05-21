@@ -10,10 +10,7 @@ class BottomNavWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pageController = PageController();
-    // custom  colors
-    final appColor = AppTheme.of(context).colors;
-    // custom sizes
-    final appSpaces = AppTheme.of(context).spaces;
+
     //page index controller
     final activePageIndex = ref.watch(bottomPageIndexProvider);
     //icon provider
@@ -40,30 +37,31 @@ class BottomNavWidget extends ConsumerWidget {
         children: pages,
       ),
       floatingActionButton: Padding(
-        padding: EdgeInsets.only(top: appSpaces.space_50),
+        padding: EdgeInsets.only(top: context.spaces.space_50),
         child: FloatingActionButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+          shape: RoundedRectangleBorder(
+              borderRadius:
+                  BorderRadius.circular(context.spaces.space_900 * 2)),
           onPressed: () {
             //add product
           },
-          backgroundColor: appColor.primary,
+          backgroundColor: context.colors.primary,
           child: bottomNavConstProvider.floatingActionBtnIcon,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar(
-        height: appSpaces.space_800,
+        height: context.spaces.space_800,
         onTap: (int index) {
           ref.watch(bottomPageIndexProvider.notifier).state = index;
           handlePageChange(index);
         },
-        borderColor: appColor.bottomNavBorder,
+        borderColor: context.colors.bottomNavBorder,
         borderWidth: .5,
         activeIndex: activePageIndex,
         gapLocation: GapLocation.center,
         notchSmoothness: NotchSmoothness.softEdge,
-        notchMargin: appSpaces.space_150,
+        notchMargin: context.spaces.space_150,
         scaleFactor: 0,
         icons: [
           for (int i = 0; i < pages.length; i++)
