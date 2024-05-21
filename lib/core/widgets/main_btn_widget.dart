@@ -15,10 +15,10 @@ class MainBtnWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final apptheme = AppTheme.of(context);
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(apptheme.spaces.space_100),
       child: SizedBox(
         width: double.infinity,
-        height: 50,
+        height: apptheme.spaces.space_600,
         child: ElevatedButton(
           onPressed: onTap,
           style: ElevatedButton.styleFrom(

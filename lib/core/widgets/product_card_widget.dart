@@ -72,7 +72,7 @@ class ProductCardWidget extends ConsumerWidget {
                     children: [
                       Container(
                         width: double.infinity,
-                        height: 120,
+                        height: apptheme.spaces.space_400 * 4,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               image: NetworkImage(img), fit: BoxFit.cover),
@@ -85,7 +85,7 @@ class ProductCardWidget extends ConsumerWidget {
                               top: apptheme.spaces.space_100,
                               left: apptheme.spaces.space_100,
                               child: CircleAvatar(
-                                radius: 17,
+                                radius: apptheme.spaces.space_200,
                                 backgroundColor:
                                     AppColorPalettes.white500.withOpacity(0.4),
                                 child: const Icon(
@@ -134,9 +134,9 @@ class ProductCardWidget extends ConsumerWidget {
                               ),
                               child: Row(
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.place_outlined,
-                                    size: 20,
+                                    size: apptheme.spaces.space_250,
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(
