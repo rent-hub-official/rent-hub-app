@@ -42,6 +42,8 @@ class BottomNavWidget extends ConsumerWidget {
       floatingActionButton: Padding(
         padding: EdgeInsets.only(top: appSpaces.space_50),
         child: FloatingActionButton(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
           onPressed: () {
             //add product
           },
