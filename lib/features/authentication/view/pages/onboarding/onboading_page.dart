@@ -37,10 +37,10 @@ class OnboardingPage extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 129),
+              padding: EdgeInsets.only(top: context.spaces.space_800 * 2),
               child: Expanded(
                 child: Container(
-                  height: 380,
+                  height: context.spaces.space_900 + context.spaces.space_250,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -68,7 +68,7 @@ class OnboardingPage extends ConsumerWidget {
                     child: Text(content.heading, style: context.typography.h2),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.only(top: context.spaces.space_250),
                     child: Text(
                       content.subHeading,
                       style: context.typography.bodyLarge,
@@ -83,7 +83,6 @@ class OnboardingPage extends ConsumerWidget {
                         IconButton(
                             onPressed: content.onTap,
                             icon: Image.asset(content.loaderPath)),
-                        
                       ],
                     ),
                   ),
@@ -96,4 +95,3 @@ class OnboardingPage extends ConsumerWidget {
     );
   }
 }
-
