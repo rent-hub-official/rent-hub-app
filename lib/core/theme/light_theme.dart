@@ -19,7 +19,7 @@ final _lighttheme = ThemeData(
         secondary: AppColorPalettes.blueGrey800,
         text: AppColorPalettes.grey850,
         textSubtle: AppColorPalettes.grey200,
-        btnText: AppColorPalettes.black500,
+        btnText: AppColorPalettes.white500,
         border: AppColorPalettes.grey600,
         bottomNavBorder: AppColorPalettes.grey600,
         cardBackground: AppColorPalettes.grey100,
