@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:rent_hub/core/constants/image_constants.dart';
 import 'package:rent_hub/core/constants/login_page_constants/login_otp_verification.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
@@ -25,11 +27,12 @@ class OtpVerificationScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Image(
-              image: NetworkImage(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXhh_oimifmtuuW45lHVeDk6S1sXjJ4cCyi-EI9lrfgw&s',
-              ),
-            ),
+            SvgPicture.asset(ref.watch(imageConstantsProvider).imgOtpGirl),
+            // const Image(
+            //   image: NetworkImage(
+            //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXhh_oimifmtuuW45lHVeDk6S1sXjJ4cCyi-EI9lrfgw&s',
+            //   ),
+            // ),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: context.spaces.space_200,
