@@ -53,15 +53,13 @@ class DateselectWidget extends ConsumerWidget {
                 child: Center(
                   child: IconButton(
                     onPressed: onpressed,
-
-                    //  () => selectDate(context, ref),
                     icon: const Icon(Icons.date_range),
                   ),
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: context.spaces.space_200),
+              padding: EdgeInsets.only(right: context.spaces.space_400),
               child: Text(
                 '${now.day}/${now.month}/${now.year}',
                 style: context.typography.bodySemibold,

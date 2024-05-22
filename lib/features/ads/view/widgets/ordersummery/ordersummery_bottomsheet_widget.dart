@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
-import 'package:rent_hub/features/ads/controller/ordercontroller/dateprovider.dart';
-import 'package:rent_hub/features/ads/view/widgets/ordersummery/dateselectWidget.dart';
+import 'package:rent_hub/features/ads/controller/order_controller/dateprovider.dart';
+import 'package:rent_hub/features/ads/view/widgets/ordersummery/dateselectwidget.dart';
 import 'package:rent_hub/features/ads/view/widgets/ordersummery/locatio_widget.dart';
 
 class OrdersummeryBottomSheetWidget extends ConsumerWidget {
@@ -65,8 +65,7 @@ class OrdersummeryBottomSheetWidget extends ConsumerWidget {
                   decoration: BoxDecoration(
                       borderRadius:
                           BorderRadius.circular(context.spaces.space_75),
-                      color: AppColorPalettes.grey150.withOpacity(0.2)
-                      ),
+                      color: AppColorPalettes.grey150.withOpacity(0.2)),
                   child: Padding(
                     padding: EdgeInsets.only(top: context.spaces.space_400),
                     child: Column(
@@ -89,11 +88,10 @@ class OrdersummeryBottomSheetWidget extends ConsumerWidget {
                                 ),
                                 DateselectWidget(
                                   () {
-                                    ref.read(SelectDateProvider(
-                                        context: context,
-                                        selectedDate:
-                                            ref.read(pickDateProvider),
-                                        rEF: ref));
+                                    ref
+                                        .watch(dateSelectProvider.notifier)
+                                        .showDatePickerDialog(context, ref,
+                                            ref.watch(pickDateProvider));
                                   },
                                   typography: context.typography,
                                   spacer: context.spaces,
@@ -117,11 +115,10 @@ class OrdersummeryBottomSheetWidget extends ConsumerWidget {
                                 ),
                                 DateselectWidget(
                                   () {
-                                    ref.read(SelecDropDateProvider(
-                                        context: context,
-                                        selectedDate:
-                                            ref.read(selectedDateProvider),
-                                        rEF: ref));
+                                    ref
+                                        .watch(dateSelectProvider.notifier)
+                                        .showDateDropDialog(context, ref,
+                                            ref.watch(pickDateProvider));
                                   },
                                   date: pickordropdate,
                                   typography: context.typography,

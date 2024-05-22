@@ -1,13 +1,15 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dateprovider.g.dart';
-
-// State providers for date selection
-final pickDateProvider = StateProvider<DateTime>((ref) => DateTime.now());
-final selectedDateProvider = StateProvider<DateTime>((ref) => DateTime.now());
-
+@riverpod
+class DateSelect extends _$DateSelect{
+  @override
+  DateTime build() {
+    return DateTime.now() ;
+  }
 Future<void> showDatePickerDialog(
     BuildContext context, WidgetRef ref, DateTime selectedDate) async {
   final DateTime? pickedDate = await showDatePicker(
@@ -36,18 +38,8 @@ Future<void> showDateDropDialog(
   }
 }
 
-@riverpod
-Future<void> selectDate(SelectDateRef ref,
-    {required BuildContext context,
-    required DateTime selectedDate,
-    required WidgetRef rEF}) {
-  return showDatePickerDialog(context, rEF, selectedDate);
 }
+// // State providers for date selection
+final pickDateProvider = StateProvider<DateTime>((ref) => DateTime.now());
+final selectedDateProvider = StateProvider<DateTime>((ref) => DateTime.now());
 
-@riverpod
-Future<void> selecDropDate(SelecDropDateRef ref,
-    {required BuildContext context,
-    required DateTime selectedDate,
-    required WidgetRef rEF}) {
-  return showDateDropDialog(context, rEF, selectedDate);
-}
