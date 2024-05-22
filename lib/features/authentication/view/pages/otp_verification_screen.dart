@@ -9,6 +9,7 @@ import 'package:rent_hub/core/constants/login_page_constants/login_otp_verificat
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
+import 'package:rent_hub/features/authentication/view/widgets/otp_textfeild_widget.dart';
 
 class OtpVerificationScreen extends ConsumerWidget {
   const OtpVerificationScreen({super.key});
@@ -51,7 +52,7 @@ class OtpVerificationScreen extends ConsumerWidget {
                   ),
                   SizedBox(height: context.spaces.space_250),
                   // OtptextFeildWidget(isFilled: isFilled),
-                  OtptextFeildWidget(
+                  OtpTextFeildWidget(
                     isFilled: isFilled,
                     length: 6,
                     width: MediaQuery.of(context).size.width,
@@ -70,65 +71,6 @@ class OtpVerificationScreen extends ConsumerWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class OtptextFeildWidget extends StatelessWidget {
-  final int length;
-  final double? width;
-  final double fieldWidth;
-  final TextStyle style;
-  final MainAxisAlignment? textFieldAlignment;
-  final FieldStyle? fieldStyle;
-  const OtptextFeildWidget({
-    super.key,
-    required this.isFilled,
-    required this.length,
-    this.width,
-    required this.fieldWidth,
-    required this.style,
-    this.textFieldAlignment,
-    this.fieldStyle,
-  });
-
-  final List<bool> isFilled;
-
-  @override
-  Widget build(BuildContext context) {
-    return OTPTextField(
-      length: length,
-      width: width!,
-      fieldWidth: fieldWidth,
-      style: style,
-      textFieldAlignment: textFieldAlignment!,
-      fieldStyle: fieldStyle!,
-      // length: 6,
-      // width: MediaQuery.of(context).size.width,
-      // fieldWidth: context.spaces.space_125 * 5.5,
-      // style: context.typography.bodyLarge,
-      // textFieldAlignment: MainAxisAlignment.spaceAround,
-      // fieldStyle: FieldStyle.box,
-
-      onCompleted: (pin) {
-        // log(pin);
-      },
-      otpFieldStyle: OtpFieldStyle(
-        enabledBorderColor: AppColorPalettes.silver300,
-        borderColor: Colors.black,
-
-        focusBorderColor: Colors.black, // Color for filled fields
-      ),
-      // ! must move to domain
-      onChanged: (String value) {
-        for (int i = 0; i < 6; i++) {
-          if (value.length > i) {
-            isFilled[i] = true;
-          } else {
-            isFilled[i] = false;
-          }
-        }
-      },
     );
   }
 }
