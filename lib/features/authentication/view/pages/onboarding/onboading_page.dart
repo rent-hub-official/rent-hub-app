@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/constants/onboarding_constants/onboarding1.dart';
-import 'package:rent_hub/core/constants/onboarding_constants/onboarding2.dart';
-import 'package:rent_hub/core/constants/onboarding_constants/onboarding3.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
 class OnboardingContent {
@@ -71,7 +68,7 @@ class OnboardingPage extends ConsumerWidget {
                     child: Text(content.heading, style: context.typography.h2),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 20),
+                    padding:  EdgeInsets.only(top: 20),
                     child: Text(
                       content.subHeading,
                       style: context.typography.bodyLarge,

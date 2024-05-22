@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/theme/theme_provider.dart';
-import 'package:rent_hub/features/authentication/view/pages/onboarding/onboarding_pageview.dart';
 import 'package:rent_hub/features/authentication/view/pages/splash_screen.dart';
 
 void main() {
@@ -15,7 +14,7 @@ class MainApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       theme: ref.watch(themeProvider),
-      home: const OnboardingPageview(),
+      home: const SplashScreen(),
     );
   }
 }
