@@ -4,7 +4,7 @@ import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/features/ads/controller/order_controller/dateprovider.dart';
-import 'package:rent_hub/features/ads/view/widgets/ordersummery/dateselectwidget.dart';
+import 'package:rent_hub/features/ads/view/widgets/ordersummery/dateselect_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/ordersummery/locatio_widget.dart';
 
 class OrdersummeryBottomSheetWidget extends ConsumerWidget {
