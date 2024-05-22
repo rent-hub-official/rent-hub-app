@@ -10,7 +10,7 @@ class CreateAccountPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = AppTheme.of(context);
+    
 
     return SafeArea(
       child: Scaffold(
@@ -25,7 +25,7 @@ class CreateAccountPage extends ConsumerWidget {
               ),
               Text(
                 ref.watch(createAccountProvider).txtHeading,
-                style: theme.typography.h1SemiBold,
+                style: context.typography.h1SemiBold,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 40),
@@ -34,7 +34,7 @@ class CreateAccountPage extends ConsumerWidget {
                   alignment: Alignment.center,
                   children: [
                     CircleAvatar(
-                      maxRadius: theme.spaces.space_200 * 6,
+                      maxRadius: context.spaces.space_200 * 6,
                     ),
                     const Positioned(
                       bottom: 10,
@@ -53,14 +53,14 @@ class CreateAccountPage extends ConsumerWidget {
                 height: 58,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: theme.colors.primary,
+                  color: context.colors.primary,
                 ),
               ),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   ref.watch(createAccountProvider).txtSubtitle,
-                  style: theme.typography.bodySmall,
+                  style: context.typography.bodySmall,
                 ),
               ),
               const SizedBox(height: 35),
@@ -68,13 +68,13 @@ class CreateAccountPage extends ConsumerWidget {
                 height: 50,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: theme.colors.primary,
+                  color: context.colors.primary,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Center(
                   child: Text(
                     ref.watch(createAccountProvider).txtbtn,
-                    style: theme.typography.buttonText,
+                    style: context.typography.buttonText,
                   ),
                 ),
               ),
