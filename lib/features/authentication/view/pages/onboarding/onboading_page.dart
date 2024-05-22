@@ -7,16 +7,17 @@ class OnboardingContent {
   final String heading;
   final String subHeading;
   final String skipText;
-  final String loaderPath;
+
+  final Widget widget;
   final void Function()? onTap;
 
   OnboardingContent({
+    required this.widget,
     required this.onTap,
     required this.imagePath,
     required this.heading,
     required this.subHeading,
     required this.skipText,
-    required this.loaderPath,
   });
 }
 
@@ -81,8 +82,7 @@ class OnboardingPage extends ConsumerWidget {
                       children: [
                         Text(content.skipText),
                         IconButton(
-                            onPressed: content.onTap,
-                            icon: Image.asset(content.loaderPath)),
+                            onPressed: content.onTap, icon: content.widget),
                       ],
                     ),
                   ),
