@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
@@ -15,12 +14,9 @@ void showAlertDialog({
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      final colors = AppTheme.of(context).colors;
-      final typography = AppTheme.of(context).typography;
-      final spacer = AppTheme.of(context).spaces;
       return Center(
         child: Padding(
-          padding:  EdgeInsets.all(spacer.space_200),
+          padding: EdgeInsets.all(context.spaces.space_200),
           child: Container(
             constraints: const BoxConstraints(minWidth: 300, maxWidth: 500),
             width: double.infinity,
@@ -29,18 +25,18 @@ void showAlertDialog({
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
             child: Padding(
-              padding:  EdgeInsets.all(spacer.space_200),
+              padding: EdgeInsets.all(context.spaces.space_200),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(titile, style: typography.h2SemiBold),
+                  Text(titile, style: context.typography.h2SemiBold),
                   Padding(
-                    padding:  EdgeInsets.only(top: spacer.space_100),
-                    child: Text(subtitile, style: typography.bodyLarge),
+                    padding: EdgeInsets.only(top: context.spaces.space_100),
+                    child: Text(subtitile, style: context.typography.bodyLarge),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top:spacer.space_400 ),
+                    padding: EdgeInsets.only(top: context.spaces.space_400),
                     child: Row(
                       children: [
                         const Spacer(
@@ -52,41 +48,44 @@ void showAlertDialog({
                           child: ElevatedButton(
                             style: ButtonStyle(
                               backgroundColor: WidgetStateProperty.all<Color>(
-                                  colors.secondary),
+                                  context.colors.secondary),
                               shape: WidgetStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(spacer.space_250),
+                                  borderRadius: BorderRadius.circular(
+                                      context.spaces.space_250),
                                 ),
                               ),
                             ),
                             onPressed: editButtononPressed,
                             child: Text(
                               editButtonText,
-                              style: typography.buttonText,
+                              style: context.typography.buttonText,
                             ),
                           ),
                         ),
                         Padding(
-                          padding:  EdgeInsets.only(left: spacer.space_100),
+                          padding:
+                              EdgeInsets.only(left: context.spaces.space_100),
                           child: SizedBox(
                             width: 122,
                             height: 37,
                             child: ElevatedButton(
                               style: ButtonStyle(
                                 backgroundColor: WidgetStateProperty.all<Color>(
-                                    colors.primary),
+                                    context.colors.primary),
                                 shape: WidgetStateProperty.all<
                                     RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(spacer.space_250),
+                                    borderRadius: BorderRadius.circular(
+                                        context.spaces.space_250),
                                   ),
                                 ),
                               ),
                               onPressed: continueButtononPressed,
                               child: Text(
                                 continueButtonText,
-                                style: typography.buttonText
+                                style: context.typography.buttonText
                                     .copyWith(color: AppColorPalettes.black500),
                               ),
                             ),
