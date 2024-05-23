@@ -1,14 +1,16 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/image_constants.dart';
 import 'package:rent_hub/core/constants/onboarding_constants/onboarding1.dart';
 import 'package:rent_hub/core/constants/onboarding_constants/onboarding2.dart';
 import 'package:rent_hub/core/constants/onboarding_constants/onboarding3.dart';
-import 'package:rent_hub/features/authentication/view/pages/onboarding/onboading_page.dart';
+import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/features/authentication/view/pages/onboarding/onboading_template.dart';
 import 'package:rent_hub/features/authentication/view/widgets/onboarding_widgets/loder_widget.dart';
 
-class OnboardingPageview extends ConsumerWidget {
-  const OnboardingPageview({super.key});
+class OnboardingPages extends ConsumerWidget {
+  const OnboardingPages({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,13 +32,13 @@ class OnboardingPageview extends ConsumerWidget {
         heading: constants1.txtHeading,
         subHeading: constants1.txtSubHeading,
         skipText: constants1.txtSkip,
-        widget: CircularProgressBar(
-          progress: 0.5,
+        widget: LoderWidget(
+          progress: context.spaces.space_25 / 4,
         ),
       ),
       OnboardingContent(
-        widget: CircularProgressBar(
-          progress: 0.75,
+        widget: LoderWidget(
+          progress: context.spaces.space_25 / 3,
         ),
         onTap: () {
           pageController.animateToPage(
@@ -51,16 +53,10 @@ class OnboardingPageview extends ConsumerWidget {
         skipText: constants2.txtSkip,
       ),
       OnboardingContent(
-        widget: CircularProgressBar(
-          progress: 1,
+        widget: LoderWidget(
+          progress: context.spaces.space_25 / 2,
         ),
-        onTap: () {
-          pageController.animateToPage(
-            0,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.linear,
-          );
-        },
+        onTap: () {},
         imagePath: image.imgOnboarding3,
         heading: constants3.txtHeading,
         subHeading: constants3.txtSubHeading,

@@ -1,12 +1,11 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
-class CircularProgressBar extends StatelessWidget {
+class LoderWidget extends StatelessWidget {
   final double progress;
   // value between 0 and 1
-  const CircularProgressBar({super.key, required this.progress});
+  const LoderWidget({super.key, required this.progress});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -18,7 +17,7 @@ class CircularProgressBar extends StatelessWidget {
         children: [
           CustomPaint(
             size: Size(context.spaces.space_700, context.spaces.space_700),
-            painter: _CircularProgressBarPainter(progress,context),
+            painter: _CircularProgressBarPainter(progress, context),
           ),
           Container(
             width: 45, // Width of the inner circle
@@ -50,19 +49,19 @@ class _CircularProgressBarPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..color = Colors.grey.shade300
-      ..strokeWidth = 5
+      ..strokeWidth = context.spaces.space_125 / 2
       ..style = PaintingStyle.stroke;
     final progressPaint = Paint()
       ..color = context.colors.primary
-      ..strokeWidth = 5
+      ..strokeWidth = context.spaces.space_125 / 2
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
     final center = Offset(size.width / context.spaces.space_25,
         size.height / context.spaces.space_25);
     final radius = size.width / context.spaces.space_25;
     canvas.drawCircle(center, radius, paint);
-    final startAngle = -90.0 * (3.14 / 180);
-    final sweepAngle = 360.0 * progress * (3.14 / 180);
+    const startAngle = -90 * (3.14 / 180);
+    final sweepAngle = 360 * progress * (3.14 / 180);
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),
       startAngle,
@@ -77,3 +76,4 @@ class _CircularProgressBarPainter extends CustomPainter {
     return true;
   }
 }
+

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
 class OnboardingContent {
@@ -40,14 +41,12 @@ class OnboardingPage extends ConsumerWidget {
             Padding(
               padding: EdgeInsets.only(top: context.spaces.space_800 * 2),
               child: Expanded(
-                child: Container(
-                  height: context.spaces.space_900 + context.spaces.space_250,
+                child: SizedBox(
+                  height: context.spaces.space_600 * 8,
                   width: double.infinity,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(content.imagePath),
-                      fit: BoxFit.cover,
-                    ),
+                  child: SvgPicture.asset(
+                    content.imagePath,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -95,3 +94,4 @@ class OnboardingPage extends ConsumerWidget {
     );
   }
 }
+
