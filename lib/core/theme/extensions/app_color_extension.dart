@@ -10,9 +10,13 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
   final Color btnText;
   final Color border;
   final Color bottomNavBorder;
+  final Color appBarBackground;
   final Color cardBackground;
+  final Color iconButtonBackgroud;
+  final Color iconButtonIcon;
 
   AppColorExtension({
+    required this.appBarBackground,
     required this.primary,
     required this.secondary,
     required this.text,
@@ -21,6 +25,8 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     required this.border,
     required this.bottomNavBorder,
     required this.cardBackground,
+    required this.iconButtonBackgroud,
+    required this.iconButtonIcon,
   });
 
   @override
@@ -33,6 +39,9 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     Color? border,
     Color? bottomNavBorder,
     Color? cardBackground,
+    Color? appBarBackground,
+    Color? iconButtonBackgroud,
+    Color? iconButtonIcon,
   }) {
     return AppColorExtension(
       primary: primary ?? this.primary,
@@ -42,7 +51,10 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       btnText: btnText ?? this.btnText,
       border: border ?? this.border,
       bottomNavBorder: bottomNavBorder ?? this.bottomNavBorder,
+      appBarBackground: appBarBackground ?? this.appBarBackground,
       cardBackground: cardBackground ?? this.cardBackground,
+      iconButtonBackgroud: iconButtonBackgroud ?? this.iconButtonBackgroud,
+      iconButtonIcon: iconButtonIcon ?? this.iconButtonBackgroud,
     );
   }
 
@@ -60,7 +72,12 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       btnText: Color.lerp(btnText, other.btnText, t)!,
       border: Color.lerp(border, other.border, t)!,
       bottomNavBorder: Color.lerp(bottomNavBorder, other.bottomNavBorder, t)!,
+      appBarBackground:
+          Color.lerp(appBarBackground, other.appBarBackground, t)!,
       cardBackground: Color.lerp(cardBackground, other.cardBackground, t)!,
+      iconButtonBackgroud:
+          Color.lerp(iconButtonBackgroud, other.iconButtonBackgroud, t)!,
+      iconButtonIcon: Color.lerp(iconButtonIcon, other.iconButtonIcon, t)!,
     );
   }
 }

@@ -22,7 +22,10 @@ final _darktheme = ThemeData(
         btnText: AppColorPalettes.black500,
         border: AppColorPalettes.silver300,
         bottomNavBorder: AppColorPalettes.grey600,
+        appBarBackground: AppColorPalettes.grey1000,
         cardBackground: AppColorPalettes.grey900,
+        iconButtonBackgroud: AppColorPalettes.grey900,
+        iconButtonIcon: AppColorPalettes.white500,
       ),
       //AppSpaceExtension
       AppSpaceExtension.fromBaseSpace(8),
@@ -106,7 +109,7 @@ final _darktheme = ThemeData(
         buttonText: const TextStyle(
             fontSize: 14,
             fontFamily: 'poppins',
-            color: AppColorPalettes.white500,
+            color: AppColorPalettes.black500,
             fontWeight: FontWeight.w600),
       ),
       //AppShadowExtension
