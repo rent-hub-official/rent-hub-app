@@ -4,50 +4,19 @@ import 'package:rent_hub/core/constants/filters_sort_constants.dart/filter_sort.
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/features/search/widgets/filter_widgets/bottom_sheet_btn_widget.dart';
 import 'package:rent_hub/features/search/widgets/filter_widgets/check_box_filter_widget.dart';
+import 'package:rent_hub/features/search/widgets/filter_widgets/choose_location_field_widget.dart';
 import 'package:rent_hub/features/search/widgets/filter_widgets/filter_sctn_widget.dart';
 
-class FilterBottomSheetWidget extends ConsumerWidget {
-  const FilterBottomSheetWidget({super.key});
+class OrderSortBottomSheet extends ConsumerWidget {
+  const OrderSortBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // filter constants
     final filterConsts = ref.read(filterSortProvider);
-    // List of product types
-    final List<String> productType = [
-      filterConsts.txtAll,
-      filterConsts.txtHouse,
-      filterConsts.txtVehicle,
-      filterConsts.txtCloths,
-      filterConsts.txtTools
-    ];
-    // List of price range
-    final List<String> priceRange = [
-      filterConsts.txtPriceRange1,
-      filterConsts.txtPriceRange2,
-      filterConsts.txtPriceRange3,
-      filterConsts.txtPriceRange4,
-      filterConsts.txtPriceRange5
-    ];
-    //List of Sortby
-    final List<String> sortBy = [
-      filterConsts.txtTitle,
-      filterConsts.txtDateCreated,
-      filterConsts.txtDateModified
-    ];
-    // List of order
-    final List<String> order = [
-      filterConsts.txtAscending,
-      filterConsts.txtDescending
-    ];
-    // List of filter options
-    final List<String> filterOptions = [
-      filterConsts.txtProductType,
-      filterConsts.txtLocation,
-      filterConsts.txtPriceRange,
-      filterConsts.txtSortBy,
-      filterConsts.txtOrder
-    ];
+    // text editing controller
+    final controller = TextEditingController();
+
     return DefaultTabController(
       length: 5,
       child: SizedBox(
@@ -69,12 +38,11 @@ class FilterBottomSheetWidget extends ConsumerWidget {
                     filterConsts.txtHeading,
                     style: context.typography.h3SemiBold,
                   ),
-                  IconButton(
-                    highlightColor: Colors.transparent,
-                    onPressed: () {
-                      Navigator.of(context).pop();
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
                     },
-                    icon: Icon(
+                    child: Icon(
                       Icons.close,
                       size: context.spaces.space_300,
                     ),
@@ -82,20 +50,17 @@ class FilterBottomSheetWidget extends ConsumerWidget {
                 ],
               ),
               TabBar(
+                splashFactory: NoSplash.splashFactory,
                 dividerHeight: 0,
                 labelColor: context.colors.primary,
-
-                indicatorColor: Colors.transparent, //change
-
-                // labelPadding: EdgeInsets.only(right: context.spaces.space_150),
+                indicatorColor: Colors.transparent,
+                labelPadding: EdgeInsets.only(right: context.spaces.space_300),
                 tabAlignment: TabAlignment.start,
                 isScrollable: true,
                 labelStyle: context.typography.bodySemibold,
                 tabs: [
-                  for (int i = 0; i < filterOptions.length; i++)
-                    Tab(
-                      text: filterOptions[i],
-                    ),
+                  for (int i = 0; i < filterConsts.filterOptions.length; i++)
+                    Tab(text: filterConsts.filterOptions[i]),
                 ],
               ),
               Expanded(
@@ -107,18 +72,35 @@ class FilterBottomSheetWidget extends ConsumerWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
+                          // product type filter
                           children: [
-                            for (int i = 0; i < productType.length; i++)
+                            for (int i = 0;
+                                i < filterConsts.productType.length;
+                                i++)
                               checkBoxFilterWidget(
-                                  context: context,
-                                  text: productType[i],
-                                  onChanged: (status) {},
-                                  value: true),
+                                context: context,
+                                text: filterConsts.productType[i],
+                                onChanged: (status) {},
+                                value: true,
+                              ),
                           ],
                         ),
                       ),
                     ),
-                    filterSctnWidget(context: context, child: Container()),
+                    // location based filter
+                    filterSctnWidget(
+                      context: context,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            right: context.spaces.space_400,
+                            top: context.spaces.space_400),
+                        child: chooseLocationTextFieldWidget(
+                            controller: controller,
+                            context: context,
+                            hintText: filterConsts.txtEnterLocation),
+                      ),
+                    ),
+                    // filter with price range
                     filterSctnWidget(
                       context: context,
                       child: SizedBox(
@@ -126,15 +108,18 @@ class FilterBottomSheetWidget extends ConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            for (int i = 0; i < priceRange.length; i++)
+                            for (int i = 0;
+                                i < filterConsts.priceRange.length;
+                                i++)
                               checkBoxFilterWidget(
                                   context: context,
-                                  text: priceRange[i],
+                                  text: filterConsts.priceRange[i],
                                   onChanged: (status) {}),
                           ],
                         ),
                       ),
                     ),
+                    // sorting
                     filterSctnWidget(
                       context: context,
                       child: SizedBox(
@@ -142,15 +127,17 @@ class FilterBottomSheetWidget extends ConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            for (int i = 0; i < sortBy.length; i++)
+                            for (int i = 0; i < filterConsts.sortBy.length; i++)
                               checkBoxFilterWidget(
-                                  context: context,
-                                  text: sortBy[i],
-                                  onChanged: (status) {}),
+                                context: context,
+                                text: filterConsts.sortBy[i],
+                                onChanged: (status) {},
+                              ),
                           ],
                         ),
                       ),
                     ),
+                    // choose order
                     filterSctnWidget(
                       context: context,
                       child: SizedBox(
@@ -158,10 +145,12 @@ class FilterBottomSheetWidget extends ConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            for (int i = 0; i < order.length; i++)
+                            for (int i = 0;
+                                i < filterConsts.orderedBy.length;
+                                i++)
                               checkBoxFilterWidget(
                                   context: context,
-                                  text: order[i],
+                                  text: filterConsts.orderedBy[i],
                                   onChanged: (status) {}),
                           ],
                         ),
@@ -174,11 +163,17 @@ class FilterBottomSheetWidget extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   filterBottomSheetBtn(
+                    onTap: () {
+                      // TODO
+                    },
                     color: context.colors.secondary,
                     context: context,
                     text: filterConsts.txtResetAllBtn,
                   ),
                   filterBottomSheetBtn(
+                      onTap: () {
+                        // TODO
+                      },
                       color: context.colors.primary,
                       context: context,
                       text: filterConsts.txtApplyBtn)
