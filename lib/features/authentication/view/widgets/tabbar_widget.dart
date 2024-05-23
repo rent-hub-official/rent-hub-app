@@ -30,7 +30,6 @@ class TabbarWidget extends StatelessWidget {
             onTap: onTap,
             child: Container(
               margin: EdgeInsets.all(context.spaces.space_100),
-              // width: apptheme.spaces.space_700,
               height: context.spaces.space_500,
               decoration: BoxDecoration(
                 color: context.colors.cardBackground,
