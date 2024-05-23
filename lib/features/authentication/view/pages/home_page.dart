@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/home_screen_constants/home_screen.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/tabbar_widget.dart';
@@ -70,7 +69,9 @@ class HomePage extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TabbarWidget(
-                    onTap: () {},
+                    onTap: () {
+                      // todo
+                    },
                   ),
                   Padding(
                     padding: EdgeInsets.only(
@@ -103,7 +104,9 @@ class HomePage extends ConsumerWidget {
                       distance: 222,
                       img:
                           'https://imgd.aeplcdn.com/664x374/n/cw/ec/102663/baleno-exterior-right-front-three-quarter-66.jpeg?isig=0&q=80',
-                      onTap: () {},
+                      onTap: () {
+                        // todo
+                      },
                       belowbtn: ref.watch(homeScreenProvider).txtBtn),
                 );
               },
