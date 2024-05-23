@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'filter_sort.g.dart';
 
-class FilterSort {
+class FilterSortConstants {
   final txtHeading = "Filters & sort";
 
   final txtEnterLocation = "Enter your location";
@@ -38,6 +38,6 @@ class FilterSort {
 }
 
 @riverpod
-FilterSort filterSort(FilterSortRef ref) {
-  return FilterSort();
+FilterSortConstants filterSortConstants(FilterSortConstantsRef ref) {
+  return FilterSortConstants();
 }

@@ -6,6 +6,7 @@ import 'package:rent_hub/features/search/widgets/filter_widgets/bottom_sheet_btn
 import 'package:rent_hub/features/search/widgets/filter_widgets/check_box_filter_widget.dart';
 import 'package:rent_hub/features/search/widgets/filter_widgets/choose_location_field_widget.dart';
 import 'package:rent_hub/features/search/widgets/filter_widgets/filter_sctn_widget.dart';
+import 'package:rent_hub/features/search/widgets/filter_widgets/tab_bar_widget.dart';
 
 class OrderSortBottomSheet extends ConsumerWidget {
   const OrderSortBottomSheet({super.key});
@@ -13,7 +14,7 @@ class OrderSortBottomSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // filter constants
-    final filterConsts = ref.read(filterSortProvider);
+    final filterConsts = ref.read(filterSortConstantsProvider);
     // text editing controller
     final controller = TextEditingController();
 
@@ -52,12 +53,11 @@ class OrderSortBottomSheet extends ConsumerWidget {
               ),
 
               /// tabBar items
-              tabBarWidget(context, filterConsts),
+              const TabBarWidget(),
               Expanded(
                 child: TabBarView(
                   children: [
-                    filterSctnWidget(
-                      context: context,
+                    FilterSctnWidget(
                       child: SizedBox(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -67,8 +67,7 @@ class OrderSortBottomSheet extends ConsumerWidget {
                             for (int i = 0;
                                 i < filterConsts.productType.length;
                                 i++)
-                              checkBoxFilterWidget(
-                                context: context,
+                              CheckBoxFilterWidget(
                                 text: filterConsts.productType[i],
                                 onChanged: (status) {},
                                 value: true,
@@ -78,21 +77,18 @@ class OrderSortBottomSheet extends ConsumerWidget {
                       ),
                     ),
                     // location based filter
-                    filterSctnWidget(
-                      context: context,
+                    FilterSctnWidget(
                       child: Padding(
                         padding: EdgeInsets.only(
                             right: context.spaces.space_400,
                             top: context.spaces.space_400),
-                        child: chooseLocationTextFieldWidget(
+                        child: ChooseLocationFieldWidget(
                             controller: controller,
-                            context: context,
                             hintText: filterConsts.txtEnterLocation),
                       ),
                     ),
                     // filter with price range
-                    filterSctnWidget(
-                      context: context,
+                    FilterSctnWidget(
                       child: SizedBox(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -101,8 +97,7 @@ class OrderSortBottomSheet extends ConsumerWidget {
                             for (int i = 0;
                                 i < filterConsts.priceRange.length;
                                 i++)
-                              checkBoxFilterWidget(
-                                  context: context,
+                              CheckBoxFilterWidget(
                                   text: filterConsts.priceRange[i],
                                   onChanged: (status) {}),
                           ],
@@ -110,16 +105,14 @@ class OrderSortBottomSheet extends ConsumerWidget {
                       ),
                     ),
                     // sorting
-                    filterSctnWidget(
-                      context: context,
+                    FilterSctnWidget(
                       child: SizedBox(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             for (int i = 0; i < filterConsts.sortBy.length; i++)
-                              checkBoxFilterWidget(
-                                context: context,
+                              CheckBoxFilterWidget(
                                 text: filterConsts.sortBy[i],
                                 onChanged: (status) {},
                               ),
@@ -128,8 +121,7 @@ class OrderSortBottomSheet extends ConsumerWidget {
                       ),
                     ),
                     // choose order
-                    filterSctnWidget(
-                      context: context,
+                    FilterSctnWidget(
                       child: SizedBox(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -138,8 +130,7 @@ class OrderSortBottomSheet extends ConsumerWidget {
                             for (int i = 0;
                                 i < filterConsts.orderedBy.length;
                                 i++)
-                              checkBoxFilterWidget(
-                                  context: context,
+                              CheckBoxFilterWidget(
                                   text: filterConsts.orderedBy[i],
                                   onChanged: (status) {}),
                           ],
@@ -152,20 +143,18 @@ class OrderSortBottomSheet extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  filterBottomSheetBtn(
+                  FilterBottomSheetBtn(
                     onTap: () {
                       // TODO
                     },
                     color: context.colors.secondary,
-                    context: context,
                     text: filterConsts.txtResetAllBtn,
                   ),
-                  filterBottomSheetBtn(
+                  FilterBottomSheetBtn(
                       onTap: () {
                         // TODO
                       },
                       color: context.colors.primary,
-                      context: context,
                       text: filterConsts.txtApplyBtn)
                 ],
               )
