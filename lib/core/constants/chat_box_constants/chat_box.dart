@@ -1,12 +1,12 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'chat_box.g.dart';
 
-class ChatBox {
+class ChatBoxConstants {
   final txtHeading = "ChatBox";
   final txtType = "Type Something";
 }
 
 @riverpod
-ChatBox chatBox(ChatBoxRef ref) {
-  return ChatBox();
+ChatBoxConstants chatBoxConstants(ChatBoxConstantsRef ref) {
+  return ChatBoxConstants();
 }
