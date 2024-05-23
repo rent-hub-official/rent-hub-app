@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'bottom_nav.g.dart';
 
-class BottomNav {
+class BottomNavConstants {
   final List<Icon> selectedIcons = [
     getIcon(Icons.home),
     getIcon(Icons.chat),
@@ -32,6 +32,6 @@ Icon getIcon(IconData data) => Icon(
     );
 
 @riverpod
-BottomNav bottomNav(BottomNavRef ref) {
-  return BottomNav();
+BottomNavConstants bottomNavConstants(BottomNavConstantsRef ref) {
+  return BottomNavConstants();
 }

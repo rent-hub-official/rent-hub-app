@@ -10,6 +10,7 @@ void showAlertDialog({
   required String continueButtonText,
   required void Function() editButtononPressed,
   required void Function() continueButtononPressed,
+  required String phoneNumber,
 }) {
   showDialog(
     context: context,
@@ -30,10 +31,34 @@ void showAlertDialog({
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(titile, style: context.typography.h2SemiBold),
+                  Text(
+                    titile,
+                    style: context.typography.h2SemiBold.copyWith(
+                      decoration: TextDecoration.none,
+                      color: AppColorPalettes.white500,
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.only(top: context.spaces.space_100),
-                    child: Text(subtitile, style: context.typography.bodyLarge),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          subtitile,
+                          style: context.typography.bodyLarge.copyWith(
+                            decoration: TextDecoration.none,
+                            color: AppColorPalettes.white500,
+                          ),
+                        ),
+                        Text(
+                          phoneNumber,
+                          style: context.typography.bodyLarge.copyWith(
+                            decoration: TextDecoration.none,
+                            color: AppColorPalettes.white500,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: context.spaces.space_400),
