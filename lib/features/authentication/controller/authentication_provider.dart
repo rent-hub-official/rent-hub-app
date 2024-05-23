@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,11 +35,15 @@ class Authentication extends _$Authentication {
         },
       );
 
+      state = state.copyWith(isLoading: false);
+
       // navigate otp page
       Future.sync(() {
         // TODO: complete  @Diviyesh
       });
     } on BaseException catch (e) {
+      state = state.copyWith(isLoading: false);
+
       Future.sync(
         () => ErrorSnackBar(context, errorMessage: e.message),
       );
@@ -63,9 +65,10 @@ class Authentication extends _$Authentication {
           smsCode: smsCode,
         );
 
+        state = state.copyWith(isLoading: false);
+
         // if user is logged push home page
         if (userCredential.user != null) {
-          log(userCredential.user!.toString());
           Future.sync(() {
             // TODO: complete  @Diviyesh
             //? navigate home page
@@ -103,6 +106,8 @@ class Authentication extends _$Authentication {
 
     try {
       await AuthenticationUseCases.logOut();
+
+      state = state.copyWith(isLoading: false);
     } on BaseException catch (e) {
       state = state.copyWith(isLoading: false);
 
