@@ -4,7 +4,11 @@ import 'package:rent_hub/core/theme/app_theme.dart';
 class NotificationTileWidget extends StatelessWidget {
   const NotificationTileWidget({
     super.key,
+    required this.title,
+    required this.subTitle,
   });
+  final String title;
+  final String subTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +20,9 @@ class NotificationTileWidget extends StatelessWidget {
       ),
       shadowColor: context.colors.border,
       child: ListTile(
-        title: Text('Lorem Ipsum',
-            style: context.typography.bodySemibold),
+        title: Text(title, style: context.typography.bodySemibold),
         subtitle: Text(
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type',
+          subTitle,
           style: context.typography.bodySmall,
           maxLines: 3,
           overflow: TextOverflow.ellipsis,

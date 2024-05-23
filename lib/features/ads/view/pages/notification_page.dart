@@ -45,7 +45,11 @@ class NotificationPage extends ConsumerWidget {
             ListView.builder(
               shrinkWrap: true,
               itemCount: 2,
-              itemBuilder: (context, index) => NotificationTileWidget(),
+              itemBuilder: (context, index) => const NotificationTileWidget(
+                title: 'Lorem Ipsum',
+                subTitle:
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type',
+              ),
             ),
           ],
         ),
@@ -53,4 +57,3 @@ class NotificationPage extends ConsumerWidget {
     );
   }
 }
-
