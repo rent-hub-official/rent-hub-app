@@ -1,4 +1,8 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/exception/base_exception/base_exception.dart';
 import 'package:rent_hub/core/utils/snakbar/error_snackbar.dart';
 import 'package:rent_hub/features/authentication/controller/authentication_state.dart';
@@ -9,33 +13,39 @@ part 'authentication_provider.g.dart';
 
 // authentication verification
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Authentication extends _$Authentication {
   @override
   AuthenticationState build() {
-    return const AuthenticationState(isLoading: false);
+    return const AuthenticationState(
+      isLoading: false,
+      phoneNumber: null,
+      verificationId: null,
+    );
   }
 
   // phone number verification
   Future<void> verifyPhoneNuber(BuildContext context,
       {required String phoneNumber}) async {
-    try {
-      state = state.copyWith(isLoading: true);
+    state = state.copyWith(isLoading: true, phoneNumber: phoneNumber);
 
+    try {
       await AuthenticationUseCases.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         codeSent: (verificationId, forceResendingToken) {
           state = state.copyWith(verificationId: verificationId);
         },
       );
-    } on BaseException catch (e) {
-      state = state.copyWith(isLoading: false);
 
+      // navigate otp page
+      Future.sync(() {
+        // TODO: complete  @Diviyesh
+      });
+    } on BaseException catch (e) {
       Future.sync(
         () => ErrorSnackBar(context, errorMessage: e.message),
       );
     }
-
     state = state.copyWith(isLoading: false);
   }
 
@@ -55,6 +65,11 @@ class Authentication extends _$Authentication {
 
         // if user is logged push home page
         if (userCredential.user != null) {
+          log(userCredential.user!.toString());
+          Future.sync(() {
+            // TODO: complete  @Diviyesh
+            //? navigate home page
+          });
         } else {
           Future.sync(
             () => ErrorSnackBar(
@@ -99,3 +114,14 @@ class Authentication extends _$Authentication {
     state = state.copyWith(isLoading: false);
   }
 }
+
+// auth state changes stream provider
+@riverpod
+Stream<User?> authStateChanges(AuthStateChangesRef ref) {
+  return AuthenticationUseCases.authStateChanges();
+}
+
+// country code provider
+final coutryCodeProvider = StateProvider<String>(
+  (ref) => '+91',
+);

@@ -7,7 +7,8 @@ part 'authentication_state.g.dart';
 class AuthenticationState with _$AuthenticationState {
   const factory AuthenticationState({
     required bool isLoading,
-    String? verificationId,
+    required String? verificationId,
+    required String? phoneNumber,
   }) = _AuthenticationState;
 
   factory AuthenticationState.fromJson(Map<String, dynamic> json) =>
