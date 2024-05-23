@@ -17,12 +17,11 @@ class NotificationPage extends ConsumerWidget {
       appBar: AppBar(
         leading: Padding(
           padding: EdgeInsets.all(context.spaces.space_50),
-          child: RoundedbtnWidget(
+          child: AppIconButton(
             onTap: () {
               context.pop();
             },
             icon: Icons.chevron_left,
-            backgroundclr: AppColorPalettes.grey200,
           ),
         ),
         title: Text(
