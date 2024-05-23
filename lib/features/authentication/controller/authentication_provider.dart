@@ -58,6 +58,7 @@ class Authentication extends _$Authentication {
   }) async {
     try {
       state = state.copyWith(isLoading: true);
+
       if (state.verificationId != null) {
         final userCredential =
             await AuthenticationUseCases.signinWithOtpCredential(
@@ -82,6 +83,8 @@ class Authentication extends _$Authentication {
           );
         }
       } else {
+        state = state.copyWith(isLoading: false);
+
         // if is verification id faild
         Future.sync(
           () => ErrorSnackBar(
