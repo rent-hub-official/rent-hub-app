@@ -30,7 +30,7 @@ class ProductCardWidget extends ConsumerWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          boxShadow: [context.shadows.primary],
+          boxShadow: [context.shadows.primary, context.shadows.secondary],
           borderRadius: BorderRadius.circular(
             context.spaces.space_200,
           ),

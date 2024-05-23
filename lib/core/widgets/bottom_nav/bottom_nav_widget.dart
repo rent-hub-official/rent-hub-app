@@ -14,7 +14,7 @@ class BottomNavWidget extends ConsumerWidget {
     //page index controller
     final activePageIndex = ref.watch(bottomPageIndexProvider);
     //icon provider
-    final bottomNavConstProvider = ref.read(bottomNavProvider);
+    final bottomNavConstProvider = ref.read(bottomNavConstantsProvider);
 
     final List<Icon> selectedIcons = bottomNavConstProvider.selectedIcons;
     final List<Icon> unSelectedIcons = bottomNavConstProvider.unSelectedIcons;
