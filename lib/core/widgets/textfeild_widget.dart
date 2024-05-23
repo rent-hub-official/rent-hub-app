@@ -21,21 +21,18 @@ class TextFeildWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(context.spaces.space_200),
-      child: TextFormField(
-        validator: validator,
-        controller: textController,
-        decoration: InputDecoration(
-          prefixIcon: prefixicon,
-          labelText: labeltxt,
-          labelStyle: context.typography.body,
-          hintText: hinttxt,
-          hintStyle: context.typography.body,
-          suffixIcon: suffixicon,
-          errorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: AppColorPalettes.red500),
-          ),
+    return TextFormField(
+      validator: validator,
+      controller: textController,
+      decoration: InputDecoration(
+        prefixIcon: prefixicon,
+        labelText: labeltxt,
+        labelStyle: context.typography.body,
+        hintText: hinttxt,
+        hintStyle: context.typography.body,
+        suffixIcon: suffixicon,
+        errorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: AppColorPalettes.red500),
         ),
       ),
     );

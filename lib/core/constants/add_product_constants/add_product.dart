@@ -13,6 +13,7 @@ class AddProduct {
   final txtcategory = "category";
   final txtSelectCategory = "Select category";
   final txtLocation = "Location";
+  final txtHintLocation = "Enter Your Location";
   final txtOffers = "Offers";
   final txtPicOffer = "Pick your offer";
   final txtDescription = "Description";
