@@ -11,8 +11,14 @@ class OtpTextFeildWidget extends StatelessWidget {
   final TextStyle style;
   final MainAxisAlignment? textFieldAlignment;
   final FieldStyle? fieldStyle;
+  final void Function(String value) onChanged;
+  final List<bool> isFilled;
+  final void Function(String)? onCompleted;
+
   const OtpTextFeildWidget({
     super.key,
+    required this.onCompleted,
+    required this.onChanged,
     required this.isFilled,
     required this.length,
     this.width,
@@ -21,8 +27,6 @@ class OtpTextFeildWidget extends StatelessWidget {
     this.textFieldAlignment,
     this.fieldStyle,
   });
-
-  final List<bool> isFilled;
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +38,13 @@ class OtpTextFeildWidget extends StatelessWidget {
       textFieldAlignment: textFieldAlignment!,
       fieldStyle: fieldStyle!,
 
-      onCompleted: (pin) {
-        // log(pin);
-      },
+      onCompleted: onCompleted,
       otpFieldStyle: OtpFieldStyle(
         enabledBorderColor: AppColorPalettes.silver300,
         borderColor: Colors.black,
         focusBorderColor: Colors.black,
       ),
-      // ! must move to domain
+      //must move to domain
       onChanged: (String value) {
         for (int i = 0; i < 6; i++) {
           if (value.length > i) {
@@ -51,6 +53,7 @@ class OtpTextFeildWidget extends StatelessWidget {
             isFilled[i] = false;
           }
         }
+        onChanged(value);
       },
     );
   }

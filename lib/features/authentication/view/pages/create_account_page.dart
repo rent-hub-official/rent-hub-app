@@ -43,13 +43,13 @@ class CreateAccountPage extends ConsumerWidget {
                         ),
                       ),
                       Positioned(
+                        left: context.spaces.space_900 * 2,
+                        top: context.spaces.space_100 * 2,
                         child: CircleAvatar(
                           backgroundColor: context.colors.primary,
                           child: IconButton(
-                              onPressed: () {}, icon: Icon(Icons.add)),
+                              onPressed: () {}, icon: const Icon(Icons.add)),
                         ),
-                        left: context.spaces.space_900 * 2,
-                        top: context.spaces.space_100 * 2,
                       )
                     ],
                   ),
