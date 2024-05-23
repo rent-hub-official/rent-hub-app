@@ -39,12 +39,12 @@ class OtpVerificationScreen extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    ref.watch(loginOtpVerificationProvider).txtHeading,
+                    ref.watch(loginOtpVerificationConstantsProvider).txtHeading,
                     style: context.typography.h2SemiBold,
                   ),
                   SizedBox(height: context.spaces.space_100),
                   Text(
-                    "${ref.watch(loginOtpVerificationProvider).txtSubHeading} ${ref.watch(authenticationProvider).phoneNumber}",
+                    "${ref.watch(loginOtpVerificationConstantsProvider).txtSubHeading} ${ref.watch(authenticationProvider).phoneNumber}",
                     style: context.typography.body,
                   ),
                   SizedBox(height: context.spaces.space_250),
@@ -77,7 +77,8 @@ class OtpVerificationScreen extends HookConsumerWidget {
                       smsCode: otpPin.value,
                     );
               },
-              btnTxt: ref.watch(loginOtpVerificationProvider).verifyOtpBtn,
+              btnTxt:
+                  ref.watch(loginOtpVerificationConstantsProvider).verifyOtpBtn,
             ),
           ],
         ),

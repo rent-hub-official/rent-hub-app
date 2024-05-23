@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'login_otp_verification.g.dart';
 
-class LoginOtpVerification {
+class LoginOtpVerificationConstants {
   final txtHeading = "OTP Verification";
   final txtSubHeading =
       "Enter the verification code we just sent to your number ";
@@ -9,6 +9,7 @@ class LoginOtpVerification {
 }
 
 @riverpod
-LoginOtpVerification loginOtpVerification(LoginOtpVerificationRef ref) {
-  return LoginOtpVerification();
+LoginOtpVerificationConstants loginOtpVerificationConstants(
+    LoginOtpVerificationConstantsRef ref) {
+  return LoginOtpVerificationConstants();
 }

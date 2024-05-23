@@ -70,15 +70,20 @@ class LoginPage extends HookConsumerWidget {
                       phoneNumberController.text.length == 10) {
                     showAlertDialog(
                       context: context,
-                      titile: ref.watch(loginPageAlertBoxProvider).txtHeading,
-                      subtitile:
-                          ref.watch(loginPageAlertBoxProvider).txtSubHeading,
+                      titile: ref
+                          .watch(loginPageAlertBoxConstantsProvider)
+                          .txtHeading,
+                      subtitile: ref
+                          .watch(loginPageAlertBoxConstantsProvider)
+                          .txtSubHeading,
                       phoneNumber:
                           "${ref.read(coutryCodeProvider)} ${phoneNumberController.text}",
-                      editButtonText:
-                          ref.watch(loginPageAlertBoxProvider).txteditBtn,
-                      continueButtonText:
-                          ref.watch(loginPageAlertBoxProvider).txtcontinueBtn,
+                      editButtonText: ref
+                          .watch(loginPageAlertBoxConstantsProvider)
+                          .txteditBtn,
+                      continueButtonText: ref
+                          .watch(loginPageAlertBoxConstantsProvider)
+                          .txtcontinueBtn,
                       editButtononPressed: () {
                         Navigator.pop(context);
                       },
