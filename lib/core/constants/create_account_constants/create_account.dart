@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'create_account.g.dart';
 
-class CreateAccount {
+class CreateAccountConstant {
   final txtHeading = "Create account";
   final txtLabelName = "Name";
   final txtHintName = "Enter Your Name ";
@@ -10,6 +10,6 @@ class CreateAccount {
 }
 
 @riverpod
-CreateAccount createAccount(CreateAccountRef ref) {
-  return CreateAccount();
+CreateAccountConstant createAccountConstant(CreateAccountConstantRef ref) {
+  return CreateAccountConstant();
 }

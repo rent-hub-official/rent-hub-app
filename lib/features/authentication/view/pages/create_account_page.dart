@@ -11,7 +11,7 @@ class CreateAccountPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TextEditingController controller = TextEditingController();
-    final createAcConst = ref.watch(createAccountProvider);
+    final createAcConst = ref.watch(createAccountConstantProvider);
     return SafeArea(
       child: Scaffold(
         body: Padding(
