@@ -6,7 +6,6 @@ import 'package:rent_hub/core/constants/add_product_constants/add_product.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
-import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/add_product_page/description_feild_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/add_product_page/image_picker_widget.dart';

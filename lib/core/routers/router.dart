@@ -10,21 +10,27 @@ final router = GoRouter(
   initialLocation: SplashPage.routePath,
   routes: [
     GoRoute(
-      // path: OtpVerificationScreen.routePath,
+      path: OtpVerificationScreen.routePath,
       builder: (context, state) {
         return const OtpVerificationScreen();
       },
     ),
     GoRoute(
-      // path: LoginPage.routePath,
+      path: LoginPage.routePath,
       builder: (context, state) {
         return const LoginPage();
       },
     ),
     GoRoute(
-      // path: HomePage.routePath,
+      path: HomePage.routePath,
       builder: (context, state) {
         return const HomePage();
+      },
+    ),
+    GoRoute(
+      path: LoginPage.routePath,
+      builder: (context, state) {
+        return const LoginPage();
       },
     ),
   ],

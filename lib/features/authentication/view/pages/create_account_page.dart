@@ -6,6 +6,8 @@ import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
 
 class CreateAccountPage extends ConsumerWidget {
+  static const routePath = '/createaccountpage';
+
   const CreateAccountPage({super.key});
 
   @override
