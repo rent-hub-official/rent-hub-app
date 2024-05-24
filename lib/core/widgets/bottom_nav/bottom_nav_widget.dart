@@ -46,11 +46,15 @@ class BottomNavWidget extends ConsumerWidget {
             //add product
           },
           backgroundColor: context.colors.primary,
-          child: bottomNavConstProvider.floatingActionBtnIcon,
+          child: Icon(
+            Icons.add,
+            color: context.colors.btnText,
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar(
+        backgroundColor: context.colors.bottomNavBar,
         height: context.spaces.space_800,
         onTap: (int index) {
           ref.watch(bottomPageIndexProvider.notifier).state = index;
