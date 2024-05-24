@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/product_screen_controller.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class SmoothPageIndicatorWIdget extends ConsumerWidget {
   const SmoothPageIndicatorWIdget({

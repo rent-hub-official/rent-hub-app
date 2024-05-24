@@ -6,13 +6,12 @@ import 'package:rent_hub/core/constants/image_constants.dart';
 class SplashPage extends ConsumerWidget {
   static const routePath = "/splash";
   const SplashPage({super.key});
-  
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Center(
-        child:SvgPicture.asset(ref.watch(imageConstantsProvider).imgLogo)
-      ),
+          child: SvgPicture.asset(ref.watch(imageConstantsProvider).imgLogo)),
     );
   }
 }
