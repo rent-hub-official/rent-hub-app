@@ -7,6 +7,8 @@ import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/tabbar_widget.dart';
 
 class HomePage extends ConsumerWidget {
+  static const routePath = '/homepage';
+
   const HomePage({super.key});
 
   @override
