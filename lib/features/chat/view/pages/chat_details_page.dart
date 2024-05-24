@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/chat_box_constants/chat_box.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/core/theme/color_palette.dart';
+import 'package:rent_hub/features/chat/view/widgets/received_message_widget.dart';
+import 'package:rent_hub/features/chat/view/widgets/sent_message_widget.dart';
 
 class ChatDetailsPage extends ConsumerWidget {
   const ChatDetailsPage({super.key});
@@ -49,7 +52,7 @@ class ChatDetailsPage extends ConsumerWidget {
       ),
       // chat details section
       body: Container(
-        margin: EdgeInsets.only(top: context.spaces.space_300),
+        margin: EdgeInsets.only(top: context.spaces.space_100),
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
@@ -62,8 +65,11 @@ class ChatDetailsPage extends ConsumerWidget {
           padding: EdgeInsets.all(context.spaces.space_200),
           child: Column(
             children: [
-              const Text('data'),
               const Spacer(),
+              ReceviedMessageWidget(),
+              SentMessageWidget(),
+
+              /// Textfield for entering messages
               SizedBox(
                 height: context.spaces.space_800,
                 child: TextField(
@@ -93,14 +99,15 @@ class ChatDetailsPage extends ConsumerWidget {
                             padding:
                                 EdgeInsets.only(left: context.spaces.space_50),
                             child: IconButton(
-                                onPressed: () {
-                                  // TODO fucton for sent messsage
-                                },
-                                icon: Icon(
-                                  Icons.send,
-                                  color: context.colors.primary,
-                                  size: context.spaces.space_250,
-                                )),
+                              onPressed: () {
+                                // TODO fucton for sent messsage
+                              },
+                              icon: Icon(
+                                Icons.send,
+                                color: context.colors.primary,
+                                size: context.spaces.space_250,
+                              ),
+                            ),
                           ),
                         ),
                       ),
