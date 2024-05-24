@@ -9,7 +9,7 @@ import 'package:rent_hub/core/constants/login_page_constants/login_page_constant
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/utils/alert_box/alert_box.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
-import 'package:rent_hub/features/authentication/controller/authentication_provider.dart';
+import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
 
 class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
