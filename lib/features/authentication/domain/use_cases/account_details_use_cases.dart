@@ -8,8 +8,7 @@ import 'package:rent_hub/features/authentication/service/account_details_service
 
 // account deatils use cases
 final class AccountDetailsUseCases {
-  static final CollectionReference<AccountDetailsModel> _db =
-      AccountDetailsService.firebaseFirestoreInstance;
+  static final _db = AccountDetailsService.firebaseFirestoreInstance;
 
   static final Reference _storageRefernce =
       AccountDetailsService.firebaseStorageReference;
@@ -40,7 +39,13 @@ final class AccountDetailsUseCases {
     required AccountDetailsModel accountDetails,
   }) async {
     try {
-      await _db.doc(userId).set(
+      await _db
+          .withConverter(
+            fromFirestore: AccountDetailsModel.fromFirestore,
+            toFirestore: AccountDetailsModel.toFirestore,
+          )
+          .doc(userId)
+          .set(
             accountDetails,
           );
     } on FirebaseException catch (e) {
@@ -52,7 +57,13 @@ final class AccountDetailsUseCases {
   static Future<DocumentSnapshot<AccountDetailsModel>> getAccountDetails(
       String userId) async {
     try {
-      return await _db.doc(userId).get();
+      return await _db
+          .doc(userId)
+          .withConverter(
+            fromFirestore: AccountDetailsModel.fromFirestore,
+            toFirestore: AccountDetailsModel.toFirestore,
+          )
+          .get();
     } on FirebaseException catch (e) {
       throw StorageException(error: e.message);
     }
