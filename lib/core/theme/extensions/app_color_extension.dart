@@ -11,6 +11,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
   final Color border;
   final Color bottomNavBorder;
   final Color cardBackground;
+  final Color messageBackground;
 
   AppColorExtension({
     required this.primary,
@@ -21,6 +22,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     required this.border,
     required this.bottomNavBorder,
     required this.cardBackground,
+    required this.messageBackground,
   });
 
   @override
@@ -33,6 +35,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     Color? border,
     Color? bottomNavBorder,
     Color? cardBackground,
+    Color? messageBackground,
   }) {
     return AppColorExtension(
       primary: primary ?? this.primary,
@@ -43,6 +46,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       border: border ?? this.border,
       bottomNavBorder: bottomNavBorder ?? this.bottomNavBorder,
       cardBackground: cardBackground ?? this.cardBackground,
+      messageBackground: messageBackground ?? this.messageBackground,
     );
   }
 
@@ -61,6 +65,8 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       border: Color.lerp(border, other.border, t)!,
       bottomNavBorder: Color.lerp(bottomNavBorder, other.bottomNavBorder, t)!,
       cardBackground: Color.lerp(cardBackground, other.cardBackground, t)!,
+      messageBackground:
+          Color.lerp(messageBackground, other.messageBackground, t)!,
     );
   }
 }

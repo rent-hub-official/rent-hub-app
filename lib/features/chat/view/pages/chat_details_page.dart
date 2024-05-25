@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/chat_box_constants/chat_box.dart';
@@ -29,7 +27,7 @@ class ChatDetailsPage extends ConsumerWidget {
                 child: IconButton(
                   icon: Icon(Icons.chevron_left),
                   onPressed: () {
-                    Navigator.pop(context);
+                    // TODO add navigate to previos page
                   },
                 ),
               ),
@@ -65,15 +63,40 @@ class ChatDetailsPage extends ConsumerWidget {
           padding: EdgeInsets.all(context.spaces.space_200),
           child: Column(
             children: [
+              // TODO change messages and time accordingly......
               const Spacer(),
-              ReceviedMessageWidget(),
-              SentMessageWidget(),
+              // recevied message
+              ReceviedMessageWidget(
+                message: 'Lorem Ipsum is simply dummy text of the',
+                time: '2:00',
+              ),
+              // sent message
+
+              SentMessageWidget(
+                message: 'Lorem Ipsum is simply',
+                time: '2:30',
+              ),
 
               /// Textfield for entering messages
               SizedBox(
                 height: context.spaces.space_800,
                 child: TextField(
                   decoration: InputDecoration(
+                    hintText: ref.read(chatBoxConstantsProvider).txtType,
+                    hintStyle: context.typography.body,
+                    contentPadding: EdgeInsets.symmetric(
+                        vertical: context.spaces.space_200),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: context.colors.border),
+                      borderRadius:
+                          BorderRadius.circular(context.spaces.space_500),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: context.colors.border),
+                      borderRadius:
+                          BorderRadius.circular(context.spaces.space_500),
+                    ),
+
                     ///add attachment button
                     prefixIcon: Transform.rotate(
                       angle: context.spaces.space_500,
@@ -111,21 +134,6 @@ class ChatDetailsPage extends ConsumerWidget {
                           ),
                         ),
                       ),
-                    ),
-
-                    hintText: ref.read(chatBoxConstantsProvider).txtType,
-                    hintStyle: context.typography.body,
-                    contentPadding: EdgeInsets.symmetric(
-                        vertical: context.spaces.space_200),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: context.colors.border),
-                      borderRadius:
-                          BorderRadius.circular(context.spaces.space_500),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: context.colors.border),
-                      borderRadius:
-                          BorderRadius.circular(context.spaces.space_500),
                     ),
                   ),
                 ),

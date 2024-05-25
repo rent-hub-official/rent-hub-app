@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
 class SentMessageWidget extends StatelessWidget {
-  const SentMessageWidget({
-    super.key,
-  });
-
+  const SentMessageWidget(
+      {super.key, required this.message, required this.time});
+  final String message;
+  final String time;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -25,13 +25,15 @@ class SentMessageWidget extends StatelessWidget {
                       bottomLeft: Radius.circular(context.spaces.space_600),
                       topLeft: Radius.circular(context.spaces.space_600),
                       topRight: Radius.circular(context.spaces.space_600)),
-                  color: Colors.red),
-              child: const Text(
-                  ' Lorem Ipsum is simply dummy text of the printing and typesetting industry.Ipsum is simply dummy text of the printing and typesetting industry'),
+                  color: context.colors.messageBackground),
+              // message
+              child: Text(message, style: context.typography.body),
             ),
-            const Text('2:00')
+            // sent message time
+            Text(time, style: context.typography.bodySmall)
           ],
         ),
+        // TODO add sender profile image
         Padding(
           padding: EdgeInsets.only(
               bottom: context.spaces.space_250, left: context.spaces.space_150),

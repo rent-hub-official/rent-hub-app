@@ -23,6 +23,7 @@ final _darktheme = ThemeData(
         border: AppColorPalettes.silver300,
         bottomNavBorder: AppColorPalettes.grey600,
         cardBackground: AppColorPalettes.grey900,
+        messageBackground: AppColorPalettes.grey800,
       ),
       //AppSpaceExtension
       AppSpaceExtension.fromBaseSpace(8),

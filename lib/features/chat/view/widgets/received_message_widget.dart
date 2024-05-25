@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
 class ReceviedMessageWidget extends StatelessWidget {
-  const ReceviedMessageWidget({
-    super.key,
-  });
-
+  const ReceviedMessageWidget(
+      {super.key, required this.message, required this.time});
+  final String message;
+  final String time;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -20,6 +20,7 @@ class ReceviedMessageWidget extends StatelessWidget {
           child: InkWell(
               onTap: () {
                 //TODO navigate to show sender profile
+                // TODO add user profile photo
               },
               child: CircleAvatar()),
         ),
@@ -34,11 +35,15 @@ class ReceviedMessageWidget extends StatelessWidget {
                       bottomRight: Radius.circular(context.spaces.space_600),
                       topLeft: Radius.circular(context.spaces.space_600),
                       topRight: Radius.circular(context.spaces.space_600)),
-                  color: Colors.red),
-              child: const Text(
-                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'),
+                  color: context.colors.messageBackground),
+              // recevied message
+              child: Text(message, style: context.typography.body),
             ),
-            const Text('2:00')
+            // recevied message time
+            Text(
+              time,
+              style: context.typography.bodySmall,
+            )
           ],
         )
       ],
