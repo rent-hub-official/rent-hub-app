@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/Payment_constants/add_account_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/features/payment/pages/add_bank_ac_details_page.dart';
 
 class DropDownBankListWidget extends ConsumerWidget {
   DropDownBankListWidget({
@@ -27,7 +28,8 @@ class DropDownBankListWidget extends ConsumerWidget {
             )
         ],
         onChanged: (int? newValue) {
-          // ref.read(selectedBankIndexProvider.notifier).state = newValue;
+          //update index of dropdown bank names
+          ref.read(selectedBankIndexProvider.notifier).state = newValue;
         },
         icon: Icon(Icons.keyboard_arrow_down),
         iconSize: context.spaces.space_400,
