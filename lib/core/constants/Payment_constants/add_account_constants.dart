@@ -15,7 +15,8 @@ class AddBankAccountConstants {
       '*By adding this bank account, I agree to ';
   final String termAndConditionSctn2 = ' RentHub T&Cs';
   final String termAndConditionSctn3 = 'regarding topping up from bank account';
-  final String addAc = 'Add Account';
+  final String TextAddAc = 'Add Account';
+  final String textCantBeNull = 'Can\'t be null';
 }
 
 @riverpod

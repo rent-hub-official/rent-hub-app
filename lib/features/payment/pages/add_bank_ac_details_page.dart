@@ -5,13 +5,14 @@ import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
+import 'package:rent_hub/features/payment/widgets/drop_down_bank_names_widget.dart';
 import 'package:rent_hub/features/payment/widgets/terms_condition_text_widget.dart';
 
 class AddBankAcDetailsPage extends ConsumerWidget {
   AddBankAcDetailsPage({super.key});
-  // TODO fetch bank Names
-  final List<String> bankNames = ['Others', 'one', 'two', 'three'];
-
+  // router path
+  static const routePath = 'addBankAcDetailsPage';
+  // controllers for bank details
   final TextEditingController nameController = TextEditingController();
   final TextEditingController ifscController = TextEditingController();
   final TextEditingController acNumberController = TextEditingController();
@@ -34,12 +35,12 @@ class AddBankAcDetailsPage extends ConsumerWidget {
         actions: [
           Padding(
               padding: EdgeInsets.only(right: 20.0),
-              // TODO change button
-              child: RoundedbtnWidget(
+              child: AppIconButton(
                 icon: Icons.question_mark,
-                onTap: () {},
+                onTap: () {
+                  // TODO navigate to previos page
+                },
                 radius: context.spaces.space_250,
-                backgroundclr: context.colors.primary,
               ))
         ],
       ),
@@ -64,35 +65,18 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                   child: Text(addBankConsts.textBankDetails,
                       style: context.typography.h2SemiBold),
                 ),
-                DropdownButtonHideUnderline(
-                  child: DropdownButton<int>(
-                    hint: Text(addBankConsts.textSelect),
-                    value: ref.watch(selectedBankIndexProvider),
-                    items: [
-                      for (int i = 0; i < bankNames.length; i++)
-                        DropdownMenuItem(
-                          child: Text(bankNames[i]),
-                          value: i,
-                        )
-                    ],
-                    onChanged: (int? newValue) {
-                      ref.read(selectedBankIndexProvider.notifier).state =
-                          newValue;
-                    },
-                    icon: Icon(Icons.keyboard_arrow_down),
-                    iconSize: context.spaces.space_400,
-                    elevation: 16,
-                    isExpanded: true,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
+
+                /// Drop down list for select bank name
+                DropDownBankListWidget(),
+
+                /// Text fields for enter bank account details
                 TextFeildWidget(
                   labeltxt: addBankConsts.textName,
                   hinttxt: addBankConsts.textAcHolder,
                   textController: nameController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Enter the name';
+                      return '${addBankConsts.textName} ${addBankConsts.textCantBeNull}';
                     } else {
                       return null;
                     }
@@ -107,7 +91,7 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                     textController: ifscController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Enter the IFSE';
+                        return '${addBankConsts.textIfsc} ${addBankConsts.textCantBeNull}';
                       } else {
                         return null;
                       }
@@ -120,7 +104,7 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                   textController: acNumberController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Enter the Account Number';
+                      return '${addBankConsts.textAcNumber} ${addBankConsts.textCantBeNull}';
                     } else {
                       return null;
                     }
@@ -135,7 +119,7 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                     textController: confirmAcNumberController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Enter the Account Number';
+                        return '${addBankConsts.textAcNumber} ${addBankConsts.textCantBeNull}';
                       } else {
                         return null;
                       }
@@ -150,7 +134,7 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                     onTap: () {
                       // TODO add functionalities
                     },
-                    btnTxt: addBankConsts.addAc)
+                    btnTxt: addBankConsts.TextAddAc)
               ],
             ),
           ),
@@ -160,6 +144,7 @@ class AddBankAcDetailsPage extends ConsumerWidget {
   }
 }
 
+// provider for controll dropdown bank names
 final StateProvider<int?> selectedBankIndexProvider = StateProvider<int?>(
   (ref) => null,
 );
