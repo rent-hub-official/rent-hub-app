@@ -35,7 +35,7 @@ class AddBankAcDetailsPage extends ConsumerWidget {
         actions: [
           Padding(
               padding: EdgeInsets.only(right: 20.0),
-              child: AppIconButton(
+              child: RoundedIconButton(
                 icon: Icons.question_mark,
                 onTap: () {
                   // TODO navigate to previos page

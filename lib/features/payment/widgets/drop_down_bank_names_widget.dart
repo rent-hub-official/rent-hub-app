@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/Payment_constants/add_account_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/features/payment/pages/add_bank_ac_details_page.dart';
-import 'package:rent_hub/features/payment/pages/demo.dart';
 
 class DropDownBankListWidget extends ConsumerWidget {
   DropDownBankListWidget({
