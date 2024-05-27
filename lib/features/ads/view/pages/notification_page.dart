@@ -16,7 +16,7 @@ class NotificationPage extends ConsumerWidget {
       appBar: AppBar(
         leading: Padding(
           padding: EdgeInsets.all(context.spaces.space_50),
-          child: AppIconButton(
+          child: RoundedIconButton(
             onTap: () {
               context.pop();
             },

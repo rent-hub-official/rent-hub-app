@@ -32,10 +32,10 @@ class ProfileImgeWidget extends ConsumerWidget {
             Positioned(
               right: 0,
               top: context.spaces.space_200,
-              child: RoundedbtnWidget(
+              child: RoundedIconButton(
                 onTap: onEdit,
                 icon: Icons.edit,
-                backgroundclr: context.colors.primary,
+                backgroundColor: context.colors.primary,
               ),
             )
           ],
