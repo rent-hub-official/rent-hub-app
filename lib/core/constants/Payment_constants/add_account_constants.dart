@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'add_account_constants.g.dart';
 
-class AddAccountConstants {
+class AddBankAccountConstants {
   final String textCancel = 'Cancel';
   final String textBankDetails = 'Bank account details';
   final String textBank = 'Bank';
@@ -10,9 +10,15 @@ class AddAccountConstants {
   final String textAcHolder = 'Accounut holder\'s name';
   final String textIfsc = 'IFSC Code';
   final String textAcNumber = 'Account Number';
-  final String textConfirm = 'Confirm';
+  final String textConfirm = 'Account Number Confirm';
+  final String termsAndConditionsct1 =
+      '*By adding this bank account, I agree to ';
+  final String termAndConditionSctn2 = ' RentHub T&Cs';
+  final String termAndConditionSctn3 = 'regarding topping up from bank account';
+  final String addAc = 'Add Account';
 }
 
 @riverpod
-AddAccountConstants addAccountConstants(AddAccountConstantsRef ref) =>
-    AddAccountConstants();
+AddBankAccountConstants addBankAccountConstants(
+        AddBankAccountConstantsRef ref) =>
+    AddBankAccountConstants();
