@@ -4,8 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/user_profile_constants/user_profile_settings.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
-import 'widgets/profile_image_widget.dart';
-import 'widgets/profile_settings_field_widget.dart';
+import 'package:rent_hub/features/authentication/view/widgets/profile_image_widget.dart';
+import 'package:rent_hub/features/authentication/view/widgets/profile_settings_field_widget.dart';
 
 class ProfileSettingsPage extends HookConsumerWidget {
   const ProfileSettingsPage({super.key});
