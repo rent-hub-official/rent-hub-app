@@ -44,12 +44,12 @@ class SliverAppbarWidget extends StatelessWidget {
           const Spacer(),
           Padding(
             padding: EdgeInsets.only(right: context.spaces.space_100),
-            child: AppIconButton(
+            child: RoundedIconButton(
               onTap: searchbtnOnTap,
               icon: Icons.search,
             ),
           ),
-          AppIconButton(
+          RoundedIconButton(
             onTap: notificationbtnOnTap,
             icon: Icons.notifications,
           ),
