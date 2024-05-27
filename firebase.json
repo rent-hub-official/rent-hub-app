@@ -1,11 +1,1 @@
-{
-  "emulators": {
-    "auth": {
-      "port": 9099
-    },
-    "ui": {
-      "enabled": true
-    },
-    "singleProjectMode": true
-  }
-}
+{"emulators":{"auth":{"port":9099},"ui":{"enabled":true},"singleProjectMode":true,"firestore":{"port":8080},"database":{"port":9000},"storage":{"port":9199}},"storage":{"rules":"storage.rules"},"flutter":{"platforms":{"android":{"default":{"projectId":"rent-hub-app","appId":"1:432413388020:android:fb3df61389a733a980c2a1","fileOutput":"android/app/google-services.json"}}}}}

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/exception/base_exception/base_exception.dart';
 import 'package:rent_hub/core/utils/snakbar/error_snackbar.dart';
-import 'package:rent_hub/features/authentication/controller/authentication_state.dart';
+import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_state.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
