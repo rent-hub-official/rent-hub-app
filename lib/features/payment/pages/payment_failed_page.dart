@@ -5,7 +5,8 @@ import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/features/payment/widgets/payment/payment_info_widget.dart';
-import 'package:rent_hub/features/payment/widgets/payment_failed_icon.dart';
+import 'package:rent_hub/features/payment/widgets/payment/payment_failed_icon.dart';
+
 class PaymentFailedPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,7 +39,6 @@ class PaymentFailedPage extends ConsumerWidget {
                   style: context.typography.h1Bold.copyWith(
                     decoration:
                         TextDecoration.lineThrough, // Adding strike-through
-                    // decorationColor: Colors.red, // Change color to red (commented out as it's not needed)
                     decorationThickness: context
                         .spaces.space_25, // Thickness of the strike-through
                   )),
@@ -109,3 +109,4 @@ class PaymentFailedPage extends ConsumerWidget {
     );
   }
 }
+
