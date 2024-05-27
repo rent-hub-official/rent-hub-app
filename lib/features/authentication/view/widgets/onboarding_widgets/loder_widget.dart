@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/theme/color_palette.dart';
 
 class LoderWidget extends StatelessWidget {
   final double progress;
@@ -20,8 +20,10 @@ class LoderWidget extends StatelessWidget {
             painter: _CircularProgressBarPainter(progress, context),
           ),
           Container(
-            width: 45, // Width of the inner circle
-            height: 45, // Height of the inner circle
+            width:
+                context.spaces.space_125 / 2 * 9, // Width of the inner circle
+            height:
+                context.spaces.space_125 / 2 * 9, // Height of the inner circle
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: context
@@ -30,7 +32,7 @@ class LoderWidget extends StatelessWidget {
             child: Center(
               child: Icon(
                 Icons.chevron_right, // Arrow icon
-                color: Colors.white,
+                color: AppColorPalettes.white500,
                 size: context.spaces.space_300,
               ),
             ),
@@ -48,7 +50,7 @@ class _CircularProgressBarPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.grey.shade300
+      ..color = context.colors.cardBackground
       ..strokeWidth = context.spaces.space_125 / 2
       ..style = PaintingStyle.stroke;
     final progressPaint = Paint()
@@ -76,4 +78,3 @@ class _CircularProgressBarPainter extends CustomPainter {
     return true;
   }
 }
-

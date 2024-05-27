@@ -16,7 +16,6 @@ class BottomNavConstants {
     getIcon(Icons.favorite_outline),
     getIcon(Icons.person_outline),
   ];
-  final Icon floatingActionBtnIcon = const Icon(Icons.add);
   final List<Widget> pages = [
     Container(),
     Container(),

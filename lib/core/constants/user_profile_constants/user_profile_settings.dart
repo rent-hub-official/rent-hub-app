@@ -1,7 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'user_profile_settings.g.dart';
 
-class UserProfileSettings {
+class UserProfileSettingsConstants {
+  final appTitle = "Settings";
   final txtName = "Name";
   final txtBankAccount = "Bank Account Info";
   final txtChangeNo = "Change Phone Number";
@@ -10,6 +11,7 @@ class UserProfileSettings {
 }
 
 @riverpod
-UserProfileSettings userProfileSettings(UserProfileSettingsRef ref) {
-  return UserProfileSettings();
+UserProfileSettingsConstants userProfileSettingsConstants(
+    UserProfileSettingsConstantsRef ref) {
+  return UserProfileSettingsConstants();
 }

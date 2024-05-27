@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rent_hub/core/constants/add_product_constants/add_product.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/add_product_page/description_feild_widget.dart';
@@ -27,12 +26,11 @@ class AddProductPage extends ConsumerWidget {
       appBar: AppBar(
         leading: Padding(
           padding: EdgeInsets.all(context.spaces.space_50),
-          child: RoundedbtnWidget(
+          child: AppIconButton(
             onTap: () {
               context.pop();
             },
             icon: Icons.chevron_left,
-            backgroundclr: AppColorPalettes.grey200,
           ),
         ),
         title: Text(

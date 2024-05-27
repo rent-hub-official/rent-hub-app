@@ -14,6 +14,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
   final Color cardBackground;
   final Color iconButtonBackgroud;
   final Color iconButtonIcon;
+  final Color bottomNavBar;
 
   AppColorExtension({
     required this.appBarBackground,
@@ -27,6 +28,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     required this.cardBackground,
     required this.iconButtonBackgroud,
     required this.iconButtonIcon,
+    required this.bottomNavBar,
   });
 
   @override
@@ -42,6 +44,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     Color? appBarBackground,
     Color? iconButtonBackgroud,
     Color? iconButtonIcon,
+    Color? bottomNavBar,
   }) {
     return AppColorExtension(
       primary: primary ?? this.primary,
@@ -55,6 +58,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       cardBackground: cardBackground ?? this.cardBackground,
       iconButtonBackgroud: iconButtonBackgroud ?? this.iconButtonBackgroud,
       iconButtonIcon: iconButtonIcon ?? this.iconButtonBackgroud,
+      bottomNavBar: bottomNavBar ?? this.bottomNavBar,
     );
   }
 
@@ -78,6 +82,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       iconButtonBackgroud:
           Color.lerp(iconButtonBackgroud, other.iconButtonBackgroud, t)!,
       iconButtonIcon: Color.lerp(iconButtonIcon, other.iconButtonIcon, t)!,
+      bottomNavBar: Color.lerp(bottomNavBar, other.bottomNavBar, t)!,
     );
   }
 }

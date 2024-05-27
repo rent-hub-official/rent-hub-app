@@ -3,16 +3,16 @@ import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 
 class TextFeildWidget extends StatelessWidget {
-  final String labeltxt;
-  final String hinttxt;
+  final String? labeltxt;
+  final String? hinttxt;
   final Icon? suffixicon;
   final Icon? prefixicon;
   final TextEditingController textController;
   final String? Function(String?)? validator;
   const TextFeildWidget({
     super.key,
-    required this.labeltxt,
-    required this.hinttxt,
+    this.labeltxt,
+    this.hinttxt,
     required this.textController,
     this.suffixicon,
     this.prefixicon,
