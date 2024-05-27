@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/filters_sort_constants/filter_sort.dart';
 import 'package:rent_hub/core/constants/home_screen_constants/home_screen.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/category_list_builder_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/sliverAppbar_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/tabbar_widget.dart';
