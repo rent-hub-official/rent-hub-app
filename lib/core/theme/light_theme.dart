@@ -24,6 +24,10 @@ final _lighttheme = ThemeData(
         bottomNavBorder: AppColorPalettes.grey600,
         cardBackground: AppColorPalettes.grey100,
         messageBackground: AppColorPalettes.grey350,
+        appBarBackground: AppColorPalettes.grey100,
+        iconButtonBackgroud: AppColorPalettes.white500,
+        iconButtonIcon: AppColorPalettes.black500,
+        bottomNavBar: AppColorPalettes.grey100,
       ),
       //AppSpaceExtension
       AppSpaceExtension.fromBaseSpace(8),
