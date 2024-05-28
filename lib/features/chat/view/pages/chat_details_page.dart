@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/constants/chat_box_constants/chat_box.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
+import 'package:rent_hub/features/chat/view/widgets/input_message_field_widget.dart';
 import 'package:rent_hub/features/chat/view/widgets/received_message_widget.dart';
 import 'package:rent_hub/features/chat/view/widgets/sent_message_widget.dart';
 
 class ChatDetailsPage extends ConsumerWidget {
-  const ChatDetailsPage({super.key});
+  ChatDetailsPage({super.key});
   // router path
   final String routerPath = 'ChatDetailsPage';
+  // input message controller
+  final TextEditingController inputMessageController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,16 +24,11 @@ class ChatDetailsPage extends ConsumerWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(right: context.spaces.space_200),
-              // TODO change icon when available
-              child: CircleAvatar(
-                radius: context.spaces.space_300,
-                child: IconButton(
-                  icon: Icon(Icons.chevron_left),
-                  onPressed: () {
-                    // TODO add navigate to previos page
+              child: RoundedIconButton(
+                  onTap: () {
+                    // TODO add function for navigate
                   },
-                ),
-              ),
+                  icon: Icons.chevron_left_sharp),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,78 +63,22 @@ class ChatDetailsPage extends ConsumerWidget {
             children: [
               // TODO change messages and time accordingly......
               const Spacer(),
-              // recevied message
+
+              /// recevied message
               ReceviedMessageWidget(
                 message: 'Lorem Ipsum is simply dummy text of the',
                 time: '2:00',
               ),
-              // sent message
 
+              /// sent message
               SentMessageWidget(
                 message: 'Lorem Ipsum is simply',
                 time: '2:30',
               ),
 
               /// Textfield for entering messages
-              SizedBox(
-                height: context.spaces.space_800,
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: ref.read(chatBoxConstantsProvider).txtType,
-                    hintStyle: context.typography.body,
-                    contentPadding: EdgeInsets.symmetric(
-                        vertical: context.spaces.space_200),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: context.colors.border),
-                      borderRadius:
-                          BorderRadius.circular(context.spaces.space_500),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: context.colors.border),
-                      borderRadius:
-                          BorderRadius.circular(context.spaces.space_500),
-                    ),
-
-                    ///add attachment button
-                    prefixIcon: Transform.rotate(
-                      angle: context.spaces.space_500,
-                      child: IconButton(
-                        onPressed: () {
-                          // TODO share attachments
-                        },
-                        icon: Icon(
-                          color: context.colors.secondary,
-                          Icons.attachment,
-                          size: context.spaces.space_300,
-                        ),
-                      ),
-                    ),
-                    // sent button
-                    suffixIcon: Padding(
-                      padding: EdgeInsets.all(context.spaces.space_100),
-                      child: CircleAvatar(
-                        backgroundColor: context.colors.secondary,
-                        child: Transform.rotate(
-                          angle: context.spaces.space_150,
-                          child: Padding(
-                            padding:
-                                EdgeInsets.only(left: context.spaces.space_50),
-                            child: IconButton(
-                              onPressed: () {
-                                // TODO fucton for sent messsage
-                              },
-                              icon: Icon(
-                                Icons.send,
-                                color: context.colors.primary,
-                                size: context.spaces.space_250,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+              InputMessageFieldWidget(
+                controller: inputMessageController,
               )
             ],
           ),
