@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/constants/Payment_constants/add_account_constants.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rent_hub/core/constants/payment_constants/add_account_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/features/payment/pages/add_bank_ac_details_page.dart';
 
-class DropDownBankListWidget extends ConsumerWidget {
+class DropDownBankListWidget extends HookConsumerWidget {
   DropDownBankListWidget({
     super.key,
   });
@@ -14,11 +14,14 @@ class DropDownBankListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // add bank account constants
     final AddBankAccountConstants addBankConsts =
         ref.read(addBankAccountConstantsProvider);
+    // index for controll dropdown
+    final selectedBankIndex = useState<int?>(null);
     return DropdownButtonHideUnderline(
       child: DropdownButton<int>(
-        hint: Text(addBankConsts.textSelect),
+        hint: Text(addBankConsts.txtSelect),
         value: 0,
         items: [
           for (int i = 0; i < bankNames.length; i++)
@@ -29,7 +32,7 @@ class DropDownBankListWidget extends ConsumerWidget {
         ],
         onChanged: (int? newValue) {
           //update index of dropdown bank names
-          ref.read(selectedBankIndexProvider.notifier).state = newValue;
+          selectedBankIndex.value = newValue;
         },
         icon: Icon(Icons.keyboard_arrow_down),
         iconSize: context.spaces.space_400,

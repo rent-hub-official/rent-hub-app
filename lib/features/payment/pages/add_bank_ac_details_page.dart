@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/constants/Payment_constants/add_account_constants.dart';
+import 'package:rent_hub/core/constants/payment_constants/add_account_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
@@ -29,7 +29,7 @@ class AddBankAcDetailsPage extends ConsumerWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          addBankConsts.textCancel,
+          addBankConsts.txtCancel,
           style: context.typography.bodyLarge,
         ),
         actions: [
@@ -62,7 +62,7 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                     top: context.spaces.space_600,
                     bottom: context.spaces.space_400,
                   ),
-                  child: Text(addBankConsts.textBankDetails,
+                  child: Text(addBankConsts.txtBankDetails,
                       style: context.typography.h2SemiBold),
                 ),
 
@@ -71,12 +71,12 @@ class AddBankAcDetailsPage extends ConsumerWidget {
 
                 /// Text fields for enter bank account details
                 TextFeildWidget(
-                  labeltxt: addBankConsts.textName,
-                  hinttxt: addBankConsts.textAcHolder,
+                  labeltxt: addBankConsts.txtName,
+                  hinttxt: addBankConsts.txtAcHolder,
                   textController: nameController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return '${addBankConsts.textName} ${addBankConsts.textCantBeNull}';
+                      return '${addBankConsts.txtName} ${addBankConsts.txtCantBeNull}';
                     } else {
                       return null;
                     }
@@ -86,12 +86,12 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                   padding:
                       EdgeInsets.symmetric(vertical: context.spaces.space_400),
                   child: TextFeildWidget(
-                    labeltxt: addBankConsts.textIfsc,
-                    hinttxt: addBankConsts.textAcHolder,
+                    labeltxt: addBankConsts.txtIfsc,
+                    hinttxt: addBankConsts.txtAcHolder,
                     textController: ifscController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return '${addBankConsts.textIfsc} ${addBankConsts.textCantBeNull}';
+                        return '${addBankConsts.txtIfsc} ${addBankConsts.txtCantBeNull}';
                       } else {
                         return null;
                       }
@@ -99,12 +99,12 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                   ),
                 ),
                 TextFeildWidget(
-                  labeltxt: addBankConsts.textAcNumber,
-                  hinttxt: addBankConsts.textAcNumber,
+                  labeltxt: addBankConsts.txtAcNumber,
+                  hinttxt: addBankConsts.txtAcNumber,
                   textController: acNumberController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return '${addBankConsts.textAcNumber} ${addBankConsts.textCantBeNull}';
+                      return '${addBankConsts.txtAcNumber} ${addBankConsts.txtCantBeNull}';
                     } else {
                       return null;
                     }
@@ -114,12 +114,12 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                   padding:
                       EdgeInsets.symmetric(vertical: context.spaces.space_400),
                   child: TextFeildWidget(
-                    labeltxt: addBankConsts.textConfirm,
-                    hinttxt: addBankConsts.textConfirm,
+                    labeltxt: addBankConsts.txtConfirm,
+                    hinttxt: addBankConsts.txtConfirm,
                     textController: confirmAcNumberController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return '${addBankConsts.textAcNumber} ${addBankConsts.textCantBeNull}';
+                        return '${addBankConsts.txtAcNumber} ${addBankConsts.txtCantBeNull}';
                       } else {
                         return null;
                       }
@@ -134,7 +134,7 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                     onTap: () {
                       // TODO add functionalities
                     },
-                    btnTxt: addBankConsts.TextAddAc)
+                    btnTxt: addBankConsts.txtAddAc)
               ],
             ),
           ),
@@ -143,8 +143,3 @@ class AddBankAcDetailsPage extends ConsumerWidget {
     );
   }
 }
-
-// provider for controll dropdown bank names
-final StateProvider<int?> selectedBankIndexProvider = StateProvider<int?>(
-  (ref) => null,
-);

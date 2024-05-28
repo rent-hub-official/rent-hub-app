@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_hub/core/constants/Payment_constants/add_account_constants.dart';
+import 'package:rent_hub/core/constants/payment_constants/add_account_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
 class TermsAndConditionText extends StatelessWidget {
@@ -20,14 +20,14 @@ class TermsAndConditionText extends StatelessWidget {
           style: context.typography.body,
           children: <TextSpan>[
             TextSpan(
-              text: addBankConsts.termAndConditionSctn2,
+              text: addBankConsts.txtTermAndConditionSctn2,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 decoration: TextDecoration.underline,
               ),
             ),
             TextSpan(
-                text: addBankConsts.termAndConditionSctn3,
+                text: addBankConsts.txtTermAndConditionSctn3,
                 style: context.typography.body),
           ],
         ),
