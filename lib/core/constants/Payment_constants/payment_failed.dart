@@ -8,7 +8,7 @@ class PaymentFailed {
   final txtReferenceId = "Reference ID";
   final txtPaymentMethod = "Payment method";
   final txtBtn = "Retry";
-  final exclamationicon = "Retry";
+  final exclamationicon = "!";
 }
 
 @riverpod
