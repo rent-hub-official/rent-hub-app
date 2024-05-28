@@ -10,10 +10,15 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
   final Color btnText;
   final Color border;
   final Color bottomNavBorder;
+  final Color appBarBackground;
   final Color cardBackground;
   final Color messageBackground;
+  final Color iconButtonBackgroud;
+  final Color iconButtonIcon;
+  final Color bottomNavBar;
 
   AppColorExtension({
+    required this.appBarBackground,
     required this.primary,
     required this.secondary,
     required this.text,
@@ -23,6 +28,9 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     required this.bottomNavBorder,
     required this.cardBackground,
     required this.messageBackground,
+    required this.iconButtonBackgroud,
+    required this.iconButtonIcon,
+    required this.bottomNavBar,
   });
 
   @override
@@ -36,6 +44,10 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     Color? bottomNavBorder,
     Color? cardBackground,
     Color? messageBackground,
+    Color? appBarBackground,
+    Color? iconButtonBackgroud,
+    Color? iconButtonIcon,
+    Color? bottomNavBar,
   }) {
     return AppColorExtension(
       primary: primary ?? this.primary,
@@ -45,8 +57,12 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       btnText: btnText ?? this.btnText,
       border: border ?? this.border,
       bottomNavBorder: bottomNavBorder ?? this.bottomNavBorder,
+      appBarBackground: appBarBackground ?? this.appBarBackground,
       cardBackground: cardBackground ?? this.cardBackground,
       messageBackground: messageBackground ?? this.messageBackground,
+      iconButtonBackgroud: iconButtonBackgroud ?? this.iconButtonBackgroud,
+      iconButtonIcon: iconButtonIcon ?? this.iconButtonBackgroud,
+      bottomNavBar: bottomNavBar ?? this.bottomNavBar,
     );
   }
 
@@ -64,9 +80,15 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       btnText: Color.lerp(btnText, other.btnText, t)!,
       border: Color.lerp(border, other.border, t)!,
       bottomNavBorder: Color.lerp(bottomNavBorder, other.bottomNavBorder, t)!,
+      appBarBackground:
+          Color.lerp(appBarBackground, other.appBarBackground, t)!,
       cardBackground: Color.lerp(cardBackground, other.cardBackground, t)!,
       messageBackground:
           Color.lerp(messageBackground, other.messageBackground, t)!,
+      iconButtonBackgroud:
+          Color.lerp(iconButtonBackgroud, other.iconButtonBackgroud, t)!,
+      iconButtonIcon: Color.lerp(iconButtonIcon, other.iconButtonIcon, t)!,
+      bottomNavBar: Color.lerp(bottomNavBar, other.bottomNavBar, t)!,
     );
   }
 }

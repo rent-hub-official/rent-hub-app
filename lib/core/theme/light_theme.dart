@@ -105,10 +105,11 @@ final _lighttheme = ThemeData(
             color: AppColorPalettes.black500,
             fontWeight: FontWeight.w700),
         buttonText: const TextStyle(
-            fontSize: 14,
-            fontFamily: 'poppins',
-            color: AppColorPalettes.black500,
-            fontWeight: FontWeight.w600),
+          fontSize: 14,
+          fontFamily: 'poppins',
+          color: AppColorPalettes.white500,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       //AppShadowExtension
       ShadowExtension(
