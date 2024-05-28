@@ -6,6 +6,7 @@ class SellerProfile {
   final txtReason = "Reason ";
   final txtTyping = "Typing Something";
   final txtBtn = "Continue";
+  final Btntext = "Rent Now";
 }
 
 @riverpod
