@@ -22,7 +22,10 @@ final _lighttheme = ThemeData(
         btnText: AppColorPalettes.white500,
         border: AppColorPalettes.grey600,
         bottomNavBorder: AppColorPalettes.grey600,
-        cardBackground: AppColorPalettes.grey100,
+        appBarBackground: AppColorPalettes.grey100,
+        cardBackground: AppColorPalettes.white500,
+        iconButtonBackgroud: AppColorPalettes.white500,
+        iconButtonIcon: AppColorPalettes.black500,
         bottomNavBar: AppColorPalettes.grey100,
       ),
       //AppSpaceExtension
@@ -105,10 +108,11 @@ final _lighttheme = ThemeData(
             color: AppColorPalettes.black500,
             fontWeight: FontWeight.w700),
         buttonText: const TextStyle(
-            fontSize: 14,
-            fontFamily: 'poppins',
-            color: AppColorPalettes.black500,
-            fontWeight: FontWeight.w600),
+          fontSize: 14,
+          fontFamily: 'poppins',
+          color: AppColorPalettes.white500,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       //AppShadowExtension
       ShadowExtension(
