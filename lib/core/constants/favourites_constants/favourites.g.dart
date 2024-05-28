@@ -6,19 +6,22 @@ part of 'favourites.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$favouritesHash() => r'c1d85331de36abea7d56784e804855c928de32b8';
+String _$favouritesConstantsHash() =>
+    r'd44a47cd907d5d6fb3ba42deaf6b322207c45b58';
 
-/// See also [favourites].
-@ProviderFor(favourites)
-final favouritesProvider = AutoDisposeProvider<Favourites>.internal(
-  favourites,
-  name: r'favouritesProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$favouritesHash,
+/// See also [favouritesConstants].
+@ProviderFor(favouritesConstants)
+final favouritesConstantsProvider =
+    AutoDisposeProvider<FavouritesConstants>.internal(
+  favouritesConstants,
+  name: r'favouritesConstantsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$favouritesConstantsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef FavouritesRef = AutoDisposeProviderRef<Favourites>;
+typedef FavouritesConstantsRef = AutoDisposeProviderRef<FavouritesConstants>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -11,6 +11,7 @@ class ImageConstants {
   final imgOnboarding3 = "${imagePath}onboarding3.svg";
   final imgOtpGirl = "${imagePath}otp_girl.svg";
   final imgProfile = "${imagePath}profile.svg";
+  final imgNoFavorites = "${imagePath}no_favorites.svg";
 }
 
 @riverpod
