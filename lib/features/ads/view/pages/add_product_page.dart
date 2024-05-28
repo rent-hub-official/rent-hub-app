@@ -28,7 +28,6 @@ class AddProductPage extends HookConsumerWidget {
     final constants = ref.watch(addProductProvider);
     final productNamecontroller = useTextEditingController();
     final priceController = useTextEditingController();
-    final categoryController = useTextEditingController();
     final locationController = useTextEditingController();
     final offerController = useTextEditingController();
     final descriptionController = useTextEditingController();
