@@ -8,10 +8,10 @@ class PaymentFailed {
   final txtReferenceId = "Reference ID";
   final txtPaymentMethod = "Payment method";
   final txtRetry = "Retry";
+  final txtExclamation = "!";
 }
 
- 
- @riverpod
+@riverpod
 PaymentFailed paymentFailed(PaymentFailedRef ref) {
   return PaymentFailed();
 }

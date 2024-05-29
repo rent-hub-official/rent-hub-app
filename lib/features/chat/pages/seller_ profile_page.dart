@@ -78,7 +78,7 @@ class SellerProfilePage extends ConsumerWidget {
                               img: "",
                               onTap: () {},
                               belowbtn: constans
-                                  .Btntext, // Button text from constants
+                                  .txtContinue, // Button text from constants
                             ),
                           );
                         },
