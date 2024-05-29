@@ -56,7 +56,7 @@ class MyProductsPage extends ConsumerWidget {
           icon: Icon(Icons.arrow_back_ios),
         ),
         title: Text(
-          ref.watch(myProductsConstantsProvider).appBarTitle,
+          ref.watch(myProductsConstantsProvider).txtAppBarTitle,
         ),
         titleTextStyle: context.typography.h2Bold,
         centerTitle: true,
