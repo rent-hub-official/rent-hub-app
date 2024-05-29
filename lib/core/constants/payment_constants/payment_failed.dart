@@ -11,6 +11,7 @@ class PaymentFailed {
   final txtExclamation = "!";
 }
 
+
 @riverpod
 PaymentFailed paymentFailed(PaymentFailedRef ref) {
   return PaymentFailed();
