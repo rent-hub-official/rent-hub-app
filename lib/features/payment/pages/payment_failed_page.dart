@@ -8,7 +8,8 @@ import 'package:rent_hub/features/payment/widgets/payment/payment_info_widget.da
 import 'package:rent_hub/features/payment/widgets/payment/payment_failed_icon.dart';
 
 class PaymentFailedPage extends ConsumerWidget {
-  @override
+
+  @override  
   Widget build(BuildContext context, WidgetRef ref) {
     final constant = ref.watch(paymentFailedProvider);
     return Scaffold(

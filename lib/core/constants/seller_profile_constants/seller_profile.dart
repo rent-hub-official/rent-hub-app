@@ -5,7 +5,8 @@ class SellerProfile {
   final txtReject = "Reject";
   final txtReason = "Reason ";
   final txtTyping = "Typing Something";
-  final txtBtn = "Continue";
+  final txtContinue = "Continue";
+  final txtRentNow = "Rent Now";
 }
 
 @riverpod
