@@ -10,6 +10,7 @@ class PaymentFailed {
   final txtBtn = "Retry";
 }
 
+
 @riverpod
 PaymentFailed paymentFailed(PaymentFailedRef ref) {
   return PaymentFailed();
