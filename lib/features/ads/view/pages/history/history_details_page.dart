@@ -79,11 +79,12 @@ class HistoryDetailsPage extends HookConsumerWidget {
               height: context.spaces.space_500,
               width: double.infinity,
               child: Center(
-                child: Text("purchaseConsts.txtBookingHistory,"
-                    // style: selectedTabIndex.value == 0
-                    //     ? context.typography.body
-                    //     : context.typography.bodyWhite,
-                    ),
+                child: Text(
+                  purchaseConsts.txtBookingHistory,
+                  style: selectedTabIndex.value == 0
+                      ? context.typography.body
+                      : context.typography.bodyWhite,
+                ),
               ),
             ),
           ],
@@ -105,6 +106,17 @@ class HistoryDetailsPage extends HookConsumerWidget {
                     distance: 10,
                     img:
                         'https://www.topgear.com/sites/default/files/2022/09/1-BMW-3-Series.jpg',
+                    onTap: () {
+                      // TODO add function for show info
+                    },
+                    belowbtn: purchaseConsts.txtBtn),
+                ProductModelSample(
+                    productName: 'Benz',
+                    price: 999,
+                    productLocation: 'Kozhikode,Kerala',
+                    distance: 10,
+                    img:
+                        'https://www.topgear.com/sites/default/files/2022/09/1-BMW-3-Series.jpg',
                     onTap: () {},
                     belowbtn: purchaseConsts.txtBtn),
               ],
@@ -113,6 +125,26 @@ class HistoryDetailsPage extends HookConsumerWidget {
             ListOfBookingHistoryWidget(
               productModelSample: [
                 ProductModelSample(
+                    productName: 'Benz',
+                    price: 999,
+                    productLocation: 'Kozhikode,Kerala',
+                    distance: 10,
+                    img:
+                        'https://www.topgear.com/sites/default/files/2022/09/1-BMW-3-Series.jpg',
+                    onTap: () {},
+                    belowbtn: purchaseConsts.txtBtn),
+                ProductModelSample(
+                    isCompleted: true,
+                    productName: 'Benz',
+                    price: 999,
+                    productLocation: 'Kozhikode,Kerala',
+                    distance: 10,
+                    img:
+                        'https://www.topgear.com/sites/default/files/2022/09/1-BMW-3-Series.jpg',
+                    onTap: () {},
+                    belowbtn: purchaseConsts.txtBtn),
+                ProductModelSample(
+                    isCompleted: false,
                     productName: 'Benz',
                     price: 999,
                     productLocation: 'Kozhikode,Kerala',

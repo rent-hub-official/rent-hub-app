@@ -3,6 +3,7 @@ part 'purchase_history.g.dart';
 
 class PurchaseHistoryConstants {
   final txtHeading = "Purchase History";
+  final txtBookingHistory = "Order History";
   final txtOngoingOrders = "Ongoing Orders";
   final txtCompletedOrders = "Completed Orders";
   final txtOrderplaced = "Order placed";

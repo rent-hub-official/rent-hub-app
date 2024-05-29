@@ -6,7 +6,7 @@ class OrderHistoryConstants {
   final txtPendingOrder = "Pending Order";
   final txtCompletedOrder = "Completed Order";
   final txtAccept = "Accept";
-  final txRejectt = "Reject";
+  final txtReject = "Reject";
   final txtEnterCode = "Enter the unique code";
   final txtConfirm = "Confirm";
 }

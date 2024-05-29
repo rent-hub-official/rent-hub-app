@@ -10,6 +10,7 @@ class ListOfPurchaseHistoryWidget extends ConsumerWidget {
   const ListOfPurchaseHistoryWidget(
       {super.key, required this.productModelSample});
 
+// gets sample model class change model class necessery
   final List<ProductModelSample> productModelSample;
 
   @override
@@ -47,10 +48,10 @@ class ListOfPurchaseHistoryWidget extends ConsumerWidget {
                         : AppColorPalettes.blue,
                     child: Center(
                       child: Text(
-                        productModelSample[index].isCompleted ?? false
+                        productModelSample[index].isCompleted ?? true
                             ? purchaseConsts.txtCompleted
                             : purchaseConsts.txtPending,
-                        // style: context.typography.bodyWhite,
+                        style: context.typography.bodyWhite,
                       ),
                     ),
                   ),
