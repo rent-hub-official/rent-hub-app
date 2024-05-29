@@ -38,7 +38,7 @@ class InputMessageFieldWidget extends ConsumerWidget {
                 // TODO share attachments
               },
               icon: Icon(
-                color: context.colors.secondary,
+                color: context.colors.border,
                 Icons.attachment,
                 size: context.spaces.space_300,
               ),
