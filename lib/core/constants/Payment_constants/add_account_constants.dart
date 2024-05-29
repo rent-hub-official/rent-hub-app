@@ -11,7 +11,7 @@ class AddBankAccountConstants {
   final String txtIfsc = 'IFSC Code';
   final String txtAcNumber = 'Account Number';
   final String txtConfirm = 'Account Number Confirm';
-  final String termsAndConditionsct1 =
+  final String txtTermsAndConditionsct1 =
       '*By adding this bank account, I agree to ';
   final String txtTermAndConditionSctn2 = ' RentHub T&Cs';
   final String txtTermAndConditionSctn3 =

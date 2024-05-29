@@ -16,7 +16,7 @@ class TermsAndConditionText extends StatelessWidget {
       padding: EdgeInsets.only(top: 20.0, bottom: context.spaces.space_50),
       child: RichText(
         text: TextSpan(
-          text: addBankConsts.termsAndConditionsct1,
+          text: addBankConsts.txtTermsAndConditionsct1,
           style: context.typography.body,
           children: <TextSpan>[
             TextSpan(
