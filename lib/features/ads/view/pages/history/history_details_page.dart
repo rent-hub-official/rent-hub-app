@@ -13,7 +13,7 @@ class HistoryDetailsPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // purchase history constants
-    final purchaseConsts = ref.read(purchaseHistoryProvider);
+    final purchaseConsts = ref.read(purchaseHistoryConstantsProvider);
 
     // selected tab
     final selectedTabIndex = useState<int>(0);
@@ -63,10 +63,10 @@ class HistoryDetailsPage extends HookConsumerWidget {
               width: double.infinity,
               child: Center(
                   child: Text(
-                "purchaseConsts.txtPurchaseHistory",
-                // style: selectedTabIndex.value == 1
-                // ? context.typography.body
-                // : context.typography.bodyWhite,
+                purchaseConsts.txtHeading,
+                style: selectedTabIndex.value == 1
+                    ? context.typography.body
+                    : context.typography.bodyWhite,
               )),
             ),
             Container(

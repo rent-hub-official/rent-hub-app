@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class AppTypographyExtension extends ThemeExtension<AppTypographyExtension> {
   final TextStyle body;
+  final TextStyle bodyWhite;
   final TextStyle bodySemibold;
   final TextStyle bodyLarge;
   final TextStyle bodyLargeSemiBold;
@@ -22,6 +23,7 @@ class AppTypographyExtension extends ThemeExtension<AppTypographyExtension> {
 
   AppTypographyExtension({
     required this.body,
+    required this.bodyWhite,
     required this.bodyLarge,
     required this.bodySemibold,
     required this.bodyLargeSemiBold,
@@ -42,6 +44,7 @@ class AppTypographyExtension extends ThemeExtension<AppTypographyExtension> {
   @override
   ThemeExtension<AppTypographyExtension> copyWith({
     TextStyle? body,
+    TextStyle? bodyWhite,
     TextStyle? bodySemibold,
     TextStyle? bodyLarge,
     TextStyle? bodyLargeSemiBold,
@@ -60,6 +63,7 @@ class AppTypographyExtension extends ThemeExtension<AppTypographyExtension> {
   }) {
     return AppTypographyExtension(
       body: body ?? this.body,
+      bodyWhite: bodyWhite ?? this.bodyWhite,
       bodyLarge: bodyLarge ?? this.bodyLarge,
       bodySemibold: bodySemibold ?? this.bodySemibold,
       bodyLargeSemiBold: bodyLargeSemiBold ?? this.bodyLargeSemiBold,
@@ -86,6 +90,7 @@ class AppTypographyExtension extends ThemeExtension<AppTypographyExtension> {
     }
     return AppTypographyExtension(
       body: TextStyle.lerp(body, other.body, t)!,
+      bodyWhite: TextStyle.lerp(bodyWhite, other.bodyWhite, t)!,
       bodyLarge: TextStyle.lerp(bodyLarge, other.bodyLarge, t)!,
       bodySemibold: TextStyle.lerp(bodySemibold, other.bodySemibold, t)!,
       bodyLargeSemiBold:

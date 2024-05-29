@@ -15,7 +15,7 @@ class ListOfBookingHistoryWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // purchase history constants
-    final purchaseConsts = ref.read(purchaseHistoryProvider);
+    final purchaseConsts = ref.read(purchaseHistoryConstantsProvider);
 
     return ListView.builder(
       shrinkWrap: true,

@@ -15,7 +15,7 @@ class ListOfPurchaseHistoryWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // purchase history constants
-    final purchaseConsts = ref.read(purchaseHistoryProvider);
+    final purchaseConsts = ref.read(purchaseHistoryConstantsProvider);
 
     return ListView.builder(
       shrinkWrap: true,
@@ -48,8 +48,8 @@ class ListOfPurchaseHistoryWidget extends ConsumerWidget {
                     child: Center(
                       child: Text(
                         productModelSample[index].isCompleted ?? false
-                            ? 'purchaseConsts.txtCompleted'
-                            : 'purchaseConsts.txtPending',
+                            ? purchaseConsts.txtCompleted
+                            : purchaseConsts.txtPending,
                         // style: context.typography.bodyWhite,
                       ),
                     ),
