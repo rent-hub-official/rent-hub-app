@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/icon_constants.dart';
 import 'package:rent_hub/core/constants/profile_page_constants/profile_page_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/core/theme/theme_provider.dart';
 import 'package:rent_hub/features/authentication/view/widgets/profile_header_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/profile_option_tile_widget.dart';
+import 'package:rent_hub/features/authentication/view/widgets/theme_switch_button.dart';
 
-class ProfilePage extends ConsumerWidget {
+class ProfilePage extends HookConsumerWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final constants = ref.watch(profilePageConstantsProvider);
+    final themeSwitch = useState<bool>(false);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.colors.primary,
         actions: [
-          SwitchTheme(
-              data: ref.watch(themeProvider).switchTheme,
-              child: Icon(Icons.light_mode)),
+          ThemeSwitchButton(themeSwitch: themeSwitch),
+          SizedBox(
+            width: context.spaces.space_200,
+          ),
         ],
       ),
       body: Column(
@@ -28,7 +32,9 @@ class ProfilePage extends ConsumerWidget {
           ProfileHeaderWidget(
             name: 'Amal Raj',
             phone: '+91 *******345',
-            img: ref.watch(iconConstantsProvider).icProfile,//profile image
+            child: Image.asset(
+              ref.watch(iconConstantsProvider).icProfile,
+            ), //profile image
           ),
           Padding(
             padding: EdgeInsets.all(context.spaces.space_200),
@@ -42,11 +48,6 @@ class ProfilePage extends ConsumerWidget {
                 ProfileOptionTile(
                   icon: Icons.history,
                   text: constants.txtOrderHistory,
-                  onTap: () {},
-                ),
-                ProfileOptionTile(
-                  icon: Icons.swap_horiz,
-                  text: constants.txtPurchaseHistory,
                   onTap: () {},
                 ),
                 ProfileOptionTile(
@@ -73,3 +74,4 @@ class ProfilePage extends ConsumerWidget {
     );
   }
 }
+

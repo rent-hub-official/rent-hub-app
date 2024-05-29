@@ -4,12 +4,12 @@ import 'package:rent_hub/core/theme/app_theme.dart';
 class ProfileHeaderWidget extends StatelessWidget {
   final String name;
   final String phone;
-  final String img;
+  final Widget child;
   const ProfileHeaderWidget({
     super.key,
     required this.name,
     required this.phone,
-    required this.img,
+    required this.child,
   });
 
   @override
@@ -44,10 +44,12 @@ class ProfileHeaderWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(name, style: context.typography.h2Bold),
+                    SizedBox(height: context.spaces.space_100,),
                     Text(
                       phone,
                       style: context.typography.h3Bold,
-                    )
+                    ),
+                    SizedBox(height: context.spaces.space_500,)
                   ],
                 ),
               ),
@@ -58,7 +60,7 @@ class ProfileHeaderWidget extends StatelessWidget {
             child: CircleAvatar(
                 backgroundColor: context.colors.cardBackground,
                 radius: context.spaces.space_400 * 3,
-                child: Image.asset(img)),
+                child: child),
           ),
         ],
       ),

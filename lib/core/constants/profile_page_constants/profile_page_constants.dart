@@ -3,8 +3,7 @@ part 'profile_page_constants.g.dart';
 
 class ProfilePageConstants {
   final txtMyAds = "My Ads";
-  final txtOrderHistory = "Order History";
-  final txtPurchaseHistory = "Purchase history";
+  final txtOrderHistory = "History";
   final txtDeal = "Make a Deal";
   final txtAccountSettings = "Account Settings";
   final txtHelpSupport = "Help & support";
