@@ -11,6 +11,8 @@ class ProductCardWidget extends ConsumerWidget {
   final String img;
   final Function() onTap;
   final String belowbtn;
+  final bool isFavorite;
+  final void Function()? favoriteTap;
 
   const ProductCardWidget({
     super.key,
@@ -21,6 +23,8 @@ class ProductCardWidget extends ConsumerWidget {
     required this.img,
     required this.onTap,
     required this.belowbtn,
+    this.isFavorite = false,
+    this.favoriteTap,
   });
 
   @override
@@ -81,13 +85,18 @@ class ProductCardWidget extends ConsumerWidget {
                             Positioned(
                               top: context.spaces.space_100,
                               left: context.spaces.space_100,
-                              child: CircleAvatar(
-                                radius: context.spaces.space_200,
-                                backgroundColor:
-                                    AppColorPalettes.white500.withOpacity(0.4),
-                                child: const Icon(
-                                  Icons.favorite,
-                                  color: AppColorPalettes.white500,
+                              child: InkWell(
+                                onTap: favoriteTap,
+                                child: CircleAvatar(
+                                  radius: context.spaces.space_200,
+                                  backgroundColor: AppColorPalettes.white500
+                                      .withOpacity(0.4),
+                                  child: Icon(
+                                    Icons.favorite,
+                                    color: isFavorite
+                                        ? AppColorPalettes.red500
+                                        : AppColorPalettes.white500,
+                                  ),
                                 ),
                               ),
                             ),
@@ -114,7 +123,7 @@ class ProductCardWidget extends ConsumerWidget {
                                   text: TextSpan(
                                     style: context.typography.bodyLargeSemiBold,
                                     children: [
-                                      TextSpan(text: '$price'),
+                                      TextSpan(text: '₹ $price'),
                                       TextSpan(
                                         text: '/Day',
                                         style: context.typography.bodySmall,
