@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:rent_hub/core/theme/app_theme.dart';
 
-class RoundedbtnWidget extends StatelessWidget {
+class RoundedIconButton extends StatelessWidget {
   final Function() onTap;
   final IconData icon;
-  final Color? backgroundclr;
+  final Color? backgroundColor;
   final double? radius;
-  const RoundedbtnWidget({
+  const RoundedIconButton({
     super.key,
     required this.onTap,
     required this.icon,
-    required this.backgroundclr,
+    this.backgroundColor,
     this.radius,
   });
 
@@ -17,8 +18,13 @@ class RoundedbtnWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-      backgroundColor: backgroundclr,
-      child: IconButton(onPressed: onTap, icon: Icon(icon)),
+      backgroundColor: backgroundColor ?? context.colors.iconButtonBackgroud,
+      child: IconButton(
+          onPressed: onTap,
+          icon: Icon(
+            icon,
+            color: context.colors.iconButtonIcon,
+          )),
     );
   }
 }
