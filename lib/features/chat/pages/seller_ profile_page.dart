@@ -7,7 +7,7 @@ import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/chat/widgets/seller_details_widget.dart';
 
-class CarRentalScreen extends ConsumerWidget {
+class SellerProfilePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Watch the seller profile provider to get the constants
