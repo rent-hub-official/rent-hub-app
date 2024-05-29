@@ -8,6 +8,8 @@ class PaymentFailed {
   final txtReferenceId = "Reference ID";
   final txtPaymentMethod = "Payment method";
   final txtRetry = "Retry";
+  final txtExclamation = "!";
+
 }
 
  
