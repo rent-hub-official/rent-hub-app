@@ -7,11 +7,15 @@ import 'package:rent_hub/features/chat/view/widgets/received_message_widget.dart
 import 'package:rent_hub/features/chat/view/widgets/sent_message_widget.dart';
 
 class ChatDetailsPage extends ConsumerWidget {
-  ChatDetailsPage({super.key});
+  ChatDetailsPage(
+      {required this.userName, required this.onlineStatus, super.key});
   // router path
   final String routerPath = 'ChatDetailsPage';
   // input message controller
   final TextEditingController inputMessageController = TextEditingController();
+  // recevier username and status
+  final String userName;
+  final String onlineStatus;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,12 +37,13 @@ class ChatDetailsPage extends ConsumerWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                //
                 Text(
-                  'Name',
+                  userName,
                   style: context.typography.h3Bold,
                 ),
                 Text(
-                  'Online',
+                  onlineStatus,
                   style: context.typography.bodySmall,
                 ),
               ],
