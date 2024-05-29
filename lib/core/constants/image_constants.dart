@@ -10,6 +10,7 @@ class ImageConstants {
   final imgOnboarding2 = "${imagePath}onboarding2.svg";
   final imgOnboarding3 = "${imagePath}onboarding3.svg";
   final imgOtpGirl = "${imagePath}otp_girl.svg";
+  final imgSuccessful = "${imagePath}otp_girl.svg";
   final imgProfile = "${imagePath}profile.svg";
   final imgNoFavorites = "${imagePath}no_favorites.svg";
 }
