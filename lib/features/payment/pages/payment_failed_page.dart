@@ -8,13 +8,14 @@ import 'package:rent_hub/features/payment/widgets/payment/payment_info_widget.da
 import 'package:rent_hub/features/payment/widgets/payment/payment_failed_icon.dart';
 
 class PaymentFailedPage extends ConsumerWidget {
-  @override
+  @override  
   Widget build(BuildContext context, WidgetRef ref) {
     final constant = ref.watch(paymentFailedProvider);
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(
-            context.spaces.space_200), // Padding for the entire body
+        padding: EdgeInsets.all( 
+          
+            context.spaces.space_200), //   Padding for the entire body
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
