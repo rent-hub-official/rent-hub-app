@@ -20,7 +20,7 @@ class PaymentFailedIcon extends ConsumerWidget {
       ),
       child: Center(
           child: Text(
-        constants.exclamationicon,
+        constants.txtexclamation,
         style: context.typography.h1Bold.copyWith(
             fontSize: context.spaces.space_700 * 2,
             color: AppColorPalettes.red500),

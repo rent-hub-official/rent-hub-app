@@ -101,7 +101,7 @@ class PaymentFailedPage extends ConsumerWidget {
                   top:
                       context.spaces.space_800), // Padding for the retry button
               child: MainBtnWidget(
-                  onTap: () {}, btnTxt: constant.txtBtn), // Retry button
+                  onTap: () {}, btnTxt: constant.txtRetry), // Retry button
             )
           ],
         ),
