@@ -10,7 +10,8 @@ class PaymentFailed {
   final txtRetry = "Retry";
 }
 
-@riverpod
+ 
+ @riverpod
 PaymentFailed paymentFailed(PaymentFailedRef ref) {
   return PaymentFailed();
 }
