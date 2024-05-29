@@ -137,7 +137,7 @@ class MyProductCardWidget extends ConsumerWidget {
                   children: [
                     TextSpan(
                         text:
-                            '${ref.watch(myProductsConstantsProvider).rupay} $poductPrice'),
+                            '${ref.watch(myProductsConstantsProvider).txtRupay} $poductPrice'),
                     TextSpan(
                       text: '/Day',
                       style: context.typography.bodySmall,
