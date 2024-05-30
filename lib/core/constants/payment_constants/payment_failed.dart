@@ -9,6 +9,7 @@ class PaymentFailed {
   final txtPaymentMethod = "Payment method";
   final txtRetry = "Retry";
   final txtExclamation = "!";
+
 }
 
 
