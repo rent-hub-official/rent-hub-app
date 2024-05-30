@@ -15,7 +15,7 @@ class ChatListPage extends ConsumerWidget {
         title: Consumer(
           builder: (context, ref, child) {
             return Text(
-              ref.watch(chatBoxProvider).txtHeading,
+              ref.watch(chatBoxConstantsProvider).txtHeading,
               style: context.typography.h1Bold,
             );
           },
@@ -59,7 +59,7 @@ class ChatListPage extends ConsumerWidget {
                               style: context.typography.body,
                             ),
                           ),
-                          color: context.colors.border,
+                          color: context.colors.messageBackground,
                         ),
                         Positioned(
                           right: context.spaces.space_50,
