@@ -3,25 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'ads_model.g.dart';
 part 'ads_model.freezed.dart';
-// final class AdsModel {
-//   final String productName;
-//   final double price;
-//   final String category;
-//   final String locationTitle;
-//   // final double? offer;  AmalRaj Kp
-//   final String? description;
-//   final double lat;
-//   final double long;
-//   final String userId;
-
-//   AdsModel(this.locationTitle, this.lat, this.long, this.userId,
-//       {required this.productName,
-//       required this.price,
-//       required this.category,
-//       // required this.location,
-//       // this.offer,
-//       this.description});
-// }
 
 @freezed
 class AdsModel with _$AdsModel {

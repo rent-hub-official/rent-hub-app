@@ -38,6 +38,7 @@ class ChatListPage extends ConsumerWidget {
               ),
               Expanded(
                 child: ListView.builder(
+                  // TODO
                   itemCount: 22,
                   itemBuilder: (context, index) {
                     return Stack(
