@@ -9,8 +9,6 @@ import 'package:rent_hub/features/ads/view/widgets/history_widgets/list_of_purch
 
 class HistoryDetailsPage extends HookConsumerWidget {
   HistoryDetailsPage({super.key});
-  // router path
-  static const String = '/HistoryDetailsPage';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
