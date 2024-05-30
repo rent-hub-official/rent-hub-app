@@ -9,6 +9,8 @@ import 'package:rent_hub/features/ads/view/widgets/history_widgets/list_of_purch
 
 class HistoryDetailsPage extends HookConsumerWidget {
   HistoryDetailsPage({super.key});
+  // router path
+  static const String = '/HistoryDetailsPage';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,6 +56,7 @@ class HistoryDetailsPage extends HookConsumerWidget {
           tabs: [
             Container(
               decoration: BoxDecoration(
+                  //choose background color of the tab
                   color: selectedTabIndex.value == 1
                       ? context.colors.cardBackground
                       : Colors.transparent,
@@ -81,6 +84,7 @@ class HistoryDetailsPage extends HookConsumerWidget {
               child: Center(
                 child: Text(
                   purchaseConsts.txtBookingHistory,
+                  //choose background color of the tab
                   style: selectedTabIndex.value == 0
                       ? context.typography.body
                       : context.typography.bodyWhite,

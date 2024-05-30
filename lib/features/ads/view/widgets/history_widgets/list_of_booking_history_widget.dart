@@ -9,7 +9,7 @@ class ListOfBookingHistoryWidget extends ConsumerWidget {
   const ListOfBookingHistoryWidget(
       {super.key, required this.productModelSample});
 
-// gets sample model class change model class necessery
+// gets sample model class , change model class necessery
   final List<ProductModelSample> productModelSample;
 
   @override
@@ -30,6 +30,7 @@ class ListOfBookingHistoryWidget extends ConsumerWidget {
                   img: productModelSample[index].img,
                   onTap: productModelSample[index].onTap,
                   belowbtn: productModelSample[index].belowbtn),
+              // choose reject or accept widget
               RejectOrAcceptWidget(
                   isRejected: productModelSample[index].isCompleted)
             ],

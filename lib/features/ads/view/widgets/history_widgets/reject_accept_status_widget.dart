@@ -13,8 +13,10 @@ class RejectOrAcceptWidget extends ConsumerWidget {
     // purchase history constants
     final purchaseConsts = ref.read(purchaseHistoryConstantsProvider);
     final orderConsts = ref.read(orderHistoryConstantsProvider);
-    // checks is rejected or pending or action required
+
+    /// checks is rejected or pending or action required
     return isRejected == null
+        // shows for the owner accept or reject
         ? Positioned.fill(
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -46,6 +48,7 @@ class RejectOrAcceptWidget extends ConsumerWidget {
               ),
             ),
           )
+        // shows label rejected or accepted
         : Positioned(
             top: context.spaces.space_400,
             right: -40,
