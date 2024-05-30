@@ -12,6 +12,7 @@ import 'package:rent_hub/features/authentication/controller/account_details_prov
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
 
 class CreateAccountPage extends HookConsumerWidget {
+  static const routePath = '/createAccount';
   const CreateAccountPage({super.key});
 
   @override

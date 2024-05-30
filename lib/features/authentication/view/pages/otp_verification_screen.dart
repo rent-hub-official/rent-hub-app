@@ -12,6 +12,7 @@ import 'package:rent_hub/features/authentication/view/widgets/otp_textfeild_widg
 
 class OtpVerificationScreen extends HookConsumerWidget {
   const OtpVerificationScreen({super.key});
+  static const routePath = '/otpVerification';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

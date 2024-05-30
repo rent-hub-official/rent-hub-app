@@ -10,6 +10,7 @@ import 'package:rent_hub/features/ads/view/widgets/product_details/smooth_page_I
 
 // Main widget that displays the product details page
 class ProductDetailsPage extends ConsumerWidget {
+  static const routePath = '/productsDetails';
   const ProductDetailsPage({super.key});
 
   @override
@@ -78,4 +79,3 @@ class ProductDetailsPage extends ConsumerWidget {
     );
   }
 }
-

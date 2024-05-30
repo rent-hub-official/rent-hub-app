@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
-class OnboardingContent {
+class OnboardingContentWidget {
   final String imagePath;
   final String heading;
   final String subHeading;
@@ -12,7 +12,7 @@ class OnboardingContent {
   final Widget widget;
   final void Function()? onTap;
 
-  OnboardingContent({
+  OnboardingContentWidget({
     required this.widget,
     required this.onTap,
     required this.imagePath,
@@ -23,7 +23,7 @@ class OnboardingContent {
 }
 
 class OnboardingPage extends ConsumerWidget {
-  final OnboardingContent content;
+  final OnboardingContentWidget content;
 
   const OnboardingPage({
     super.key,
@@ -94,4 +94,3 @@ class OnboardingPage extends ConsumerWidget {
     );
   }
 }
-

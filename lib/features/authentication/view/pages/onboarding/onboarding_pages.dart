@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/image_constants.dart';
@@ -6,10 +5,11 @@ import 'package:rent_hub/core/constants/onboarding_constants/onboarding1.dart';
 import 'package:rent_hub/core/constants/onboarding_constants/onboarding2.dart';
 import 'package:rent_hub/core/constants/onboarding_constants/onboarding3.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/features/authentication/view/pages/onboarding/onboading_template.dart';
+import 'package:rent_hub/features/authentication/view/widgets/onboarding_widgets/onboading_content_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/onboarding_widgets/loder_widget.dart';
 
 class OnboardingPages extends ConsumerWidget {
+  static const routePath = '/onboarding';
   const OnboardingPages({super.key});
 
   @override
@@ -20,7 +20,7 @@ class OnboardingPages extends ConsumerWidget {
     final image = ref.watch(imageConstantsProvider);
 
     final onboardingPages = [
-      OnboardingContent(
+      OnboardingContentWidget(
         onTap: () {
           pageController.animateToPage(
             1,
@@ -36,7 +36,7 @@ class OnboardingPages extends ConsumerWidget {
           progress: context.spaces.space_25 / 4,
         ),
       ),
-      OnboardingContent(
+      OnboardingContentWidget(
         widget: LoderWidget(
           progress: context.spaces.space_25 / 3,
         ),
@@ -52,11 +52,13 @@ class OnboardingPages extends ConsumerWidget {
         subHeading: constants2.txtSubHeading,
         skipText: constants2.txtSkip,
       ),
-      OnboardingContent(
+      OnboardingContentWidget(
         widget: LoderWidget(
           progress: context.spaces.space_25 / 2,
         ),
-        onTap: () {},
+        onTap: () {
+          // TODO:DIVYESH
+        },
         imagePath: image.imgOnboarding3,
         heading: constants3.txtHeading,
         subHeading: constants3.txtSubHeading,

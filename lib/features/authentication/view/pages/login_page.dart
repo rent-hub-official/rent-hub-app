@@ -13,6 +13,7 @@ import 'package:rent_hub/features/authentication/controller/authenticcation_prov
 
 class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
+  static const routePath = '/login';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

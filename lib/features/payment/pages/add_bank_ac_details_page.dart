@@ -11,7 +11,7 @@ import 'package:rent_hub/features/payment/widgets/terms_condition_text_widget.da
 class AddBankAcDetailsPage extends ConsumerWidget {
   AddBankAcDetailsPage({super.key});
   // router path
-  static const routePath = 'addBankAcDetailsPage';
+  static const routePath = '/addBankAcDetailsPage';
   // controllers for bank details
   final TextEditingController nameController = TextEditingController();
   final TextEditingController ifscController = TextEditingController();

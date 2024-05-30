@@ -43,6 +43,7 @@ final List<dynamic> myProductsList = [
 ];
 
 class MyProductsPage extends ConsumerWidget {
+  static const routePath = '/myProducts';
   const MyProductsPage({super.key});
 
   @override

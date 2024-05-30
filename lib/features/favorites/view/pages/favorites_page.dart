@@ -38,6 +38,7 @@ final List<dynamic> favoritesList = [
 
 class FavoritesPage extends ConsumerWidget {
   const FavoritesPage({super.key});
+  static final routePath = '/favoritespage';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

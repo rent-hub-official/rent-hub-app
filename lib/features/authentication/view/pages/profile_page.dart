@@ -10,6 +10,7 @@ import 'package:rent_hub/features/authentication/view/widgets/theme_switch_butto
 
 class ProfilePage extends HookConsumerWidget {
   const ProfilePage({super.key});
+  static const routePath = '/profile';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -74,4 +75,3 @@ class ProfilePage extends HookConsumerWidget {
     );
   }
 }
-

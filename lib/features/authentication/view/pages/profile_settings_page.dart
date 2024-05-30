@@ -9,6 +9,8 @@ import 'package:rent_hub/features/authentication/view/widgets/profile_settings_f
 
 class ProfileSettingsPage extends HookConsumerWidget {
   const ProfileSettingsPage({super.key});
+  static const routePath = '/profileSettings';
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // name editing controller

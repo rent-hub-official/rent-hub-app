@@ -11,6 +11,7 @@ import 'package:rent_hub/features/ads/view/widgets/add_product_page/description_
 import 'package:rent_hub/features/ads/view/widgets/add_product_page/image_picker_widget.dart';
 
 class AddProductPage extends ConsumerWidget {
+  static const routePath = '/addProduct';
   const AddProductPage({super.key});
 
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/constants/Payment_constants/payment_successful.dart';
+import 'package:rent_hub/core/constants/payment_constants/payment_successful.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
@@ -9,6 +9,8 @@ import 'package:rent_hub/features/payment/widgets/security_widget.dart';
 import 'package:rent_hub/features/payment/widgets/successful_widget.dart';
 
 class PaymentSuccessfulPage extends ConsumerWidget {
+  static const routePath = '/paymentsuccessfulpage';
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final constant = ref.watch(paymentSuccessfulProvider);
@@ -107,4 +109,3 @@ class PaymentSuccessfulPage extends ConsumerWidget {
     );
   }
 }
-

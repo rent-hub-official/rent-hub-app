@@ -9,7 +9,8 @@ import 'package:rent_hub/features/authentication/view/widgets/sliverAppbar_widge
 import 'package:rent_hub/features/authentication/view/widgets/tabbar_widget.dart';
 
 class HomePage extends HookConsumerWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
+  static const routePath = '/home';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
