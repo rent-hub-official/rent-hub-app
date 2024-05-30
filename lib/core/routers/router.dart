@@ -46,19 +46,13 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: BottomNavWidget.routePath,
-      builder: (context, state) {
-        return const BottomNavWidget();
-      },
-    ),
-    GoRoute(
-      path: LoginPage.routePath,
+      // path: LoginPage.routePath,
       builder: (context, state) {
         return const LoginPage();
       },
     ),
     GoRoute(
-      path: HomePage.routePath,
+      // path: HomePage.routePath,
       builder: (context, state) {
         return const HomePage();
       },

@@ -11,6 +11,8 @@ import 'package:rent_hub/features/authentication/controller/authenticcation_prov
 import 'package:rent_hub/features/authentication/view/widgets/otp_textfeild_widget.dart';
 
 class OtpVerificationScreen extends HookConsumerWidget {
+  static const routePath = '/otpvarificationpage';
+
   const OtpVerificationScreen({super.key});
   static const routePath = '/otpVerification';
 
