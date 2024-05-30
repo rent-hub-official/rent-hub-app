@@ -23,7 +23,6 @@ class SellerDetailsWidget extends ConsumerWidget {
         children: [
           CircleAvatar(
             radius: context.spaces.space_700,
-            // backgroundColor: Colors.white,
             backgroundImage: NetworkImage(userimg),
             child: Icon(
               Icons.person,
