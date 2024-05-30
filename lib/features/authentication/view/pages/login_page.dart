@@ -12,6 +12,8 @@ import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
 
 class LoginPage extends HookConsumerWidget {
+  static const routePath = '/loginpage';
+
   const LoginPage({super.key});
 
   @override

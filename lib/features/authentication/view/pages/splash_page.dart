@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rent_hub/core/constants/image_constants.dart';
 
 class SplashPage extends ConsumerWidget {
-  static const routePath = "/splash";
+  static const routePath = "/splashpage";
   const SplashPage({super.key});
 
   @override
