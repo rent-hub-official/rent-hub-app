@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:rent_hub/core/widgets/bottom_nav/bottom_nav_widget.dart';
 import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
 import 'package:rent_hub/features/ads/view/pages/notification_page.dart';
@@ -18,13 +19,36 @@ import 'package:rent_hub/features/payment/pages/payment_failed_page.dart';
 import 'package:rent_hub/main.dart';
 
 final router = GoRouter(
-  navigatorKey: MainApp.navigatorKey,
+  navigatorKey: MyApp.navigatorKey,
   initialLocation: SplashPage.routePath,
+  // initialLocation: OnboardingPages.routePath,
+  // redirect: (context, state) {
+  //   // TODO : rediretion user status
+  //   return '';
+  // },
   routes: [
+    GoRoute(
+      path: SplashPage.routePath,
+      builder: (context, state) {
+        return SplashPage();
+      },
+    ),
+    GoRoute(
+      path: OnBoardingPages.routePath,
+      builder: (context, state) {
+        return OnBoardingPages();
+      },
+    ),
     GoRoute(
       path: OtpVerificationScreen.routePath,
       builder: (context, state) {
         return const OtpVerificationScreen();
+      },
+    ),
+    GoRoute(
+      path: BottomNavWidget.routePath,
+      builder: (context, state) {
+        return const BottomNavWidget();
       },
     ),
     GoRoute(
@@ -97,12 +121,6 @@ final router = GoRouter(
       path: ChatDetailsPage.routePath,
       builder: (context, state) {
         return ChatDetailsPage();
-      },
-    ),
-    GoRoute(
-      path: OnboardingPages.routePath,
-      builder: (context, state) {
-        return OnboardingPages();
       },
     ),
     GoRoute(

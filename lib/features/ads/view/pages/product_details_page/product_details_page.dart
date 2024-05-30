@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rent_hub/core/constants/image_constants.dart';
+import 'package:rent_hub/core/constants/product_screen_constants/product_screen.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/product_screen_controller.dart';
-import 'package:rent_hub/features/ads/view/widgets/product_details/pay_button.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/prodcut_details_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/smooth_page_Indicator_wIdget.dart';
 
@@ -74,7 +75,13 @@ class ProductDetailsPage extends ConsumerWidget {
           ),
         ],
       ),
-      floatingActionButton: const PayButton(),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(
+            left: context.spaces.space_200, right: context.spaces.space_200),
+        child: MainBtnWidget(
+            onTap: () {},
+            btnTxt: ref.watch(productScreenConstantsProvider).txtbtn),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

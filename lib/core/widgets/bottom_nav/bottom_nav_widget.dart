@@ -5,6 +5,7 @@ import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/bottom_nav/animated_bottom_nav/animated_bottom_nav_bar.dart';
 
 class BottomNavWidget extends ConsumerWidget {
+  static const routePath = '/bottomNav';
   const BottomNavWidget({super.key});
 
   @override

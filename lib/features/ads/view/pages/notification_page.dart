@@ -19,6 +19,7 @@ class NotificationPage extends ConsumerWidget {
           padding: EdgeInsets.all(context.spaces.space_50),
           child: RoundedIconButton(
             onTap: () {
+              // TODO CHECK IT
               context.pop();
             },
             icon: Icons.chevron_left,

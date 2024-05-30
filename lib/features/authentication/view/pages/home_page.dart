@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/filters_sort_constants/filter_sort.dart';
 import 'package:rent_hub/core/constants/home_screen_constants/home_screen.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/features/ads/view/pages/notification_page.dart';
+import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
 import 'package:rent_hub/features/authentication/view/widgets/category_list_builder_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/sliverAppbar_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/tabbar_widget.dart';
@@ -51,6 +54,7 @@ class HomePage extends HookConsumerWidget {
 
     return RefreshIndicator(
       onRefresh: () async {
+        // TODO : INVALIDATE
         return null;
       },
       child: Scaffold(
@@ -60,8 +64,12 @@ class HomePage extends HookConsumerWidget {
             SliverAppbarWidget(
               currentLocTitle: 'koyikod',
               stateCountrySubtitle: 'kerala ,india',
-              notificationbtnOnTap: () {},
-              searchbtnOnTap: () {},
+              notificationbtnOnTap: () {
+                context.push(NotificationPage.routePath);
+              },
+              searchbtnOnTap: () {
+                // TODO :
+              },
             ),
             SliverToBoxAdapter(
               child: Column(
@@ -89,7 +97,10 @@ class HomePage extends HookConsumerWidget {
             children: [
               CategoryListBuilderWidget(
                 poductsList: products,
-                onTap: () {},
+                onTap: () {
+                  context.push(ProductDetailsPage.routePath);
+                  // TODO : check it
+                },
               ),
               CategoryListBuilderWidget(
                 poductsList: [
@@ -122,19 +133,31 @@ class HomePage extends HookConsumerWidget {
                     'https://www.livemint.com/lm-img/img/2023/03/26/1600x900/2-0-1412968002-Toyota-Fortuner2-0_1679755299241_1679801994107_1679801994107.jpg',
                   ],
                 ],
-                onTap: () {},
+                onTap: () {
+                  // TODO : CHECK IT
+                  context.push(ProductDetailsPage.routePath);
+                },
               ),
               CategoryListBuilderWidget(
                 poductsList: products,
-                onTap: () {},
+                onTap: () {
+                  // TODO : CHECK IT
+                  context.push(ProductDetailsPage.routePath);
+                },
               ),
               CategoryListBuilderWidget(
                 poductsList: products,
-                onTap: () {},
+                onTap: () {
+                  // TODO : CHECK IT
+                  context.push(ProductDetailsPage.routePath);
+                },
               ),
               CategoryListBuilderWidget(
                 poductsList: products,
-                onTap: () {},
+                onTap: () {
+                  // TODO : CHECK IT
+                  context.push(ProductDetailsPage.routePath);
+                },
               )
             ],
           ),

@@ -2,14 +2,17 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rent_hub/core/constants/create_account_constants/create_account.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/utils/snakbar/show_snackbar.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
 import 'package:rent_hub/features/authentication/controller/account_details_provider/account_details_provider.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
+import 'package:rent_hub/features/authentication/view/pages/home_page.dart';
 
 class CreateAccountPage extends HookConsumerWidget {
   static const routePath = '/createAccount';
@@ -91,7 +94,7 @@ class CreateAccountPage extends HookConsumerWidget {
                 ),
               ),
 
-              // Todo  dyvesh
+              // Todo  dyvesh not impoortent
               TextFeildWidget(
                 labeltxt: createAcConst.txtLabelName,
                 hinttxt: createAcConst.txtHintName,
@@ -117,8 +120,14 @@ class CreateAccountPage extends HookConsumerWidget {
                           userName: nameEditingController.text,
                         );
                     ref.invalidate(imageProvider);
+                    // TODO : Check it
+                    if (nameEditingController.text.isNotEmpty) {
+                      context.pushReplacement(HomePage.routePath);
+                    } else {
+                      SnackBarExtension(context)
+                          .showErrorSnackBar('Please enter a name');
+                    }
                     nameEditingController.clear();
-                    // TODO : navigate home page
                   },
                   btnTxt: createAcConst.txtbtn,
                 ),

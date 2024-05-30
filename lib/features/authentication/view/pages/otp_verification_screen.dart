@@ -70,16 +70,21 @@ class OtpVerificationScreen extends HookConsumerWidget {
                 ],
               ),
             ),
-            MainBtnWidget(
-              onTap: () {
-                // otp entered completed
-                ref.read(authenticationProvider.notifier).otpVerification(
-                      context,
-                      smsCode: otpPin.value,
-                    );
-              },
-              btnTxt:
-                  ref.watch(loginOtpVerificationConstantsProvider).verifyOtpBtn,
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.spaces.space_200),
+              child: MainBtnWidget(
+                onTap: () {
+                  // otp entered completed
+                  ref.read(authenticationProvider.notifier).otpVerification(
+                        context,
+                        smsCode: otpPin.value,
+                      );
+                },
+                btnTxt: ref
+                    .watch(loginOtpVerificationConstantsProvider)
+                    .verifyOtpBtn,
+              ),
             ),
           ],
         ),

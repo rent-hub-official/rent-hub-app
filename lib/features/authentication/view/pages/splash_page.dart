@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/constants/image_constants.dart';
+import 'package:rent_hub/features/authentication/view/pages/onboarding/onboarding_pages.dart';
 
 class SplashPage extends ConsumerWidget {
-  static const routePath = "/splash";
+  static const routePath = "/";
   const SplashPage({super.key});
 
   @override
@@ -12,6 +14,11 @@ class SplashPage extends ConsumerWidget {
     return Scaffold(
       body: Center(
           child: SvgPicture.asset(ref.watch(imageConstantsProvider).imgLogo)),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.arrow_circle_right_outlined),
+          onPressed: () {
+            context.push(OnBoardingPages.routePath);
+          }),
     );
   }
 }

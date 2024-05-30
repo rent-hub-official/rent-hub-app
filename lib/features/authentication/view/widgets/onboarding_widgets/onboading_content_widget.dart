@@ -56,7 +56,6 @@ class OnboardingPage extends ConsumerWidget {
                 top: context.spaces.space_100,
                 left: context.spaces.space_200,
                 right: context.spaces.space_200,
-                bottom: context.spaces.space_400,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,14 +67,15 @@ class OnboardingPage extends ConsumerWidget {
                     child: Text(content.heading, style: context.typography.h2),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: context.spaces.space_250),
+                    padding: EdgeInsets.only(top: context.spaces.space_100),
                     child: Text(
                       content.subHeading,
                       style: context.typography.bodyLarge,
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: context.spaces.space_400),
+                    padding: EdgeInsets.symmetric(
+                        vertical: context.spaces.space_100),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

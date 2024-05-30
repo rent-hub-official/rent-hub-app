@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/constants/image_constants.dart';
 import 'package:rent_hub/core/constants/onboarding_constants/onboarding1.dart';
 import 'package:rent_hub/core/constants/onboarding_constants/onboarding2.dart';
 import 'package:rent_hub/core/constants/onboarding_constants/onboarding3.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/features/authentication/view/pages/login_page.dart';
 import 'package:rent_hub/features/authentication/view/widgets/onboarding_widgets/onboading_content_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/onboarding_widgets/loder_widget.dart';
 
-class OnboardingPages extends ConsumerWidget {
-  static const routePath = '/onboarding';
-  const OnboardingPages({super.key});
+class OnBoardingPages extends ConsumerWidget {
+  static const routePath = '/onboardingpage';
+  const OnBoardingPages({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,7 +26,7 @@ class OnboardingPages extends ConsumerWidget {
         onTap: () {
           pageController.animateToPage(
             1,
-            duration: const Duration(milliseconds: 300),
+            duration: const Duration(seconds: 1),
             curve: Curves.linear,
           );
         },
@@ -43,7 +45,7 @@ class OnboardingPages extends ConsumerWidget {
         onTap: () {
           pageController.animateToPage(
             2,
-            duration: const Duration(milliseconds: 300),
+            duration: const Duration(seconds: 1),
             curve: Curves.linear,
           );
         },
@@ -58,6 +60,7 @@ class OnboardingPages extends ConsumerWidget {
         ),
         onTap: () {
           // TODO:DIVYESH
+          context.pushReplacement(LoginPage.routePath);
         },
         imagePath: image.imgOnboarding3,
         heading: constants3.txtHeading,

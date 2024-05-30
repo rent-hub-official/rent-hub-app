@@ -10,16 +10,17 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const ProviderScope(child: MainApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MainApp extends ConsumerWidget {
+class MyApp extends ConsumerWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
-  const MainApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       routerConfig: router,
       theme: ref.watch(themeProvider),
     );
