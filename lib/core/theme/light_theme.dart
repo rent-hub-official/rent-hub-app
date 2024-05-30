@@ -22,8 +22,9 @@ final _lighttheme = ThemeData(
         btnText: AppColorPalettes.white500,
         border: AppColorPalettes.grey600,
         bottomNavBorder: AppColorPalettes.grey600,
-        appBarBackground: AppColorPalettes.grey100,
         cardBackground: AppColorPalettes.white500,
+        messageBackground: AppColorPalettes.grey350,
+        appBarBackground: AppColorPalettes.grey100,
         iconButtonBackgroud: AppColorPalettes.white500,
         iconButtonIcon: AppColorPalettes.black500,
         bottomNavBar: AppColorPalettes.grey100,
@@ -36,6 +37,11 @@ final _lighttheme = ThemeData(
             fontSize: 14,
             fontFamily: 'poppins',
             color: AppColorPalettes.black500,
+            fontWeight: FontWeight.w500),
+        bodyWhite: const TextStyle(
+            fontSize: 14,
+            fontFamily: 'poppins',
+            color: AppColorPalettes.white500,
             fontWeight: FontWeight.w500),
         bodyLarge: const TextStyle(
             fontSize: 18,
