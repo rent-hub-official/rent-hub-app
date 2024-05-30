@@ -38,6 +38,11 @@ final _lighttheme = ThemeData(
             fontFamily: 'poppins',
             color: AppColorPalettes.black500,
             fontWeight: FontWeight.w500),
+        bodyWhite: const TextStyle(
+            fontSize: 14,
+            fontFamily: 'poppins',
+            color: AppColorPalettes.white500,
+            fontWeight: FontWeight.w500),
         bodyLarge: const TextStyle(
             fontSize: 18,
             fontFamily: 'poppins',
