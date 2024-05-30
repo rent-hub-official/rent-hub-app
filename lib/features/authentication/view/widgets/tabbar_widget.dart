@@ -2,35 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
 class TabbarWidget extends StatelessWidget {
-  final Function() onTap;
-  final bool isSelected = false;
-  final List<String> catogryItems = [
-    'All',
-    'vehicles',
-    'cloths',
-    'tools',
-    'others'
-  ];
+  const TabbarWidget({
+    super.key,
+    required this.tabController,
+    required this.categoryList,
+  });
 
-  TabbarWidget({super.key, required this.onTap});
+  final TabController tabController;
+  final List<String> categoryList;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: context.spaces.space_700,
-      width: double.infinity,
-      child: ListView.separated(
-        physics: const BouncingScrollPhysics(),
-        separatorBuilder: (context, index) =>
-            SizedBox(width: context.spaces.space_25),
-        scrollDirection: Axis.horizontal,
-        itemCount: catogryItems.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: onTap,
+    return TabBar(
+      controller: tabController,
+      splashFactory: NoSplash.splashFactory,
+      dividerColor: Colors.transparent,
+      labelColor: context.colors.primary,
+      indicatorColor: Colors.transparent,
+      labelPadding: EdgeInsets.only(right: context.spaces.space_200),
+      tabAlignment: TabAlignment.start,
+      isScrollable: true,
+      labelStyle: context.typography.bodySemibold,
+      tabs: [
+        for (int i = 0; i < categoryList.length; i++)
+          InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            onTap: () {
+              tabController.animateTo(i);
+            },
             child: Container(
               margin: EdgeInsets.all(context.spaces.space_100),
-              // width: apptheme.spaces.space_700,
               height: context.spaces.space_500,
               decoration: BoxDecoration(
                 color: context.colors.cardBackground,
@@ -41,15 +43,14 @@ class TabbarWidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                       horizontal: context.spaces.space_200),
                   child: Text(
-                    catogryItems[index],
+                    categoryList[i],
                     style: context.typography.body,
                   ),
                 ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+      ],
     );
   }
 }

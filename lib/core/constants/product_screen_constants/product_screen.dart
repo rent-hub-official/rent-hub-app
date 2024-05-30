@@ -5,6 +5,8 @@ class ProductScreen {
   final txtPerday = "/day";
   final txtDescription = "Description";
   final txtbtn = "Rent Now";
+  final redmoretext = "Red More";
+  final redlesstext = "Read more";
 }
 
 @riverpod

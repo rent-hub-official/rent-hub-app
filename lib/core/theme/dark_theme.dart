@@ -26,6 +26,8 @@ final _darktheme = ThemeData(
         cardBackground: AppColorPalettes.grey900,
         iconButtonBackgroud: AppColorPalettes.grey900,
         iconButtonIcon: AppColorPalettes.white500,
+        bottomNavBar: AppColorPalettes.grey1000,
+        messageBackground: AppColorPalettes.grey800,
       ),
       //AppSpaceExtension
       AppSpaceExtension.fromBaseSpace(8),
