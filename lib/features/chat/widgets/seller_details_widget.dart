@@ -5,15 +5,13 @@ import 'package:rent_hub/core/theme/app_theme.dart';
 class SellerDetailsWidget extends ConsumerWidget {
   const SellerDetailsWidget({
     super.key,
-    required this.sellerlocation,
-    required this.sellername,
-    required this.usertype,
-    required this.userimg,
+    required this.sellerLocation,
+    required this.sellerName,
+    required this.userImg,
   });
-  final String sellername;
-  final String sellerlocation;
-  final String usertype;
-  final String userimg;
+  final String sellerName;
+  final String sellerLocation;
+  final String userImg;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
@@ -23,7 +21,7 @@ class SellerDetailsWidget extends ConsumerWidget {
         children: [
           CircleAvatar(
             radius: context.spaces.space_700,
-            backgroundImage: NetworkImage(userimg),
+            backgroundImage: NetworkImage(userImg),
             child: Icon(
               Icons.person,
               size: 40,
@@ -33,12 +31,10 @@ class SellerDetailsWidget extends ConsumerWidget {
             padding: EdgeInsets.only(left: context.spaces.space_125 * 2),
             child: Column(
               children: [
-                Text(sellername, style: context.typography.h2SemiBold),
-                Text(usertype,
-                    textAlign: TextAlign.center,
-                    style: context.typography.bodySmall),
+                Text(sellerName, style: context.typography.h2SemiBold),
+
                 Text(
-                  sellerlocation,
+                  sellerLocation,
                   textAlign: TextAlign.center,
                   style: context.typography.bodySmall,
                 ),

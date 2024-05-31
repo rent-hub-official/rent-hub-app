@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/constants/my_products_constants/my_products_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
 import 'package:rent_hub/features/ads/view/widgets/my_product_card/my_product_card_widget.dart';
 
 final List<dynamic> myProductsList = [
@@ -43,7 +45,11 @@ final List<dynamic> myProductsList = [
 ];
 
 class MyProductsPage extends ConsumerWidget {
-  const MyProductsPage({super.key});
+  static const routePath = '/myProducts';
+  // final Function() myProductsonTap;
+  const MyProductsPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -52,6 +58,7 @@ class MyProductsPage extends ConsumerWidget {
         leading: IconButton(
           onPressed: () {
             // TODO : navigate pop
+            context.pop();
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
@@ -65,6 +72,9 @@ class MyProductsPage extends ConsumerWidget {
         padding: EdgeInsets.symmetric(horizontal: context.spaces.space_200),
         child: ListView.separated(
           itemBuilder: (context, index) => MyProductCardWidget(
+            myProductsOnTap: () {
+              context.push(ProductDetailsPage.routePath);
+            },
             Productimage: myProductsList[index][0],
             productName: myProductsList[index][1],
             poductPrice: myProductsList[index][2],

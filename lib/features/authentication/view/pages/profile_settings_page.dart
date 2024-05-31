@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/user_profile_constants/user_profile_settings.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
+import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
 import 'package:rent_hub/features/authentication/view/widgets/profile_image_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/profile_settings_field_widget.dart';
+import 'package:rent_hub/features/payment/pages/add_bank_ac_details_page.dart';
 
 class ProfileSettingsPage extends HookConsumerWidget {
+  static const routePath = '/profileSettings';
   const ProfileSettingsPage({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // name editing controller
@@ -17,7 +22,10 @@ class ProfileSettingsPage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            // TODO: CHECK IT
+            context.pop();
+          },
           icon: Icon(Icons.arrow_back_ios),
         ),
         title: Text(
@@ -36,7 +44,9 @@ class ProfileSettingsPage extends HookConsumerWidget {
           children: [
             // profile picture
             ProfileImgeWidget(
-              onEdit: () {},
+              onEdit: () {
+                // TODO : AMAL
+              },
             ),
             // height spacing
             SizedBox(height: context.spaces.space_600),
@@ -48,6 +58,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
             TextFeildWidget(
               textController: nameEditingController,
               validator: (value) {
+                // TODO
                 return;
               },
               suffixicon: Icon(
@@ -60,18 +71,25 @@ class ProfileSettingsPage extends HookConsumerWidget {
               title: ref
                   .watch(userProfileSettingsConstantsProvider)
                   .txtBankAccount,
-              onPressed: () {},
+              onPressed: () {
+                context.push(AddBankAcDetailsPage.routePath);
+              },
             ),
             // change phone number
             ProfileSettingsFieldWidget(
               title:
                   ref.watch(userProfileSettingsConstantsProvider).txtChangeNo,
-              onPressed: () {},
+              onPressed: () {
+                // TODO AMAL
+              },
             ),
             // log out
             ProfileSettingsFieldWidget(
               title: ref.watch(userProfileSettingsConstantsProvider).txtLOgOut,
-              onPressed: () {},
+              onPressed: () {
+                // TODO CHECK IT
+                ref.watch(authenticationProvider.notifier).logoutUser(context);
+              },
             ),
             // delete account
             ProfileSettingsFieldWidget(

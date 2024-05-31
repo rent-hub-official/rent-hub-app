@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/history_constants/purchase_history.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
@@ -8,6 +9,8 @@ import 'package:rent_hub/features/ads/view/widgets/history_widgets/list_of_booki
 import 'package:rent_hub/features/ads/view/widgets/history_widgets/list_of_purchase_history_widget.dart';
 
 class HistoryDetailsPage extends HookConsumerWidget {
+  static const routePath = '/historydetailspage';
+
   HistoryDetailsPage({super.key});
 
   @override
@@ -34,6 +37,7 @@ class HistoryDetailsPage extends HookConsumerWidget {
           child: RoundedIconButton(
               onTap: () {
                 // TODO navigate previos page
+                context.pop();
               },
               icon: Icons.chevron_left),
         ),

@@ -13,10 +13,12 @@ import 'package:rent_hub/core/widgets/textfeild_widget.dart';
 import 'package:rent_hub/features/ads/controller/category_controller/category_provider.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/product_screen_controller.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
+import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
 import 'package:rent_hub/features/ads/view/widgets/add_product_page/description_feild_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/add_product_page/image_picker_widget.dart';
 
 class AddProductPage extends HookConsumerWidget {
+  static const routePath = '/addProduct';
   const AddProductPage({super.key});
 
   @override
@@ -130,7 +132,7 @@ class AddProductPage extends HookConsumerWidget {
                             ),
                         ],
                         onChanged: (value) {
-                          indexSelector.value = value as int?;
+                          indexSelector.value = value;
                         },
                       ),
                       TextFeildWidget(
@@ -183,6 +185,7 @@ class AddProductPage extends HookConsumerWidget {
                                   description: descriptionController.text,
                                   price: double.parse(priceController.text),
                                 ));
+                            context.pushReplacement(MyProductsPage.routePath);
                           },
                           btnTxt: constants.txtBtn)
                     ],

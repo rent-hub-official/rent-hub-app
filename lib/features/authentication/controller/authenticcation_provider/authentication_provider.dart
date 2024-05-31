@@ -1,10 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/exception/base_exception/base_exception.dart';
 import 'package:rent_hub/core/utils/snakbar/error_snackbar.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_state.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases.dart';
+import 'package:rent_hub/features/authentication/view/pages/create_account_page.dart';
+import 'package:rent_hub/features/authentication/view/pages/otp_verification_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'authentication_provider.g.dart';
@@ -39,7 +42,8 @@ class Authentication extends _$Authentication {
 
       // navigate otp page
       Future.sync(() {
-        // TODO: complete  @Diviyesh
+        // TODO: complete chek it
+        context.pushReplacement(OtpVerificationScreen.routePath);
       });
     } on BaseException catch (e) {
       state = state.copyWith(isLoading: false);
@@ -71,8 +75,9 @@ class Authentication extends _$Authentication {
         // if user is logged push home page
         if (userCredential.user != null) {
           Future.sync(() {
-            // TODO: complete  @Diviyesh
+            // TODO: complete  check it
             //? navigate home page
+            context.pushReplacement(CreateAccountPage.routePath);
           });
         } else {
           Future.sync(

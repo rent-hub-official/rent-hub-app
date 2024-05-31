@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/chat_box_constants/chat_box.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';
 
 class ChatListPage extends ConsumerWidget {
   const ChatListPage({super.key});
@@ -43,24 +45,29 @@ class ChatListPage extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     return Stack(
                       children: [
-                        Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  context.spaces.space_300)),
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              child: Icon(Icons.person),
+                        InkWell(
+                          onTap: () {
+                            context.push(ChatDetailsPage.routePath);
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    context.spaces.space_300)),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                child: Icon(Icons.person),
+                              ),
+                              title: Text(
+                                'name',
+                                style: context.typography.bodyLargeSemiBold,
+                              ),
+                              subtitle: Text(
+                                'last msg',
+                                style: context.typography.body,
+                              ),
                             ),
-                            title: Text(
-                              'name',
-                              style: context.typography.bodyLargeSemiBold,
-                            ),
-                            subtitle: Text(
-                              'last msg',
-                              style: context.typography.body,
-                            ),
+                            color: context.colors.messageBackground,
                           ),
-                          color: context.colors.messageBackground,
                         ),
                         Positioned(
                           right: context.spaces.space_50,
