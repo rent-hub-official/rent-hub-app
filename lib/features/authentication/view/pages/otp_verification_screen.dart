@@ -11,6 +11,8 @@ import 'package:rent_hub/features/authentication/controller/authenticcation_prov
 import 'package:rent_hub/features/authentication/view/widgets/otp_textfeild_widget.dart';
 
 class OtpVerificationScreen extends HookConsumerWidget {
+  static const routePath = '/otpvarificationpage';
+
   const OtpVerificationScreen({super.key});
 
   @override
@@ -69,16 +71,21 @@ class OtpVerificationScreen extends HookConsumerWidget {
                 ],
               ),
             ),
-            MainBtnWidget(
-              onTap: () {
-                // otp entered completed
-                ref.read(authenticationProvider.notifier).otpVerification(
-                      context,
-                      smsCode: otpPin.value,
-                    );
-              },
-              btnTxt:
-                  ref.watch(loginOtpVerificationConstantsProvider).verifyOtpBtn,
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.spaces.space_200),
+              child: MainBtnWidget(
+                onTap: () {
+                  // otp entered completed
+                  ref.read(authenticationProvider.notifier).otpVerification(
+                        context,
+                        smsCode: otpPin.value,
+                      );
+                },
+                btnTxt: ref
+                    .watch(loginOtpVerificationConstantsProvider)
+                    .verifyOtpBtn,
+              ),
             ),
           ],
         ),

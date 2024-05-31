@@ -7,6 +7,7 @@ import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/notification_page/notification_tile_widget.dart';
 
 class NotificationPage extends ConsumerWidget {
+  static const routePath = '/notification';
   const NotificationPage({super.key});
 
   @override
@@ -18,6 +19,7 @@ class NotificationPage extends ConsumerWidget {
           padding: EdgeInsets.all(context.spaces.space_50),
           child: RoundedIconButton(
             onTap: () {
+              // TODO CHECK IT
               context.pop();
             },
             icon: Icons.chevron_left,

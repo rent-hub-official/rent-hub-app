@@ -18,6 +18,7 @@ class SliverAppbarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      automaticallyImplyLeading: false,
       floating: true,
       backgroundColor: context.colors.appBarBackground,
       pinned: false,

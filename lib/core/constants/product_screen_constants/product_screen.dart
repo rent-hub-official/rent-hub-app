@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'product_screen.g.dart';
 
-class ProductScreen {
+class ProductScreenConstants {
   final txtPerday = "/day";
   final txtDescription = "Description";
   final txtbtn = "Rent Now";
@@ -10,6 +10,6 @@ class ProductScreen {
 }
 
 @riverpod
-ProductScreen productScreen(ProductScreenRef ref) {
-  return ProductScreen();
+ProductScreenConstants productScreenConstants(ProductScreenConstantsRef ref) {
+  return ProductScreenConstants();
 }

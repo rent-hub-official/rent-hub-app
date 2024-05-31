@@ -25,6 +25,7 @@ dependencies:
   json_annotation: ^4.9.0
   flutter_hooks: ^0.20.5
   hooks_riverpod: ^2.5.1
+  delightful_toast: ^1.1.0
   qr_flutter: ^4.1.0
 
 dev_dependencies:
@@ -42,6 +43,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/ 
+    - assets/icons/ 
 
   fonts:
     - family: Poppins

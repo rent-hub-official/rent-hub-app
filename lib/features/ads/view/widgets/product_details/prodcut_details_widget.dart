@@ -35,7 +35,7 @@ class ProductDetailsWidget extends ConsumerWidget {
   final void Function() phoneonPressed;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final constants = ref.watch(productScreenProvider);
+    final constants = ref.watch(productScreenConstantsProvider);
     return Center(
       child: Center(
         child: Padding(
@@ -130,7 +130,7 @@ class ProductDetailsWidget extends ConsumerWidget {
                     const Divider(),
                     // Description text with read more functionality
                     Text(
-                      ref.watch(productScreenProvider).txtDescription,
+                      ref.watch(productScreenConstantsProvider).txtDescription,
                       style: context.typography.bodyLargeSemiBold,
                     ),
                     Text(
