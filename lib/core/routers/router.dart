@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/widgets/bottom_nav/bottom_nav_widget.dart';
 import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
+import 'package:rent_hub/features/ads/view/pages/history/history_details_page.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
 import 'package:rent_hub/features/ads/view/pages/notification_page.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
@@ -13,6 +14,7 @@ import 'package:rent_hub/features/authentication/view/pages/profile_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/profile_settings_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/splash_page.dart';
 import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';
+import 'package:rent_hub/features/chat/view/pages/seller_profile_page.dart';
 import 'package:rent_hub/features/favorites/view/pages/favorites_page.dart';
 import 'package:rent_hub/features/payment/pages/add_bank_ac_details_page.dart';
 import 'package:rent_hub/features/payment/pages/payment_failed_page.dart';
@@ -34,9 +36,9 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: OnBoardingPages.routePath,
+      path: OnboardingPages.routePath,
       builder: (context, state) {
-        return OnBoardingPages();
+        return OnboardingPages();
       },
     ),
     GoRoute(
@@ -46,13 +48,19 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      // path: LoginPage.routePath,
+      path: BottomNavWidget.routePath,
+      builder: (context, state) {
+        return const BottomNavWidget();
+      },
+    ),
+    GoRoute(
+      path: LoginPage.routePath,
       builder: (context, state) {
         return const LoginPage();
       },
     ),
     GoRoute(
-      // path: HomePage.routePath,
+      path: HomePage.routePath,
       builder: (context, state) {
         return const HomePage();
       },
@@ -121,6 +129,18 @@ final router = GoRouter(
       path: PaymentFailedPage.routePath,
       builder: (context, state) {
         return PaymentFailedPage();
+      },
+    ),
+    GoRoute(
+      path: HistoryDetailsPage.routePath,
+      builder: (context, state) {
+        return HistoryDetailsPage();
+      },
+    ),
+    GoRoute(
+      path: SellerProfilePage.routePath,
+      builder: (context, state) {
+        return SellerProfilePage();
       },
     ),
   ],

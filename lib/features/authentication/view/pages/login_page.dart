@@ -15,7 +15,6 @@ class LoginPage extends HookConsumerWidget {
   static const routePath = '/loginpage';
 
   const LoginPage({super.key});
-  static const routePath = '/login';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,7 +53,6 @@ class LoginPage extends HookConsumerWidget {
                 initialCountryCode: 'IN',
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  hintText: constants.txtPhoneNoExample,
                   labelText: constants.txtPhoneNo,
                   contentPadding: EdgeInsets.only(
                     bottom: context.spaces.space_200,

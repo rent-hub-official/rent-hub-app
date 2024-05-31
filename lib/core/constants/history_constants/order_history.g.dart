@@ -6,19 +6,23 @@ part of 'order_history.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$orderHistoryHash() => r'34f9d4f6fd87a7f9e46d2886942aa22a86242668';
+String _$orderHistoryConstantsHash() =>
+    r'b56379abbe410436d3685b66296177a6caa976d0';
 
-/// See also [orderHistory].
-@ProviderFor(orderHistory)
-final orderHistoryProvider = AutoDisposeProvider<OrderHistory>.internal(
-  orderHistory,
-  name: r'orderHistoryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$orderHistoryHash,
+/// See also [orderHistoryConstants].
+@ProviderFor(orderHistoryConstants)
+final orderHistoryConstantsProvider =
+    AutoDisposeProvider<OrderHistoryConstants>.internal(
+  orderHistoryConstants,
+  name: r'orderHistoryConstantsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$orderHistoryConstantsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef OrderHistoryRef = AutoDisposeProviderRef<OrderHistory>;
+typedef OrderHistoryConstantsRef
+    = AutoDisposeProviderRef<OrderHistoryConstants>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

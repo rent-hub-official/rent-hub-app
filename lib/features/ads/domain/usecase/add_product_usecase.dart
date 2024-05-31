@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart';
+import 'package:rent_hub/core/utils/snakbar/delight_toas_bar.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 import 'package:rent_hub/features/ads/service/add_ads_service.dart';
 
 class ProductUsecase {
   // add data
-  static Future<void> addTofireStore(
-    AdsModel adsmodel,
-  ) async {
+  static Future<void> addTofireStore(AdsModel adsmodel) async {
     try {
       await AdsService.adsDb
           .withConverter(

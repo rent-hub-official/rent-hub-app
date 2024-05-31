@@ -4,10 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/exception/base_exception/base_exception.dart';
 import 'package:rent_hub/core/utils/snakbar/error_snackbar.dart';
-import 'package:rent_hub/core/widgets/bottom_nav/bottom_nav_widget.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_state.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases.dart';
-import 'package:rent_hub/features/authentication/view/pages/home_page.dart';
+import 'package:rent_hub/features/authentication/view/pages/create_account_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/otp_verification_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -44,7 +43,7 @@ class Authentication extends _$Authentication {
       // navigate otp page
       Future.sync(() {
         // TODO: complete chek it
-        context.push(OtpVerificationScreen.routePath);
+        context.pushReplacement(OtpVerificationScreen.routePath);
       });
     } on BaseException catch (e) {
       state = state.copyWith(isLoading: false);
@@ -78,8 +77,7 @@ class Authentication extends _$Authentication {
           Future.sync(() {
             // TODO: complete  check it
             //? navigate home page
-            // context.pushReplacement(HomePage.routePath);
-            context.pushReplacement(BottomNavWidget.routePath);
+            context.pushReplacement(CreateAccountPage.routePath);
           });
         } else {
           Future.sync(

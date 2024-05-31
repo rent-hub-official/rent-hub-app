@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/constants/seller_profile_constants/seller_profile.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
@@ -8,6 +9,7 @@ import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/chat/widgets/seller_details_widget.dart';
 
 class SellerProfilePage extends ConsumerWidget {
+  static const routePath = '/sellerprofile';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Watch the seller profile provider to get the constants
@@ -30,9 +32,15 @@ class SellerProfilePage extends ConsumerWidget {
                   RoundedIconButton(
                       backgroundColor:
                           AppColorPalettes.grey100.withOpacity(0.5),
-                      onTap: () {},
+                      onTap: () {
+                        context.pop();
+                      },
                       icon: Icons.chevron_left),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))
+                  IconButton(
+                      onPressed: () {
+                        // TODO : MUJTHABA
+                      },
+                      icon: Icon(Icons.more_vert))
                 ],
               ),
             ),
@@ -46,10 +54,9 @@ class SellerProfilePage extends ConsumerWidget {
                     child: Column(
                       children: [
                         SellerDetailsWidget(
-                          sellerlocation: '',
-                          sellername: '',
-                          usertype: '',
-                          userimg: "",
+                          sellerLocation: 'tgdthdfgdh',
+                          sellerName: 'ghfchfjhj',
+                          userImg: "",
                         ),
                       ],
                     ),
@@ -75,7 +82,8 @@ class SellerProfilePage extends ConsumerWidget {
                               price: 0,
                               productLocation: "",
                               distance: 0,
-                              img: "",
+                              img:
+                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSycvWQYknNQbjyOX5ly3PIMtS6yMXVzku9Q&s",
                               onTap: () {},
                               belowbtn: constans
                                   .txtContinue, // Button text from constants

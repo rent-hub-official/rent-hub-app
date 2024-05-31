@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/exception/base_exception/base_exception.dart';
+import 'package:rent_hub/core/utils/snakbar/delight_toas_bar.dart';
 import 'package:rent_hub/core/utils/snakbar/error_snackbar.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 import 'package:rent_hub/features/ads/domain/usecase/add_product_usecase.dart';
@@ -28,7 +29,16 @@ class Products extends _$Products {
     try {
       await ProductUsecase.addTofireStore(data);
       Future.sync(
-        () => ErrorSnackBar(context, errorMessage: 'Sucessfully Added..!'),
+        () {
+          TosterUtil.showMessage(
+              context: context,
+              icon: Icon(
+                Icons.thumb_up,
+                color: Colors.black,
+              ),
+              message: 'Sucessfully added');
+          // showAlertBox(text: 'text', context: context);
+        },
       );
     } on BaseException catch (e) {
       state = false;

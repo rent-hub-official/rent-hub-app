@@ -14,7 +14,6 @@ class OtpVerificationScreen extends HookConsumerWidget {
   static const routePath = '/otpvarificationpage';
 
   const OtpVerificationScreen({super.key});
-  static const routePath = '/otpVerification';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

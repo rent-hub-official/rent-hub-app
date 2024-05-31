@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/constants/bottom_nav_constants/bottom_nav.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/bottom_nav/animated_bottom_nav/animated_bottom_nav_bar.dart';
+import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
 
 class BottomNavWidget extends ConsumerWidget {
   static const routePath = '/bottomNav';
@@ -45,6 +47,7 @@ class BottomNavWidget extends ConsumerWidget {
                   BorderRadius.circular(context.spaces.space_900 * 2)),
           onPressed: () {
             //add product
+            context.push(AddProductPage.routePath);
           },
           backgroundColor: context.colors.primary,
           child: Icon(

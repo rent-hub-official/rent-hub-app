@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/icon_constants.dart';
 import 'package:rent_hub/core/constants/profile_page_constants/profile_page_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/features/ads/view/pages/history/history_details_page.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/profile_settings_page.dart';
 import 'package:rent_hub/features/authentication/view/widgets/profile_header_widget.dart';
@@ -62,7 +63,7 @@ class ProfilePage extends HookConsumerWidget {
                   text: constants.txtOrderHistory,
                   onTap: () {
                     // TODO:
-                    // context.push(history)
+                    context.push(HistoryDetailsPage.routePath);
                   },
                 ),
                 ProfileOptionTile(

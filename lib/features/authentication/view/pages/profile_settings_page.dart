@@ -11,8 +11,8 @@ import 'package:rent_hub/features/authentication/view/widgets/profile_settings_f
 import 'package:rent_hub/features/payment/pages/add_bank_ac_details_page.dart';
 
 class ProfileSettingsPage extends HookConsumerWidget {
-  const ProfileSettingsPage({super.key});
   static const routePath = '/profileSettings';
+  const ProfileSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

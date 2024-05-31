@@ -12,6 +12,7 @@ class SentMessageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         const Spacer(),
         Column(
@@ -36,9 +37,9 @@ class SentMessageWidget extends StatelessWidget {
         // TODO add sender profile image
         Padding(
           padding: EdgeInsets.only(
-              bottom: context.spaces.space_250, left: context.spaces.space_150),
+              bottom: context.spaces.space_250, left: context.spaces.space_100),
           child: CircleAvatar(
-            radius: context.spaces.space_300,
+            radius: context.spaces.space_200,
           ),
         ),
       ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/theme/color_palette.dart';
 
 class MyProductBottomIconTextWidget extends StatelessWidget {
   const MyProductBottomIconTextWidget({
@@ -19,6 +20,7 @@ class MyProductBottomIconTextWidget extends StatelessWidget {
         Icon(
           icon,
           size: context.spaces.space_200,
+          color: AppColorPalettes.red500,
         ),
         // width spacer
         SizedBox(
