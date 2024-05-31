@@ -2,6 +2,8 @@ import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/theme/color_palette.dart';
 
 final class TosterUtil {
   static void showMessage({
@@ -20,13 +22,14 @@ final class TosterUtil {
         leading: icon,
         title: Text(
           message,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.w700,
-            fontSize: 14,
-            color: Colors.white, // Set text color to white for better contrast
+            fontSize: context.spaces.space_200,
+            color: AppColorPalettes
+                .white500, // Set text color to white for better contrast
           ),
         ),
-        color: Colors.blueAccent, // Set a nice background color
+        color: context.colors.secondary, // Set a nice background color
         // Add padding for better spacing
       ),
     ).show(context);
