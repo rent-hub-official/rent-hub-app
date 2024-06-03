@@ -160,7 +160,8 @@ Future<dynamic> historyBottomSheet(
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 15),
+                        padding:
+                            EdgeInsets.only(left: context.spaces.space_200),
                         child: TimeLineHistoryWidget(),
                       ),
                       Row(
