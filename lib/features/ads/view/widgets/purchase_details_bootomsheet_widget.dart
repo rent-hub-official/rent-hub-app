@@ -27,7 +27,6 @@ Future<dynamic> historyBottomSheet(
     builder: (context) {
       return SizedBox(
         height: MediaQuery.sizeOf(context).height * 0.8,
-        // height: MediaQuery.of(context).viewInsets.bottom,
         child: Stack(
           clipBehavior: Clip.none,
           children: [
