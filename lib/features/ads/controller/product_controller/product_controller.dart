@@ -1,14 +1,18 @@
-// State provider to toggle the read more functionality
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/exception/base_exception/base_exception.dart';
 import 'package:rent_hub/core/utils/snakbar/delight_toas_bar.dart';
 import 'package:rent_hub/core/utils/snakbar/error_snackbar.dart';
+import 'package:rent_hub/features/ads/controller/category_controller/category_provider.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 import 'package:rent_hub/features/ads/domain/usecase/add_product_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'product_screen_controller.g.dart';
+part 'product_controller.g.dart';
+
+// State provider to toggle the read more functionality
 
 final readmoreTextProvider = StateProvider<bool>((ref) => false);
 
@@ -16,8 +20,9 @@ final readmoreTextProvider = StateProvider<bool>((ref) => false);
 final pageController =
     StateProvider<PageController>((ref) => PageController(initialPage: 0));
 
+// add product controller
 @riverpod
-class Products extends _$Products {
+class AddProducts extends _$AddProducts {
   @override
   bool build() {
     return false;
@@ -40,6 +45,7 @@ class Products extends _$Products {
           // showAlertBox(text: 'text', context: context);
         },
       );
+      ref.invalidate(ImageListProvider);
     } on BaseException catch (e) {
       state = false;
       Future.sync(
@@ -48,4 +54,26 @@ class Products extends _$Products {
     }
     state = false;
   }
+
+  // add image
+  Future<void> addImage(
+    BuildContext context, {
+    required File image,
+    required String userId,
+  }) async {
+    try {
+      String imagePath =
+          await ProductUsecase.uploadImage(image: image, userId: userId);
+
+      ref.read(ImageListProvider.notifier).state.add(imagePath);
+      ref.invalidate(getCategorysProvider);
+    } on BaseException catch (e) {
+      Future.sync(
+        () => ErrorSnackBar(context, errorMessage: e.message),
+      );
+    }
+  }
 }
+
+// product image provider
+final ImageListProvider = StateProvider<List<String>>((ref) => []);

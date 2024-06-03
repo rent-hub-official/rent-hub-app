@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart';
-import 'package:rent_hub/core/utils/snakbar/delight_toas_bar.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 import 'package:rent_hub/features/ads/service/add_ads_service.dart';
 
@@ -15,6 +16,22 @@ class ProductUsecase {
             toFirestore: AdsModel.toFireStore,
           )
           .add(adsmodel);
+    } on FirebaseException catch (e) {
+      throw StorageException(error: e.message);
+    }
+  }
+
+  // upload product image  Storage
+  static Future<String> uploadImage(
+      {required File image, required String userId}) async {
+    try {
+      await AdsService.adsStorage
+          .child("$userId${basename(image.path)}")
+          .putFile(image);
+
+      return await AdsService.adsStorage
+          .child("$userId${basename(image.path)}")
+          .getDownloadURL();
     } on FirebaseException catch (e) {
       throw StorageException(error: e.message);
     }

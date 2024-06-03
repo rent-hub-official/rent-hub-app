@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/product_screen_constants/product_screen.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
-import 'package:rent_hub/features/ads/controller/product_controller/product_screen_controller.dart';
+import 'package:rent_hub/features/ads/controller/product_controller/product_controller.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/chat_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/phone_widget.dart';
 
