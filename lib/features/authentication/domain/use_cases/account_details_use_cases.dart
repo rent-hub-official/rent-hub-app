@@ -1,63 +1,75 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart';
 import 'package:rent_hub/features/authentication/domain/model/account_details_model.dart';
 import 'package:rent_hub/features/authentication/service/account_details_service.dart';
 
 // account deatils use cases
-final class AccountDetailsUseCases {
-  // firestore users instances
-  static final _db =
-      AccountDetailsService.firebaseFirestoreInstance.withConverter(
-    fromFirestore: AccountDetailsModel.fromFirestore,
-    toFirestore: AccountDetailsModel.toFirestore,
-  );
-
-  // storage users profile instances
-  static final Reference _storageRefernce =
-      AccountDetailsService.firebaseStorageReference;
-
+final class UploadImageUseCases {
   //upload image for cloud storage
-  static Future<String> uploadImage(
+  static Future<String> call(
       {required File image, required String userId}) async {
     try {
-      await _storageRefernce.child(userId).putFile(image);
-      return await _storageRefernce.child(userId).getDownloadURL();
+      await AccountDetailsService.firebaseStorageReference
+          .child(userId)
+          .putFile(image);
+      return await AccountDetailsService.firebaseStorageReference
+          .child(userId)
+          .getDownloadURL();
     } on FirebaseException catch (e) {
       throw StorageException(error: e.message);
     }
   }
+}
 
+final class DeleteImageUseCase {
   // delete image from cloud storage
-  static Future<void> deleteImage({required String userId}) async {
+  static Future<void> call({required String userId}) async {
     try {
-      await _storageRefernce.child(userId).delete();
+      await AccountDetailsService.firebaseStorageReference
+          .child(userId)
+          .delete();
     } on FirebaseException catch (e) {
       throw StorageException(error: e.message);
     }
   }
+}
 
+final class GetAccountDeatailsUseCase {
+  // get account details
+  static Future<DocumentSnapshot<AccountDetailsModel>> call(
+      String userId) async {
+    try {
+      return await AccountDetailsService.firebaseFirestoreInstance
+          .withConverter(
+            fromFirestore: AccountDetailsModel.fromFirestore,
+            toFirestore: AccountDetailsModel.toFirestore,
+          )
+          .doc(userId)
+          .get();
+    } on FirebaseException catch (e) {
+      throw StorageException(error: e.message);
+    }
+  }
+}
+
+final class AccountDeatailsAddUseCase {
   //Upload user details
-  static Future<void> uploadUserDeatails({
+  static Future<void> call({
     required String userId,
     required AccountDetailsModel accountDetails,
   }) async {
     try {
-      await _db.doc(userId).set(
+      await AccountDetailsService.firebaseFirestoreInstance
+          .withConverter(
+            fromFirestore: AccountDetailsModel.fromFirestore,
+            toFirestore: AccountDetailsModel.toFirestore,
+          )
+          .doc(userId)
+          .set(
             accountDetails,
           );
-    } on FirebaseException catch (e) {
-      throw StorageException(error: e.message);
-    }
-  }
-
-  // get account details
-  static Future<DocumentSnapshot<AccountDetailsModel>> getAccountDetails(
-      String userId) async {
-    try {
-      return await _db.doc(userId).get();
     } on FirebaseException catch (e) {
       throw StorageException(error: e.message);
     }

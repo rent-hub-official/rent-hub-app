@@ -36,10 +36,10 @@ class AccountDetails extends _$AccountDetails {
     try {
       // already image in storage
       if (state.imageRef != null) {
-        await AccountDetailsUseCases.deleteImage(userId: userId);
+        await DeleteImageUseCase()(userId: userId);
       }
-      String imageUrl = await AccountDetailsUseCases.uploadImage(
-          image: image, userId: userId);
+      String imageUrl =
+          await UploadImageUseCases()(image: image, userId: userId);
 
       state = state.copyWith(imageRef: imageUrl);
     } on BaseException catch (e) {
@@ -57,7 +57,7 @@ class AccountDetails extends _$AccountDetails {
   }) async {
     state = state.copyWith(isLoading: true);
     try {
-      await AccountDetailsUseCases.uploadUserDeatails(
+      await AccountDeatailsAddUseCase()(
         userId: userId,
         accountDetails: AccountDetailsModel(
           userName: userName,
@@ -80,5 +80,5 @@ class AccountDetails extends _$AccountDetails {
 Future<DocumentSnapshot<AccountDetailsModel>> getAccountDetails(
     GetAccountDetailsRef ref,
     {required String userId}) {
-  return AccountDetailsUseCases.getAccountDetails(userId);
+  return GetAccountDeatailsUseCase()(userId);
 }
