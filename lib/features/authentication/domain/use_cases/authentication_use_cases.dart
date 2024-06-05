@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:rent_hub/core/exception/authentication_exception/authentication_exception.dart';
 import 'package:rent_hub/core/exception/authentication_exception/otp_verify_exception.dart';
 import 'package:rent_hub/core/exception/authentication_exception/signout_exception.dart';
 import 'package:rent_hub/core/exception/authentication_exception/signup_exception.dart';
@@ -7,26 +6,15 @@ import 'package:rent_hub/features/authentication/service/authentication_service.
 
 //authentication use cases
 
-final class AuthenticationUseCases {
-  static final _auth = AuthenticationService.firebaseAuthInstance;
-
-  // authentication state changes
-  static Stream<User?> authStateChanges() {
-    try {
-      return _auth.authStateChanges();
-    } on FirebaseAuthException catch (e) {
-      throw AuthException(error: e.message);
-    }
-  }
-
+final class VerifyPhoneNumberUseCases {
   // phone number verification
-  static Future<void> verifyPhoneNumber({
+  static Future<void> call({
     required String phoneNumber,
     required void Function(String verificationId, int? forceResendingToken)
         codeSent,
   }) async {
     try {
-      await _auth.verifyPhoneNumber(
+      await AuthenticationService.firebaseAuthInstance.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: (phoneAuthCredential) {},
         verificationFailed: (error) {},
@@ -37,9 +25,11 @@ final class AuthenticationUseCases {
       throw SignupException(error: e.message);
     }
   }
+}
 
+final class SigninWithOtpCredentialUseCase {
   //log in with credintial
-  static Future<UserCredential> signinWithOtpCredential({
+  static Future<UserCredential> call({
     required String verificationId,
     required String smsCode,
   }) async {
@@ -48,18 +38,21 @@ final class AuthenticationUseCases {
       PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
           verificationId: verificationId, smsCode: smsCode);
 
-      return await _auth.signInWithCredential(phoneAuthCredential);
+      return await AuthenticationService.firebaseAuthInstance
+          .signInWithCredential(phoneAuthCredential);
     } on FirebaseAuthException catch (e) {
       throw VerifyOTPException(
         error: e.message,
       );
     }
   }
+}
 
+final class LogOutUseCase {
   // log out
-  static Future<void> logOut() async {
+  static Future<void> call() async {
     try {
-      await _auth.signOut();
+      await AuthenticationService.firebaseAuthInstance.signOut();
     } on FirebaseAuthException catch (e) {
       throw SignOutException(error: e.message);
     }
