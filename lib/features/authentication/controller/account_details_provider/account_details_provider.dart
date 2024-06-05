@@ -39,7 +39,7 @@ class AccountDetails extends _$AccountDetails {
         await DeleteImageUseCase()(userId: userId);
       }
       String imageUrl =
-          await UploadImageUseCases()(image: image, userId: userId);
+          await UploadImageUseCase()(image: image, userId: userId);
 
       state = state.copyWith(imageRef: imageUrl);
     } on BaseException catch (e) {
