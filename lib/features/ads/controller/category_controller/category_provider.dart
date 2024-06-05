@@ -7,7 +7,7 @@ part 'category_provider.g.dart';
 
 @riverpod
 Future<QuerySnapshot<Map<String, dynamic>>> getCategorys(GetCategorysRef ref) {
-  return ProductUsecase.getCategory();
+  return GetCategoryUseCase()();
 }
 
 final StateProvider<int?> categoryItemSelectedIndexProvider =

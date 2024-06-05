@@ -32,7 +32,7 @@ class AddProducts extends _$AddProducts {
       {required AdsModel data}) async {
     state = true;
     try {
-      await ProductUsecase.addTofireStore(data);
+      await ProductAddUsecase()(adsmodel: data);
       Future.sync(
         () {
           TosterUtil.showMessage(
@@ -63,7 +63,7 @@ class AddProducts extends _$AddProducts {
   }) async {
     try {
       String imagePath =
-          await ProductUsecase.uploadImage(image: image, userId: userId);
+          await ProductImageUploadUseCase()(image: image, userId: userId);
 
       ref.read(ImageListProvider.notifier).state.add(imagePath);
       ref.invalidate(getCategorysProvider);

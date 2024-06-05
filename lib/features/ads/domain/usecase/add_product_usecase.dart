@@ -6,9 +6,9 @@ import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart
 import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 import 'package:rent_hub/features/ads/service/add_ads_service.dart';
 
-class ProductUsecase {
+class ProductAddUsecase {
   // add data
-  static Future<void> addTofireStore(AdsModel adsmodel) async {
+  static Future<void> call({required AdsModel adsmodel}) async {
     try {
       await AdsService.adsDb
           .withConverter(
@@ -20,9 +20,11 @@ class ProductUsecase {
       throw StorageException(error: e.message);
     }
   }
+}
 
+class ProductImageUploadUseCase {
   // upload product image  Storage
-  static Future<String> uploadImage(
+  static Future<String> call(
       {required File image, required String userId}) async {
     try {
       await AdsService.adsStorage
@@ -36,9 +38,11 @@ class ProductUsecase {
       throw StorageException(error: e.message);
     }
   }
+}
 
+class ProductUpdateUseCase {
   // update data
-  static Future<void> updateData(
+  static Future<void> call(
       {required String id, required AdsModel adsmodel}) async {
     try {
       await AdsService.adsDb
@@ -52,9 +56,11 @@ class ProductUsecase {
       throw StorageException(error: e.message);
     }
   }
+}
 
+class GetCategoryUseCase {
   // get category
-  static Future<QuerySnapshot<Map<String, dynamic>>> getCategory() async {
+  static Future<QuerySnapshot<Map<String, dynamic>>> call() async {
     try {
       return await AdsService.categoryDb.orderBy('name').get();
     } on FirebaseException catch (e) {
