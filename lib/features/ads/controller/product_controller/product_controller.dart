@@ -8,6 +8,7 @@ import 'package:rent_hub/core/utils/snakbar/error_snackbar.dart';
 import 'package:rent_hub/features/ads/controller/category_controller/category_provider.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 import 'package:rent_hub/features/ads/domain/usecase/add_product_usecase.dart';
+import 'package:rent_hub/features/ads/domain/usecase/product_image_upload_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'product_controller.g.dart';
