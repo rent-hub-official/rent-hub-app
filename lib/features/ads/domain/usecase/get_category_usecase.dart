@@ -5,7 +5,7 @@ import 'package:rent_hub/features/ads/service/add_ads_service.dart';
 // get category
 
 class GetCategoryUseCase {
-  static Future<QuerySnapshot<Map<String, dynamic>>> call() async {
+   Future<QuerySnapshot<Map<String, dynamic>>> call() async {
     try {
       return await AdsService.categoryDb.orderBy('name').get();
     } on FirebaseException catch (e) {

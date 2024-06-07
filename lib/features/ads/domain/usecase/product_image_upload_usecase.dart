@@ -8,7 +8,7 @@ import 'package:rent_hub/features/ads/service/add_ads_service.dart';
 // upload product image  Storage
 
 class ProductImageUploadUseCase {
-  static Future<String> call(
+   Future<String> call(
       {required File image, required String userId}) async {
     try {
       await AdsService.adsStorage

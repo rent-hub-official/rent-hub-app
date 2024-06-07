@@ -6,7 +6,7 @@ import 'package:rent_hub/features/ads/service/add_ads_service.dart';
 // update data
 
 class ProductUpdateUseCase {
-  static Future<void> call(
+   Future<void> call(
       {required String id, required AdsModel adsmodel}) async {
     try {
       await AdsService.adsDb

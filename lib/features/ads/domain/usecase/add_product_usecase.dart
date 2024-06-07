@@ -5,7 +5,7 @@ import 'package:rent_hub/features/ads/service/add_ads_service.dart';
 
 class ProductAddUsecase {
   // add data
-  static Future<void> call({required AdsModel adsmodel}) async {
+   Future<void> call({required AdsModel adsmodel}) async {
     try {
       await AdsService.adsDb
           .withConverter(
