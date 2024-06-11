@@ -11,7 +11,7 @@ class DescriptionFeildWidget extends StatelessWidget {
   });
 
   final TextEditingController descriptionController;
-  final AddProduct constants;
+  final AddProductConstants constants;
 
   @override
   Widget build(BuildContext context) {

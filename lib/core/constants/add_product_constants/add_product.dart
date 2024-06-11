@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'add_product.g.dart';
 
-class AddProduct {
+class AddProductConstants {
   final txtHeading = "ADD PRODUCT";
   final txtPhotos = "Photos";
   final txtSubHeading =
@@ -22,6 +22,6 @@ class AddProduct {
 }
 
 @riverpod
-AddProduct addProduct(AddProductRef ref) {
-  return AddProduct();
+AddProductConstants addProductConstants(AddProductConstantsRef ref) {
+  return AddProductConstants();
 }

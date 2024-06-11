@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_hub/features/authentication/view/pages/home_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/profile_page.dart';
-import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';
 import 'package:rent_hub/features/chat/view/pages/chat_list_page.dart';
 import 'package:rent_hub/features/favorites/view/pages/favorites_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
