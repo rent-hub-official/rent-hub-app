@@ -119,12 +119,12 @@ final router = GoRouter(
         return AddBankAcDetailsPage();
       },
     ),
-    GoRoute(
-      path: ChatDetailsPage.routePath,
-      builder: (context, state) {
-        return ChatDetailsPage();
-      },
-    ),
+    // GoRoute(
+    //   path: ChatDetailsPage.routePath,
+    //   builder: (context, state) {
+    //     return ChatDetailsPage();
+    //   },
+    // ),
     GoRoute(
       path: PaymentFailedPage.routePath,
       builder: (context, state) {

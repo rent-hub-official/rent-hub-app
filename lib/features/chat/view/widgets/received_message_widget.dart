@@ -16,10 +16,10 @@ class ReceviedMessageWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  top: 100,
                   bottom: context.spaces.space_250,
                   right: context.spaces.space_100),
               child: InkWell(
