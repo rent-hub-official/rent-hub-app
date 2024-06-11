@@ -14,14 +14,17 @@ class OnboardingPages extends ConsumerWidget {
   static const routePath = '/onboardingpage';
 
   const OnboardingPages({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final constants1 = ref.watch(onboarding1Provider);
     final constants2 = ref.watch(onboarding2Provider);
     final constants3 = ref.watch(onboarding3Provider);
     final image = ref.watch(imageConstantsProvider);
+    final pageController = PageController(initialPage: 0);
+
     final onboardingPages = [
-      OnboardingContent(
+      OnboardingPage(
         onTap: () {
           pageController.animateToPage(
             1,
@@ -37,10 +40,7 @@ class OnboardingPages extends ConsumerWidget {
           progress: context.spaces.space_25 / 4,
         ),
       ),
-      OnboardingContent(
-        widget: LoderWidget(
-          progress: context.spaces.space_25 / 3,
-        ),
+      OnboardingPage(
         onTap: () {
           pageController.animateToPage(
             2,
@@ -52,31 +52,33 @@ class OnboardingPages extends ConsumerWidget {
         heading: constants2.txtHeading,
         subHeading: constants2.txtSubHeading,
         skipText: constants2.txtSkip,
-      ),
-      OnboardingContent(
         widget: LoderWidget(
-          progress: context.spaces.space_25 / 2,
+          progress: context.spaces.space_25 / 3,
         ),
+      ),
+      OnboardingPage(
         onTap: () {
-          context.go(LoginPage.routePath);
+          GoRouter.of(context).go(LoginPage.routePath);
         },
         imagePath: image.imgOnboarding3,
         heading: constants3.txtHeading,
         subHeading: constants3.txtSubHeading,
         skipText: constants3.txtSkip,
+        widget: LoderWidget(
+          progress: context.spaces.space_25 ,
+        ),
       ),
     ];
+
     return Scaffold(
       body: PageView.builder(
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         itemCount: onboardingPages.length,
         itemBuilder: (context, index) {
-          return OnboardingPage(content: onboardingPages[index]);
+          return onboardingPages[index];
         },
       ),
     );
   }
 }
-
-final PageController pageController = PageController(initialPage: 0);
