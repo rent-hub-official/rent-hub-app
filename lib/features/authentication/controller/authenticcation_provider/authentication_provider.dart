@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/exception/base_exception/base_exception.dart';
 import 'package:rent_hub/core/utils/snakbar/error_snackbar.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_state.dart';
-import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases/log_out_use_case.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases/signin_with_otp_credential_usecase.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases/verify_phone_number_use_case.dart';
 import 'package:rent_hub/features/authentication/view/pages/create_account_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/otp_verification_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -30,7 +32,7 @@ class Authentication extends _$Authentication {
     state = state.copyWith(isLoading: true, phoneNumber: phoneNumber);
 
     try {
-      await VerifyPhoneNumberUseCases()(
+      await VerifyPhoneNumberUseCase()(
         phoneNumber: phoneNumber,
         codeSent: (verificationId, forceResendingToken) {
           state = state.copyWith(verificationId: verificationId);
