@@ -8,7 +8,10 @@ import 'package:rent_hub/core/exception/base_exception/base_exception.dart';
 import 'package:rent_hub/core/utils/snakbar/error_snackbar.dart';
 import 'package:rent_hub/features/authentication/controller/account_details_provider/account_details_state.dart';
 import 'package:rent_hub/features/authentication/domain/model/account_details_model.dart';
-import 'package:rent_hub/features/authentication/domain/use_cases/account_details_use_cases.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/account_details_add%20_use_cases.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/delete_image_use_case.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/get_account_details_use_case.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/upload_image_use_case.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'account_details_provider.g.dart';
@@ -36,10 +39,10 @@ class AccountDetails extends _$AccountDetails {
     try {
       // already image in storage
       if (state.imageRef != null) {
-        await AccountDetailsUseCases.deleteImage(userId: userId);
+        await DeleteImageUseCase()(userId: userId);
       }
-      String imageUrl = await AccountDetailsUseCases.uploadImage(
-          image: image, userId: userId);
+      String imageUrl =
+          await UploadImageUseCase()(image: image, userId: userId);
 
       state = state.copyWith(imageRef: imageUrl);
     } on BaseException catch (e) {
@@ -57,7 +60,7 @@ class AccountDetails extends _$AccountDetails {
   }) async {
     state = state.copyWith(isLoading: true);
     try {
-      await AccountDetailsUseCases.uploadUserDeatails(
+      await AccountDeatailsAddUseCase()(
         userId: userId,
         accountDetails: AccountDetailsModel(
           userName: userName,
@@ -80,5 +83,5 @@ class AccountDetails extends _$AccountDetails {
 Future<DocumentSnapshot<AccountDetailsModel>> getAccountDetails(
     GetAccountDetailsRef ref,
     {required String userId}) {
-  return AccountDetailsUseCases.getAccountDetails(userId);
+  return GetAccountDeatailsUseCase()(userId);
 }
