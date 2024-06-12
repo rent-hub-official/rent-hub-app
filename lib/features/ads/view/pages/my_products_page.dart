@@ -55,6 +55,7 @@ class MyProductsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
             // TODO : navigate pop
@@ -68,27 +69,29 @@ class MyProductsPage extends ConsumerWidget {
         titleTextStyle: context.typography.h2Bold,
         centerTitle: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: context.spaces.space_200),
-        child: ListView.separated(
-          itemBuilder: (context, index) => MyProductCardWidget(
-            myProductsOnTap: () {
-              context.push(ProductDetailsPage.routePath);
-            },
-            Productimage: myProductsList[index][0],
-            productName: myProductsList[index][1],
-            poductPrice: myProductsList[index][2],
-            views: myProductsList[index][3],
-            likes: myProductsList[index][4],
-            onSelected: (value) {
-              // TODO: popmenu button operation
-            },
-          ),
-          separatorBuilder: (context, index) => SizedBox(
-            height: context.spaces.space_200,
-          ),
-          itemCount: myProductsList.length,
+      body: ListView.separated(
+        padding: EdgeInsets.only(
+          top: context.spaces.space_200,
+          left: context.spaces.space_200,
+          right: context.spaces.space_200,
         ),
+        itemBuilder: (context, index) => MyProductCardWidget(
+          myProductsOnTap: () {
+            context.push(ProductDetailsPage.routePath);
+          },
+          Productimage: myProductsList[index][0],
+          productName: myProductsList[index][1],
+          poductPrice: myProductsList[index][2],
+          views: myProductsList[index][3],
+          likes: myProductsList[index][4],
+          onSelected: (value) {
+            // TODO: popmenu button operation
+          },
+        ),
+        separatorBuilder: (context, index) => SizedBox(
+          height: context.spaces.space_200,
+        ),
+        itemCount: myProductsList.length,
       ),
     );
   }
