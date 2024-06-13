@@ -7,9 +7,9 @@ import 'package:rent_hub/core/constants/home_screen_constants/home_screen.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/features/ads/view/pages/notification_page.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
-import 'package:rent_hub/features/authentication/view/widgets/category_list_builder_widget.dart';
+import 'package:rent_hub/features/ads/view/widgets/home_widgets/category_list_builder_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/sliverAppbar_widget.dart';
-import 'package:rent_hub/features/authentication/view/widgets/tabbar_widget.dart';
+import 'package:rent_hub/features/ads/view/widgets/home_widgets/tabbar_widget.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
