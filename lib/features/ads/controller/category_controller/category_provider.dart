@@ -10,7 +10,6 @@ Future<QuerySnapshot<Map<String, dynamic>>> getCategorys(GetCategorysRef ref) {
   return GetCategoryUseCase()();
 }
 
-final StateProvider<int?> categoryItemSelectedIndexProvider =
-    StateProvider<int?>(
-  (ref) => null,
+final StateProvider<int> categoryItemSelectedIndexProvider = StateProvider<int>(
+  (ref) => 0,
 );

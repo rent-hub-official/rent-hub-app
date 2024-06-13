@@ -27,7 +27,7 @@ Stream<List<AdsModel>> fetchCatagorisedProducts(FetchCatagorisedProductsRef ref,
   try {
     // fetch all products details
     final Stream<QuerySnapshot<AdsModel>> dataStream =
-        FetchProductsDataUsecase()();
+        FetchProductsDataUsecase.call();
 
     await for (var event in dataStream) {
       var allData = <AdsModel>[];

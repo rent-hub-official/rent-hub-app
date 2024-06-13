@@ -8,7 +8,9 @@ class TabbarWidget extends StatelessWidget {
     required this.categoryList,
   });
 
+// Tab bar controller
   final TabController tabController;
+  // list of category
   final List<String> categoryList;
 
   @override
@@ -24,11 +26,13 @@ class TabbarWidget extends StatelessWidget {
       isScrollable: true,
       labelStyle: context.typography.bodySemibold,
       tabs: [
+        // list of tabs
         for (int i = 0; i < categoryList.length; i++)
           InkWell(
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             onTap: () {
+              // navigate when ontap
               tabController.animateTo(i);
             },
             child: Container(

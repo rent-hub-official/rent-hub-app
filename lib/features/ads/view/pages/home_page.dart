@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rent_hub/core/constants/error_constants/error_constants.dart';
 import 'package:rent_hub/core/constants/filters_sort_constants/filter_sort.dart';
 import 'package:rent_hub/core/constants/home_screen_constants/home_screen.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/features/ads/controller/category_controller/category_provider.dart';
+import 'package:rent_hub/features/ads/controller/get_products_controller/fetch_catagary_products_provider.dart';
 import 'package:rent_hub/features/ads/view/pages/notification_page.dart';
-import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
 import 'package:rent_hub/features/ads/view/widgets/home_widgets/category_list_builder_widget.dart';
-import 'package:rent_hub/features/authentication/view/widgets/sliverAppbar_widget.dart';
+import 'package:rent_hub/features/ads/view/widgets/home_widgets/sliverAppbar_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/home_widgets/tabbar_widget.dart';
 
 class HomePage extends HookConsumerWidget {
@@ -17,40 +19,18 @@ class HomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // tab controller
     final tabController = useTabController(initialLength: 5);
+    // List of available category
     final categoryList = ref.watch(filterSortConstantsProvider).productType;
 
-    // sample
-    final List products = [
-      [
-        'Fortuner',
-        3000.00,
-        'kasargod',
-        22.00,
-        'https://imgd.aeplcdn.com/1200x900/n/cw/ec/44709/fortuner-exterior-right-front-three-quarter-20.jpeg?isig=0&q=80',
-      ],
-      [
-        'Fortuner',
-        3000.00,
-        'kasargod',
-        22.00,
-        'https://imgd.aeplcdn.com/1200x900/n/cw/ec/44709/fortuner-exterior-right-front-three-quarter-20.jpeg?isig=0&q=80',
-      ],
-      [
-        'Fortuner',
-        3000.00,
-        'kasargod',
-        22.00,
-        'https://imgd.aeplcdn.com/1200x900/n/cw/ec/44709/fortuner-exterior-right-front-three-quarter-20.jpeg?isig=0&q=80',
-      ],
-      [
-        'Fortuner',
-        3000.00,
-        'kasargod',
-        22.00,
-        'https://imgd.aeplcdn.com/1200x900/n/cw/ec/44709/fortuner-exterior-right-front-three-quarter-20.jpeg?isig=0&q=80',
-      ]
-    ];
+// update when tabs changes
+    tabController.addListener(
+      () {
+        ref.watch(categoryItemSelectedIndexProvider.notifier).state =
+            tabController.index;
+      },
+    );
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -59,10 +39,10 @@ class HomePage extends HookConsumerWidget {
       },
       child: Scaffold(
         body: NestedScrollView(
-          physics: const BouncingScrollPhysics(),
           headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
             SliverAppbarWidget(
-              currentLocTitle: 'koyikod',
+              // TODO change location details
+              currentLocTitle: 'kozhikode',
               stateCountrySubtitle: 'kerala ,india',
               notificationbtnOnTap: () {
                 context.push(NotificationPage.routePath);
@@ -92,75 +72,53 @@ class HomePage extends HookConsumerWidget {
               ),
             ),
           ],
-          body: TabBarView(
-            controller: tabController,
-            children: [
-              CategoryListBuilderWidget(
-                poductsList: products,
-                onTap: () {
-                  context.push(ProductDetailsPage.routePath);
-                  // TODO : check it
+          // categrised products details
+          // return null when selected category is ALL
+          body: ref
+              .watch(fetchCatagorisedProductsProvider(
+                  context: context,
+                  catagory: ref.watch(categoryItemSelectedIndexProvider) != 0
+                      ? categoryList[
+                          ref.watch(categoryItemSelectedIndexProvider)]
+                      : null))
+              .when(
+                data: (data) {
+                  return TabBarView(
+                    controller: tabController,
+                    children: [
+                      // category List
+                      for (int i = 0; i < categoryList.length; i++)
+                        CategoryListBuilderWidget(
+                          poductsList: data,
+                        ),
+                    ],
+                  );
                 },
+                error: (error, stackTrace) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          ref.read(errorConstantsProvider).txtWentWrong,
+                          style: context.typography.bodySemibold,
+                        ),
+                        // refresh button when error shown
+                        IconButton(
+                          onPressed: () {
+                            ref.invalidate(fetchCatagorisedProductsProvider);
+                          },
+                          icon: Icon(
+                            Icons.refresh,
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+                // loading widget
+                loading: () => Center(child: CircularProgressIndicator()),
               ),
-              CategoryListBuilderWidget(
-                poductsList: [
-                  [
-                    'Fortuner',
-                    4000.00,
-                    'kasargod',
-                    22.00,
-                    'https://www.livemint.com/lm-img/img/2023/03/26/1600x900/2-0-1412968002-Toyota-Fortuner2-0_1679755299241_1679801994107_1679801994107.jpg',
-                  ],
-                  [
-                    'Fortuner',
-                    4000.00,
-                    'kasargod',
-                    22.00,
-                    'https://www.livemint.com/lm-img/img/2023/03/26/1600x900/2-0-1412968002-Toyota-Fortuner2-0_1679755299241_1679801994107_1679801994107.jpg',
-                  ],
-                  [
-                    'Fortuner',
-                    4000.00,
-                    'kasargod',
-                    22.00,
-                    'https://www.livemint.com/lm-img/img/2023/03/26/1600x900/2-0-1412968002-Toyota-Fortuner2-0_1679755299241_1679801994107_1679801994107.jpg',
-                  ],
-                  [
-                    'Fortuner',
-                    4000.00,
-                    'kasargod',
-                    22.00,
-                    'https://www.livemint.com/lm-img/img/2023/03/26/1600x900/2-0-1412968002-Toyota-Fortuner2-0_1679755299241_1679801994107_1679801994107.jpg',
-                  ],
-                ],
-                onTap: () {
-                  // TODO : CHECK IT
-                  context.push(ProductDetailsPage.routePath);
-                },
-              ),
-              CategoryListBuilderWidget(
-                poductsList: products,
-                onTap: () {
-                  // TODO : CHECK IT
-                  context.push(ProductDetailsPage.routePath);
-                },
-              ),
-              CategoryListBuilderWidget(
-                poductsList: products,
-                onTap: () {
-                  // TODO : CHECK IT
-                  context.push(ProductDetailsPage.routePath);
-                },
-              ),
-              CategoryListBuilderWidget(
-                poductsList: products,
-                onTap: () {
-                  // TODO : CHECK IT
-                  context.push(ProductDetailsPage.routePath);
-                },
-              )
-            ],
-          ),
         ),
       ),
     );
