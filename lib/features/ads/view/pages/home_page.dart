@@ -24,22 +24,17 @@ class HomePage extends HookConsumerWidget {
     // List of available category
     final categoryList = ref.watch(filterSortConstantsProvider).productType;
 
-// update when tabs changes
-    tabController.addListener(
-      () {
-        ref.watch(categoryItemSelectedIndexProvider.notifier).state =
-            tabController.index;
-      },
-    );
+    // update when tabs changes
+    tabController.addListener(() {
+      ref.watch(categoryItemSelectedIndexProvider.notifier).state =
+          tabController.index;
+    });
 
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          // refresh products provider
+          // refresh fetch products
           ref.invalidate(fetchCatagorisedProductsProvider);
-          // invalidate selected index provider for tabbar
-          ref.invalidate(categoryItemSelectedIndexProvider);
-          return null;
         },
         child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
@@ -61,11 +56,10 @@ class HomePage extends HookConsumerWidget {
                   TabbarWidget(
                       tabController: tabController, categoryList: categoryList),
                   Padding(
-                    padding: EdgeInsets.only(
-                        left: context.spaces.space_200,
-                        right: context.spaces.space_200,
-                        top: context.spaces.space_200,
-                        bottom: context.spaces.space_200),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.spaces.space_200,
+                      vertical: context.spaces.space_200,
+                    ),
                     child: Text(
                       ref.watch(homeScreenProvider).txtsub,
                       style: context.typography.bodySemibold,
@@ -75,53 +69,61 @@ class HomePage extends HookConsumerWidget {
               ),
             ),
           ],
-          // categrised products details
-          // return null when selected category is ALL
-          body: ref
-              .watch(fetchCatagorisedProductsProvider(
-                  context: context,
-                  catagory: ref.watch(categoryItemSelectedIndexProvider) != 0
-                      ? categoryList[
-                          ref.watch(categoryItemSelectedIndexProvider)]
-                      : null))
-              .when(
-                data: (data) {
-                  return TabBarView(
-                    controller: tabController,
-                    children: [
-                      // category List
-                      for (int i = 0; i < categoryList.length; i++)
-                        CategoryListBuilderWidget(
-                          poductsList: data,
-                        ),
-                    ],
-                  );
-                },
-                error: (error, stackTrace) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          ref.read(errorConstantsProvider).txtWentWrong,
-                          style: context.typography.bodySemibold,
-                        ),
-                        // refresh button when error shown
-                        IconButton(
-                          onPressed: () {
-                            ref.invalidate(fetchCatagorisedProductsProvider);
-                          },
-                          icon: Icon(
-                            Icons.refresh,
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                },
-                // loading widget
-                loading: () => Center(child: CircularProgressIndicator()),
-              ),
+          body: TabBarView(
+            controller: tabController,
+            children: [
+              // category List
+              for (int i = 0; i < categoryList.length; i++)
+                RefreshIndicator(
+                  onRefresh: () async {
+                    // refresh fetch products
+                    ref.invalidate(fetchCatagorisedProductsProvider);
+                  },
+                  child: HookConsumer(
+                    builder: (context, ref, _) {
+                      final products =
+                          ref.watch(fetchCatagorisedProductsProvider(
+                        context: context,
+                        catagory:
+                            ref.watch(categoryItemSelectedIndexProvider) != 0
+                                ? categoryList[ref
+                                    .watch(categoryItemSelectedIndexProvider)]
+                                : null,
+                      ));
+                      return products.when(
+                        data: (data) {
+                          return CategoryListBuilderWidget(
+                            poductsList: data,
+                          );
+                        },
+                        error: (error, stackTrace) {
+                          return Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  ref.read(errorConstantsProvider).txtWentWrong,
+                                  style: context.typography.bodySemibold,
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    ref.invalidate(
+                                        fetchCatagorisedProductsProvider);
+                                  },
+                                  icon: Icon(Icons.refresh),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        loading: () =>
+                            Center(child: CircularProgressIndicator()),
+                      );
+                    },
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

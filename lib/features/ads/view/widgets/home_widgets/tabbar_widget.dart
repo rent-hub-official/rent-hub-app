@@ -20,7 +20,9 @@ class TabbarWidget extends StatelessWidget {
       splashFactory: NoSplash.splashFactory,
       dividerColor: Colors.transparent,
       labelColor: context.colors.primary,
-      indicatorColor: Colors.transparent,
+      indicatorPadding:
+          EdgeInsets.symmetric(horizontal: context.spaces.space_100),
+      indicatorColor: context.colors.primary,
       labelPadding: EdgeInsets.only(right: context.spaces.space_200),
       tabAlignment: TabAlignment.start,
       isScrollable: true,
