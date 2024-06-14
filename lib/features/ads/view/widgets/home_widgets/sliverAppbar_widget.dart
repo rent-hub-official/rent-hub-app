@@ -5,13 +5,13 @@ import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 class SliverAppbarWidget extends StatelessWidget {
   final String currentLocTitle;
   final String stateCountrySubtitle;
-  final Function() searchbtnOnTap;
+  final Function() searchBtnOnTap;
   final Function() notificationbtnOnTap;
   const SliverAppbarWidget({
     super.key,
     required this.currentLocTitle,
     required this.stateCountrySubtitle,
-    required this.searchbtnOnTap,
+    required this.searchBtnOnTap,
     required this.notificationbtnOnTap,
   });
 
@@ -46,7 +46,7 @@ class SliverAppbarWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(right: context.spaces.space_100),
             child: RoundedIconButton(
-              onTap: searchbtnOnTap,
+              onTap: searchBtnOnTap,
               icon: Icons.search,
             ),
           ),

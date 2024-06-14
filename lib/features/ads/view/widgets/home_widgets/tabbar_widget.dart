@@ -8,7 +8,9 @@ class TabbarWidget extends StatelessWidget {
     required this.categoryList,
   });
 
+// Tab bar controller
   final TabController tabController;
+  // list of category
   final List<String> categoryList;
 
   @override
@@ -18,17 +20,21 @@ class TabbarWidget extends StatelessWidget {
       splashFactory: NoSplash.splashFactory,
       dividerColor: Colors.transparent,
       labelColor: context.colors.primary,
-      indicatorColor: Colors.transparent,
+      indicatorPadding:
+          EdgeInsets.symmetric(horizontal: context.spaces.space_100),
+      indicatorColor: context.colors.primary,
       labelPadding: EdgeInsets.only(right: context.spaces.space_200),
       tabAlignment: TabAlignment.start,
       isScrollable: true,
       labelStyle: context.typography.bodySemibold,
       tabs: [
+        // list of tabs
         for (int i = 0; i < categoryList.length; i++)
           InkWell(
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             onTap: () {
+              // navigate when ontap
               tabController.animateTo(i);
             },
             child: Container(
