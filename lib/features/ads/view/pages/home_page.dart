@@ -35,6 +35,7 @@ class HomePage extends HookConsumerWidget {
         onRefresh: () async {
           // refresh fetch products
           ref.invalidate(fetchCatagorisedProductsProvider);
+          return Future.delayed(Duration(seconds: 1));
         },
         child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
@@ -78,6 +79,7 @@ class HomePage extends HookConsumerWidget {
                   onRefresh: () async {
                     // refresh fetch products
                     ref.invalidate(fetchCatagorisedProductsProvider);
+                    return Future.delayed(Duration(seconds: 1));
                   },
                   child: HookConsumer(
                     builder: (context, ref, _) {
