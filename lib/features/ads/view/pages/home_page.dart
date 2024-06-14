@@ -32,13 +32,16 @@ class HomePage extends HookConsumerWidget {
       },
     );
 
-    return RefreshIndicator(
-      onRefresh: () async {
-        // TODO : INVALIDATE
-        return null;
-      },
-      child: Scaffold(
-        body: NestedScrollView(
+    return Scaffold(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          // refresh products provider
+          ref.invalidate(fetchCatagorisedProductsProvider);
+          // invalidate selected index provider for tabbar
+          ref.invalidate(categoryItemSelectedIndexProvider);
+          return null;
+        },
+        child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
             SliverAppbarWidget(
               // TODO change location details
@@ -47,7 +50,7 @@ class HomePage extends HookConsumerWidget {
               notificationbtnOnTap: () {
                 context.push(NotificationPage.routePath);
               },
-              searchbtnOnTap: () {
+              searchBtnOnTap: () {
                 // TODO :
               },
             ),

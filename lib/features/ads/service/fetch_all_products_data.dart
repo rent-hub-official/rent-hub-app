@@ -4,8 +4,8 @@ import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 import 'package:rent_hub/features/ads/service/add_ads_service.dart';
 
 // get all products use
-class FetchProductsDataUsecase {
-  static Stream<QuerySnapshot<AdsModel>> call() async* {
+class FetchAllProductsData {
+  static Stream<QuerySnapshot<AdsModel>> FetchProducts() async* {
     try {
       final data = await AdsService.adsDb
           .withConverter(
