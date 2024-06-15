@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/constants/favourites_constants/favourites.dart';
+import 'package:rent_hub/core/constants/favourites/favourites.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:rent_hub/features/favorites/view/widgets/no_favorites_widget.dart';

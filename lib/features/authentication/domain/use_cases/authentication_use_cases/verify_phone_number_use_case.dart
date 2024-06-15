@@ -18,7 +18,7 @@ final class VerifyPhoneNumberUseCase {
         codeAutoRetrievalTimeout: (verificationId) {},
       );
     } on FirebaseAuthException catch (e) {
-      throw SignupException(error: e.message);
+      throw SignupException(e.message);
     }
   }
 }

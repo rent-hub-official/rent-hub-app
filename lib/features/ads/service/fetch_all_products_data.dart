@@ -14,7 +14,7 @@ class FetchAllProductsData {
           .snapshots();
       yield* data;
     } on FirebaseException catch (e) {
-      throw StorageException(error: e.message);
+      throw StorageException(e.message);
     }
   }
 }

@@ -6,8 +6,7 @@ import 'package:rent_hub/features/ads/service/add_ads_service.dart';
 // update data
 
 class ProductUpdateUseCase {
-   Future<void> call(
-      {required String id, required AdsModel adsmodel}) async {
+  Future<void> call({required String id, required AdsModel adsmodel}) async {
     try {
       await AdsService.adsDb
           .withConverter(
@@ -17,7 +16,7 @@ class ProductUpdateUseCase {
           .doc(id)
           .set(adsmodel);
     } on FirebaseException catch (e) {
-      throw StorageException(error: e.message);
+      throw StorageException(e.message);
     }
   }
 }

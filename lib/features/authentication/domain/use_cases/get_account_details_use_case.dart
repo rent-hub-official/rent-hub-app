@@ -15,7 +15,7 @@ final class GetAccountDeatailsUseCase {
           .doc(userId)
           .get();
     } on FirebaseException catch (e) {
-      throw StorageException(error: e.message);
+      throw StorageException(e.message);
     }
   }
 }

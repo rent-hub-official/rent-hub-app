@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/constants/chat_box_constants/chat_box.dart';
+import 'package:rent_hub/core/constants/chat/chat_box.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
 class InputMessageFieldWidget extends ConsumerWidget {

@@ -5,7 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rent_hub/core/constants/create_account_constants/create_account.dart';
+import 'package:rent_hub/core/constants/authentication/create_account.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/utils/snakbar/show_snackbar.dart';
 import 'package:rent_hub/core/widgets/bottom_nav/bottom_nav_widget.dart';
@@ -122,7 +122,7 @@ class CreateAccountPage extends HookConsumerWidget {
                     ref.invalidate(imageProvider);
                     // TODO : Check it
                     if (nameEditingController.text.isNotEmpty) {
-                      context.pushReplacement(BottomNavWidget.routePath);
+                      context.pushReplacement(MainPage.routePath);
                     } else {
                       SnackBarExtension(context)
                           .showErrorSnackBar('Please enter a name');

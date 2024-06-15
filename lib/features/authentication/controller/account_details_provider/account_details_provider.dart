@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rent_hub/core/exception/base_exception/base_exception.dart';
+import 'package:rent_hub/core/exception/base_exception.dart';
 import 'package:rent_hub/core/utils/snakbar/error_snackbar.dart';
 import 'package:rent_hub/features/authentication/controller/account_details_provider/account_details_state.dart';
 import 'package:rent_hub/features/authentication/domain/model/account_details_model.dart';

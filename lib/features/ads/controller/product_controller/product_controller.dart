@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/exception/base_exception/base_exception.dart';
+import 'package:rent_hub/core/exception/base_exception.dart';
 import 'package:rent_hub/core/utils/snakbar/delight_toas_bar.dart';
 import 'package:rent_hub/core/utils/snakbar/error_snackbar.dart';
 import 'package:rent_hub/features/ads/controller/category_controller/category_provider.dart';

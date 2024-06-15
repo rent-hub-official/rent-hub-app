@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rent_hub/core/constants/chat_box_constants/chat_box.dart';
+import 'package:rent_hub/core/constants/chat/chat_box.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';
 

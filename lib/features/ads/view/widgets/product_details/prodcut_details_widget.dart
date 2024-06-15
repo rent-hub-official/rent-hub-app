@@ -1,7 +1,7 @@
 // Widget to display the product details
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/constants/product_screen_constants/product_screen.dart';
+import 'package:rent_hub/core/constants/ads/product_screen.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/product_controller.dart';
@@ -148,8 +148,8 @@ class ProductDetailsWidget extends ConsumerWidget {
                       },
                       child: Text(
                         ref.watch(readmoreTextProvider)
-                            ? constants.redlesstext
-                            : constants.redmoretext,
+                            ? constants.readlesstext
+                            : constants.readmoretext,
                         style: const TextStyle(color: AppColorPalettes.blue),
                       ),
                     ),

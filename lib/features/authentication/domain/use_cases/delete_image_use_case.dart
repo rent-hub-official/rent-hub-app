@@ -11,7 +11,7 @@ final class DeleteImageUseCase {
           .child(userId)
           .delete();
     } on FirebaseException catch (e) {
-      throw StorageException(error: e.message);
+      throw StorageException(e.message);
     }
   }
 }

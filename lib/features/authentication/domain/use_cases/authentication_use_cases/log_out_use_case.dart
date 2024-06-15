@@ -8,7 +8,7 @@ final class LogOutUseCase {
     try {
       await AuthenticationService.firebaseAuthInstance.signOut();
     } on FirebaseAuthException catch (e) {
-      throw SignOutException(error: e.message);
+      throw SignOutException(e.message);
     }
   }
 }

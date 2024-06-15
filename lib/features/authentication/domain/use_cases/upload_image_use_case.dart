@@ -16,7 +16,7 @@ final class UploadImageUseCase {
           .child(userId)
           .getDownloadURL();
     } on FirebaseException catch (e) {
-      throw StorageException(error: e.message);
+      throw StorageException(e.message);
     }
   }
 }

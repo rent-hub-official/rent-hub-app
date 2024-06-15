@@ -8,8 +8,7 @@ import 'package:rent_hub/features/ads/service/add_ads_service.dart';
 // upload product image  Storage
 
 class ProductImageUploadUseCase {
-   Future<String> call(
-      {required File image, required String userId}) async {
+  Future<String> call({required File image, required String userId}) async {
     try {
       await AdsService.adsStorage
           .child("$userId${basename(image.path)}")
@@ -19,7 +18,7 @@ class ProductImageUploadUseCase {
           .child("$userId${basename(image.path)}")
           .getDownloadURL();
     } on FirebaseException catch (e) {
-      throw StorageException(error: e.message);
+      throw StorageException(e.message);
     }
   }
 }
