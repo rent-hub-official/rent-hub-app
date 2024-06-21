@@ -87,8 +87,8 @@ class ProfileSettingsPage extends HookConsumerWidget {
             ProfileSettingsFieldWidget(
               title: ref.watch(userProfileSettingsConstantsProvider).txtLOgOut,
               onPressed: () {
-                // TODO CHECK IT
-                ref.watch(authenticationProvider.notifier).logoutUser(context);
+                // logout btn tap
+                ref.watch(authenticationProvider.notifier).logout();
               },
             ),
             // delete account

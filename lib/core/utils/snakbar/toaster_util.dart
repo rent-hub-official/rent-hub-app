@@ -4,17 +4,13 @@ import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
+import 'package:rent_hub/main.dart';
 
-final class TosterUtil {
+final class ToasterUtil {
   static void showMessage({
-    required BuildContext context,
-    String? message,
-    required Icon icon,
+    required String message,
+    Icon? icon,
   }) {
-    if (message == null) {
-      return;
-    }
-
     DelightToastBar(
       position: DelightSnackbarPosition.top,
       autoDismiss: true,
@@ -32,6 +28,6 @@ final class TosterUtil {
         color: context.colors.secondary, // Set a nice background color
         // Add padding for better spacing
       ),
-    ).show(context);
+    ).show(MyApp.navigatorKey.currentContext!);
   }
 }

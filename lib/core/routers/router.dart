@@ -10,7 +10,7 @@ import 'package:rent_hub/features/ads/view/pages/product_details_page/product_de
 import 'package:rent_hub/features/authentication/view/pages/create_account_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/login_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/onboarding/onboarding_pages.dart';
-import 'package:rent_hub/features/authentication/view/pages/otp_verification_screen.dart';
+import 'package:rent_hub/features/authentication/view/pages/otp_verification_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/profile_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/profile_settings_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/splash_page.dart';
@@ -38,9 +38,9 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: OtpVerificationScreen.routePath,
+      path: OtpVerificationPage.routePath,
       builder: (context, state) {
-        return const OtpVerificationScreen();
+        return const OtpVerificationPage();
       },
     ),
     GoRoute(

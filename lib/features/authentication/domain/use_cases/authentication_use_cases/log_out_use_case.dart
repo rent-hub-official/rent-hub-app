@@ -1,14 +1,18 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:rent_hub/core/exception/authentication_exception/signout_exception.dart';
+import 'package:rent_hub/core/exception/base_exception.dart';
+import 'package:rent_hub/core/utils/snakbar/snackbar_utils.dart';
+import 'package:rent_hub/core/utils/snakbar/toaster_util.dart';
 import 'package:rent_hub/features/authentication/service/authentication_service.dart';
 
 final class LogOutUseCase {
   // log out
-  Future<void> call() async {
+  call() async {
     try {
-      await AuthenticationService.firebaseAuthInstance.signOut();
-    } on FirebaseAuthException catch (e) {
-      throw SignOutException(e.message);
+      await AuthenticationService.logout();
+
+      // logout successfull toast
+      ToasterUtil.showMessage(message: "SuccessFully logout");
+    } on BaseException catch (e) {
+      SnackbarUtils.showError(e.message);
     }
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,7 +19,6 @@ class CategoryListBuilderWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lottieConsts = ref.read(animationConstantsProvider);
-    log(poductsList.isNotEmpty.toString());
     return poductsList.isNotEmpty
         ? ListView.builder(
             itemCount: poductsList.length,

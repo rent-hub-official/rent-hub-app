@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:rent_hub/main.dart';
 
 class ErrorSnackBar extends SnackBar {
   final String errorMessage;
-  final BuildContext context;
-ErrorSnackBar(this.context, {super.key, required this.errorMessage})
+
+  ErrorSnackBar({super.key, required this.errorMessage})
       : super(
           content: Text(
             errorMessage,
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+            style: Theme.of(MyApp.navigatorKey.currentContext!)
+                .textTheme
+                .titleMedium!
+                .copyWith(
                   color: Colors.white,
                 ),
           ),

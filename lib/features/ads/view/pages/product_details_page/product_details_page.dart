@@ -27,7 +27,7 @@ class ProductDetailsPage extends ConsumerWidget {
             height: context.spaces.space_900 * 4.2,
             width: double.infinity,
             child: PageView(
-              controller: ref.watch(pageController),
+              controller: ref.watch(pageControllerProvider),
               children: [
                 SvgPicture.asset(
                   ref.watch(imageConstantsProvider).imgOnboarding1,

@@ -1,15 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart';
-import 'package:rent_hub/core/utils/snakbar/show_snackbar.dart';
+import 'package:rent_hub/core/utils/snakbar/snackbar_utils.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
-import 'package:rent_hub/features/ads/domain/usecase/get_category_usecase.dart';
-import 'package:rent_hub/features/ads/service/fetch_all_products_data.dart';
+import 'package:rent_hub/features/ads/domain/usecase/product_use_case/get_category_usecase.dart';
+import 'package:rent_hub/features/ads/service/add_ads_service.dart';
 
 // get Categarised products usecase
 class GetProductsDataUsecase {
-  Stream<List<AdsModel>> call(
-      {required BuildContext context, String? catagory}) async* {
+  Stream<List<AdsModel>> call({String? catagory}) async* {
     // get catagory id with catagory name
     String catagoryId = '';
     if (catagory != null) {
@@ -25,7 +23,7 @@ class GetProductsDataUsecase {
     try {
       // fetch all products details
       final Stream<QuerySnapshot<AdsModel>> dataStream =
-          FetchAllProductsData.FetchProducts();
+          AdsService.getProducts();
 
       await for (var event in dataStream) {
         var allData = <AdsModel>[];
@@ -43,7 +41,7 @@ class GetProductsDataUsecase {
       }
     } on StorageException catch (e) {
       // show snakbar when error
-      context.showErrorSnackBar(e.message);
+      SnackbarUtils.showError(e.message);
     }
   }
 }

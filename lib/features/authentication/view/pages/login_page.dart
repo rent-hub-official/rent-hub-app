@@ -18,10 +18,14 @@ class LoginPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // login page constatns
     final constants = ref.watch(loginPageConstantsProvider);
 
     // phone number controller
     final phoneNumberController = useTextEditingController();
+
+    // alert box constants
+    final alertConsts = ref.watch(loginPageAlertBoxConstantsProvider);
 
     return Scaffold(
       body: Center(
@@ -65,35 +69,26 @@ class LoginPage extends HookConsumerWidget {
                 },
               ),
               MainBtnWidget(
-                onTap: () async {
+                onTap: () {
                   // alert box for edit number or continue
                   if (phoneNumberController.text.isNotEmpty &&
                       phoneNumberController.text.length == 10) {
                     showAlertDialog(
                       context: context,
-                      titile: ref
-                          .watch(loginPageAlertBoxConstantsProvider)
-                          .txtHeading,
-                      subtitile: ref
-                          .watch(loginPageAlertBoxConstantsProvider)
-                          .txtSubHeading,
+                      titile: alertConsts.txtHeading,
+                      subtitile: alertConsts.txtSubHeading,
                       phoneNumber:
                           "${ref.read(coutryCodeProvider)} ${phoneNumberController.text}",
-                      editButtonText: ref
-                          .watch(loginPageAlertBoxConstantsProvider)
-                          .txteditBtn,
-                      continueButtonText: ref
-                          .watch(loginPageAlertBoxConstantsProvider)
-                          .txtcontinueBtn,
+                      editButtonText: alertConsts.txteditBtn,
+                      continueButtonText: alertConsts.txtcontinueBtn,
                       editButtononPressed: () {
                         Navigator.pop(context);
                       },
-                      continueButtononPressed: () async {
+                      continueButtononPressed: () {
                         // verify phone number
-                        await ref
+                        ref
                             .read(authenticationProvider.notifier)
-                            .verifyPhoneNuber(
-                              context,
+                            .verifyPhoneNumber(
                               phoneNumber:
                                   "${ref.read(coutryCodeProvider)}${phoneNumberController.text}",
                             );
