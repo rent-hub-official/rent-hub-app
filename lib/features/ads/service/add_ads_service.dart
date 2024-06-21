@@ -7,7 +7,6 @@ import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart
 import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 
 // Add product service
-
 final class AdsService {
   // ads firestore instance
   static final adsDb =
@@ -31,7 +30,9 @@ final class AdsService {
     }
   }
 
-  // get  category data
+  /// get all avialable categories from firebase
+  ///
+  /// returns the snapshot with the category details as Map
   static Future<QuerySnapshot<Map<String, dynamic>>> getCategory() async {
     try {
       return await categoryDb.orderBy('name').get();

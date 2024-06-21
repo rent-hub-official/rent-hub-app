@@ -23,6 +23,8 @@ class CreateAccountPage extends HookConsumerWidget {
 
     final createAcConst = ref.watch(createAccountConstantProvider);
 
+    final _formKey = GlobalKey<FormState>();
+
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -76,13 +78,19 @@ class CreateAccountPage extends HookConsumerWidget {
                 ),
               ),
               // user name field
-              TextFeildWidget(
-                labeltxt: createAcConst.txtLabelName,
-                hinttxt: createAcConst.txtHintName,
-                textController: nameEditingController,
-                validator: (value) {
-                  return null;
-                },
+              Form(
+                key: _formKey,
+                child: TextFeildWidget(
+                  labeltxt: createAcConst.txtLabelName,
+                  hinttxt: createAcConst.txtHintName,
+                  textController: nameEditingController,
+                  validator: (value) {
+                    if (nameEditingController.text.isEmpty) {
+                      return 'Enter Your Name';
+                    }
+                    return null;
+                  },
+                ),
               ),
               Align(
                 alignment: AlignmentDirectional.topStart,
@@ -95,6 +103,8 @@ class CreateAccountPage extends HookConsumerWidget {
                 padding: EdgeInsets.only(top: context.spaces.space_300),
                 child: MainBtnWidget(
                   onTap: () {
+                    // name TextEditingController validation
+                    _formKey.currentState!.validate();
                     // user id
                     final userId =
                         ref.read(authenticationProvider).phoneNumber!;
