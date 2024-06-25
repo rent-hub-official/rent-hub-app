@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rent_hub/core/constants/payment_constants/add_account_constants.dart';
+import 'package:rent_hub/core/constants/payment/add_account_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
 class DropDownBankListWidget extends HookConsumerWidget {

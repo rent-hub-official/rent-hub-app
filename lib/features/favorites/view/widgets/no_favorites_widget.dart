@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:rent_hub/core/constants/favourites_constants/favourites.dart';
+import 'package:rent_hub/core/constants/favourites/favourites.dart';
 import 'package:rent_hub/core/constants/image_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 

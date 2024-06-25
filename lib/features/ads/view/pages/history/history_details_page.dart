@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rent_hub/core/constants/history_constants/purchase_history.dart';
+import 'package:rent_hub/core/constants/ads/purchase_history.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/history_widgets/list_of_booking_history_widget.dart';

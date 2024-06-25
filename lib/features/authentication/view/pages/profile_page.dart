@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/icon_constants.dart';
-import 'package:rent_hub/core/constants/profile_page_constants/profile_page_constants.dart';
+import 'package:rent_hub/core/constants/authentication/profile_page_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/features/ads/view/pages/history/history_details_page.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';

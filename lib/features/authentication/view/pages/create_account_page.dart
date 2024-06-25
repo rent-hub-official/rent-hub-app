@@ -2,17 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:rent_hub/core/constants/create_account_constants/create_account.dart';
+import 'package:rent_hub/core/constants/authentication/create_account.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/core/utils/snakbar/show_snackbar.dart';
-import 'package:rent_hub/core/widgets/bottom_nav/bottom_nav_widget.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
 import 'package:rent_hub/features/authentication/controller/account_details_provider/account_details_provider.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
+import 'package:rent_hub/features/authentication/controller/image_picker_provider.dart';
 
 class CreateAccountPage extends HookConsumerWidget {
   static const routePath = '/createAccount';
@@ -25,6 +22,9 @@ class CreateAccountPage extends HookConsumerWidget {
         useTextEditingController();
 
     final createAcConst = ref.watch(createAccountConstantProvider);
+
+    final _formKey = GlobalKey<FormState>();
+
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -49,34 +49,18 @@ class CreateAccountPage extends HookConsumerWidget {
                   borderRadius: BorderRadius.circular(
                     context.spaces.space_300 * 6,
                   ),
-                  onTap: () async {
-                    // image picker
-                    XFile? img = await ImagePicker().pickImage(
-                      source: ImageSource.gallery,
-                    );
-
-                    ref.read(imageProvider.notifier).state = img;
-
-                    if (context.mounted && img != null) {
-                      // upload image cloudstorage
-                      await ref
-                          .read(accountDetailsProvider.notifier)
-                          .uploadImage(
-                            context,
-                            image: File(img.path),
-                            userId:
-                                ref.read(authenticationProvider).phoneNumber!,
-                          );
-                    }
+                  onTap: () {
+                    // pick image from gallery
+                    ref.read(imagePickerProvider.notifier).pickImage();
                   },
                   child: Stack(
                     children: [
                       CircleAvatar(
                         radius: context.spaces.space_300 * 4,
-                        backgroundImage: ref.watch(imageProvider) != null
+                        backgroundImage: ref.watch(imagePickerProvider) != null
                             ? FileImage(
                                 File(
-                                  ref.watch(imageProvider)!.path,
+                                  ref.watch(imagePickerProvider)!.path,
                                 ),
                               )
                             : null,
@@ -93,15 +77,20 @@ class CreateAccountPage extends HookConsumerWidget {
                   ),
                 ),
               ),
-
-              // Todo  dyvesh not impoortent
-              TextFeildWidget(
-                labeltxt: createAcConst.txtLabelName,
-                hinttxt: createAcConst.txtHintName,
-                textController: nameEditingController,
-                validator: (p0) {
-                  return null;
-                },
+              // user name field
+              Form(
+                key: _formKey,
+                child: TextFeildWidget(
+                  labeltxt: createAcConst.txtLabelName,
+                  hinttxt: createAcConst.txtHintName,
+                  textController: nameEditingController,
+                  validator: (value) {
+                    if (nameEditingController.text.isEmpty) {
+                      return 'Enter Your Name';
+                    }
+                    return null;
+                  },
+                ),
               ),
               Align(
                 alignment: AlignmentDirectional.topStart,
@@ -113,20 +102,21 @@ class CreateAccountPage extends HookConsumerWidget {
               Padding(
                 padding: EdgeInsets.only(top: context.spaces.space_300),
                 child: MainBtnWidget(
-                  onTap: () async {
-                    await ref.read(accountDetailsProvider.notifier).addData(
-                          context,
-                          userId: ref.read(authenticationProvider).phoneNumber!,
+                  onTap: () {
+                    // name TextEditingController validation
+                    _formKey.currentState!.validate();
+                    // user id
+                    final userId =
+                        ref.read(authenticationProvider).phoneNumber!;
+                    // upload image
+                    ref.read(accountDetailsProvider.notifier).uploadImage(
+                        userId: userId,
+                        image: File(ref.read(imagePickerProvider)?.path ?? ""));
+                    // add user data
+                    ref.read(accountDetailsProvider.notifier).addData(
+                          userId: userId,
                           userName: nameEditingController.text,
                         );
-                    ref.invalidate(imageProvider);
-                    // TODO : Check it
-                    if (nameEditingController.text.isNotEmpty) {
-                      context.pushReplacement(BottomNavWidget.routePath);
-                    } else {
-                      SnackBarExtension(context)
-                          .showErrorSnackBar('Please enter a name');
-                    }
                     nameEditingController.clear();
                   },
                   btnTxt: createAcConst.txtbtn,

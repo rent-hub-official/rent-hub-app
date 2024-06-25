@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/constants/seller_profile_constants/seller_profile.dart';
+import 'package:rent_hub/core/constants/ads/seller_profile.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/features/chat/widgets/seller_profile_widget.dart';

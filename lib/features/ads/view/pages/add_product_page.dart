@@ -1,16 +1,14 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:rent_hub/core/constants/add_product_constants/add_product.dart';
+import 'package:rent_hub/core/constants/ads/add_product.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
 import 'package:rent_hub/features/ads/controller/category_controller/category_provider.dart';
+import 'package:rent_hub/features/ads/controller/image_controller/image_provider.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/product_controller.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/widgets/add_product_page/description_feild_widget.dart';
@@ -22,7 +20,6 @@ class AddProductPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ImagePicker imagePicker = ImagePicker();
     final constants = ref.watch(addProductConstantsProvider);
     final productNamecontroller = useTextEditingController();
     final priceController = useTextEditingController();
@@ -83,27 +80,19 @@ class AddProductPage extends HookConsumerWidget {
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               itemBuilder: (context, index) => Imagewidget(
-                                imagePath: ref.watch(ImageListProvider)[index],
+                                imagePath: ref.watch(imageProvider)[index],
                               ),
                               separatorBuilder: (context, index) => SizedBox(
                                 width: context.spaces.space_100,
                               ),
-                              itemCount: ref.watch(ImageListProvider).length,
+                              itemCount: ref.watch(imageProvider).length,
                             ),
                             Imagewidget(
                               onTap: () async {
-                                final XFile? img = await imagePicker.pickImage(
-                                  source: ImageSource.gallery,
-                                );
-                                // add image firebase
-                                if (img != null)
-                                  ref
-                                      .read(addProductsProvider.notifier)
-                                      .addImage(
-                                        context,
-                                        image: File(img.path),
-                                        userId: 'userId',
-                                      );
+                                // image picker
+                                ref.read(imageProvider.notifier).upload(
+                                      userId: "userId",
+                                    );
                               },
                             ),
                           ],
@@ -184,11 +173,10 @@ class AddProductPage extends HookConsumerWidget {
                       MainBtnWidget(
                         onTap: () {
                           // add products data
-                          ref.read(addProductsProvider.notifier).addProduct(
-                                context,
-                                data: AdsModel(
+                          ref.read(productsProvider.notifier).addData(
+                                adsmodel: AdsModel(
                                   views: 0,
-                                  imagePath: ref.read(ImageListProvider),
+                                  imagePath: ref.read(imageProvider),
                                   productName: productNamecontroller.text,
                                   category: data
                                       .docs[categoryindexSelector.value ?? 0]
@@ -196,8 +184,7 @@ class AddProductPage extends HookConsumerWidget {
                                   locationTitle: locationController.text,
                                   lat: 0,
                                   long: 0,
-                                  // TODO :change this field user id
-                                  userId: 'userId',
+                                  userId: "userId",
                                   description: descriptionController.text,
                                   price: double.parse(priceController.text),
                                 ),
