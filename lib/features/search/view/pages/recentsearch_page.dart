@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/user_profile_constants/user_search_detailes.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
-import 'package:rent_hub/features/search/view/widgets/costom_searchfield_widget/search_field_widget.dart';
+import 'package:rent_hub/features/search/view/widgets/custom_searchfield_widget/search_field_widget.dart';
 
 class RecentSearchScreen extends ConsumerWidget {
   // TODO
