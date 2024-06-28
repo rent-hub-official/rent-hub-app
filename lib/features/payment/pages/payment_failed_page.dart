@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/constants/Payment_constants/payment_failed.dart';
+import 'package:rent_hub/core/constants/payment/payment_failed.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';

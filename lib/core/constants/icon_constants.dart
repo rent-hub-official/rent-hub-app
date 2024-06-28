@@ -6,7 +6,6 @@ class IconConstants {
   static const iconPath = "assets/icons/ic_";
 
   final icProfile = "${iconPath}profile.png";
-
 }
 
 @riverpod

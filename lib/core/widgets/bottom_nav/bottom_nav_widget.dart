@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rent_hub/core/constants/bottom_nav_constants/bottom_nav.dart';
+import 'package:rent_hub/core/enums/bottom_nav_items_enum.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/bottom_nav/animated_bottom_nav/animated_bottom_nav_bar.dart';
 import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
+import 'package:rent_hub/features/ads/view/pages/home_page.dart';
+import 'package:rent_hub/features/authentication/view/pages/profile_page.dart';
+import 'package:rent_hub/features/chat/view/pages/chat_list_page.dart';
+import 'package:rent_hub/features/favorites/view/pages/favorites_page.dart';
 
-class BottomNavWidget extends ConsumerWidget {
+class MainPage extends ConsumerWidget {
   static const routePath = '/bottomNav';
-  const BottomNavWidget({super.key});
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,13 +20,6 @@ class BottomNavWidget extends ConsumerWidget {
 
     //page index controller
     final activePageIndex = ref.watch(bottomPageIndexProvider);
-    //icon provider
-    final bottomNavConstProvider = ref.read(bottomNavConstantsProvider);
-
-    final List<Icon> selectedIcons = bottomNavConstProvider.selectedIcons;
-    final List<Icon> unSelectedIcons = bottomNavConstProvider.unSelectedIcons;
-
-    final List<Widget> pages = bottomNavConstProvider.pages;
 
     // Function to handle page changes in a PageView
     void handlePageChange(int value) {
@@ -37,7 +34,12 @@ class BottomNavWidget extends ConsumerWidget {
       body: PageView(
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),
-        children: pages,
+        children: const [
+          HomePage(),
+          ChatListPage(),
+          FavoritesPage(),
+          ProfilePage(),
+        ],
       ),
       floatingActionButton: Padding(
         padding: EdgeInsets.only(top: context.spaces.space_50),
@@ -72,8 +74,14 @@ class BottomNavWidget extends ConsumerWidget {
         notchMargin: context.spaces.space_150,
         scaleFactor: 0,
         icons: [
-          for (int i = 0; i < pages.length; i++)
-            i == activePageIndex ? selectedIcons[i] : unSelectedIcons[i]
+          for (final navBarItem in BottomNavBarItem.values)
+            Icon(
+              navBarItem.index == activePageIndex
+                  ? navBarItem.selectedIcon
+                  : navBarItem.unSelectedIcon,
+              weight: 0.3,
+              size: 28,
+            )
         ],
       ),
     );
