@@ -128,9 +128,14 @@ final router = GoRouter(
     GoRoute(
       path: ChatDetailsPage.routePath,
       builder: (context, state) {
-        return ChatDetailsPage();
+        final extra = state.extra as Map<String, String>;
+        return ChatDetailsPage(
+          image: extra['image']!,
+          name: extra['name']!,
+          receiverId: extra['receiverId']!,
+          userId: extra['userId']!,
+        );
       },
-      redirect: checkLoggedIn,
     ),
     GoRoute(
       path: PaymentFailedPage.routePath,
