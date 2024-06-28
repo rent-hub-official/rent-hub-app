@@ -1,24 +1,32 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
-import 'package:rent_hub/features/chat/controller/chat_controller.dart';
+import 'package:rent_hub/features/chat/controller/format_time_controller.dart';
+import 'package:rent_hub/features/chat/controller/get_all_chat_controller.dart';
 import 'package:rent_hub/features/chat/view/widgets/input_message_field_widget.dart';
 import 'package:rent_hub/features/chat/view/widgets/received_message_widget.dart';
 import 'package:rent_hub/features/chat/view/widgets/sent_message_widget.dart';
 
 class ChatDetailsPage extends ConsumerWidget {
   static const routePath = '/chatDetails';
-  ChatDetailsPage({super.key, required this.receiverId, required this.userId});
+  ChatDetailsPage({
+    super.key,
+    required this.receiverId,
+    required this.userId,
+    required this.image,
+    required this.name,
+  });
 
   final TextEditingController inputMessageController = TextEditingController();
   final String userId;
   final String receiverId;
+  final String image;
+  final String name;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -42,9 +50,9 @@ class ChatDetailsPage extends ConsumerWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // TODO fetch user name and online status
+               
                 Text(
-                  'amal',
+                  name,
                   style: context.typography.h3Bold,
                 ),
                 Text(
@@ -72,27 +80,30 @@ class ChatDetailsPage extends ConsumerWidget {
           child: Column(
             children: [
               Expanded(
-                child: ref.watch(messageSentBymeProvider).when(
+                child: ref.watch(getAllMessageProvider).when(
                       data: (data) {
                         return ListView.builder(
                           itemCount: data.length,
                           itemBuilder: (context, index) {
                             final message = data[index];
-                            if (userId == message.senderId &&
-                                receiverId == message.receiverId) {
+                            if (userId == message.senderId) {
                               log("receivedid${receiverId}");
                               log("eeuirecevedid${message.receiverId}");
                               log("senderid${userId}");
                               log("eeuisenderid${message.senderId}");
 
                               return SentMessageWidget(
-                                message: message.message ?? 'em',
-                                time: formatTimestampTo12Hour(message.time),
+                                image: image,
+                                message: message.message ?? 'emjjj',
+                                time: ref.watch(FormatTimeProvider(
+                                    timestamp: message.time)),
                               );
                             }
-                            return ReceviedMessageWidget(
+                            return     ReceviedMessageWidget(
+                              image: image,
                               message: message.message ?? '',
-                              time: formatTimestampTo12Hour(message.time),
+                              time: ref.watch(
+                                  FormatTimeProvider(timestamp: message.time)),
                             );
                           },
                         );
@@ -113,19 +124,5 @@ class ChatDetailsPage extends ConsumerWidget {
         ),
       ),
     );
-  }
-
-  String formatTimestampTo12Hour(Timestamp timestamp) {
-    DateTime dateTime = timestamp.toDate();
-    int hour = dateTime.hour;
-    int minute = dateTime.minute;
-
-    String period = hour >= 12 ? 'PM' : 'AM';
-    hour = hour % 12;
-    hour = hour != 0 ? hour : 12; // Convert '0' hour to '12'
-
-    String minuteString = minute < 10 ? '0$minute' : minute.toString();
-
-    return '$hour:$minuteString $period';
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/constants/my_products_constants/my_products_constants.dart';
+import 'package:rent_hub/core/constants/ads/my_products_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/features/ads/view/widgets/my_product_card/my_product_bottom_icon_widget.dart';

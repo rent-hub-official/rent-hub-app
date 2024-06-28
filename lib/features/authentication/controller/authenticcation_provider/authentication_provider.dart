@@ -1,13 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:rent_hub/core/exception/base_exception/base_exception.dart';
-import 'package:rent_hub/core/utils/snakbar/error_snackbar.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_state.dart';
-import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases.dart';
-import 'package:rent_hub/features/authentication/view/pages/create_account_page.dart';
-import 'package:rent_hub/features/authentication/view/pages/otp_verification_screen.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases/log_out_use_case.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases/signin_with_otp_credential_usecase.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases/verify_phone_number_use_case.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'authentication_provider.g.dart';
@@ -25,113 +20,40 @@ class Authentication extends _$Authentication {
     );
   }
 
-  // phone number verification
-  Future<void> verifyPhoneNuber(BuildContext context,
-      {required String phoneNumber}) async {
+  //verify phonenumber
+  Future<void> verifyPhoneNumber({
+    required String phoneNumber,
+  }) async {
     state = state.copyWith(isLoading: true, phoneNumber: phoneNumber);
 
-    try {
-      await AuthenticationUseCases.verifyPhoneNumber(
-        phoneNumber: phoneNumber,
-        codeSent: (verificationId, forceResendingToken) {
-          state = state.copyWith(verificationId: verificationId);
-        },
-      );
+    await VerifyPhoneNumberUseCase()(
+      phoneNumber: phoneNumber,
+      codeSent: (verificationId, forceResendingToken) {
+        state = state.copyWith(verificationId: verificationId);
+      },
+    );
 
-      state = state.copyWith(isLoading: false);
-
-      // navigate otp page
-      Future.sync(() {
-        // TODO: complete chek it
-        context.pushReplacement(OtpVerificationScreen.routePath);
-      });
-    } on BaseException catch (e) {
-      state = state.copyWith(isLoading: false);
-
-      Future.sync(
-        () => ErrorSnackBar(context, errorMessage: e.message),
-      );
-    }
     state = state.copyWith(isLoading: false);
   }
 
-  // otp verification
-  Future<void> otpVerification(
-    BuildContext context, {
-    required String smsCode,
-  }) async {
-    try {
-      state = state.copyWith(isLoading: true);
+  // verify otp and signin with credential
+  Future<void> verifyOtp({required String smsCode}) async {
+    state = state.copyWith(isLoading: true);
 
-      if (state.verificationId != null) {
-        final userCredential =
-            await AuthenticationUseCases.signinWithOtpCredential(
-          verificationId: state.verificationId!,
-          smsCode: smsCode,
-        );
+    await SigninWithOtpCredentialUseCase()(
+        smsCode: smsCode, verificationId: state.verificationId);
 
-        state = state.copyWith(isLoading: false);
-
-        // if user is logged push home page
-        if (userCredential.user != null) {
-          Future.sync(() {
-            // TODO: complete  check it
-            //? navigate home page
-            context.pushReplacement(CreateAccountPage.routePath);
-          });
-        } else {
-          Future.sync(
-            () => ErrorSnackBar(
-              context,
-              errorMessage: 'otp verification faild retry',
-            ),
-          );
-        }
-      } else {
-        state = state.copyWith(isLoading: false);
-
-        // if is verification id faild
-        Future.sync(
-          () => ErrorSnackBar(
-            context,
-            errorMessage: 'A error occured phone number verification, retry',
-          ),
-        );
-      }
-    } on BaseException catch (e) {
-      state = state.copyWith(isLoading: false);
-
-      Future.sync(
-        () => ErrorSnackBar(context, errorMessage: e.message),
-      );
-    }
     state = state.copyWith(isLoading: false);
   }
 
   // logout
-  Future<void> logoutUser(BuildContext context) async {
+  Future<void> logout() async {
     state = state.copyWith(isLoading: true);
 
-    try {
-      await AuthenticationUseCases.logOut();
+    await LogOutUseCase()();
 
-      state = state.copyWith(isLoading: false);
-    } on BaseException catch (e) {
-      state = state.copyWith(isLoading: false);
-
-      Future.sync(
-        () => ErrorSnackBar(context, errorMessage: e.message),
-      );
-    }
-
-    state = state.copyWith(isLoading: false);
+    state = state.copyWith(isLoading: true);
   }
-}
-
-// auth state changes stream provider
-@riverpod
-Stream<User?> authStateChanges(AuthStateChangesRef ref) {
-  return AuthenticationUseCases.authStateChanges();
 }
 
 // country code provider

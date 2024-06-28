@@ -4,10 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
 class SentMessageWidget extends StatelessWidget {
-  const SentMessageWidget(
-      {super.key, required this.message, required this.time});
+  const SentMessageWidget({
+    super.key,
+    required this.message,
+    required this.time,
+    required this.image,
+  });
   final String message;
   final String time;
+  final String image;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -39,8 +44,14 @@ class SentMessageWidget extends StatelessWidget {
           padding: EdgeInsets.only(
               bottom: context.spaces.space_250, left: context.spaces.space_100),
           child: CircleAvatar(
-            radius: context.spaces.space_200,
-          ),
+              radius: context.spaces.space_200,
+              child: Image.network(
+                image,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Center(
+                  child: Icon(Icons.person),
+                ),
+              )),
         ),
       ],
     );
