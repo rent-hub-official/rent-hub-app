@@ -14,7 +14,7 @@ class ProductUsecase {
           )
           .add(adsmodel);
     } on FirebaseException catch (e) {
-      throw StorageException(error: e.message);
+      throw StorageException(e.message);
     }
   }
 
@@ -30,7 +30,7 @@ class ProductUsecase {
           .doc(id)
           .set(adsmodel);
     } on FirebaseException catch (e) {
-      throw StorageException(error: e.message);
+      throw StorageException(e.message);
     }
   }
 
@@ -39,7 +39,7 @@ class ProductUsecase {
     try {
       return await AdsService.categoryDb.orderBy('name').get();
     } on FirebaseException catch (e) {
-      throw StorageException(error: e.message);
+      throw StorageException(e.message);
     }
   }
 }

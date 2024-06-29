@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_hub/core/constants/add_product_constants/add_product.dart';
+import 'package:rent_hub/core/constants/ads/add_product.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 
@@ -11,7 +11,7 @@ class DescriptionFeildWidget extends StatelessWidget {
   });
 
   final TextEditingController descriptionController;
-  final AddProduct constants;
+  final AddProductConstants constants;
 
   @override
   Widget build(BuildContext context) {

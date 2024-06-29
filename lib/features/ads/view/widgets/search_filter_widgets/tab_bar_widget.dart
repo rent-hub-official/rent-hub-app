@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/constants/filters_sort_constants/filter_sort.dart';
+import 'package:rent_hub/core/constants/ads/filter_sort.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
 class TabBarWidget extends ConsumerWidget {

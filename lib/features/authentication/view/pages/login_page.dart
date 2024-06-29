@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:rent_hub/core/constants/image_constants.dart';
-import 'package:rent_hub/core/constants/login_page_constants/login_page_alertbox.dart';
-import 'package:rent_hub/core/constants/login_page_constants/login_page_constants.dart';
+import 'package:rent_hub/core/constants/authentication/login_page_alertbox.dart';
+import 'package:rent_hub/core/constants/authentication/login_page_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/utils/alert_box/alert_box.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
@@ -18,10 +18,14 @@ class LoginPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // login page constatns
     final constants = ref.watch(loginPageConstantsProvider);
 
     // phone number controller
     final phoneNumberController = useTextEditingController();
+
+    // alert box constants
+    final alertConsts = ref.watch(loginPageAlertBoxConstantsProvider);
 
     return Scaffold(
       body: Center(
@@ -65,35 +69,26 @@ class LoginPage extends HookConsumerWidget {
                 },
               ),
               MainBtnWidget(
-                onTap: () async {
+                onTap: () {
                   // alert box for edit number or continue
                   if (phoneNumberController.text.isNotEmpty &&
                       phoneNumberController.text.length == 10) {
                     showAlertDialog(
                       context: context,
-                      titile: ref
-                          .watch(loginPageAlertBoxConstantsProvider)
-                          .txtHeading,
-                      subtitile: ref
-                          .watch(loginPageAlertBoxConstantsProvider)
-                          .txtSubHeading,
+                      titile: alertConsts.txtHeading,
+                      subtitile: alertConsts.txtSubHeading,
                       phoneNumber:
                           "${ref.read(coutryCodeProvider)} ${phoneNumberController.text}",
-                      editButtonText: ref
-                          .watch(loginPageAlertBoxConstantsProvider)
-                          .txteditBtn,
-                      continueButtonText: ref
-                          .watch(loginPageAlertBoxConstantsProvider)
-                          .txtcontinueBtn,
+                      editButtonText: alertConsts.txteditBtn,
+                      continueButtonText: alertConsts.txtcontinueBtn,
                       editButtononPressed: () {
                         Navigator.pop(context);
                       },
-                      continueButtononPressed: () async {
+                      continueButtononPressed: () {
                         // verify phone number
-                        await ref
+                        ref
                             .read(authenticationProvider.notifier)
-                            .verifyPhoneNuber(
-                              context,
+                            .verifyPhoneNumber(
                               phoneNumber:
                                   "${ref.read(coutryCodeProvider)}${phoneNumberController.text}",
                             );

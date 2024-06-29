@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
-class ImagePickerwidget extends StatelessWidget {
+class Imagewidget extends StatelessWidget {
   final void Function()? onTap;
-  const ImagePickerwidget({
+  final String? imagePath;
+  const Imagewidget({
     super.key,
-    required this.onTap,
+    this.onTap,
+    this.imagePath,
   });
 
   @override
@@ -13,10 +15,18 @@ class ImagePickerwidget extends StatelessWidget {
     return Card(
       child: InkWell(
         onTap: onTap,
-        child: SizedBox(
+        child: Container(
           width: context.spaces.space_900,
           height: context.spaces.space_900,
-          child: const Icon(Icons.camera_alt),
+          decoration: imagePath != null
+              ? BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(imagePath!),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(context.spaces.space_50))
+              : null,
+          child: imagePath != null ? null : const Icon(Icons.camera_alt),
         ),
       ),
     );

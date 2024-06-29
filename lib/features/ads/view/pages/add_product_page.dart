@@ -1,17 +1,15 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:rent_hub/core/constants/add_product_constants/add_product.dart';
+import 'package:rent_hub/core/constants/ads/add_product.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
 import 'package:rent_hub/features/ads/controller/category_controller/category_provider.dart';
-import 'package:rent_hub/features/ads/controller/product_controller/product_screen_controller.dart';
+import 'package:rent_hub/features/ads/controller/image_controller/image_provider.dart';
+import 'package:rent_hub/features/ads/controller/product_controller/product_controller.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
 import 'package:rent_hub/features/ads/view/widgets/add_product_page/description_feild_widget.dart';
@@ -23,15 +21,13 @@ class AddProductPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ImagePicker imagePicker = ImagePicker();
-    final constants = ref.watch(addProductProvider);
+    final constants = ref.watch(addProductConstantsProvider);
     final productNamecontroller = useTextEditingController();
     final priceController = useTextEditingController();
     final locationController = useTextEditingController();
-    final offerController = useTextEditingController();
     final descriptionController = useTextEditingController();
 
-    final indexSelector = useState<int?>(null);
+    final categoryindexSelector = useState<int?>(null);
 
     return Scaffold(
       appBar: AppBar(
@@ -51,12 +47,13 @@ class AddProductPage extends HookConsumerWidget {
       ),
       body: ref.watch(getCategorysProvider).when(
             data: (data) {
+              // categories
               final categoryList = data.docs
                   .map(
                     (e) => e.data()['name'],
                   )
                   .toList();
-              log(categoryList.toString());
+
               return SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.all(context.spaces.space_200),
@@ -74,12 +71,33 @@ class AddProductPage extends HookConsumerWidget {
                       SizedBox(
                         height: context.spaces.space_125,
                       ),
-                      ImagePickerwidget(
-                        onTap: () async {
-                          final XFile? img = await imagePicker.pickImage(
-                            source: ImageSource.gallery,
-                          );
-                        },
+                      // ads images
+                      SizedBox(
+                        height: context.spaces.space_900,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) => Imagewidget(
+                                imagePath: ref.watch(imageProvider)[index],
+                              ),
+                              separatorBuilder: (context, index) => SizedBox(
+                                width: context.spaces.space_100,
+                              ),
+                              itemCount: ref.watch(imageProvider).length,
+                            ),
+                            Imagewidget(
+                              onTap: () async {
+                                // image picker
+                                ref.read(imageProvider.notifier).upload(
+                                      userId: "userId",
+                                    );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: context.spaces.space_100,
@@ -109,7 +127,7 @@ class AddProductPage extends HookConsumerWidget {
                       // category drop down
                       DropdownButton<int>(
                         isExpanded: true,
-                        value: indexSelector.value,
+                        value: categoryindexSelector.value,
                         disabledHint: Text('data'),
                         hint: Padding(
                           padding: EdgeInsets.only(
@@ -132,7 +150,7 @@ class AddProductPage extends HookConsumerWidget {
                             ),
                         ],
                         onChanged: (value) {
-                          indexSelector.value = value;
+                          categoryindexSelector.value = value;
                         },
                       ),
                       TextFeildWidget(
@@ -146,17 +164,6 @@ class AddProductPage extends HookConsumerWidget {
                       SizedBox(
                         height: context.spaces.space_100,
                       ),
-                      TextFeildWidget(
-                        labeltxt: constants.txtOffers,
-                        hinttxt: constants.txtPicOffer,
-                        textController: offerController,
-                        validator: (val) {
-                          return null;
-                        },
-                      ),
-                      SizedBox(
-                        height: context.spaces.space_400,
-                      ),
                       DescriptionFeildWidget(
                         descriptionController: descriptionController,
                         constants: constants,
@@ -166,26 +173,24 @@ class AddProductPage extends HookConsumerWidget {
                       ),
                       MainBtnWidget(
                           onTap: () {
-                            ref.read(productsProvider.notifier).addProduct(
-                                context,
-                                data: AdsModel(
-                                  views: 12,
-                                  seller: '777',
-                                  imagePath: [
-                                    'https://imgd.aeplcdn.com/1200x900/n/cw/ec/44709/fortuner-exterior-right-front-three-quarter-20.jpeg?isig=0&q=80',
-                                    'https://stat.overdrive.in/wp-content/uploads/2024/04/Untitled-design-2024-04-22T124516.068.png'
-                                  ],
+                            // add products data
+                            ref.read(productsProvider.notifier).addData(
+                                    adsmodel: AdsModel(
+                                  views: 0,
+                                  imagePath: ref.read(imageProvider),
                                   productName: productNamecontroller.text,
-                                  category:
-                                      data.docs[indexSelector.value ?? 2].id,
+                                  category: data
+                                      .docs[categoryindexSelector.value ?? 0]
+                                      .id,
                                   locationTitle: locationController.text,
                                   lat: 0,
                                   long: 0,
-                                  userId: '123',
+                                  userId: "userId",
                                   description: descriptionController.text,
                                   price: double.parse(priceController.text),
                                   dateCreated: DateTime.now(),
                                   dateMoidified: DateTime.now(),
+                                  seller: '',
                                 ));
                             context.pushReplacement(MyProductsPage.routePath);
                           },

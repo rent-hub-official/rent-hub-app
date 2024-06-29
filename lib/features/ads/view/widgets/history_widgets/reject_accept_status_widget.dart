@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/constants/history_constants/order_history.dart';
-import 'package:rent_hub/core/constants/history_constants/purchase_history.dart';
+import 'package:rent_hub/core/constants/ads/order_history.dart';
+import 'package:rent_hub/core/constants/ads/purchase_history.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 

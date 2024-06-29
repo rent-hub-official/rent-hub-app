@@ -1,14 +1,15 @@
 // Widget to display the product details
+
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/constants/product_screen_constants/product_screen.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rent_hub/core/constants/ads/product_screen.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
-import 'package:rent_hub/features/ads/controller/product_controller/product_screen_controller.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/chat_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/phone_widget.dart';
 
-class ProductDetailsWidget extends ConsumerWidget {
+class ProductDetailsWidget extends HookConsumerWidget {
   const ProductDetailsWidget({
     super.key,
     required this.userimage,
@@ -36,6 +37,10 @@ class ProductDetailsWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final constants = ref.watch(productScreenConstantsProvider);
+
+    // desc text line height ctrl
+    final readMoreText = useState<bool>(false);
+
     return Center(
       child: Center(
         child: Padding(
@@ -136,20 +141,20 @@ class ProductDetailsWidget extends ConsumerWidget {
                     Text(
                       productdetails,
                       style: context.typography.body,
-                      maxLines: ref.watch(readmoreTextProvider) ? null : 6,
-                      overflow: ref.watch(readmoreTextProvider)
+                      maxLines: readMoreText.value ? null : 6,
+                      overflow: readMoreText.value
                           ? TextOverflow.visible
                           : TextOverflow.ellipsis,
                     ),
                     TextButton(
                       onPressed: () {
-                        ref.read(readmoreTextProvider.notifier).state =
-                            !ref.read(readmoreTextProvider);
+                        // toggle desc text more and less
+                        readMoreText.value = !readMoreText.value;
                       },
                       child: Text(
-                        ref.watch(readmoreTextProvider)
-                            ? constants.redlesstext
-                            : constants.redmoretext,
+                        readMoreText.value
+                            ? constants.readlesstext
+                            : constants.readmoretext,
                         style: const TextStyle(color: AppColorPalettes.blue),
                       ),
                     ),

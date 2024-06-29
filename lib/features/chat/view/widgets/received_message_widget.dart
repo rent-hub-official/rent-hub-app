@@ -6,20 +6,25 @@ import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/features/chat/view/pages/seller_profile_page.dart';
 
 class ReceviedMessageWidget extends StatelessWidget {
-  const ReceviedMessageWidget(
-      {super.key, required this.message, required this.time});
+  const ReceviedMessageWidget({
+    super.key,
+    required this.message,
+    required this.time,
+    required this.image,
+  });
   final String message;
   final String time;
+  final String image;
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  top: 100,
                   bottom: context.spaces.space_250,
                   right: context.spaces.space_100),
               child: InkWell(
@@ -29,8 +34,14 @@ class ReceviedMessageWidget extends StatelessWidget {
                     context.push(SellerProfilePage.routePath);
                   },
                   child: CircleAvatar(
-                    radius: context.spaces.space_200,
-                  )),
+                      radius: context.spaces.space_200,
+                      child: Image.network(
+                        image,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => Center(
+                          child: Icon(Icons.person),
+                        ),
+                      ))),
             ),
           ],
         ),

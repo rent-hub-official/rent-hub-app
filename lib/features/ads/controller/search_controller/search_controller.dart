@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'search_controller.g.dart';
 
 @riverpod
-Future<QuerySnapshot<AdsModel>> searchProduct(SearchProductRef ref,
+Stream<List<AdsModel>> searchProduct(SearchProductRef ref,
     {required String queryText}) {
-  return SearchFilterUsecase().search(queryText: queryText);
+  return SearchFilterUsecase()(queryText: queryText);
 }
