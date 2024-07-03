@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/user_profile_settings.dart';
-import 'package:rent_hub/core/routers/redirects.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
@@ -76,14 +75,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
                 context.push(AddBankAcDetailsPage.routePath);
               },
             ),
-            // change phone number
-            // ProfileSettingsFieldWidget(
-            //   title:
-            //       ref.watch(userProfileSettingsConstantsProvider).txtChangeNo,
-            //   onPressed: () {
-            //     // TODO AMAL
-            //   },
-            // ),
+          
             // log out
             ProfileSettingsFieldWidget(
               title: ref.watch(userProfileSettingsConstantsProvider).txtLOgOut,
