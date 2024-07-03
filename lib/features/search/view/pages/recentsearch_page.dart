@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:rent_hub/core/constants/user_profile_constants/user_search_detailes.dart';
+import 'package:rent_hub/core/constants/user_profile_constants/user_search_detailes.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/features/search/view/widgets/custom_searchfield_widget/search_field_widget.dart';
@@ -57,23 +57,23 @@ class RecentSearchScreen extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Text(
-                //     ref
-                //         .watch(userSearchDetailesConstantsProvider)
-                //         .txtRecentSearch,
-                //     style: context.typography.h3SemiBold),
-                // ElevatedButton(
-                //   onPressed: () {},
-                //   style: ElevatedButton.styleFrom(
-                //       shape: RoundedRectangleBorder(
-                //           borderRadius:
-                //               BorderRadius.circular(context.spaces.space_150)),
-                //       backgroundColor: AppColorPalettes.grey200),
-                //   child: Text(
-                //     ref.watch(userSearchDetailesConstantsProvider).txtbtn,
-                //     style: context.typography.bodySmall,
-                //   ),
-                // )
+                Text(
+                    ref
+                        .watch(userSearchDetailesConstantsProvider)
+                        .txtRecentSearch,
+                    style: context.typography.h3SemiBold),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(context.spaces.space_150)),
+                      backgroundColor: AppColorPalettes.grey200),
+                  child: Text(
+                    ref.watch(userSearchDetailesConstantsProvider).txtbtn,
+                    style: context.typography.bodySmall,
+                  ),
+                )
               ],
             ),
             SizedBox(height: context.spaces.space_200),
