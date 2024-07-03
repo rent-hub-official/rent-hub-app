@@ -12,10 +12,12 @@ import 'package:rent_hub/features/favorites/service/favorite_ads_service.dart';
 class SetFavoriteUsecase {
   Future<void> call({required FavoritesModel model}) async {
     ///fetch all data from favorite collection
-    final data = await GetFavoriteProductsUsecase()(userId: model.userId);
+    final data = await FavoriteAdsService.getFavoriteAds(userId: model.userId);
     QueryDocumentSnapshot<Map<String, dynamic>>? favData = null;
 
-    //
+    /// loop through all data from favorite DB
+    /// checks adsId matchs
+    /// if match it's snapshot stores in favData
     data.docs.map(
       (product) {
         if (product.data()['adsId'] == model.adsId) favData = product;
@@ -34,6 +36,7 @@ class SetFavoriteUsecase {
       }
     } else {
       try {
+        // delete from favorite collection with its id
         await FavoriteAdsService.removeFromFavorite(favDocId: favData!.id);
         // show toster snakbar after remove from favorite
         ToasterUtil.showMessage(
