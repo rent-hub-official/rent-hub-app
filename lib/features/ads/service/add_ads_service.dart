@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
 import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 
 // Add product service
 final class AdsService {
