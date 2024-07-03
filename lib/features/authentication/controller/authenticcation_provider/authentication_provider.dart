@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_state.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases/delete_user_use_case.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases/log_out_use_case.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases/signin_with_otp_credential_usecase.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/authentication_use_cases/verify_phone_number_use_case.dart';
@@ -51,6 +52,14 @@ class Authentication extends _$Authentication {
     state = state.copyWith(isLoading: true);
 
     await LogOutUseCase()();
+
+    state = state.copyWith(isLoading: true);
+  }
+
+  Future<void> Delete() async {
+    state = state.copyWith(isLoading: true);
+
+    await DeleteUserUseCase()();
 
     state = state.copyWith(isLoading: true);
   }

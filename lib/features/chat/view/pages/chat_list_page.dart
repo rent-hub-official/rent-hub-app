@@ -79,13 +79,17 @@ class ChatListPage extends ConsumerWidget {
                                           leading: CircleAvatar(
                                               maxRadius: 24,
                                               // Placeholder background color
-                                              child: Image.network(
-                                                doc.data().profileImage,
-                                                fit: BoxFit.cover,
-                                                errorBuilder: (context, error,
-                                                        stackTrace) =>
-                                                    Center(
-                                                  child: Icon(Icons.person),
+                                              child: ClipOval(
+                                                child: Image.network(
+                                                  width: double.infinity,
+                                                  height: double.infinity,
+                                                  doc.data().profileImage,
+                                                  fit: BoxFit.cover,
+                                                  errorBuilder: (context, error,
+                                                          stackTrace) =>
+                                                      Center(
+                                                    child: Icon(Icons.person),
+                                                  ),
                                                 ),
                                               )
                                               // Placeholder icon if no profile image URL

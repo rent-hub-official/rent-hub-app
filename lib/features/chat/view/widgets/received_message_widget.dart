@@ -29,17 +29,19 @@ class ReceviedMessageWidget extends StatelessWidget {
                   right: context.spaces.space_100),
               child: InkWell(
                   onTap: () {
-                    //TODO navigate to show sender profile
-                    // TODO add seller profile photo
                     context.push(SellerProfilePage.routePath);
                   },
                   child: CircleAvatar(
                       radius: context.spaces.space_200,
-                      child: Image.network(
-                        image,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => Center(
-                          child: Icon(Icons.person),
+                      child: ClipOval(
+                        child: Image.network(
+                          width: double.infinity,
+                          height: double.infinity,
+                          image,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) => Center(
+                            child: Icon(Icons.person),
+                          ),
                         ),
                       ))),
             ),

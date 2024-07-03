@@ -58,4 +58,20 @@ final class AuthenticationService {
       throw SignOutException(e.message);
     }
   }
+
+  static Future<void> deleteAccount() async {
+    try {
+      User? user = auth.currentUser;
+      if (user != null) {
+        await user.delete();
+      } else {
+        throw FirebaseAuthException(
+          code: 'user-not-found',
+          message: 'No user currently signed in.',
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      throw SignOutException(e.message);
+    }
+  }
 }
