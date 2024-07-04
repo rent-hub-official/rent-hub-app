@@ -9,7 +9,8 @@ class GetAdsByIdService {
             toFirestore: AdsModel.toFireStore,
           );
 
-  static getAdsDetailsWithId({required String id}) async {
+  static Future<DocumentSnapshot<AdsModel>> getAdsDetailsWithId(
+      {required String id}) async {
     return await adsDb.doc(id).get();
   }
 }

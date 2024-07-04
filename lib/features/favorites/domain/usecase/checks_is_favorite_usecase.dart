@@ -1,12 +1,11 @@
-import 'package:rent_hub/features/favorites/domain/model/favorites_model.dart';
 import 'package:rent_hub/features/favorites/service/favorite_ads_service.dart';
 
 class IsFavoriteUseCase {
-  Future<bool> call({required FavoritesModel model}) async {
-    final data = await FavoriteAdsService.getFavoriteAds(userId: model.userId);
+  Future<bool> call({required String adId}) async {
+    final data = await FavoriteAdsService.getFavoriteAds();
 
     for (final item in data.docs) {
-      if (item.data()['adsId'] == model.adsId) {
+      if (item.data()['adsId'] == adId) {
         return true;
       }
     }

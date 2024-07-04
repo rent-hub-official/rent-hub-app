@@ -77,19 +77,18 @@ class HomePage extends HookConsumerWidget {
                 },
                 child: HookConsumer(
                   builder: (context, ref, _) {
-                    final products =
-                        ref.watch(fetchCatagorisedProductsProvider(
+                    final products = ref.watch(fetchCatagorisedProductsProvider(
                       context: context,
                       catagory:
                           ref.watch(categoryItemSelectedIndexProvider) != 0
-                              ? categoryList[ref
-                                  .watch(categoryItemSelectedIndexProvider)]
+                              ? categoryList[
+                                  ref.watch(categoryItemSelectedIndexProvider)]
                               : null,
                     ));
                     return products.when(
                       data: (data) {
                         return CategoryListBuilderWidget(
-                          poductsList: data,
+                          productsList: data,
                         );
                       },
                       error: (error, stackTrace) {
@@ -112,8 +111,7 @@ class HomePage extends HookConsumerWidget {
                           ),
                         );
                       },
-                      loading: () =>
-                          Center(child: CircularProgressIndicator()),
+                      loading: () => Center(child: CircularProgressIndicator()),
                     );
                   },
                 ),
