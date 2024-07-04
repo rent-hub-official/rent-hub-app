@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rent_hub/core/exception/base_exception.dart';
-import 'package:rent_hub/features/ads/service/add_ads_service.dart';
+import 'package:rent_hub/features/ads/service/ads_service.dart';
 
 // get category
 

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
 import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart';
@@ -21,10 +22,14 @@ final class AdsService {
   //category firestore instance
   static final categoryDb = FirebaseFirestore.instance.collection('category');
 
+  static final auth = FirebaseAuth.instance;
+
   // add product data
   static Future<void> addData(AdsModel adsmodel) async {
     try {
-      await AdsService.adsDb.add(adsmodel);
+      adsmodel = adsmodel.copyWith(userId: auth.currentUser!.phoneNumber);
+
+      await adsDb.add(adsmodel);
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
     }
@@ -43,15 +48,24 @@ final class AdsService {
 
   // upload product image
   static Future<String> uploadImage({
-    required String userId,
     required File image,
   }) async {
     try {
+      final userId = auth.currentUser!.phoneNumber;
+
       await adsStorage.child("$userId${basename(image.path)}").putFile(image);
 
       return await adsStorage
           .child("$userId${basename(image.path)}")
           .getDownloadURL();
+    } on FirebaseException catch (e) {
+      throw StorageException(e.message);
+    }
+  }
+
+  static Future<void> deleteImage({required String imageUrl}) async {
+    try {
+      FirebaseStorage.instance.refFromURL(imageUrl).delete();
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
     }

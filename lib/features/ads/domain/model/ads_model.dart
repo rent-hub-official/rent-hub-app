@@ -14,7 +14,7 @@ class AdsModel with _$AdsModel {
     required String locationTitle,
     required double lat,
     required double long,
-    required String userId,
+    String? userId,
     required String? description,
     required double price,
   }) = _AdsModel;

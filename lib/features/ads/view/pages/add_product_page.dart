@@ -12,7 +12,7 @@ import 'package:rent_hub/features/ads/controller/image_controller/image_provider
 import 'package:rent_hub/features/ads/controller/product_controller/product_controller.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/widgets/add_product_page/description_feild_widget.dart';
-import 'package:rent_hub/features/ads/view/widgets/add_product_page/image_picker_widget.dart';
+import 'package:rent_hub/features/ads/view/widgets/add_product_page/image_selector_widget.dart';
 
 class AddProductPage extends HookConsumerWidget {
   static const routePath = '/addProduct';
@@ -71,33 +71,7 @@ class AddProductPage extends HookConsumerWidget {
                         height: context.spaces.space_125,
                       ),
                       // ads images
-                      SizedBox(
-                        height: context.spaces.space_900,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) => Imagewidget(
-                                imagePath: ref.watch(imageProvider)[index],
-                              ),
-                              separatorBuilder: (context, index) => SizedBox(
-                                width: context.spaces.space_100,
-                              ),
-                              itemCount: ref.watch(imageProvider).length,
-                            ),
-                            Imagewidget(
-                              onTap: () async {
-                                // image picker
-                                ref.read(imageProvider.notifier).upload(
-                                      userId: "userId",
-                                    );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
+                      ImageSelectorWidget(),
                       SizedBox(
                         height: context.spaces.space_100,
                       ),
@@ -176,7 +150,8 @@ class AddProductPage extends HookConsumerWidget {
                           ref.read(productsProvider.notifier).addData(
                                 adsmodel: AdsModel(
                                   views: 0,
-                                  imagePath: ref.read(imageProvider),
+                                  imagePath:
+                                      ref.read(imageProvider).imageRefList,
                                   productName: productNamecontroller.text,
                                   category: data
                                       .docs[categoryindexSelector.value ?? 0]
@@ -184,7 +159,6 @@ class AddProductPage extends HookConsumerWidget {
                                   locationTitle: locationController.text,
                                   lat: 0,
                                   long: 0,
-                                  userId: "userId",
                                   description: descriptionController.text,
                                   price: double.parse(priceController.text),
                                 ),
