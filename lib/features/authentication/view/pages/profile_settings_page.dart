@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rent_hub/core/constants/ads/user_profile_settings.dart';
+import 'package:rent_hub/core/constants/icon_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
+import 'package:rent_hub/features/authentication/controller/account_details_provider/account_details_provider.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
+import 'package:rent_hub/features/authentication/controller/image_picker_provider.dart';
 import 'package:rent_hub/features/authentication/view/widgets/profile_image_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/profile_settings_field_widget.dart';
 import 'package:rent_hub/features/payment/pages/add_bank_ac_details_page.dart';
@@ -16,8 +20,21 @@ class ProfileSettingsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final userId = ref.watch(authenticationProvider).phoneNumber ?? "";
+    final user = ref.watch(GetAccountDetailsProvider(userId: userId)).value;
+    final profileImage = ref
+            .watch(GetAccountDetailsProvider(
+              userId: userId,
+            ))
+            .value
+            ?.data()
+            ?.profileImage ??
+        ref.watch(iconConstantsProvider).icProfile;
+
     // name editing controller
-    final nameEditingController = useTextEditingController(text: "Divyesh");
+    final nameEditingController = useTextEditingController(
+      text: user == null ? "" : user.data()?.userName ?? "",
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -56,15 +73,21 @@ class ProfileSettingsPage extends HookConsumerWidget {
               style: context.typography.bodyLarge,
             ),
             TextFeildWidget(
+              suffix: IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+              onFieldSubmitted: (value) {
+                ref.watch(accountDetailsProvider.notifier).addData(
+                      image: ref.read(imagePickerProvider),
+                      userId: userId,
+                      userName: value,
+                    );
+                ref.invalidate(accountDetailsProvider);
+              },
               textController: nameEditingController,
               validator: (value) {
                 // TODO
+
                 return;
               },
-              suffixicon: Icon(
-                Icons.edit,
-                color: context.colors.secondary,
-              ),
             ),
             // bank account
             ProfileSettingsFieldWidget(
@@ -75,7 +98,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
                 context.push(AddBankAcDetailsPage.routePath);
               },
             ),
-          
+
             // log out
             ProfileSettingsFieldWidget(
               title: ref.watch(userProfileSettingsConstantsProvider).txtLOgOut,
@@ -89,8 +112,9 @@ class ProfileSettingsPage extends HookConsumerWidget {
                   .watch(userProfileSettingsConstantsProvider)
                   .txtDeleteAccount,
               onPressed: () {
-                ref.watch(authenticationProvider.notifier).Delete();
-
+                ref
+                    .watch(accountDetailsProvider.notifier)
+                    .deleteAccount(userId: userId);
               },
             ),
             // version
