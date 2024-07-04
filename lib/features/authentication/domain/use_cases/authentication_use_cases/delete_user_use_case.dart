@@ -8,12 +8,12 @@ import 'package:rent_hub/features/authentication/view/pages/login_page.dart';
 import 'package:rent_hub/main.dart';
 
 class DeleteUserUseCase {
-  final isUserNotLoggedIn = FirebaseAuth.instance.currentUser == null;
+  final isUserNotLoggedIn = FirebaseAuth.instance.currentUser != null;
 
   // Delete
   Future<void> call() async {
     try {
-      if (!isUserNotLoggedIn) {
+      if (isUserNotLoggedIn) {
         await AuthenticationService.deleteAccount();
 
         // Delete successful toast
