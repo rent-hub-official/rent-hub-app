@@ -9,9 +9,9 @@ import 'package:rent_hub/features/authentication/controller/account_details_prov
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
 import 'package:rent_hub/features/chat/controller/format_time_controller.dart';
 import 'package:rent_hub/features/chat/controller/get_all_chat_controller.dart';
-import 'package:rent_hub/features/chat/view/widgets/input_message_field_widget.dart';
-import 'package:rent_hub/features/chat/view/widgets/received_message_widget.dart';
-import 'package:rent_hub/features/chat/view/widgets/sent_message_widget.dart';
+import 'package:rent_hub/features/chat/widgets/input_message_field_widget.dart';
+import 'package:rent_hub/features/chat/widgets/received_message_widget.dart';
+import 'package:rent_hub/features/chat/widgets/sent_message_widget.dart';
 
 class ChatDetailsPage extends ConsumerWidget {
   static const routePath = '/chatDetails';
