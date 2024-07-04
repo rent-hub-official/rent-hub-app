@@ -8,6 +8,7 @@ import 'package:rent_hub/features/ads/view/pages/home_page.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
 import 'package:rent_hub/features/ads/view/pages/notification_page.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
+import 'package:rent_hub/features/ads/view/pages/search/search_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/create_account_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/login_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/onboarding/onboarding_pages.dart';
@@ -118,6 +119,13 @@ final router = GoRouter(
       path: FavoritesPage.routePath,
       builder: (context, state) {
         return const FavoritesPage();
+      },
+      redirect: checkLoggedIn,
+    ),
+    GoRoute(
+      path: SearchPage.routePath,
+      builder: (context, state) {
+        return const SearchPage();
       },
       redirect: checkLoggedIn,
     ),
