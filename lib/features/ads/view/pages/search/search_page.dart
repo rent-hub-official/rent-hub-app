@@ -108,25 +108,38 @@ class SearchPage extends HookConsumerWidget {
                       spacing: context.spaces.space_150,
                       runSpacing: context.spaces.space_100,
                       children: ref.watch(recentSearchProvider).map((search) {
-                        return Chip(
-                          label: Text(search.recentSearch),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  context.spaces.space_150),
-                              side: const BorderSide(
-                                  color: AppColorPalettes.grey200)),
-                          backgroundColor: context.colors.cardBackground,
-                          deleteIcon: Icon(
-                            Icons.close,
-                            size: context.spaces.space_200,
-                          ),
-                          visualDensity: VisualDensity.comfortable,
-                          onDeleted: () {
+                        return InkWell(
+                          onTap: () {
+                            searchController.text = search.recentSearch;
                             ref
-                                .read(recentSearchProvider.notifier)
-                                .remove(id: search.id);
-                            ref.invalidate(recentSearchProvider);
+                                .watch(SearchProductProvider(
+                                    queryText: search.recentSearch))
+                                .whenData((data) {
+                              isSearched.value = true;
+                              ref.invalidate(recentSearchProvider);
+                            });
+                          
                           },
+                          child: Chip(
+                            label: Text(search.recentSearch),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    context.spaces.space_150),
+                                side: const BorderSide(
+                                    color: AppColorPalettes.grey200)),
+                            backgroundColor: context.colors.cardBackground,
+                            deleteIcon: Icon(
+                              Icons.close,
+                              size: context.spaces.space_200,
+                            ),
+                            visualDensity: VisualDensity.comfortable,
+                            onDeleted: () {
+                              ref
+                                  .read(recentSearchProvider.notifier)
+                                  .remove(id: search.id);
+                              ref.invalidate(recentSearchProvider);
+                            },
+                          ),
                         );
                       }).toList(),
                     ),

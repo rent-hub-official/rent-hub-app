@@ -30,21 +30,7 @@ class AdsModel with _$AdsModel {
   ) {
     final data = snapshot.data();
 
-    return AdsModel(
-      imagePath: data!['imagePath'],
-      seller: data['seller'],
-      views: data['views'] ?? 0,
-      category: data['category'],
-      price: data['price'],
-      productName: data['productName'],
-      description: data['description'],
-      locationTitle: data['locationTitle'],
-      userId: data['userId'],
-      lat: data['lat'],
-      long: data['long'],
-      dateCreated: data['dateCreated'],
-      dateMoidified: data['dateMoidified'],
-    );
+    return AdsModel.fromJson(data!);
   }
   static Map<String, dynamic> toFireStore(
       AdsModel adsModel, SetOptions? options) {

@@ -79,7 +79,6 @@ class HomePage extends HookConsumerWidget {
                 child: HookConsumer(
                   builder: (context, ref, _) {
                     final products = ref.watch(fetchCatagorisedProductsProvider(
-                      context: context,
                       catagory:
                           ref.watch(categoryItemSelectedIndexProvider) != 0
                               ? categoryList[
