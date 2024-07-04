@@ -11,6 +11,7 @@ import 'package:rent_hub/features/ads/controller/category_controller/category_pr
 import 'package:rent_hub/features/ads/controller/image_controller/image_provider.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/product_controller.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
+import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
 import 'package:rent_hub/features/ads/view/widgets/add_product_page/description_feild_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/add_product_page/image_picker_widget.dart';
 
@@ -171,10 +172,10 @@ class AddProductPage extends HookConsumerWidget {
                         height: context.spaces.space_600,
                       ),
                       MainBtnWidget(
-                        onTap: () {
-                          // add products data
-                          ref.read(productsProvider.notifier).addData(
-                                adsmodel: AdsModel(
+                          onTap: () {
+                            // add products data
+                            ref.read(productsProvider.notifier).addData(
+                                    adsmodel: AdsModel(
                                   views: 0,
                                   imagePath: ref.read(imageProvider),
                                   productName: productNamecontroller.text,
@@ -187,13 +188,13 @@ class AddProductPage extends HookConsumerWidget {
                                   userId: "userId",
                                   description: descriptionController.text,
                                   price: double.parse(priceController.text),
-                                ),
-                              );
-
-                          Navigator.pop(context);
-                        },
-                        btnTxt: constants.txtBtn,
-                      )
+                                  dateCreated: DateTime.now(),
+                                  dateMoidified: DateTime.now(),
+                                  seller: '',
+                                ));
+                            context.pushReplacement(MyProductsPage.routePath);
+                          },
+                          btnTxt: constants.txtBtn)
                     ],
                   ),
                 ),
