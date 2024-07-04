@@ -7,7 +7,8 @@ import 'package:rent_hub/features/ads/service/add_ads_service.dart';
 
 // get Categarised products usecase
 class GetProductsDataUsecase {
-  Stream<List<AdsModel>> call({String? catagory}) async* {
+  Stream<List<QueryDocumentSnapshot<AdsModel>>> call(
+      {String? catagory}) async* {
     // get catagory id with catagory name
     String catagoryId = '';
     if (catagory != null) {
@@ -25,15 +26,15 @@ class GetProductsDataUsecase {
       final Stream<QuerySnapshot<AdsModel>> dataStream =
           AdsService.getProducts();
 
-      await for (var event in dataStream) {
-        var allData = <AdsModel>[];
+      await for (final event in dataStream) {
+        var allData = <QueryDocumentSnapshot<AdsModel>>[];
         for (var model in event.docs) {
           // yeild all products when category is null
           if (catagory == null) {
-            allData.add(model.data());
+            allData.add(model);
           } else if (model.data().category == catagoryId) {
             // checks category id matches
-            allData.add(model.data());
+            allData.add(model);
           }
         }
 

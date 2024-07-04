@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:rent_hub/core/utils/snakbar/snackbar_utils.dart';
 import 'package:rent_hub/core/utils/snakbar/toaster_util.dart';
 import 'package:rent_hub/features/favorites/domain/model/favorites_model.dart';
-import 'package:rent_hub/features/favorites/domain/usecase/get_favorite_products_usecase.dart';
 import 'package:rent_hub/features/favorites/service/favorite_ads_service.dart';
 
 /// usecse for checks weather it is favorite or not
