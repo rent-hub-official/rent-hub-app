@@ -22,21 +22,7 @@ class FavoriteAds extends _$FavoriteAds {
     state = false;
   }
 
-  Future<List<DocumentSnapshot<AdsModel>>> getFavorite(
-      {required String userId}) async {
-    final data = await GetFavoriteProductsUsecase()();
-
-    return data;
-  }
-
   Future<bool> isFav(String adId) async {
     return IsFavoriteUseCase()(adId: adId);
   }
-}
-
-@riverpod
-Future<List<DocumentSnapshot<AdsModel>>> getFavorite(
-  GetFavoriteRef ref,
-) async {
-  return await GetFavoriteProductsUsecase()();
 }

@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/favourites/favourites.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
+import 'package:rent_hub/features/favorites/controller/get_all_favorite_ads_controller.dart';
 import 'package:rent_hub/features/favorites/view/widgets/no_favorites_widget.dart';
 
 class FavoritesPage extends ConsumerWidget {
@@ -22,8 +22,6 @@ class FavoritesPage extends ConsumerWidget {
       ),
       body: ref.watch(getFavoriteProvider).when(
             data: (data) {
-              // TODO
-              log(data.length.toString());
               return data.isEmpty
                   ? NoFavoritesWidget()
                   : ListView.separated(
@@ -37,13 +35,16 @@ class FavoritesPage extends ConsumerWidget {
                         return ProductCardWidget(
                             isFavorite: true,
                             favoriteTap: () {
-                              // TODO : favorites operation
-
+                              /// set favorite method
+                              /// add or remove from favorite colloction accordingly
+                              /// and invalidate provider which gives all favorite ads user
                               ref
                                   .watch(favoriteAdsProvider.notifier)
                                   .setFavorite(adId: data[index].id);
 
-                              ref.invalidate(favoriteAdsProvider);
+                              ref.refresh(getFavoriteProvider);
+
+                              log('000');
                             },
                             productName: adsModel!.productName,
                             price: adsModel.price,

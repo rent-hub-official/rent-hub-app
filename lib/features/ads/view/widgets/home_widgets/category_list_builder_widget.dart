@@ -12,7 +12,7 @@ import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
-import 'package:rent_hub/features/favorites/domain/usecase/checks_is_favorite_usecase.dart';
+import 'package:rent_hub/features/favorites/controller/is_favorite_controller.dart';
 
 class CategoryListBuilderWidget extends ConsumerWidget {
   const CategoryListBuilderWidget({
@@ -30,6 +30,7 @@ class CategoryListBuilderWidget extends ConsumerWidget {
             itemCount: productsList.length,
             padding: EdgeInsets.zero,
             itemBuilder: (context, index) {
+              //future builder for cehceks ads if favorite or not
               return FutureBuilder(
                   future: ref
                       .watch(favoriteAdsProvider.notifier)
@@ -42,6 +43,8 @@ class CategoryListBuilderWidget extends ConsumerWidget {
                         child: Text('ERROR'),
                       );
                     }
+
+                    /// snapshot has no data return circular indicator
 
                     if (!snapshot.hasData) {
                       return Container(
@@ -66,20 +69,19 @@ class CategoryListBuilderWidget extends ConsumerWidget {
                         distance: productsList[index].data().long,
                         img: productsList[index].data().imagePath[0],
                         onTap: () {
+                          //navigate to details page
                           context.push(
                             ProductDetailsPage.routePath,
                           );
-                          // TODO : check it
                         },
                         favoriteTap: () {
-                          log('message');
-                          // TODO : change user id
+                          // toggle favorite status
                           ref
                               .watch(favoriteAdsProvider.notifier)
                               .setFavorite(adId: productsList[index].id);
 
-                          // ref.invalidate(favoriteAdsProvider);
-
+                          ref.invalidate(favoriteAdsProvider);
+                          ref.invalidate(isFavProvider);
                           ref.invalidate(fetchCatagorisedProductsProvider);
                         },
                         belowbtn: 'rent Now',
