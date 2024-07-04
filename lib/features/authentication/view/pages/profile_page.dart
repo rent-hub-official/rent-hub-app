@@ -68,6 +68,7 @@ class ProfilePage extends HookConsumerWidget {
                     fit: BoxFit.cover,
                     profileImage,
                     height: double.infinity,
+                    width: double.infinity,
                     errorBuilder: (context, error, stackTrace) =>
                         Image.asset(ref.watch(iconConstantsProvider).icProfile),
                   ),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -15,6 +14,7 @@ import 'package:rent_hub/features/chat/widgets/sent_message_widget.dart';
 
 class ChatDetailsPage extends ConsumerWidget {
   static const routePath = '/chatDetails';
+
   ChatDetailsPage({
     super.key,
     required this.receiverId,
@@ -39,6 +39,7 @@ class ChatDetailsPage extends ConsumerWidget {
             ?.data()
             ?.profileImage ??
         ref.watch(iconConstantsProvider).icProfile;
+
     return Scaffold(
       backgroundColor: context.colors.primary,
       appBar: AppBar(
@@ -94,20 +95,23 @@ class ChatDetailsPage extends ConsumerWidget {
                           itemCount: data.length,
                           itemBuilder: (context, index) {
                             final message = data[index];
-                            if (userId == message.senderId) {
+                            if (userId == message.senderId &&
+                                receiverId == message.receiverId) {
                               return SentMessageWidget(
                                 image: profileImage,
                                 message: message.message ?? 'emjjj',
                                 time: ref.watch(FormatTimeProvider(
                                     timestamp: message.time)),
                               );
+                            } else if (receiverId == message.receiverId) {
+                              return ReceviedMessageWidget(
+                                image: image,
+                                message: message.message ?? '',
+                                time: ref.watch(FormatTimeProvider(
+                                    timestamp: message.time)),
+                              );
                             }
-                            return ReceviedMessageWidget(
-                              image: image,
-                              message: message.message ?? '',
-                              time: ref.watch(
-                                  FormatTimeProvider(timestamp: message.time)),
-                            );
+                            return SizedBox.shrink();
                           },
                         );
                       },

@@ -53,6 +53,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
               // profile picture
               ProfileImgeWidget(
                 onEdit: () {
+               
                   // TODO : AMAL
                 },
               ),
@@ -64,14 +65,17 @@ class ProfileSettingsPage extends HookConsumerWidget {
                 style: context.typography.bodyLarge,
               ),
               TextFeildWidget(
-                suffix: IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+                suffix: IconButton(
+                    onPressed: () {
+                      ref.invalidate(accountDetailsProvider);
+                    },
+                    icon: Icon(Icons.edit)),
                 onFieldSubmitted: (value) {
                   ref.watch(accountDetailsProvider.notifier).addData(
                         image: ref.read(imagePickerProvider),
                         userId: userId,
                         userName: value,
                       );
-                  ref.invalidate(accountDetailsProvider);
                 },
                 textController: nameEditingController,
                 validator: (value) {
