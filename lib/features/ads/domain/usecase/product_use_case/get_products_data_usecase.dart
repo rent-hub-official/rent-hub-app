@@ -42,6 +42,9 @@ class GetProductsDataUsecase {
     } on StorageException catch (e) {
       // show snakbar when error
       SnackbarUtils.showError(e.message);
+    } catch (e) {
+      // show snakbar when error
+      SnackbarUtils.showError('Cannot get ads. Please try again.');
     }
   }
 }
