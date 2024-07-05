@@ -54,6 +54,8 @@ class Authentication extends _$Authentication {
 
     state = state.copyWith(isLoading: true);
   }
+
+ 
 }
 
 // country code provider

@@ -44,12 +44,16 @@ class ProfileHeaderWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(name, style: context.typography.h2Bold),
-                    SizedBox(height: context.spaces.space_100,),
+                    SizedBox(
+                      height: context.spaces.space_100,
+                    ),
                     Text(
                       phone,
                       style: context.typography.h3Bold,
                     ),
-                    SizedBox(height: context.spaces.space_500,)
+                    SizedBox(
+                      height: context.spaces.space_500,
+                    )
                   ],
                 ),
               ),

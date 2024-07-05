@@ -31,6 +31,7 @@ class MainPage extends ConsumerWidget {
     }
 
     return Scaffold(
+      extendBody: true,
       body: PageView(
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),
