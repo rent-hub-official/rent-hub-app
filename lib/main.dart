@@ -8,16 +8,19 @@ import 'package:rent_hub/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await ObjectBoxService.create();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
+
   static final scaffoldMessngerKey = GlobalKey<ScaffoldMessengerState>();
 
   const MyApp({super.key});
