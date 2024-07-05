@@ -42,9 +42,7 @@ class FavoritesPage extends ConsumerWidget {
                                   .watch(favoriteAdsProvider.notifier)
                                   .setFavorite(adId: data[index].id);
 
-                              ref.refresh(getFavoriteProvider);
-
-                              log('000');
+                              ref.invalidate(getFavoriteProvider);
                             },
                             productName: adsModel!.productName,
                             price: adsModel.price,

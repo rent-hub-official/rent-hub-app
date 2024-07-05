@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -25,6 +23,7 @@ class CategoryListBuilderWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lottieConsts = ref.read(animationConstantsProvider);
+
     return productsList.isNotEmpty
         ? ListView.builder(
             itemCount: productsList.length,
@@ -45,7 +44,6 @@ class CategoryListBuilderWidget extends ConsumerWidget {
                     }
 
                     /// snapshot has no data return circular indicator
-
                     if (!snapshot.hasData) {
                       return Container(
                         height: 100,
@@ -75,13 +73,12 @@ class CategoryListBuilderWidget extends ConsumerWidget {
                           );
                         },
                         favoriteTap: () {
-                          // toggle favorite status
+                          /// toggle favorite status
+                          /// invalidate provider for rebuild ui
                           ref
                               .watch(favoriteAdsProvider.notifier)
                               .setFavorite(adId: productsList[index].id);
 
-                          ref.invalidate(favoriteAdsProvider);
-                          ref.invalidate(isFavProvider);
                           ref.invalidate(fetchCatagorisedProductsProvider);
                         },
                         belowbtn: 'rent Now',
