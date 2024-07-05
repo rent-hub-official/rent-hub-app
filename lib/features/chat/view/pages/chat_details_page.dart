@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/features/chat/widgets/chat_body_widget.dart';
-
 import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/ads/controller/user_controller/user_data_provider.dart';
@@ -72,10 +71,19 @@ class ChatDetailsPage extends ConsumerWidget {
           );
         },
         loading: () => Center(child: CircularProgressIndicator()),
-        error: (error, stackTrace) => Center(child: Text(error.toString())),
+        error: (error, stackTrace) => Center(
+          child: Column(
+            children: [
+              Text("Reload"),
+              IconButton(
+                  onPressed: () {
+                    ref.invalidate(getUserDataProvider(userId));
+                  },
+                  icon: Icon(Icons.refresh))
+            ],
+          ),
+        ),
       ),
     );
   }
 }
-
-

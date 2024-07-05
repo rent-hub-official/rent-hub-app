@@ -24,7 +24,6 @@ class ProfileSettingsPage extends HookConsumerWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            // TODO: CHECK IT
             context.pop();
           },
           icon: Icon(Icons.arrow_back_ios),
@@ -53,9 +52,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
                       // profile picture
                       ProfileImgeWidget(
                         profileImage: data.data()?.profileImage ?? "",
-                        onEdit: () {
-                          // TODO : muju
-                        },
+                        onEdit: () {},
                       ),
                       // height spacing
                       SizedBox(height: context.spaces.space_600),
@@ -79,8 +76,6 @@ class ProfileSettingsPage extends HookConsumerWidget {
                         },
                         textController: nameEditingController,
                         validator: (value) {
-                          // TODO
-
                           return;
                         },
                       ),
@@ -121,8 +116,18 @@ class ProfileSettingsPage extends HookConsumerWidget {
               );
             },
             error: (error, stackTrace) {
-              return SizedBox();
-              // TODO: check muju code it
+              return Center(
+                child: Column(
+                  children: [
+                    Text("Reload"),
+                    IconButton(
+                        onPressed: () {
+                          ref.invalidate(getUserDetailsProvider);
+                        },
+                        icon: Icon(Icons.refresh))
+                  ],
+                ),
+              );
             },
             loading: () => Center(
               child: CircularProgressIndicator(),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -76,7 +75,6 @@ class ChatListPage extends ConsumerWidget {
                                                 'userId': userId,
                                               },
                                             );
-                                            
                                           },
                                           leading: CircleAvatar(
                                               maxRadius: 24,
@@ -112,7 +110,16 @@ class ChatListPage extends ConsumerWidget {
                       );
                     },
                     error: (error, stackTrace) => Center(
-                      child: Text(error.toString()),
+                      child: Column(
+                        children: [
+                          Text("Reload"),
+                          IconButton(
+                              onPressed: () {
+                                ref.invalidate(getAllUserProvider);
+                              },
+                              icon: Icon(Icons.refresh))
+                        ],
+                      ),
                     ),
                     loading: () => CircularProgressIndicator(),
                   ),
