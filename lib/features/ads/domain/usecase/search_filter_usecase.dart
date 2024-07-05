@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rent_hub/core/utils/snakbar/snackbar_utils.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/service/add_ads_service.dart';
 
 class SearchFilterUsecase {

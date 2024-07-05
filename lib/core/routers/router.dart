@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/routers/redirects.dart';
 import 'package:rent_hub/core/widgets/bottom_nav/bottom_nav_widget.dart';
+import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
 import 'package:rent_hub/features/ads/view/pages/history/history_details_page.dart';
 import 'package:rent_hub/features/ads/view/pages/home_page.dart';
@@ -67,7 +68,9 @@ final router = GoRouter(
     GoRoute(
       path: ProductDetailsPage.routePath,
       builder: (context, state) {
-        return const ProductDetailsPage();
+        return ProductDetailsPage(
+          adsData: state.extra as AdsModel,
+        );
       },
       redirect: checkLoggedIn,
     ),
