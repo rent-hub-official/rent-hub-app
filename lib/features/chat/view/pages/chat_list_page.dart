@@ -110,7 +110,16 @@ class ChatListPage extends ConsumerWidget {
                       );
                     },
                     error: (error, stackTrace) => Center(
-                      child: Text(error.toString()),
+                      child: Column(
+                        children: [
+                          Text("Reload"),
+                          IconButton(
+                              onPressed: () {
+                                ref.invalidate(getAllUserProvider);
+                              },
+                              icon: Icon(Icons.refresh))
+                        ],
+                      ),
                     ),
                     loading: () => CircularProgressIndicator(),
                   ),

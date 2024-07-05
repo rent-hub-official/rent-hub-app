@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart';
 import 'package:rent_hub/features/authentication/domain/model/account_details_model.dart';
@@ -14,8 +15,9 @@ final class AccountDetailsService {
           );
 
 // storage instance
-  static final Reference storage =
-      FirebaseStorage.instance.ref().child("profileImages");
+  static final storage = FirebaseStorage.instance.ref().child("profileImages");
+
+  static final auth = FirebaseAuth.instance;
 
 // upload image to storage
   static Future<String> uploadImage({
@@ -44,19 +46,17 @@ final class AccountDetailsService {
   }
 
   //get user data
-  static Future<DocumentSnapshot<AccountDetailsModel>> getData(
-    String userId,
-  ) async {
+  static Future<DocumentSnapshot<AccountDetailsModel>> getData() async {
     try {
-      return await db.doc(userId).get();
+      return await db.doc(auth.currentUser!.phoneNumber).get();
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
     }
   }
+
   //delete account
   static Future<void> deleteAccount({
     required String userId,
-    
   }) async {
     try {
       await db.doc(userId).delete();

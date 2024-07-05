@@ -26,7 +26,7 @@ class ProductDetailsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: ref.watch(getUserDetailsProvider(adsData.userId)).when(
+      body: ref.watch(getUserDataProvider(adsData.userId)).when(
             data: (data) => Stack(
               children: [
                 SizedBox(
@@ -106,7 +106,7 @@ class ProductDetailsPage extends ConsumerWidget {
                   SizedBox(height: context.spaces.space_200),
                   IconButton(
                     onPressed: () {
-                      ref.invalidate(getUserDetailsProvider);
+                      ref.invalidate(getUserDataProvider);
                     },
                     icon: Icon(Icons.refresh),
                   )
