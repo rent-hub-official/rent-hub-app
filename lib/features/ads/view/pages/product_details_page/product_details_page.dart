@@ -47,7 +47,7 @@ class ProductDetailsPage extends ConsumerWidget {
                 ),
                 // top bar icons
                 Positioned(
-                  top: 56.0,
+                  top: 28.0,
                   left: 16.0,
                   right: 16.0,
                   child: Row(
