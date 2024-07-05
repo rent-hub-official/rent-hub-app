@@ -27,7 +27,7 @@ final class AdsService {
   // add product data
   static Future<void> addData(AdsModel adsmodel) async {
     try {
-      adsmodel = adsmodel.copyWith(userId: auth.currentUser!.phoneNumber);
+      adsmodel = adsmodel.copyWith(sellerId: auth.currentUser!.phoneNumber);
 
       await adsDb.add(adsmodel);
     } on FirebaseException catch (e) {

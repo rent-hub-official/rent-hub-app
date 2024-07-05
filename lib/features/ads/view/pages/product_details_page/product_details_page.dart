@@ -26,7 +26,7 @@ class ProductDetailsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: ref.watch(getUserDetailsProvider(adsData.userId)).when(
+      body: ref.watch(getUserDetailsProvider(adsData.sellerId)).when(
             data: (data) => Stack(
               children: [
                 SizedBox(
@@ -41,7 +41,6 @@ class ProductDetailsPage extends ConsumerWidget {
                     controller: ref.watch(pageControllerProvider),
                     itemBuilder: (context, index) => Image.network(
                       adsData.imagePath[index],
-                      fit: BoxFit.cover,
                     ),
                     itemCount: adsData.imagePath.length,
                   ),
