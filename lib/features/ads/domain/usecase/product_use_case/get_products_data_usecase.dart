@@ -3,7 +3,7 @@ import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart
 import 'package:rent_hub/core/utils/snakbar/snackbar_utils.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/domain/usecase/product_use_case/get_category_usecase.dart';
-import 'package:rent_hub/features/ads/service/add_ads_service.dart';
+import 'package:rent_hub/features/ads/service/ads_service.dart';
 
 // get Categarised products usecase
 class GetProductsDataUsecase {
