@@ -38,7 +38,6 @@ class SellerProfilePage extends ConsumerWidget {
                       icon: Icons.chevron_left),
                   IconButton(
                       onPressed: () {
-                        // TODO : MUJTHABA
                       },
                       icon: Icon(Icons.more_vert))
                 ],

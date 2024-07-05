@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:rent_hub/features/authentication/domain/model/account_details_model.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/account_details_usecase/add_account_details_use_cases.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/account_details_usecase/get_account_details_use_case.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/account_details_usecase/upload_image_use_case.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -36,6 +37,17 @@ class AccountDetails extends _$AccountDetails {
         profileImage: imageRef ?? "",
       ),
     );
+
+    state = false;
+  }
+
+  //delete Account
+  Future<void> deleteAccount({
+    required String userId,
+  }) async {
+    state = true;
+
+    await DeleteAccountUseCase()(userId: userId);
 
     state = false;
   }

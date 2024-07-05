@@ -9,19 +9,24 @@ class TextFeildWidget extends StatelessWidget {
   final Icon? prefixicon;
   final TextEditingController textController;
   final String? Function(String?)? validator;
+  final void Function(String)? onFieldSubmitted;
+  final Widget? suffix;
   const TextFeildWidget({
     super.key,
+    this.suffix,
     this.labeltxt,
     this.hinttxt,
     required this.textController,
     this.suffixicon,
     this.prefixicon,
+    this.onFieldSubmitted,
     required this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onFieldSubmitted: onFieldSubmitted,
       validator: validator,
       controller: textController,
       decoration: InputDecoration(
@@ -31,6 +36,7 @@ class TextFeildWidget extends StatelessWidget {
         hintText: hinttxt,
         hintStyle: context.typography.body,
         suffixIcon: suffixicon,
+        suffix: suffix,
         errorBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: AppColorPalettes.red500),
         ),

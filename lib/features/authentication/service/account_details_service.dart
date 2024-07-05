@@ -42,4 +42,26 @@ final class AccountDetailsService {
       throw StorageException(e.message);
     }
   }
+
+  //get user data
+  static Future<DocumentSnapshot<AccountDetailsModel>> getData(
+    String userId,
+  ) async {
+    try {
+      return await db.doc(userId).get();
+    } on FirebaseException catch (e) {
+      throw StorageException(e.message);
+    }
+  }
+  //delete account
+  static Future<void> deleteAccount({
+    required String userId,
+    
+  }) async {
+    try {
+      await db.doc(userId).delete();
+    } on FirebaseException catch (e) {
+      throw StorageException(e.message);
+    }
+  }
 }

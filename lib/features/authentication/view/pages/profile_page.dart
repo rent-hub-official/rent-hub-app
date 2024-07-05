@@ -7,6 +7,8 @@ import 'package:rent_hub/core/constants/authentication/profile_page_constants.da
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/features/ads/view/pages/history/history_details_page.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
+import 'package:rent_hub/features/authentication/controller/account_details_provider/account_details_provider.dart';
+import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
 import 'package:rent_hub/features/authentication/view/pages/profile_settings_page.dart';
 import 'package:rent_hub/features/authentication/view/widgets/profile_header_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/profile_option_tile_widget.dart';
@@ -19,72 +21,98 @@ class ProfilePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final constants = ref.watch(profilePageConstantsProvider);
+    final userId = ref.watch(authenticationProvider).phoneNumber ?? "";
+    final user = ref.watch(GetAccountDetailsProvider(userId: userId)).value;
+    final profileImage = ref
+            .watch(GetAccountDetailsProvider(
+              userId: userId,
+            ))
+            .value
+            ?.data()
+            ?.profileImage ??
+        ref.watch(iconConstantsProvider).icProfile;
+
     final themeSwitch = useState<bool>(false);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: context.colors.primary,
-        actions: [
-          ThemeSwitchButton(themeSwitch: themeSwitch),
-          SizedBox(
-            width: context.spaces.space_200,
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          //top portion of profile page including user details
-          ProfileHeaderWidget(
-            name: 'Amal Raj',
-            phone: '+91 75679345',
-
-            child: InkWell(
-              onTap: () {
-                context.push(ProfileSettingsPage.routePath);
-              },
-              child: Image.asset(
-                ref.watch(iconConstantsProvider).icProfile,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: context.spaces.space_800,
+              color: context.colors.primary,
+              child: Padding(
+                padding: EdgeInsets.only(
+                    right: context.spaces.space_300,
+                    top: context.spaces.space_300),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(),
+                    ThemeSwitchButton(themeSwitch: themeSwitch),
+                  ],
+                ),
               ),
-            ), //profile image
-          ),
-          Padding(
-            padding: EdgeInsets.all(context.spaces.space_200),
-            child: Column(
-              children: [
-                ProfileOptionTile(
-                  icon: Icons.assignment,
-                  text: constants.txtMyAds,
-                  onTap: () {
-                    context.push(MyProductsPage.routePath);
-                  },
-                ),
-                ProfileOptionTile(
-                  icon: Icons.history,
-                  text: constants.txtOrderHistory,
-                  onTap: () {
-                    // TODO:
-                    context.push(HistoryDetailsPage.routePath);
-                  },
-                ),
-                ProfileOptionTile(
-                  icon: Icons.settings,
-                  text: constants.txtAccountSettings,
-                  onTap: () {
-                    context.push(ProfileSettingsPage.routePath);
-                  },
-                ),
-                ProfileOptionTile(
-                  icon: Icons.help,
-                  text: constants.txtHelpSupport,
-                  subtitle: constants.txtsubHelp,
-                  onTap: () {
-                    // TODO : PRIVECY POLICY PAGE WANTED
-                  },
-                ),
-              ],
             ),
-          )
-        ],
+            ProfileHeaderWidget(
+              name: user == null ? "" : user.data()?.userName ?? "",
+              phone: userId,
+
+              child: InkWell(
+                onTap: () {
+                  context.push(ProfileSettingsPage.routePath);
+                },
+                child: ClipOval(
+                  child: Image.network(
+                    fit: BoxFit.cover,
+                    profileImage,
+                    height: double.infinity,
+                    width: double.infinity,
+                    errorBuilder: (context, error, stackTrace) =>
+                        Image.asset(ref.watch(iconConstantsProvider).icProfile),
+                  ),
+                ),
+              ), //profile image
+            ),
+            Padding(
+              padding: EdgeInsets.all(context.spaces.space_200),
+              child: Column(
+                children: [
+                  ProfileOptionTile(
+                    icon: Icons.assignment,
+                    text: constants.txtMyAds,
+                    onTap: () {
+                      context.push(MyProductsPage.routePath);
+                    },
+                  ),
+                  ProfileOptionTile(
+                    icon: Icons.history,
+                    text: constants.txtOrderHistory,
+                    onTap: () {
+                      context.push(HistoryDetailsPage.routePath);
+                    },
+                  ),
+                  ProfileOptionTile(
+                    icon: Icons.settings,
+                    text: constants.txtAccountSettings,
+                    onTap: () {
+                      context.push(ProfileSettingsPage.routePath);
+                    },
+                  ),
+                  ProfileOptionTile(
+                    icon: Icons.help,
+                    text: constants.txtHelpSupport,
+                    subtitle: constants.txtsubHelp,
+                    onTap: () {
+                      // TODO : PRIVECY POLICY PAGE WANTED
+                    },
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
