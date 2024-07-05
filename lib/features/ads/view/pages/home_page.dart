@@ -34,7 +34,6 @@ class HomePage extends HookConsumerWidget {
     ///by selecting tabbar
     ///if selected all catagory fetch all ads in firbase
     final products = ref.watch(fetchCatagorisedProductsProvider(
-      context: context,
       catagory: ref.watch(categoryItemSelectedIndexProvider) != 0
           ? categoryList[ref.watch(categoryItemSelectedIndexProvider)]
           : null,

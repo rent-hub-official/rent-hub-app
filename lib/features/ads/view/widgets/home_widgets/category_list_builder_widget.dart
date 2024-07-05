@@ -10,7 +10,6 @@ import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
-import 'package:rent_hub/features/favorites/controller/is_favorite_controller.dart';
 
 class CategoryListBuilderWidget extends ConsumerWidget {
   const CategoryListBuilderWidget({

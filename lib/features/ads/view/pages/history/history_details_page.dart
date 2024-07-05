@@ -36,7 +36,7 @@ class HistoryDetailsPage extends HookConsumerWidget {
           padding: EdgeInsets.only(left: context.spaces.space_150),
           child: RoundedIconButton(
               onTap: () {
-                // TODO navigate previos page
+                //  navigate previos page
                 context.pop();
               },
               icon: Icons.chevron_left),

@@ -76,9 +76,19 @@ final class AdsService {
   }
 
   // get products
-  static Stream<QuerySnapshot<AdsModel>> getProducts() {
+  static Future<QuerySnapshot<AdsModel>> getProducts() async {
     try {
-      return adsDb.snapshots();
+      return await adsDb.get();
+    } on FirebaseException catch (e) {
+      throw StorageException(e.message);
+    }
+  }
+
+  // get categorised products
+  static Future<QuerySnapshot<AdsModel>> getCategorisedProducts(
+      String categoryId) async {
+    try {
+      return await adsDb.where('category', isEqualTo: categoryId).get();
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
     }

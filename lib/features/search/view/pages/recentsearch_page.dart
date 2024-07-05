@@ -57,23 +57,23 @@ class RecentSearchScreen extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Text(
-                //     ref
-                //         .watch(userSearchDetailesConstantsProvider)
-                //         .txtRecentSearch,
-                //     style: context.typography.h3SemiBold),
-                // ElevatedButton(
-                //   onPressed: () {},
-                //   style: ElevatedButton.styleFrom(
-                //       shape: RoundedRectangleBorder(
-                //           borderRadius:
-                //               BorderRadius.circular(context.spaces.space_150)),
-                //       backgroundColor: AppColorPalettes.grey200),
-                //   child: Text(
-                //     ref.watch(userSearchDetailesConstantsProvider).txtbtn,
-                //     style: context.typography.bodySmall,
-                //   ),
-                // )
+                Text(
+                    ref
+                        .watch(userSearchDetailesConstantsProvider)
+                        .txtRecentSearch,
+                    style: context.typography.h3SemiBold),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(context.spaces.space_150)),
+                      backgroundColor: AppColorPalettes.grey200),
+                  child: Text(
+                    ref.watch(userSearchDetailesConstantsProvider).txtbtn,
+                    style: context.typography.bodySmall,
+                  ),
+                )
               ],
             ),
             SizedBox(height: context.spaces.space_200),
