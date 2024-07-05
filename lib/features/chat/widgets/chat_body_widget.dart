@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
@@ -50,8 +48,6 @@ class ChatBody extends ConsumerWidget {
                         itemCount: data.length,
                         itemBuilder: (context, index) {
                           final message = data[index];
-                          log("Passing receive ID $userId");
-                          log("This page receive ID ${message.receiverId}");
                           if (userId == message.senderId &&
                               receiverId == message.receiverId) {
                             return SentMessageWidget(

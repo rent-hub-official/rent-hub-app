@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -50,7 +49,6 @@ class ChatListPage extends ConsumerWidget {
                         itemCount: data.docs.length,
                         itemBuilder: (context, index) {
                           final doc = data.docs[index];
-                          // log()
 
                           return currentUserId != doc.id
                               ? Stack(
