@@ -102,6 +102,7 @@ class CreateAccountPage extends HookConsumerWidget {
               Padding(
                 padding: EdgeInsets.only(top: context.spaces.space_300),
                 child: MainBtnWidget(
+                  isLoading: ref.watch(accountDetailsProvider),
                   onTap: () {
                     // name TextEditingController validation
                     if (_formKey.currentState!.validate()) {

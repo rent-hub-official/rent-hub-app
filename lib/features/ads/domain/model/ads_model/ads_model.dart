@@ -8,6 +8,7 @@ part 'ads_model.freezed.dart';
 class AdsModel with _$AdsModel {
   factory AdsModel({
     required int views,
+    required String seller,
     required List<String> imagePath,
     required String productName,
     required String category,
@@ -17,6 +18,8 @@ class AdsModel with _$AdsModel {
     String? userId,
     required String? description,
     required double price,
+    required DateTime dateCreated,
+    required DateTime dateMoidified,
   }) = _AdsModel;
   factory AdsModel.fromJson(Map<String, dynamic> json) =>
       _$AdsModelFromJson(json);
@@ -25,7 +28,9 @@ class AdsModel with _$AdsModel {
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
   ) {
-    return AdsModel.fromJson(snapshot.data()!);
+    final data = snapshot.data();
+
+    return AdsModel.fromJson(data!);
   }
   static Map<String, dynamic> toFireStore(
       AdsModel adsModel, SetOptions? options) {

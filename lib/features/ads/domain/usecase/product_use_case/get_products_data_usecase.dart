@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart';
 import 'package:rent_hub/core/utils/snakbar/snackbar_utils.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/domain/usecase/product_use_case/get_category_usecase.dart';
 import 'package:rent_hub/features/ads/service/ads_service.dart';
 
@@ -42,6 +42,9 @@ class GetProductsDataUsecase {
     } on StorageException catch (e) {
       // show snakbar when error
       SnackbarUtils.showError(e.message);
+    } catch (e) {
+      // show snakbar when error
+      SnackbarUtils.showError('Cannot get ads. Please try again.');
     }
   }
 }
