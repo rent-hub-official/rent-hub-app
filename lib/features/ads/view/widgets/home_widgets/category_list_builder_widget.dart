@@ -72,10 +72,10 @@ class CategoryListBuilderWidget extends ConsumerWidget {
                             ProductDetailsPage.routePath,
                           );
                         },
-                        favoriteTap: () {
+                        favoriteTap: () async {
                           /// toggle favorite status
                           /// invalidate provider for rebuild ui
-                          ref
+                          await ref
                               .watch(favoriteAdsProvider.notifier)
                               .setFavorite(adId: productsList[index].id);
 

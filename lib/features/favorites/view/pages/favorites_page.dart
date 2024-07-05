@@ -34,11 +34,11 @@ class FavoritesPage extends ConsumerWidget {
                         final adsModel = data[index].data();
                         return ProductCardWidget(
                             isFavorite: true,
-                            favoriteTap: () {
+                            favoriteTap: () async {
                               /// set favorite method
                               /// add or remove from favorite colloction accordingly
                               /// and invalidate provider which gives all favorite ads user
-                              ref
+                              await ref
                                   .watch(favoriteAdsProvider.notifier)
                                   .setFavorite(adId: data[index].id);
 
