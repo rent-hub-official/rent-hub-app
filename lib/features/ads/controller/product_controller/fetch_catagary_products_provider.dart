@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import 'package:flutter/material.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
-=======
-import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
->>>>>>> 2ce0af1f9c168373687e66773a3dcfb5d7a92c79
 import 'package:rent_hub/features/ads/domain/usecase/product_use_case/get_products_data_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

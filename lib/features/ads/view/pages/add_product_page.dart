@@ -10,12 +10,8 @@ import 'package:rent_hub/core/widgets/textfeild_widget.dart';
 import 'package:rent_hub/features/ads/controller/category_controller/category_provider.dart';
 import 'package:rent_hub/features/ads/controller/image_controller/image_provider.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/product_controller.dart';
-<<<<<<< HEAD
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
-=======
-import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
->>>>>>> 2ce0af1f9c168373687e66773a3dcfb5d7a92c79
 import 'package:rent_hub/features/ads/view/widgets/add_product_page/description_feild_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/add_product_page/image_picker_widget.dart';
 
@@ -196,7 +192,9 @@ class AddProductPage extends HookConsumerWidget {
                                   dateMoidified: DateTime.now(),
                                   seller: '',
                                 ));
-                            context.pushReplacement(MyProductsPage.routePath);
+                            context.pushReplacement(
+                              MyProductsPage.routePath,
+                            );
                           },
                           btnTxt: constants.txtBtn)
                     ],
