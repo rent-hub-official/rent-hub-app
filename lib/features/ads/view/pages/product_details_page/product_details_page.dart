@@ -26,7 +26,7 @@ class ProductDetailsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: ref.watch(getUserDataProvider(adsData.userId)).when(
+      body: ref.watch(getUserDataProvider(adsData.sellerId)).when(
             data: (data) => Stack(
               children: [
                 SizedBox(
@@ -41,14 +41,13 @@ class ProductDetailsPage extends ConsumerWidget {
                     controller: ref.watch(pageControllerProvider),
                     itemBuilder: (context, index) => Image.network(
                       adsData.imagePath[index],
-                      fit: BoxFit.cover,
                     ),
                     itemCount: adsData.imagePath.length,
                   ),
                 ),
                 // top bar icons
                 Positioned(
-                  top: 56.0,
+                  top: 28.0,
                   left: 16.0,
                   right: 16.0,
                   child: Row(

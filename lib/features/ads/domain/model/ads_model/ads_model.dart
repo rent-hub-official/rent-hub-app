@@ -8,18 +8,17 @@ part 'ads_model.freezed.dart';
 class AdsModel with _$AdsModel {
   factory AdsModel({
     required int views,
-    required String seller,
     required List<String> imagePath,
     required String productName,
     required String category,
     required String locationTitle,
     required double lat,
     required double long,
-    required String userId,
+    String? sellerId,
     required String? description,
     required double price,
     required DateTime dateCreated,
-    required DateTime dateMoidified,
+    DateTime? dateMoidified,
   }) = _AdsModel;
   factory AdsModel.fromJson(Map<String, dynamic> json) =>
       _$AdsModelFromJson(json);
