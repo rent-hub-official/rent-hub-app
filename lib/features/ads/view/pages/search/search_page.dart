@@ -38,7 +38,7 @@ class SearchPage extends HookConsumerWidget {
             controller: searchController,
             hintText: ref.watch(userSearchDetailsConstantsProvider).txtSearch,
             onChanged: (value) {
-              ref.read(SearchProductProvider(queryText: searchController.text));
+              ref.read(SearchAdsProvider(queryText: searchController.text));
             },
             onFieldSubmitted: (value) {
               ref
@@ -112,13 +112,12 @@ class SearchPage extends HookConsumerWidget {
                           onTap: () {
                             searchController.text = search.recentSearch;
                             ref
-                                .watch(SearchProductProvider(
+                                .watch(SearchAdsProvider(
                                     queryText: search.recentSearch))
                                 .whenData((data) {
                               isSearched.value = true;
                               ref.invalidate(recentSearchProvider);
                             });
-                          
                           },
                           child: Chip(
                             label: Text(search.recentSearch),
@@ -147,7 +146,7 @@ class SearchPage extends HookConsumerWidget {
                 ),
               )
             : ref
-                .watch(SearchProductProvider(queryText: searchController.text))
+                .watch(SearchAdsProvider(queryText: searchController.text))
                 .when(
                   data: (data) => CategoryListBuilderWidget(
                     poductsList: data,

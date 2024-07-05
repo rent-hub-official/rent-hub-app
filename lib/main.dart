@@ -1,3 +1,4 @@
+import 'package:algolia/algolia.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,6 +23,11 @@ class MyApp extends ConsumerWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
 
   static final scaffoldMessngerKey = GlobalKey<ScaffoldMessengerState>();
+
+  static final algolia = Algolia.init(
+    apiKey: "90b7be2c616a06a09f1522e7ebfa9d0b",
+    applicationId: "ZE3ZISY1UL",
+  );
 
   const MyApp({super.key});
 
