@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -48,6 +50,7 @@ class ChatListPage extends ConsumerWidget {
                         itemCount: data.docs.length,
                         itemBuilder: (context, index) {
                           final doc = data.docs[index];
+                          // log()
 
                           return currentUserId != doc.id
                               ? Stack(
@@ -75,6 +78,7 @@ class ChatListPage extends ConsumerWidget {
                                                 'userId': userId,
                                               },
                                             );
+                                            
                                           },
                                           leading: CircleAvatar(
                                               maxRadius: 24,

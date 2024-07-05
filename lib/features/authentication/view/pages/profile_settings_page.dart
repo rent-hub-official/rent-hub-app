@@ -19,12 +19,6 @@ class ProfileSettingsPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userId = ref.watch(authenticationProvider).phoneNumber ?? "";
-    final user = ref.watch(GetAccountDetailsProvider(userId: userId)).value;
-
-    // name editing controller
-    final nameEditingController = useTextEditingController(
-      text: user == null ? "" : user.data()?.userName ?? "",
-    );
 
     return Scaffold(
       appBar: AppBar(
@@ -41,83 +35,99 @@ class ProfileSettingsPage extends HookConsumerWidget {
         titleTextStyle: context.typography.h1SemiBold,
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: context.spaces.space_200,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // profile picture
-              ProfileImgeWidget(
-                onEdit: () {
-               
-                  // TODO : AMAL
-                },
-              ),
-              // height spacing
-              SizedBox(height: context.spaces.space_600),
-              // user name
-              Text(
-                ref.watch(userProfileSettingsConstantsProvider).txtName,
-                style: context.typography.bodyLarge,
-              ),
-              TextFeildWidget(
-                suffix: IconButton(
-                    onPressed: () {
-                      ref.invalidate(accountDetailsProvider);
-                    },
-                    icon: Icon(Icons.edit)),
-                onFieldSubmitted: (value) {
-                  ref.watch(accountDetailsProvider.notifier).addData(
-                        image: ref.read(imagePickerProvider),
-                        userId: userId,
-                        userName: value,
-                      );
-                },
-                textController: nameEditingController,
-                validator: (value) {
-                  // TODO
+      body: ref.watch(getUserDetailsProvider).when(
+            data: (data) {
+              // name editing controller
+              final nameEditingController =
+                  useTextEditingController(text: data.data()?.userName ?? "");
 
-                  return;
-                },
-              ),
-              // bank account
-              ProfileSettingsFieldWidget(
-                title: ref
-                    .watch(userProfileSettingsConstantsProvider)
-                    .txtBankAccount,
-                onPressed: () {
-                  context.push(AddBankAcDetailsPage.routePath);
-                },
-              ),
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.spaces.space_200,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // profile picture
+                      ProfileImgeWidget(
+                        profileImage: data.data()?.profileImage ?? "",
+                        onEdit: () {
+                          // TODO : muju
+                        },
+                      ),
+                      // height spacing
+                      SizedBox(height: context.spaces.space_600),
+                      // user name
+                      Text(
+                        ref.watch(userProfileSettingsConstantsProvider).txtName,
+                        style: context.typography.bodyLarge,
+                      ),
+                      TextFeildWidget(
+                        suffix: IconButton(
+                            onPressed: () {
+                              ref.invalidate(accountDetailsProvider);
+                            },
+                            icon: Icon(Icons.edit)),
+                        onFieldSubmitted: (value) {
+                          ref.watch(accountDetailsProvider.notifier).addData(
+                                image: ref.read(imagePickerProvider),
+                                userId: userId,
+                                userName: value,
+                              );
+                        },
+                        textController: nameEditingController,
+                        validator: (value) {
+                          // TODO
 
-              // log out
-              ProfileSettingsFieldWidget(
-                title:
-                    ref.watch(userProfileSettingsConstantsProvider).txtLOgOut,
-                onPressed: () {
-                  // logout btn tap
-                  ref.watch(authenticationProvider.notifier).logout();
-                },
-              ),
-              ProfileSettingsFieldWidget(
-                title: ref
-                    .watch(userProfileSettingsConstantsProvider)
-                    .txtDeleteAccount,
-                onPressed: () {
-                  ref
-                      .watch(accountDetailsProvider.notifier)
-                      .deleteAccount(userId: userId);
-                },
-              ),
-              // version
-            ],
+                          return;
+                        },
+                      ),
+                      // bank account
+                      ProfileSettingsFieldWidget(
+                        title: ref
+                            .watch(userProfileSettingsConstantsProvider)
+                            .txtBankAccount,
+                        onPressed: () {
+                          context.push(AddBankAcDetailsPage.routePath);
+                        },
+                      ),
+
+                      // log out
+                      ProfileSettingsFieldWidget(
+                        title: ref
+                            .watch(userProfileSettingsConstantsProvider)
+                            .txtLOgOut,
+                        onPressed: () {
+                          // logout btn tap
+                          ref.watch(authenticationProvider.notifier).logout();
+                        },
+                      ),
+                      ProfileSettingsFieldWidget(
+                        title: ref
+                            .watch(userProfileSettingsConstantsProvider)
+                            .txtDeleteAccount,
+                        onPressed: () {
+                          ref
+                              .watch(accountDetailsProvider.notifier)
+                              .deleteAccount(userId: userId);
+                        },
+                      ),
+                      // version
+                    ],
+                  ),
+                ),
+              );
+            },
+            error: (error, stackTrace) {
+              return SizedBox();
+              // TODO: check muju code it
+            },
+            loading: () => Center(
+              child: CircularProgressIndicator(),
+            ),
           ),
-        ),
-      ),
     );
   }
 }

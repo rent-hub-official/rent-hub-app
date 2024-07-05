@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rent_hub/features/authentication/domain/model/account_details_model.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/account_details_usecase/add_account_details_use_cases.dart';
-import 'package:rent_hub/features/authentication/domain/use_cases/account_details_usecase/get_account_details_use_case.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/account_details_usecase/delete_account_use_case.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/account_details_usecase/get_user_details_usecase.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/account_details_usecase/upload_image_use_case.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -51,4 +53,11 @@ class AccountDetails extends _$AccountDetails {
 
     state = false;
   }
+}
+
+
+@riverpod
+Future<DocumentSnapshot<AccountDetailsModel>> getUserDetails(
+    GetUserDetailsRef ref) {
+  return GetUserDetailsUsecase()();
 }

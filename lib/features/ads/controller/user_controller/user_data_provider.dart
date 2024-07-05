@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'user_data_provider.g.dart';
 
 @riverpod
-Future<DocumentSnapshot<AccountDetailsModel>> getUserDetails(
-    GetUserDetailsRef ref, userId) {
-  return GetAccountDeatailsUseCase()(userId);
+Future<DocumentSnapshot<AccountDetailsModel>> getUserData(
+    GetUserDataRef ref, userId) {
+  return GetAccountDetailsUseCase()(userId);
 }
