@@ -20,7 +20,7 @@ class FilterSortConstants {
     "Sort by",
     "Order"
   ];
-  final productType = ["All", "House", "Vehicle", "Cloths", "Tools"];
+  final productType = ["All", "Houses", "Vehicle", "Cloths", "Tools"];
   final priceRange = [
     "0-999",
     "1000-9999",
