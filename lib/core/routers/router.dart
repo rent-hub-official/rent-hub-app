@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/routers/redirects.dart';
 import 'package:rent_hub/core/widgets/bottom_nav/bottom_nav_widget.dart';
@@ -69,7 +70,7 @@ final router = GoRouter(
       path: ProductDetailsPage.routePath,
       builder: (context, state) {
         return ProductDetailsPage(
-          adsData: state.extra as AdsModel,
+          adsData: state.extra as QueryDocumentSnapshot<AdsModel>,
         );
       },
       redirect: checkLoggedIn,
