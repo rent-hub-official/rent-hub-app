@@ -118,7 +118,6 @@ class SearchPage extends HookConsumerWidget {
                               isSearched.value = true;
                               ref.invalidate(recentSearchProvider);
                             });
-                          
                           },
                           child: Chip(
                             label: Text(search.recentSearch),
@@ -150,7 +149,8 @@ class SearchPage extends HookConsumerWidget {
                 .watch(SearchProductProvider(queryText: searchController.text))
                 .when(
                   data: (data) => CategoryListBuilderWidget(
-                    poductsList: data,
+                    // TODO : [saliq] change list of ads model to list of documentsnapshot
+                    productsList: [],
                   ),
                   error: (error, stackTrace) {
                     return Center(

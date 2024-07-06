@@ -4,7 +4,7 @@ part 'favourites.g.dart';
 
 class FavouritesConstants {
   final txtFavourite = "Favourites";
-  final txtNoFavourite = "NO Favourites";
+  final txtNoFavourite = "No Favourites";
 }
 
 @riverpod
