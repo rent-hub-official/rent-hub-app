@@ -39,17 +39,20 @@ class SentMessageWidget extends StatelessWidget {
             Text(time, style: context.typography.bodySmall)
           ],
         ),
-        // TODO add sender profile image
         Padding(
           padding: EdgeInsets.only(
               bottom: context.spaces.space_250, left: context.spaces.space_100),
           child: CircleAvatar(
               radius: context.spaces.space_200,
-              child: Image.network(
-                image,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => Center(
-                  child: Icon(Icons.person),
+              child: ClipOval(
+                child: Image.network(
+                  width: double.infinity,
+                  height: double.infinity,
+                  image,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Center(
+                    child: Icon(Icons.person),
+                  ),
                 ),
               )),
         ),

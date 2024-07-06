@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/domain/usecase/product_use_case/product_add_usecase.dart';
 import 'package:rent_hub/features/ads/domain/usecase/product_use_case/product_update_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

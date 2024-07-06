@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:rent_hub/core/constants/image_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 
@@ -9,8 +7,11 @@ class ProfileImgeWidget extends ConsumerWidget {
   const ProfileImgeWidget({
     super.key,
     required this.onEdit,
+    required this.profileImage,
   });
+
   final void Function() onEdit;
+  final String profileImage;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,9 +25,7 @@ class ProfileImgeWidget extends ConsumerWidget {
               alignment: Alignment.center,
               child: CircleAvatar(
                 radius: context.spaces.space_900,
-                child: SvgPicture.asset(
-                  ref.watch(imageConstantsProvider).imgProfile,
-                ),
+                backgroundImage: NetworkImage(profileImage),
               ),
             ),
             Positioned(

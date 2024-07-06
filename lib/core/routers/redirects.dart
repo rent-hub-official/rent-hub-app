@@ -16,9 +16,3 @@ String? checkLoggedIn(BuildContext context, GoRouterState state) {
 
   return null;
 }
-
-/// Check if the user is launching the app for the first time
-///
-/// If the user is opening the app for the first time, then show the onboarding screen
-/// Else show the login page
-String? checkFirstTimeLaunch(BuildContext context, GoRouterState state) {}

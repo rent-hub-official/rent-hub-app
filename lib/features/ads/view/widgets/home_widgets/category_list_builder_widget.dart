@@ -5,9 +5,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/animation_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
-import 'package:rent_hub/features/ads/controller/product_controller/fetch_catagary_products_provider.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model.dart';
 import 'package:lottie/lottie.dart';
+import 'package:rent_hub/features/ads/controller/product_controller/fetch_catagary_products_provider.dart';
+import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
 
@@ -69,6 +69,7 @@ class CategoryListBuilderWidget extends ConsumerWidget {
                           //navigate to details page
                           context.push(
                             ProductDetailsPage.routePath,
+                            extra: productsList[index],
                           );
                         },
                         favoriteTap: () async {

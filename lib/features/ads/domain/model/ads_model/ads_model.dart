@@ -14,9 +14,11 @@ class AdsModel with _$AdsModel {
     required String locationTitle,
     required double lat,
     required double long,
-    required String userId,
+    String? sellerId,
     required String? description,
     required double price,
+    required DateTime dateCreated,
+    DateTime? dateMoidified,
   }) = _AdsModel;
   factory AdsModel.fromJson(Map<String, dynamic> json) =>
       _$AdsModelFromJson(json);
@@ -25,7 +27,9 @@ class AdsModel with _$AdsModel {
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
   ) {
-    return AdsModel.fromJson(snapshot.data()!);
+    final data = snapshot.data();
+
+    return AdsModel.fromJson(data!);
   }
   static Map<String, dynamic> toFireStore(
       AdsModel adsModel, SetOptions? options) {

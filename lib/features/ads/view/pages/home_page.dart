@@ -9,6 +9,7 @@ import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/features/ads/controller/category_controller/category_provider.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/fetch_catagary_products_provider.dart';
 import 'package:rent_hub/features/ads/view/pages/notification_page.dart';
+import 'package:rent_hub/features/ads/view/pages/search/search_page.dart';
 import 'package:rent_hub/features/ads/view/widgets/home_widgets/category_list_builder_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/home_widgets/sliverAppbar_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/home_widgets/tabbar_widget.dart';
@@ -46,11 +47,11 @@ class HomePage extends HookConsumerWidget {
             // TODO change location details
             currentLocTitle: 'kozhikode',
             stateCountrySubtitle: 'kerala ,india',
+            searchBtnOnTap: () {
+              context.push(SearchPage.routePath);
+            },
             notificationbtnOnTap: () {
               context.push(NotificationPage.routePath);
-            },
-            searchBtnOnTap: () {
-              // TODO :
             },
           ),
           SliverToBoxAdapter(
