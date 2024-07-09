@@ -4,6 +4,7 @@ import 'package:rent_hub/core/constants/ads/my_products_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/features/ads/controller/my_products_controller/my_products_controller.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class MyProductCardWidget extends ConsumerWidget {
   const MyProductCardWidget(
@@ -17,6 +18,7 @@ class MyProductCardWidget extends ConsumerWidget {
       // required this.views,
       // required this.likes,
       required this.onSelected,
+      required this.editonTap,
       required this.myProductsOnTap});
 
   final String Productimage;
@@ -28,6 +30,7 @@ class MyProductCardWidget extends ConsumerWidget {
   // final int likes;
   final void Function(String)? onSelected;
   final void Function() myProductsOnTap;
+  final void Function() editonTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -95,18 +98,26 @@ class MyProductCardWidget extends ConsumerWidget {
                       ),
                       PopupMenuItem(
                         value: ref.watch(myProductsConstantsProvider).txtDelete,
-                        child: Text(
-                          ref.watch(myProductsConstantsProvider).txtEdit,
-                          style: context.typography.body
-                              .copyWith(color: AppColorPalettes.black500),
+                        child: InkWell(
+                          onTap: editonTap,
+                          child: Text(
+                            ref.watch(myProductsConstantsProvider).txtEdit,
+                            style: context.typography.body
+                                .copyWith(color: AppColorPalettes.black500),
+                          ),
                         ),
                       ),
                       PopupMenuItem(
                         value: ref.watch(myProductsConstantsProvider).txtDelete,
-                        child: Text(
-                          ref.watch(myProductsConstantsProvider).txtShare,
-                          style: context.typography.body.copyWith(
-                            color: AppColorPalettes.black500,
+                        child: InkWell(
+                          onTap: () async {
+                            await launchUrlString("https://www.instagram.com/");
+                          },
+                          child: Text(
+                            ref.watch(myProductsConstantsProvider).txtShare,
+                            style: context.typography.body.copyWith(
+                              color: AppColorPalettes.black500,
+                            ),
                           ),
                         ),
                       ),

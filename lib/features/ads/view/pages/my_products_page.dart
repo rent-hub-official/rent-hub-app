@@ -6,6 +6,7 @@ import 'package:rent_hub/core/constants/ads/my_products_constants.dart';
 import 'package:rent_hub/core/constants/animation_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/features/ads/controller/my_products_controller/my_products_controller.dart';
+import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
 import 'package:rent_hub/features/ads/view/widgets/my_product_card/my_product_card_widget.dart';
 
 class MyProductsPage extends ConsumerWidget {
@@ -23,7 +24,6 @@ class MyProductsPage extends ConsumerWidget {
         surfaceTintColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-          
             context.pop();
           },
           icon: Icon(Icons.arrow_back_ios),
@@ -54,6 +54,15 @@ class MyProductsPage extends ConsumerWidget {
                             horizontal: context.spaces.space_200,
                             vertical: context.spaces.space_100),
                         child: MyProductCardWidget(
+                          editonTap: () {
+                            ref
+                                .watch(myProductsProvider.notifier)
+                                .updateMyProduct(
+                                    id: data.docs[index].id,
+                                    adsmodel: data.docs[index].data());
+                                    
+                            context.push(AddProductPage.routePath);
+                          },
                           id: data.docs[index].id,
                           description:
                               data.docs[index].data().description ?? "",
