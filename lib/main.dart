@@ -1,7 +1,9 @@
+import 'package:algolia/algolia.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/routers/router.dart';
+import 'package:rent_hub/core/secrets.dart';
 import 'package:rent_hub/core/theme/theme_provider.dart';
 import 'package:rent_hub/features/ads/service/object_box_service.dart';
 import 'package:rent_hub/firebase_options.dart';
@@ -22,6 +24,11 @@ class MyApp extends ConsumerWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
 
   static final scaffoldMessngerKey = GlobalKey<ScaffoldMessengerState>();
+
+  static final algolia = Algolia.init(
+    apiKey: Secrets.algoliaApiKey,
+    applicationId: Secrets.algoliaApplicationId,
+  );
 
   const MyApp({super.key});
 
