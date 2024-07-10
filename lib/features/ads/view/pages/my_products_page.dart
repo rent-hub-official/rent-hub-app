@@ -36,7 +36,7 @@ class MyProductsPage extends ConsumerWidget {
       ),
       body: ref.watch(myProductsProvider).when(
             data: (data) {
-              return data.docs.isEmpty
+              return data.isEmpty
                   ? LayoutBuilder(
                       builder: (context, constraints) {
                         return Center(
@@ -48,7 +48,7 @@ class MyProductsPage extends ConsumerWidget {
                       },
                     )
                   : ListView.builder(
-                      itemCount: data.docs.length,
+                      itemCount: data.length,
                       itemBuilder: (context, index) => Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: context.spaces.space_200,
@@ -58,19 +58,19 @@ class MyProductsPage extends ConsumerWidget {
                             ref
                                 .watch(myProductsProvider.notifier)
                                 .updateMyProduct(
-                                    id: data.docs[index].id,
-                                    adsmodel: data.docs[index].data());
+                                    id: data[index].id!,
+                                    adsmodel: data[index]);
                                     
                             context.push(AddProductPage.routePath);
                           },
-                          id: data.docs[index].id,
+                          id: data[index].id!,
                           description:
-                              data.docs[index].data().description ?? "",
+                              data[index].description ?? "",
                           myProductsOnTap: () {},
                           onSelected: (value) {},
-                          Productimage: data.docs[index].data().imagePath[1],
-                          poductPrice: data.docs[index].data().price,
-                          productName: data.docs[index].data().productName,
+                          Productimage: data[index].imagePath[1],
+                          poductPrice: data[index].price,
+                          productName: data[index].productName,
                         ),
                       ),
                     );

@@ -9,7 +9,7 @@ part 'my_products_controller.g.dart';
 @riverpod
 class MyProducts extends _$MyProducts {
   @override
-  Future<QuerySnapshot<AdsModel>> build() async {
+  Future<List<AdsModel>> build() async {
     return await MyProductUsecase()();
   }
 
@@ -17,7 +17,7 @@ class MyProducts extends _$MyProducts {
     await MyProductDeleteUsecase()(id);
   }
 
-  updateMyProduct({required String id, required AdsModel adsmodel})async {
+Future<void>   updateMyProduct({required String id, required AdsModel adsmodel})async {
     return await MyProductUpadateUsecase()(id, adsmodel);
   }
 }
