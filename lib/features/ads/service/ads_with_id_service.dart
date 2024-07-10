@@ -8,6 +8,7 @@ class AdsWithIdService {
             toFirestore: AdsModel.toFireStore,
           );
 
+  /// get ads with id
   Future<DocumentSnapshot<AdsModel>> call({
     required String id,
   }) async {

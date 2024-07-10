@@ -4,6 +4,7 @@ import 'package:rent_hub/features/ads/domain/usecase/ads_search_use_case/ads_sea
 import 'package:rent_hub/features/ads/service/ads_with_id_service.dart';
 
 class GetAdsWithIdUseCase {
+  /// returns a list of ads with id
   Future<List<DocumentSnapshot<AdsModel>>> call(String queryText) async {
     try {
       final adsIds = await AdsSearchUsecase()(queryText: queryText);
