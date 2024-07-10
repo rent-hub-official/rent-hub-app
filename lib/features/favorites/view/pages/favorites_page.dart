@@ -29,7 +29,7 @@ class FavoritesPage extends ConsumerWidget {
                         top: context.spaces.space_100,
                       ),
                       itemBuilder: (context, index) {
-                        final adsModel = data[index].data();
+                        final adsModel = data[index];
                         return ProductCardWidget(
                             isFavorite: true,
                             favoriteTap: () async {
@@ -38,11 +38,11 @@ class FavoritesPage extends ConsumerWidget {
                               /// and invalidate provider which gives all favorite ads user
                               await ref
                                   .watch(favoriteAdsProvider.notifier)
-                                  .setFavorite(adId: data[index].id);
+                                  .setFavorite(adId: data[index].id!);
 
                               ref.invalidate(getFavoriteProvider);
                             },
-                            productName: adsModel!.productName,
+                            productName: adsModel.productName,
                             price: adsModel.price,
                             productLocation: adsModel.locationTitle,
                             distance: adsModel.lat,

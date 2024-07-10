@@ -149,7 +149,6 @@ class AddProductPage extends HookConsumerWidget {
                           // add products data
                           ref.read(productsProvider.notifier).addData(
                                 adsmodel: AdsModel(
-                                  views: 0,
                                   imagePath:
                                       ref.read(imageProvider).imageRefList,
                                   productName: productNamecontroller.text,
