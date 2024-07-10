@@ -20,6 +20,7 @@ class AdsModel with _$AdsModel {
     required DateTime dateCreated,
     DateTime? dateMoidified,
   }) = _AdsModel;
+
   factory AdsModel.fromJson(Map<String, dynamic> json) =>
       _$AdsModelFromJson(json);
 

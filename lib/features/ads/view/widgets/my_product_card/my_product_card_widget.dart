@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/my_products_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
-import 'package:rent_hub/features/ads/view/widgets/my_product_card/my_product_bottom_icon_widget.dart';
+import 'package:rent_hub/features/ads/controller/my_products_controller/my_products_controller.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class MyProductCardWidget extends ConsumerWidget {
   const MyProductCardWidget(
@@ -11,18 +12,25 @@ class MyProductCardWidget extends ConsumerWidget {
       required this.Productimage,
       required this.productName,
       required this.poductPrice,
-      required this.views,
-      required this.likes,
+      required this.description,
+      required this.id,
+
+      // required this.views,
+      // required this.likes,
       required this.onSelected,
+      required this.editonTap,
       required this.myProductsOnTap});
 
   final String Productimage;
   final String productName;
   final double poductPrice;
-  final int views;
-  final int likes;
+  final String description;
+  final String id;
+  // final int views;
+  // final int likes;
   final void Function(String)? onSelected;
   final void Function() myProductsOnTap;
+  final void Function() editonTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -73,27 +81,43 @@ class MyProductCardWidget extends ConsumerWidget {
                     itemBuilder: (context) => [
                       PopupMenuItem(
                         value: ref.watch(myProductsConstantsProvider).txtDelete,
-                        child: Text(
-                          ref.watch(myProductsConstantsProvider).txtDelete,
-                          style: context.typography.body.copyWith(
-                            color: AppColorPalettes.black500,
+                        child: InkWell(
+                          onTap: () {
+                            ref
+                                .watch(myProductsProvider.notifier)
+                                .deleteMyProduct(id: id);
+                            ref.invalidate(myProductsProvider);
+                          },
+                          child: Text(
+                            ref.watch(myProductsConstantsProvider).txtDelete,
+                            style: context.typography.body.copyWith(
+                              color: AppColorPalettes.black500,
+                            ),
                           ),
                         ),
                       ),
                       PopupMenuItem(
                         value: ref.watch(myProductsConstantsProvider).txtDelete,
-                        child: Text(
-                          ref.watch(myProductsConstantsProvider).txtEdit,
-                          style: context.typography.body
-                              .copyWith(color: AppColorPalettes.black500),
+                        child: InkWell(
+                          onTap: editonTap,
+                          child: Text(
+                            ref.watch(myProductsConstantsProvider).txtEdit,
+                            style: context.typography.body
+                                .copyWith(color: AppColorPalettes.black500),
+                          ),
                         ),
                       ),
                       PopupMenuItem(
                         value: ref.watch(myProductsConstantsProvider).txtDelete,
-                        child: Text(
-                          ref.watch(myProductsConstantsProvider).txtShare,
-                          style: context.typography.body.copyWith(
-                            color: AppColorPalettes.black500,
+                        child: InkWell(
+                          onTap: () async {
+                            await launchUrlString("https://www.instagram.com/");
+                          },
+                          child: Text(
+                            ref.watch(myProductsConstantsProvider).txtShare,
+                            style: context.typography.body.copyWith(
+                              color: AppColorPalettes.black500,
+                            ),
                           ),
                         ),
                       ),
@@ -107,31 +131,25 @@ class MyProductCardWidget extends ConsumerWidget {
               height: context.spaces.space_125,
             ),
             // product name
-            Text(
-              productName,
-              style: context.typography.h3SemiBold,
-              overflow: TextOverflow.ellipsis,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  productName,
+                  style: context.typography.h3SemiBold,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  description,
+                  style: context.typography.body,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
             // height space
-            SizedBox(
-              height: context.spaces.space_50,
-            ),
+
             Row(
               children: [
-                MyProductBottomIconTextWidget(
-                  icon: Icons.remove_red_eye,
-                  text:
-                      "${ref.watch(myProductsConstantsProvider).txtViews}$views",
-                ),
-                // width spacer
-                SizedBox(
-                  width: context.spaces.space_100,
-                ),
-                MyProductBottomIconTextWidget(
-                  icon: Icons.favorite,
-                  text:
-                      "${ref.watch(myProductsConstantsProvider).txtLikes}$likes",
-                ),
                 Spacer(),
                 // price
                 RichText(

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
+import 'package:rent_hub/core/exception/base_exception.dart';
 import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 
@@ -105,6 +106,25 @@ final class AdsService {
       return await adsDb.where('category', isEqualTo: categoryId).get();
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
+    }
+  }
+
+  static Future<QuerySnapshot<AdsModel>> getMyProduct() async {
+    try {
+      final MyProduct = await AdsService.adsDb
+          .where('sellerId', isEqualTo: auth.currentUser!.phoneNumber)
+          .get();
+      return MyProduct;
+    } catch (e) {
+      throw "Failed to fetch user products: ${e.toString()}";
+    }
+  }
+
+ static Future<void> deleteMyProduct(String id) async{
+    try {
+     await  adsDb.doc(id).delete();
+    } catch (e) {
+      throw BaseException(message: e.toString());
     }
   }
 }

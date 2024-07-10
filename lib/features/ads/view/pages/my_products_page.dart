@@ -1,64 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rent_hub/core/constants/ads/my_products_constants.dart';
+import 'package:rent_hub/core/constants/animation_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
+import 'package:rent_hub/features/ads/controller/my_products_controller/my_products_controller.dart';
+import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
 import 'package:rent_hub/features/ads/view/widgets/my_product_card/my_product_card_widget.dart';
-
-final List<dynamic> myProductsList = [
-  [
-    'https://www.topgear.com/sites/default/files/2022/09/1-BMW-3-Series.jpg',
-    'BMW 5 series',
-    1500.00,
-    5,
-    5,
-  ],
-  [
-    'https://www.topgear.com/sites/default/files/2022/09/1-BMW-3-Series.jpg',
-    'BMW 5 series',
-    1500.00,
-    5,
-    5,
-  ],
-  [
-    'https://www.topgear.com/sites/default/files/2022/09/1-BMW-3-Series.jpg',
-    'BMW 5 series',
-    1500.00,
-    5,
-    5,
-  ],
-  [
-    'https://www.topgear.com/sites/default/files/2022/09/1-BMW-3-Series.jpg',
-    'BMW 5 series',
-    1500.00,
-    5,
-    5,
-  ],
-  [
-    'https://www.topgear.com/sites/default/files/2022/09/1-BMW-3-Series.jpg',
-    'BMW 5 series',
-    1500.00,
-    5,
-    5,
-  ],
-];
 
 class MyProductsPage extends ConsumerWidget {
   static const routePath = '/myProducts';
-  // final Function() myProductsonTap;
   const MyProductsPage({
     super.key,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final lottieConsts = ref.read(animationConstantsProvider);
+
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            // TODO : navigate pop
             context.pop();
           },
           icon: Icon(Icons.arrow_back_ios),
@@ -69,30 +34,52 @@ class MyProductsPage extends ConsumerWidget {
         titleTextStyle: context.typography.h2Bold,
         centerTitle: true,
       ),
-      body: ListView.separated(
-        padding: EdgeInsets.only(
-          top: context.spaces.space_200,
-          left: context.spaces.space_200,
-          right: context.spaces.space_200,
-        ),
-        itemBuilder: (context, index) => MyProductCardWidget(
-          myProductsOnTap: () {
-            context.push(ProductDetailsPage.routePath);
-          },
-          Productimage: myProductsList[index][0],
-          productName: myProductsList[index][1],
-          poductPrice: myProductsList[index][2],
-          views: myProductsList[index][3],
-          likes: myProductsList[index][4],
-          onSelected: (value) {
-            // TODO: popmenu button operation
-          },
-        ),
-        separatorBuilder: (context, index) => SizedBox(
-          height: context.spaces.space_200,
-        ),
-        itemCount: myProductsList.length,
-      ),
+      body: ref.watch(myProductsProvider).when(
+            data: (data) {
+              return data.isEmpty
+                  ? LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Center(
+                          child: Lottie.asset(
+                            lottieConsts.animationEmpty,
+                            height: constraints.maxHeight * .4,
+                          ),
+                        );
+                      },
+                    )
+                  : ListView.builder(
+                      itemCount: data.length,
+                      itemBuilder: (context, index) => Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: context.spaces.space_200,
+                            vertical: context.spaces.space_100),
+                        child: MyProductCardWidget(
+                          editonTap: () {
+                            ref
+                                .watch(myProductsProvider.notifier)
+                                .updateMyProduct(
+                                    id: data[index].id!,
+                                    adsmodel: data[index]);
+                                    
+                            context.push(AddProductPage.routePath);
+                          },
+                          id: data[index].id!,
+                          description:
+                              data[index].description ?? "",
+                          myProductsOnTap: () {},
+                          onSelected: (value) {},
+                          Productimage: data[index].imagePath[1],
+                          poductPrice: data[index].price,
+                          productName: data[index].productName,
+                        ),
+                      ),
+                    );
+            },
+            error: (error, stackTrace) => Center(
+              child: Text(error.toString()),
+            ),
+            loading: () => SizedBox(),
+          ),
     );
   }
 }
