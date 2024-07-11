@@ -9,6 +9,7 @@ import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/chat/controller/get_user_details_controller.dart';
+import 'package:rent_hub/features/chat/controller/seller_product_controller.dart';
 import 'package:rent_hub/features/chat/widgets/seller_details_widget.dart';
 
 class SellerProfilePage extends ConsumerWidget {
@@ -70,37 +71,57 @@ class SellerProfilePage extends ConsumerWidget {
                         // Car Rental List
                         Expanded(
                           child: Container(
-                            padding: EdgeInsets.all(context.spaces.space_200),
-                            decoration: BoxDecoration(
-                              color: context.colors.cardBackground,
-                              borderRadius: BorderRadius.only(
-                                topLeft:
-                                    Radius.circular(context.spaces.space_300),
-                                topRight:
-                                    Radius.circular(context.spaces.space_300),
+                              padding: EdgeInsets.all(context.spaces.space_200),
+                              decoration: BoxDecoration(
+                                color: context.colors.cardBackground,
+                                borderRadius: BorderRadius.only(
+                                  topLeft:
+                                      Radius.circular(context.spaces.space_300),
+                                  topRight:
+                                      Radius.circular(context.spaces.space_300),
+                                ),
                               ),
-                            ),
-                            child: ListView.builder(
-                              itemCount: 6, // Number of items in the list
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: ProductCardWidget(
-                                    productName: "",
-                                    price: 0,
-                                    productLocation: "",
-                                    distance: 0,
-                                    img:
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSycvWQYknNQbjyOX5ly3PIMtS6yMXVzku9Q&s",
-                                    onTap: () {},
-                                    belowbtn: constans
-                                        .txtContinue, // Button text from constants
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
+                              child: ref
+                                  .watch(SellerProductProvider(
+                                      sellerId: Userdata.data().sellerId!))
+                                  .when(
+                                    data: (data) => ListView.builder(
+                                      itemCount: data
+                                          .length, // Number of items in the list
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0),
+                                          child: ProductCardWidget(
+                                            productName:
+                                                data[index].productName,
+                                            price: data[index].price,
+                                            productLocation:
+                                                data[index].locationTitle,
+                                            distance: 0,
+                                            img: data[index].imagePath[0],
+                                            onTap: () {},
+                                            belowbtn: constans
+                                                .txtContinue, // Button text from constants
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    error: (error, stackTrace) => Center(
+                                      child: Column(
+                                        children: [
+                                          IconButton(
+                                              onPressed: () {
+                                                ref.invalidate(
+                                                    sellerProductProvider);
+                                              },
+                                              icon: Icon(Icons.refresh)),
+                                          Text(error.toString()),
+                                        ],
+                                      ),
+                                    ),
+                                    loading: () => CircularProgressIndicator(),
+                                  )),
                         ),
                       ],
                     ),

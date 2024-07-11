@@ -1,0 +1,9 @@
+import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
+import 'package:rent_hub/features/chat/domain/usecase/my_product_use_case/seller_product_use_case.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+part 'seller_product_controller.g.dart';
+
+@riverpod
+Future<List<AdsModel>> sellerProduct(SellerProductRef ref, {required String sellerId}) async {
+  return SellerProductUseCase()(sellerId: sellerId);
+}
