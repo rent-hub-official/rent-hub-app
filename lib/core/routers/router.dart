@@ -4,7 +4,7 @@ import 'package:rent_hub/core/routers/redirects.dart';
 import 'package:rent_hub/core/widgets/bottom_nav/bottom_nav_widget.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
-import 'package:rent_hub/features/ads/view/pages/history/history_details_page.dart';
+import 'package:rent_hub/features/orders/view/pages/history_details_page.dart';
 import 'package:rent_hub/features/ads/view/pages/home_page.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
 import 'package:rent_hub/features/ads/view/pages/notification_page.dart';

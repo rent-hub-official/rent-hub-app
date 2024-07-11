@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
-import 'package:rent_hub/features/ads/view/pages/history/history_details_page.dart';
-import 'package:rent_hub/features/ads/view/widgets/history_widgets/reject_accept_status_widget.dart';
+import 'package:rent_hub/features/orders/view/pages/history_details_page.dart';
+import 'package:rent_hub/features/orders/view/widgets/reject_accept_status_widget.dart';
 
 class ListOfBookingHistoryWidget extends ConsumerWidget {
   const ListOfBookingHistoryWidget(

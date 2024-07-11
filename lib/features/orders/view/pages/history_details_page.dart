@@ -4,9 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/purchase_history.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/theme/color_palette.dart';
+import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
-import 'package:rent_hub/features/ads/view/widgets/history_widgets/list_of_booking_history_widget.dart';
-import 'package:rent_hub/features/ads/view/widgets/history_widgets/list_of_purchase_history_widget.dart';
+import 'package:rent_hub/features/orders/controller/fetch_ads_provider.dart';
+import 'package:rent_hub/features/orders/controller/orders_provider.dart';
 
 class HistoryDetailsPage extends HookConsumerWidget {
   static const routePath = '/historydetailspage';
@@ -29,6 +31,8 @@ class HistoryDetailsPage extends HookConsumerWidget {
         selectedTabIndex.value = tabController.index;
       },
     );
+
+    final orders = ref.watch(ordersProvider).value;
 
     return Scaffold(
       appBar: AppBar(
@@ -101,65 +105,58 @@ class HistoryDetailsPage extends HookConsumerWidget {
         child: TabBarView(
           controller: tabController,
           children: [
-            // TODO change Sample model
-            ListOfPurchaseHistoryWidget(
-              productModelSample: [
-                ProductModelSample(
-                    isCompleted: false,
-                    productName: 'Benz',
-                    price: 999,
-                    productLocation: 'Kozhikode,Kerala',
-                    distance: 10,
-                    img:
-                        'https://www.topgear.com/sites/default/files/2022/09/1-BMW-3-Series.jpg',
-                    onTap: () {
-                      // TODO add function for show info
-                    },
-                    belowbtn: purchaseConsts.txtBtn),
-                ProductModelSample(
-                    productName: 'Benz',
-                    price: 999,
-                    productLocation: 'Kozhikode,Kerala',
-                    distance: 10,
-                    img:
-                        'https://www.topgear.com/sites/default/files/2022/09/1-BMW-3-Series.jpg',
-                    onTap: () {},
-                    belowbtn: purchaseConsts.txtBtn),
-              ],
-            ),
-            // TODO change Sample model
-            ListOfBookingHistoryWidget(
-              productModelSample: [
-                ProductModelSample(
-                    productName: 'Benz',
-                    price: 999,
-                    productLocation: 'Kozhikode,Kerala',
-                    distance: 10,
-                    img:
-                        'https://www.topgear.com/sites/default/files/2022/09/1-BMW-3-Series.jpg',
-                    onTap: () {},
-                    belowbtn: purchaseConsts.txtBtn),
-                ProductModelSample(
-                    isCompleted: true,
-                    productName: 'Benz',
-                    price: 999,
-                    productLocation: 'Kozhikode,Kerala',
-                    distance: 10,
-                    img:
-                        'https://www.topgear.com/sites/default/files/2022/09/1-BMW-3-Series.jpg',
-                    onTap: () {},
-                    belowbtn: purchaseConsts.txtBtn),
-                ProductModelSample(
-                    isCompleted: false,
-                    productName: 'Benz',
-                    price: 999,
-                    productLocation: 'Kozhikode,Kerala',
-                    distance: 10,
-                    img:
-                        'https://www.topgear.com/sites/default/files/2022/09/1-BMW-3-Series.jpg',
-                    onTap: () {},
-                    belowbtn: purchaseConsts.txtBtn),
-              ],
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: orders!.length,
+              itemBuilder: (context, index) {
+                final productModelSample = ref
+                    .watch(FetchAdsWithIdProvider(id: orders[index].adsId))
+                    .value!
+                    .data();
+
+                return Padding(
+                  padding: EdgeInsets.only(top: context.spaces.space_150),
+                  child: Stack(
+                    children: [
+                      ProductCardWidget(
+                          productName: productModelSample!.productName,
+                          price: productModelSample.price,
+                          productLocation: productModelSample.locationTitle,
+                          distance: 1,
+                          img: productModelSample.imagePath[0],
+                          onTap: () {},
+                          belowbtn: ''),
+                      Positioned(
+                        top: context.spaces.space_400,
+                        right: -40,
+                        child: Transform.rotate(
+                          // angle coverted to radius
+                          angle: context.spaces.space_600 * (3.14159 / 180),
+                          child: Container(
+                            width: context.spaces.space_900 * 2,
+                            height: context.spaces.space_250,
+                            // label color
+                            color: orders[index].status ==
+                                    purchaseConsts.txtCompleted
+                                ? AppColorPalettes.green
+                                : AppColorPalettes.blue,
+                            child: Center(
+                              child: Text(
+                                // choose label text accordingly
+                                orders[index].status ==
+                                        purchaseConsts.txtCompleted
+                                    ? purchaseConsts.txtCompleted
+                                    : purchaseConsts.txtPending,
+                                style: context.typography.bodyWhite,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ],
         ),
