@@ -19,9 +19,9 @@ class Image extends _$Image {
     if (imageRef != null) {
       state = state.copyWith(
         imageRefList: [...state.imageRefList, imageRef],
-        isLoading: false,
       );
     }
+    state = state.copyWith(isLoading: false);
   }
 
   Future<void> delete({required String imageRef}) async {

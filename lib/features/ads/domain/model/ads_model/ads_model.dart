@@ -29,12 +29,12 @@ class AdsModel with _$AdsModel {
     SnapshotOptions? options,
   ) {
     var data = snapshot.data();
-    data?['id'] = snapshot.id;
+    data!['id'] = snapshot.id;
 
-    return AdsModel.fromJson(data!);
+    return AdsModel.fromJson(data);
   }
   static Map<String, dynamic> toFireStore(
       AdsModel adsModel, SetOptions? options) {
-    return adsModel.toJson().remove('id');
+    return adsModel.toJson()..remove('id');
   }
 }

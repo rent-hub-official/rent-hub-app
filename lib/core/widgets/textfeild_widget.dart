@@ -11,6 +11,8 @@ class TextFeildWidget extends StatelessWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onFieldSubmitted;
   final Widget? suffix;
+  final TextInputType? keyboardType;
+
   const TextFeildWidget({
     super.key,
     this.suffix,
@@ -21,6 +23,7 @@ class TextFeildWidget extends StatelessWidget {
     this.prefixicon,
     this.onFieldSubmitted,
     required this.validator,
+    this.keyboardType,
   });
 
   @override
@@ -29,6 +32,7 @@ class TextFeildWidget extends StatelessWidget {
       onFieldSubmitted: onFieldSubmitted,
       validator: validator,
       controller: textController,
+      keyboardType: keyboardType,
       decoration: InputDecoration(
         prefixIcon: prefixicon,
         labelText: labeltxt,

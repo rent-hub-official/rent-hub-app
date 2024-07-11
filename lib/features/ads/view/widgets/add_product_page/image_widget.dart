@@ -20,7 +20,7 @@ class Imagewidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: isLoading ? null : onTap,
       child: Stack(
         children: [
           SizedBox(
