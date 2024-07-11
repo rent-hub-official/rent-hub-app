@@ -166,7 +166,9 @@ final router = GoRouter(
     GoRoute(
       path: SellerProfilePage.routePath,
       builder: (context, state) {
-        return SellerProfilePage();
+        return SellerProfilePage(
+          Userdata: state.extra as QueryDocumentSnapshot<AdsModel>,
+        );
       },
       redirect: checkLoggedIn,
     ),

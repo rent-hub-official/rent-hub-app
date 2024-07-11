@@ -21,22 +21,20 @@ class SellerDetailsWidget extends ConsumerWidget {
         children: [
           CircleAvatar(
             radius: context.spaces.space_700,
-            backgroundImage: NetworkImage(userImg),
-            child: Icon(
-              Icons.person,
-              size: 40,
+            backgroundImage: NetworkImage(
+              userImg,
             ),
           ),
           Padding(
             padding: EdgeInsets.only(left: context.spaces.space_125 * 2),
             child: Column(
               children: [
-                Text(sellerName, style: context.typography.h2SemiBold),
+                Text(sellerName, style: context.typography.h1SemiBold),
 
                 Text(
                   sellerLocation,
                   textAlign: TextAlign.center,
-                  style: context.typography.bodySmall,
+                  style: context.typography.h3SemiBold,
                 ),
                 //TODO: Rating
               ],

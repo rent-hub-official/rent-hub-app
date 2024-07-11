@@ -20,6 +20,7 @@ class ProductDetailsWidget extends HookConsumerWidget {
     required this.productdetails,
     required this.chatTap,
     required this.callTap,
+    required this.onTap,
   });
 
   // Properties for product details
@@ -31,6 +32,7 @@ class ProductDetailsWidget extends HookConsumerWidget {
   final double price;
   final void Function() callTap;
   final void Function() chatTap;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -96,14 +98,17 @@ class ProductDetailsWidget extends HookConsumerWidget {
             const Divider(),
             // ListTile to display owner details
             ListTile(
-              leading: CircleAvatar(
-                radius: context.spaces.space_300,
-                backgroundImage: userimage != null
-                    ? NetworkImage(
-                        userimage!,
-                      )
-                    : null,
-                child: userimage == null ? Icon(Icons.person) : null,
+              leading: InkWell(
+                onTap: onTap,
+                child: CircleAvatar(
+                  radius: context.spaces.space_300,
+                  backgroundImage: userimage != null
+                      ? NetworkImage(
+                          userimage!,
+                        )
+                      : null,
+                  child: userimage == null ? Icon(Icons.person) : null,
+                ),
               ),
               title: Text(
                 onwername,
