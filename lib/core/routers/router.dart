@@ -6,6 +6,7 @@ import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
 import 'package:rent_hub/features/ads/view/pages/history/history_details_page.dart';
 import 'package:rent_hub/features/ads/view/pages/home_page.dart';
+import 'package:rent_hub/features/ads/view/pages/location_search_page.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
 import 'package:rent_hub/features/ads/view/pages/notification_page.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
@@ -170,5 +171,12 @@ final router = GoRouter(
       },
       redirect: checkLoggedIn,
     ),
+    GoRoute(
+      path: LocationSearchPage.routePath,
+      builder: (context, state) {
+        return LocationSearchPage();
+      },
+      redirect: checkLoggedIn,
+    )
   ],
 );
