@@ -90,6 +90,7 @@ class AddProductPage extends HookConsumerWidget {
                         labeltxt: constants.txtPrice,
                         hinttxt: constants.txtItemPrice,
                         textController: priceController,
+                        keyboardType: TextInputType.number,
                         validator: (val) {
                           return null;
                         },
