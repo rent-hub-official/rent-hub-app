@@ -1,1 +1,69 @@
-{"emulators":{"auth":{"port":9099},"ui":{"enabled":true},"singleProjectMode":true,"firestore":{"port":8080},"database":{"port":9000},"storage":{"port":9199}},"storage":{"rules":"storage.rules"},"flutter":{"platforms":{"android":{"default":{"projectId":"rent-hub-app","appId":"1:432413388020:android:fb3df61389a733a980c2a1","fileOutput":"android/app/google-services.json"}}}}}
+{
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true,
+    "firestore": {
+      "port": 8080
+    },
+    "database": {
+      "port": 9000
+    },
+    "storage": {
+      "port": 9199
+    }
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "rent-hub-app",
+          "appId": "1:432413388020:android:fb3df61389a733a980c2a1",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "rent-hub-app",
+          "appId": "1:432413388020:ios:8af73afc43abe99380c2a1",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "rent-hub-app",
+          "configurations": {
+            "android": "1:432413388020:android:fb3df61389a733a980c2a1",
+            "ios": "1:432413388020:ios:8af73afc43abe99380c2a1"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint"
+      ]
+    }
+  ],
+  "extensions": {
+    "firestore-algolia-search": "algolia/firestore-algolia-search@1.2.4"
+  }
+}

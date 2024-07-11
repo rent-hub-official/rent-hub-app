@@ -16,13 +16,19 @@ class RecentSearch extends _$RecentSearch {
 
   void add({required String recentSearch}) {
     RecentSearchAddUseCase()(recentSearch: recentSearch);
+
+    state = ObjectBoxService.instance.searchBox.getAll();
   }
 
   void remove({required int id}) {
     RecentSearchRemoveUseCase()(id: id);
+
+    state = ObjectBoxService.instance.searchBox.getAll();
   }
 
   void removeAll() {
     RecentSearchRemoveAllUseCase()();
+
+    state = ObjectBoxService.instance.searchBox.getAll();
   }
 }
