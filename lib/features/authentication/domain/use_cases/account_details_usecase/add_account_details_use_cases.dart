@@ -9,12 +9,10 @@ import 'package:rent_hub/main.dart';
 //add user details
 final class AddAccountDeatailsUseCase {
   call({
-    required String userId,
     required AccountDetailsModel accountDetails,
   }) async {
     try {
       await AccountDetailsService.addData(
-        userId: userId,
         accountDetails: accountDetails,
       );
 

@@ -5,16 +5,10 @@ import 'package:rent_hub/features/authentication/service/account_details_service
 import 'package:rent_hub/features/authentication/view/pages/login_page.dart';
 import 'package:rent_hub/main.dart';
 
-class DeleteAccountUseCase{
-   call({
-    required String userId,
-  }) async {
+class DeleteAccountUseCase {
+  call() async {
     try {
-      await AccountDetailsService.deleteAccount(
-        
-        userId: userId,
-        
-      );
+      await AccountDetailsService.deleteAccount();
 
       // navigate to home page
       MyApp.navigatorKey.currentContext!.go(LoginPage.routePath);
@@ -22,5 +16,4 @@ class DeleteAccountUseCase{
       SnackbarUtils.showError(e.message);
     }
   }
-
 }

@@ -16,7 +16,10 @@ class MyProducts extends _$MyProducts {
     await MyProductDeleteUsecase()(id);
   }
 
-Future<void>   updateMyProduct({required String id, required AdsModel adsmodel})async {
+  Future<void> updateMyProduct({
+    required String id,
+    required AdsModel adsmodel,
+  }) async {
     return await MyProductUpadateUsecase()(id, adsmodel);
   }
 }

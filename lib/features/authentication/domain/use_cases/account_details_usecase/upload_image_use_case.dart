@@ -9,13 +9,11 @@ import 'package:rent_hub/features/authentication/service/account_details_service
 final class UploadImageUseCase {
   Future<String?> call({
     required File image,
-    required String userId,
   }) async {
     try {
       if (image.path.isNotEmpty) {
         return await AccountDetailsService.uploadImage(
           image: image,
-          userId: userId,
         );
       }
     } on BaseException catch (e) {
