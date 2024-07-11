@@ -48,5 +48,6 @@ app.*.map.json
 **/*.g.dart
 **/*.freezed.dart
 
-# Ignore Algolia credentials
-lib/core/secrets.dart
+
+# Ignore keys
+lib/core/secret_keys.dart

@@ -18,8 +18,6 @@ class ProfileSettingsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userId = ref.watch(authenticationProvider).phoneNumber ?? "";
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -69,8 +67,8 @@ class ProfileSettingsPage extends HookConsumerWidget {
                             icon: Icon(Icons.edit)),
                         onFieldSubmitted: (value) {
                           ref.watch(accountDetailsProvider.notifier).addData(
+                                accountDetails: data.data(),
                                 image: ref.read(imagePickerProvider),
-                                userId: userId,
                                 userName: value,
                               );
                         },
@@ -106,7 +104,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
                         onPressed: () {
                           ref
                               .watch(accountDetailsProvider.notifier)
-                              .deleteAccount(userId: userId);
+                              .deleteAccount();
                         },
                       ),
                       // version
