@@ -10,6 +10,7 @@ import 'package:rent_hub/features/ads/controller/product_controller/fetch_cataga
 import 'package:rent_hub/features/ads/view/widgets/home_widgets/category_list_builder_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/home_widgets/home_appbar_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/home_widgets/tabbar_widget.dart';
+import 'package:rent_hub/features/ads/view/widgets/product_card_shimmer/product_card_shimmer_widget.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
@@ -99,7 +100,7 @@ class HomePage extends HookConsumerWidget {
                         ),
                       );
                     },
-                    loading: () => Center(child: CircularProgressIndicator()),
+                    loading: () => LoadingWidget(),
                   )),
           ],
         ),

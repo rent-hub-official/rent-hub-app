@@ -12,6 +12,7 @@ import 'package:rent_hub/features/ads/controller/user_controller/user_data_provi
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/prodcut_details_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/smooth_page_Indicator_wIdget.dart';
+import 'package:rent_hub/features/chat/view/pages/seller_profile_page.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -113,6 +114,12 @@ class ProductDetailsPage extends ConsumerWidget {
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: ProductDetailsWidget(
+                            onTap: () {
+                              context.push(
+                                SellerProfilePage.routePath,
+                                extra: adsData,
+                              );
+                            },
                             price: adsData.data().price,
                             userimage: data.data()?.profileImage,
                             onwername: data.data()!.userName,

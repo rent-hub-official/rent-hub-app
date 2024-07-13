@@ -21,40 +21,41 @@ class AccountDetails extends _$AccountDetails {
 
   //add user data
   Future<void> addData({
-    required String userId,
+    required AccountDetailsModel? accountDetails,
     required String userName,
     required XFile? image,
   }) async {
     state = true;
 
-    final imageRef = await UploadImageUseCase()(
-      image: File(image?.path ?? ""),
-      userId: userId,
-    );
+    if (accountDetails != null && image == null) {
+      await AddAccountDeatailsUseCase()(
+        accountDetails: accountDetails.copyWith(userName: userName),
+      );
+    } else {
+      final imageRef = await UploadImageUseCase()(
+        image: File(image?.path ?? ""),
+      );
 
-    await AddAccountDeatailsUseCase()(
-      userId: userId,
-      accountDetails: AccountDetailsModel(
-        userName: userName,
-        profileImage: imageRef ?? "",
-      ),
-    );
+      await AddAccountDeatailsUseCase()(
+        accountDetails: AccountDetailsModel(
+          userName: userName,
+          profileImage: imageRef ?? "",
+        ),
+      );
+    }
 
     state = false;
   }
 
   //delete Account
-  Future<void> deleteAccount({
-    required String userId,
-  }) async {
+  Future<void> deleteAccount() async {
     state = true;
 
-    await DeleteAccountUseCase()(userId: userId);
+    await DeleteAccountUseCase()();
 
     state = false;
   }
 }
-
 
 @riverpod
 Future<DocumentSnapshot<AccountDetailsModel>> getUserDetails(

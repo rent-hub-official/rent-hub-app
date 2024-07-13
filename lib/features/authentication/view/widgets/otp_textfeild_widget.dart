@@ -37,7 +37,6 @@ class OtpTextFeildWidget extends StatelessWidget {
       style: style,
       textFieldAlignment: textFieldAlignment!,
       fieldStyle: fieldStyle!,
-
       onCompleted: onCompleted,
       otpFieldStyle: OtpFieldStyle(
         enabledBorderColor: AppColorPalettes.silver300,

@@ -6,7 +6,6 @@ import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
 import 'package:rent_hub/features/authentication/controller/account_details_provider/account_details_provider.dart';
-import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
 import 'package:rent_hub/features/authentication/controller/image_picker_provider.dart';
 import 'package:rent_hub/features/authentication/view/widgets/profile_image_selector_widget.dart';
 
@@ -79,9 +78,7 @@ class CreateAccountPage extends HookConsumerWidget {
                             if (_formKey.currentState!.validate()) {
                               // add user data
                               ref.read(accountDetailsProvider.notifier).addData(
-                                    userId: ref
-                                        .read(authenticationProvider)
-                                        .phoneNumber!,
+                                    accountDetails: data.data(),
                                     userName: nameEditingController.text,
                                     image: ref.read(imagePickerProvider),
                                   );

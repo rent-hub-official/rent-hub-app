@@ -9,6 +9,7 @@ import 'package:lottie/lottie.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/fetch_catagary_products_provider.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
+import 'package:rent_hub/features/ads/view/widgets/product_card_shimmer/product_card_shimmer_widget.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
 
 class CategoryListBuilderWidget extends ConsumerWidget {
@@ -47,7 +48,7 @@ class CategoryListBuilderWidget extends ConsumerWidget {
                       return Container(
                         height: 100,
                         width: double.infinity,
-                        child: Center(child: CircularProgressIndicator()),
+                        child: LoadingWidget(),
                       );
                     }
 
