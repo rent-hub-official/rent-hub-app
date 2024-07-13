@@ -18,4 +18,3 @@ class ChatFilePicker extends _$ChatFilePicker {
     return pickedFile;
   }
 }
-

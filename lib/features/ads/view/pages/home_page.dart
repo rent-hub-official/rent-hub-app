@@ -54,7 +54,7 @@ class HomePage extends HookConsumerWidget {
                     vertical: context.spaces.space_200,
                   ),
                   child: Text(
-                    ref.watch(homeScreenProvider).txtsub,
+                    ref.watch(homeScreenConstantsProvider).txtsub,
                     style: context.typography.bodySemibold,
                   ),
                 ),

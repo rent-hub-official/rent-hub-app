@@ -43,7 +43,7 @@ class ListOfPurchaseHistoryWidget extends ConsumerWidget {
                   child: Container(
                     width: context.spaces.space_900 * 2,
                     height: context.spaces.space_250,
-                    // label color 
+                    // label color
                     color: productModelSample[index].isCompleted ?? true
                         ? AppColorPalettes.green
                         : AppColorPalettes.blue,

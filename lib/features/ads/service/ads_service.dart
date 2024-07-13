@@ -120,9 +120,9 @@ final class AdsService {
     }
   }
 
- static Future<void> deleteMyProduct(String id) async{
+  static Future<void> deleteMyProduct(String id) async {
     try {
-     await  adsDb.doc(id).delete();
+      await adsDb.doc(id).delete();
     } catch (e) {
       throw BaseException(message: e.toString());
     }

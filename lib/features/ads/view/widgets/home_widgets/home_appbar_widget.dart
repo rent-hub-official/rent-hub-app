@@ -1,72 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rent_hub/core/constants/ads/home_screen.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
+import 'package:rent_hub/features/ads/controller/location_controller/user_saved_location_provider.dart';
 import 'package:rent_hub/features/ads/view/pages/location_search_page.dart';
 import 'package:rent_hub/features/ads/view/pages/notification_page.dart';
 import 'package:rent_hub/features/ads/view/pages/search/search_page.dart';
 
-class HomeAppbarWidget extends StatelessWidget {
-  const HomeAppbarWidget({
-    super.key,
-  });
+class HomeAppbarWidget extends ConsumerWidget {
+  const HomeAppbarWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SliverAppBar(
       automaticallyImplyLeading: false,
       floating: true,
       backgroundColor: context.colors.appBarBackground,
       pinned: false,
-      title: Row(
-        children: [
-          InkWell(
-            onTap: () {
-              context.push(LocationSearchPage.routePath);
-            },
-            borderRadius: BorderRadius.circular(16),
-            child: Row(
-              children: [
-                const Icon(Icons.place_outlined),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: context.spaces.space_100),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "currentLocTitle",
-                        style: context.typography.bodySemibold,
-                      ),
-                      Text(
-                        "stateCountrySubtitle",
-                        style: context.typography.bodySmall,
-                      ),
-                    ],
+      title: InkWell(
+        onTap: () {
+          context.push(LocationSearchPage.routePath);
+        },
+        borderRadius: BorderRadius.circular(16),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Icon(Icons.place_outlined),
+            SizedBox(width: context.spaces.space_100),
+            Flexible(
+              fit: FlexFit.tight,
+              flex: 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    ref.watch(userSavedLocationProvider)?.mainText ??
+                        ref
+                            .watch(homeScreenConstantsProvider)
+                            .txtSelectLocation,
+                    style: context.typography.bodySemibold,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-                const Icon(Icons.keyboard_arrow_down),
-              ],
+                  Text(
+                    ref.watch(userSavedLocationProvider)?.secondaryText ?? "",
+                    style: context.typography.bodySmall,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             ),
-          ),
-          const Spacer(),
-          Padding(
-            padding: EdgeInsets.only(right: context.spaces.space_100),
-            child: RoundedIconButton(
-              onTap: () {
-                context.push(SearchPage.routePath);
-              },
-              icon: Icons.search,
-            ),
-          ),
-          RoundedIconButton(
+          ],
+        ),
+      ),
+      actions: [
+        RoundedIconButton(
+          onTap: () {
+            context.push(SearchPage.routePath);
+          },
+          icon: Icons.search,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: context.spaces.space_100),
+          child: RoundedIconButton(
             onTap: () {
               context.push(NotificationPage.routePath);
             },
             icon: Icons.notifications,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

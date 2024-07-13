@@ -13,6 +13,7 @@ class InputMessageFieldWidget extends ConsumerWidget {
     required this.receiverId,
     super.key,
   });
+
   final TextEditingController controller;
   final String senderId;
   final String receiverId;
@@ -53,7 +54,7 @@ class InputMessageFieldWidget extends ConsumerWidget {
                   padding: EdgeInsets.only(left: context.spaces.space_50),
                   child: IconButton(
                     onPressed: () {
-                      controller.text.isEmpty 
+                      controller.text.isEmpty
                           ? null
                           : ref
                               .watch(sendMessageControllerProvider.notifier)

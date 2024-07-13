@@ -6,9 +6,7 @@ import 'package:rent_hub/features/chat/service/seller_product_service.dart';
 class SellerProductUseCase {
   Future<QuerySnapshot<AdsModel>> call({required String sellerId}) async {
     try {
-      return 
-              await SellerProductService.getSellerProduct(sellerId: sellerId);
-         
+      return await SellerProductService.getSellerProduct(sellerId: sellerId);
     } on BaseException catch (e) {
       throw e.message;
     }

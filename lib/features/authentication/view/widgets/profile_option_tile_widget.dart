@@ -17,8 +17,14 @@ class ProfileOptionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(icon,size: context.spaces.space_300,),
-      title: Text(text,style: context.typography.bodyLarge,),
+      leading: Icon(
+        icon,
+        size: context.spaces.space_300,
+      ),
+      title: Text(
+        text,
+        style: context.typography.bodyLarge,
+      ),
       subtitle: subtitle != null ? Text(subtitle!) : null,
       onTap: onTap,
     );

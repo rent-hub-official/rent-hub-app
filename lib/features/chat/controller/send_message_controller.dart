@@ -17,12 +17,11 @@ class SendMessageController extends _$SendMessageController {
   ) async {
     return await UploadeAttachmentUseCase()(file: file);
   }
+
   Future<void> sendMessage({
-  required MessageModel message,
-  File? attachment,
-}) async {
-  await GetSendMessageUseCase()(attachment: attachment, message: message);
+    required MessageModel message,
+    File? attachment,
+  }) async {
+    await GetSendMessageUseCase()(attachment: attachment, message: message);
+  }
 }
-}
-
-
