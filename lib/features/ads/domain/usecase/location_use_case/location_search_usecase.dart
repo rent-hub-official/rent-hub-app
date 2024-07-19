@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:rent_hub/core/exception/base_exception.dart';
 import 'package:rent_hub/features/ads/domain/model/place_suggestion_model/place_prediction.dart';
 import 'package:rent_hub/features/ads/service/location_service.dart';
@@ -9,20 +7,19 @@ final class LocationSearchUsecase {
     try {
       if (searchQuery.isEmpty) return [];
 
-      final data = await LocationService.searchLocations(searchQuery)
+      final result = await LocationService.searchLocations(searchQuery)
           as Map<String, dynamic>;
 
-      if (data.isEmpty) return [];
+      if (result.isEmpty) return [];
 
-      final placeList = data["suggestions"] as List<dynamic>;
+      final placesList = result["suggestions"] as List<dynamic>;
 
-      return placeList
+      return placesList
           .map(
             (data) => PlacePrediction.fromJson(data["placePrediction"]),
           )
           .toList();
     } on BaseException catch (e) {
-      log(e.message);
       throw e.message;
     }
   }

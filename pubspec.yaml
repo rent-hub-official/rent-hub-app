@@ -37,6 +37,7 @@ dependencies:
   shimmer: ^3.0.0
   algolia: ^1.1.2
   dio: ^5.5.0+1
+  google_maps_flutter: ^2.7.0
 
 dev_dependencies:
   flutter_test:

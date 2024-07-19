@@ -7,6 +7,7 @@ import 'package:path/path.dart';
 import 'package:rent_hub/core/exception/base_exception.dart';
 import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/category_model/category_model.dart';
 
 // Add product service
 final class AdsService {
@@ -21,7 +22,11 @@ final class AdsService {
   static final adsStorage = FirebaseStorage.instance.ref().child('adsImages');
 
   //category firestore instance
-  static final categoryDb = FirebaseFirestore.instance.collection('category');
+  static final categoryDb =
+      FirebaseFirestore.instance.collection('category').withConverter(
+            fromFirestore: CategoryModel.fromFirestore,
+            toFirestore: CategoryModel.toFireStore,
+          );
 
   static final auth = FirebaseAuth.instance;
 
@@ -39,7 +44,7 @@ final class AdsService {
   /// get all avialable categories from firebase
   ///
   /// returns the snapshot with the category details as Map
-  static Future<QuerySnapshot<Map<String, dynamic>>> getCategory() async {
+  static Future<QuerySnapshot<CategoryModel>> getCategory() async {
     try {
       return await categoryDb.orderBy('name').get();
     } on FirebaseException catch (e) {

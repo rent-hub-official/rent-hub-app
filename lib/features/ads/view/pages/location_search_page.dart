@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/user_search_detailes.dart';
+import 'package:rent_hub/core/constants/error_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/location_search_provider.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/user_saved_location_provider.dart';
+import 'package:rent_hub/features/ads/view/widgets/places_tile_loading_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/search_field_widget.dart';
 
 class LocationSearchPage extends ConsumerWidget {
@@ -63,12 +65,14 @@ class LocationSearchPage extends ConsumerWidget {
             ),
             error: (error, stackTrace) => Center(
               child: Text(
-                error.toString(),
+                ref.watch(errorConstantsProvider).txtWentWrong,
                 style: context.typography.body,
               ),
             ),
-            loading: () => Center(
-              child: CircularProgressIndicator(),
+            loading: () => ListView.builder(
+              shrinkWrap: true,
+              itemBuilder: (context, index) => PlacesTileLoadingWidget(),
+              itemCount: 6,
             ),
           ),
     );

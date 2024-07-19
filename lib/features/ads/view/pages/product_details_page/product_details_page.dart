@@ -120,12 +120,9 @@ class ProductDetailsPage extends ConsumerWidget {
                                 extra: adsData,
                               );
                             },
-                            price: adsData.data().price,
                             userimage: data.data()?.profileImage,
-                            onwername: data.data()!.userName,
-                            productname: adsData.data().productName,
-                            location: adsData.data().locationTitle,
-                            productdetails: adsData.data().description ?? '',
+                            sellerName: data.data()!.userName,
+                            adsModel: adsData.data(),
                             callTap: () async {
                               await launchUrlString("tel:${data.id}");
                             },
