@@ -36,9 +36,6 @@ final router = GoRouter(
       builder: (context, state) {
         return SplashPage();
       },
-      redirect: (context, state) {
-        return checkLoggedIn(context, state) ?? MainPage.routePath;
-      },
     ),
     GoRoute(
       path: OnboardingPages.routePath,

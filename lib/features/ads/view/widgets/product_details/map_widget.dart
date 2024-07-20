@@ -7,7 +7,9 @@ class MapWidget extends StatelessWidget {
     super.key,
     required this.latLng,
   });
+
   final LatLng latLng;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,6 +24,7 @@ class MapWidget extends StatelessWidget {
               target: latLng,
               zoom: 15,
             ),
+            zoomControlsEnabled: false,
             markers: {
               Marker(
                 markerId: MarkerId("mark"),

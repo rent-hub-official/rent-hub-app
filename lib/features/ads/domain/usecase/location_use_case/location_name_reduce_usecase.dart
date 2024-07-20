@@ -12,6 +12,6 @@ final class LocationNameReduceUsecase {
       filteredWords.removeRange(2, filteredWords.length);
     }
 
-    return filteredWords.join(',').replaceAll(RegExp(r',\s*$'), '');
+    return filteredWords.join(',').replaceAll(RegExp(r',\s*$'), '').trim();
   }
 }

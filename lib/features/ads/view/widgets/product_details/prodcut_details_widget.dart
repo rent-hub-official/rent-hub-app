@@ -1,5 +1,3 @@
-// Widget to display the product details
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -72,9 +70,13 @@ class ProductDetailsWidget extends HookConsumerWidget {
                   SizedBox(
                     width: context.spaces.space_50,
                   ), // Add space between icon and text
-                  Text(
-                    adsModel.locationTitle,
-                    style: context.typography.body,
+                  Flexible(
+                    flex: 1,
+                    child: Text(
+                      adsModel.locationTitle,
+                      style: context.typography.body,
+                      overflow: TextOverflow.clip,
+                    ),
                   ),
                 ],
               ),
@@ -144,10 +146,12 @@ class ProductDetailsWidget extends HookConsumerWidget {
             ),
             const Divider(),
             // Description text with read more functionality
-            Text(
-              ref.watch(productScreenConstantsProvider).txtDescription,
-              style: context.typography.bodyLargeSemiBold,
-            ),
+            description.isEmpty
+                ? SizedBox.shrink()
+                : Text(
+                    ref.watch(productScreenConstantsProvider).txtDescription,
+                    style: context.typography.bodyLargeSemiBold,
+                  ),
             Text(
               description,
               style: context.typography.body,

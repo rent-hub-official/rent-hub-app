@@ -27,13 +27,13 @@ class ListOfPurchaseHistoryWidget extends ConsumerWidget {
           child: Stack(
             children: [
               ProductCardWidget(
-                  productName: productModelSample[index].productName,
-                  price: productModelSample[index].price,
-                  productLocation: productModelSample[index].productLocation,
-                  distance: productModelSample[index].distance,
-                  img: productModelSample[index].img,
-                  onTap: productModelSample[index].onTap,
-                  belowbtn: productModelSample[index].belowbtn),
+                productName: productModelSample[index].productName,
+                price: productModelSample[index].price,
+                productLocation: productModelSample[index].productLocation,
+                img: productModelSample[index].img,
+                onTap: productModelSample[index].onTap,
+                belowbtn: productModelSample[index].belowbtn,
+              ),
               Positioned(
                 top: context.spaces.space_400,
                 right: -40,
