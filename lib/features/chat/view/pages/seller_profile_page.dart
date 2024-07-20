@@ -102,7 +102,6 @@ class SellerProfilePage extends ConsumerWidget {
                                                     .docs[index]
                                                     .data()
                                                     .locationTitle,
-                                                distance: 0,
                                                 img: data.docs[index]
                                                     .data()
                                                     .imagePath[0],

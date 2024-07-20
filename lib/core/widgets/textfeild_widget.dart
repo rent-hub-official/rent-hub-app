@@ -12,6 +12,7 @@ class TextFeildWidget extends StatelessWidget {
   final void Function(String)? onFieldSubmitted;
   final Widget? suffix;
   final TextInputType? keyboardType;
+  final bool enabled;
 
   const TextFeildWidget({
     super.key,
@@ -22,18 +23,26 @@ class TextFeildWidget extends StatelessWidget {
     this.suffixicon,
     this.prefixicon,
     this.onFieldSubmitted,
-    required this.validator,
+    this.validator,
     this.keyboardType,
+    this.enabled = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       onFieldSubmitted: onFieldSubmitted,
-      validator: validator,
+      validator: validator ??
+          (value) {
+            if (value == null || value.isEmpty) {
+              return "Enter your values";
+            }
+            return null;
+          },
       controller: textController,
       keyboardType: keyboardType,
       decoration: InputDecoration(
+        enabled: enabled,
         prefixIcon: prefixicon,
         labelText: labeltxt,
         labelStyle: context.typography.body,
@@ -43,6 +52,9 @@ class TextFeildWidget extends StatelessWidget {
         suffix: suffix,
         errorBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: AppColorPalettes.red500),
+        ),
+        disabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: context.colors.border),
         ),
       ),
     );

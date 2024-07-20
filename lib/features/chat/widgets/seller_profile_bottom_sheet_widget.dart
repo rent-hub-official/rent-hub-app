@@ -12,8 +12,9 @@ class BottomSheetContent extends ConsumerWidget {
     required this.reasonText,
     required this.typingLabel,
     required this.continueButtonText,
-    required this.ontap
+    required this.ontap,
   });
+
   final String userImage;
   final String reasonText;
   final String typingLabel;
@@ -23,7 +24,9 @@ class BottomSheetContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TextEditingController textController = TextEditingController();
+
     final constants = ref.watch(sellerProfileProvider);
+
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,

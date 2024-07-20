@@ -10,4 +10,3 @@ Future<DocumentSnapshot<AccountDetailsModel>> getUserDetailsData(
     GetUserDetailsDataRef ref, userId) {
   return GetAccountDetailsUseCase()(userId);
 }
-

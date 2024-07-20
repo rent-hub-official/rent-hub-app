@@ -27,13 +27,13 @@ class ListOfPurchaseHistoryWidget extends ConsumerWidget {
           child: Stack(
             children: [
               ProductCardWidget(
-                  productName: productModelSample[index].productName,
-                  price: productModelSample[index].price,
-                  productLocation: productModelSample[index].productLocation,
-                  distance: productModelSample[index].distance,
-                  img: productModelSample[index].img,
-                  onTap: productModelSample[index].onTap,
-                  belowbtn: productModelSample[index].belowbtn),
+                productName: productModelSample[index].productName,
+                price: productModelSample[index].price,
+                productLocation: productModelSample[index].productLocation,
+                img: productModelSample[index].img,
+                onTap: productModelSample[index].onTap,
+                belowbtn: productModelSample[index].belowbtn,
+              ),
               Positioned(
                 top: context.spaces.space_400,
                 right: -40,
@@ -43,7 +43,7 @@ class ListOfPurchaseHistoryWidget extends ConsumerWidget {
                   child: Container(
                     width: context.spaces.space_900 * 2,
                     height: context.spaces.space_250,
-                    // label color 
+                    // label color
                     color: productModelSample[index].isCompleted ?? true
                         ? AppColorPalettes.green
                         : AppColorPalettes.blue,

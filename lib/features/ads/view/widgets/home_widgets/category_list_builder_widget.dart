@@ -64,7 +64,6 @@ class CategoryListBuilderWidget extends ConsumerWidget {
                         isFavorite: snapshot.data!,
                         productLocation:
                             productsList[index].data().locationTitle,
-                        distance: productsList[index].data().long,
                         img: productsList[index].data().imagePath[0],
                         onTap: () {
                           //navigate to details page

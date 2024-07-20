@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rent_hub/features/ads/domain/entity/recent_search_entity.dart';
+import 'package:rent_hub/features/ads/domain/entity/selected_location_entity.dart';
 import 'package:rent_hub/objectbox.g.dart';
 
 final class ObjectBoxService {
@@ -14,8 +15,12 @@ final class ObjectBoxService {
   }
 
   late final Box<RecentSearchEntity> searchBox;
+
+  late final Box<SelectedLocationEntity> SelectedLocation;
+
   ObjectBoxService._create(this.store) {
     searchBox = store.box<RecentSearchEntity>();
+    SelectedLocation = store.box<SelectedLocationEntity>();
   }
 
   /// Create an instance of ObjectBox to use throughout the app.

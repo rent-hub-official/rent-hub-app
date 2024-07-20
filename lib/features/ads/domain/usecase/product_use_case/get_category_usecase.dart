@@ -1,13 +1,19 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rent_hub/core/exception/base_exception.dart';
+import 'package:rent_hub/features/ads/domain/model/category_model/category_model.dart';
 import 'package:rent_hub/features/ads/service/ads_service.dart';
 
 // get category
 
 class GetCategoryUseCase {
-  Future<QuerySnapshot<Map<String, dynamic>>> call() async {
+  Future<List<CategoryModel>> call() async {
     try {
-      return AdsService.getCategory();
+      final result = await AdsService.getCategory();
+
+      return result.docs
+          .map(
+            (e) => e.data(),
+          )
+          .toList();
     } on BaseException catch (e) {
       throw e.message;
     }

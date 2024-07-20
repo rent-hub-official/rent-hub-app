@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'seller_product_controller.g.dart';
 
 @riverpod
-Future<QuerySnapshot<AdsModel>> sellerProduct(SellerProductRef ref, {required String sellerId}) async {
+Future<QuerySnapshot<AdsModel>> sellerProduct(SellerProductRef ref,
+    {required String sellerId}) async {
   return await SellerProductUseCase()(sellerId: sellerId);
 }

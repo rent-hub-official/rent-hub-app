@@ -6,7 +6,9 @@ class ProfieWidget extends StatelessWidget {
     required this.userimg,
     super.key,
   });
+
   final String userimg;
+
   @override
   Widget build(BuildContext context) {
     return Positioned(

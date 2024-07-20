@@ -13,13 +13,15 @@ class LoadingWidget extends StatelessWidget {
         itemCount: 6, // Number of shimmer placeholders
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: Container(
               width: double.infinity,
               height: 150.0, // Adjust the height as needed
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(12.0), // Adjust border radius as needed
+                borderRadius: BorderRadius.circular(
+                    12.0), // Adjust border radius as needed
               ),
             ),
           );

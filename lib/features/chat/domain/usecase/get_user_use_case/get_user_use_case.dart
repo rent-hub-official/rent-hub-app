@@ -4,7 +4,7 @@ import 'package:rent_hub/features/authentication/domain/model/account_details_mo
 import 'package:rent_hub/features/chat/service/chat_service.dart';
 
 class GetUserUseCase {
-  Stream<QuerySnapshot<AccountDetailsModel>> call()  {
+  Stream<QuerySnapshot<AccountDetailsModel>> call() {
     try {
       return ChatService.getAllUser();
     } on BaseException catch (e) {

@@ -11,6 +11,7 @@ import 'package:rent_hub/features/ads/view/widgets/my_product_card/my_product_ca
 
 class MyProductsPage extends ConsumerWidget {
   static const routePath = '/myProducts';
+
   const MyProductsPage({
     super.key,
   });
@@ -58,14 +59,14 @@ class MyProductsPage extends ConsumerWidget {
                             ref
                                 .watch(myProductsProvider.notifier)
                                 .updateMyProduct(
-                                    id: data[index].id!,
-                                    adsmodel: data[index]);
-                                    
+                                  id: data[index].id!,
+                                  adsmodel: data[index],
+                                );
+
                             context.push(AddProductPage.routePath);
                           },
                           id: data[index].id!,
-                          description:
-                              data[index].description ?? "",
+                          description: data[index].description ?? "",
                           myProductsOnTap: () {},
                           onSelected: (value) {},
                           Productimage: data[index].imagePath[1],
