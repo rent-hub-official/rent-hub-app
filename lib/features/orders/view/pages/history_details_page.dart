@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/purchase_history.dart';
@@ -19,19 +18,6 @@ class HistoryDetailsPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // purchase history constants
     final purchaseConsts = ref.read(purchaseHistoryConstantsProvider);
-
-    // selected tab
-    final selectedTabIndex = useState<int>(0);
-
-    ///tabbar controller
-    final TabController tabController = useTabController(initialLength: 2);
-    // change selected tab index accordingly
-    tabController.addListener(
-      () {
-        selectedTabIndex.value = tabController.index;
-      },
-    );
-
     final orders = ref.watch(ordersProvider).value;
 
     return Scaffold(
@@ -49,115 +35,77 @@ class HistoryDetailsPage extends HookConsumerWidget {
           purchaseConsts.txtHeading,
           style: context.typography.h2Bold,
         ),
-        // Tabbar
-        bottom: TabBar(
-          controller: tabController,
-          splashFactory: NoSplash.splashFactory,
-          dividerColor: Colors.transparent,
-          labelColor: context.colors.cardBackground,
-          indicator: BoxDecoration(
-            color: context.colors.secondary,
-            borderRadius: BorderRadius.circular(context.spaces.space_200),
-          ),
-          tabs: [
-            Container(
-              decoration: BoxDecoration(
-                  //choose background color of the tab
-                  color: selectedTabIndex.value == 1
-                      ? context.colors.cardBackground
-                      : Colors.transparent,
-                  borderRadius:
-                      BorderRadius.circular(context.spaces.space_200)),
-              height: context.spaces.space_500,
-              width: double.infinity,
-              child: Center(
-                  child: Text(
-                purchaseConsts.txtHeading,
-                style: selectedTabIndex.value == 1
-                    ? context.typography.body
-                    : context.typography.bodyWhite,
-              )),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: selectedTabIndex.value == 0
-                    ? context.colors.cardBackground
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(context.spaces.space_200),
-              ),
-              height: context.spaces.space_500,
-              width: double.infinity,
-              child: Center(
-                child: Text(
-                  purchaseConsts.txtBookingHistory,
-                  //choose background color of the tab
-                  style: selectedTabIndex.value == 0
-                      ? context.typography.body
-                      : context.typography.bodyWhite,
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: context.spaces.space_200),
-        child: TabBarView(
-          controller: tabController,
+        child: Column(
           children: [
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: orders!.length,
-              itemBuilder: (context, index) {
-                final productModelSample = ref
-                    .watch(FetchAdsWithIdProvider(id: orders[index].adsId))
-                    .value!
-                    .data();
-
-                return Padding(
-                  padding: EdgeInsets.only(top: context.spaces.space_150),
-                  child: Stack(
-                    children: [
-                      ProductCardWidget(
-                          productName: productModelSample!.productName,
-                          price: productModelSample.price,
-                          productLocation: productModelSample.locationTitle,
-                          distance: 1,
-                          img: productModelSample.imagePath[0],
-                          onTap: () {},
-                          belowbtn: ''),
-                      Positioned(
-                        top: context.spaces.space_400,
-                        right: -40,
-                        child: Transform.rotate(
-                          // angle coverted to radius
-                          angle: context.spaces.space_600 * (3.14159 / 180),
-                          child: Container(
-                            width: context.spaces.space_900 * 2,
-                            height: context.spaces.space_250,
-                            // label color
-                            color: orders[index].status ==
-                                    purchaseConsts.txtCompleted
-                                ? AppColorPalettes.green
-                                : AppColorPalettes.blue,
-                            child: Center(
-                              child: Text(
-                                // choose label text accordingly
-                                orders[index].status ==
-                                        purchaseConsts.txtCompleted
-                                    ? purchaseConsts.txtCompleted
-                                    : purchaseConsts.txtPending,
-                                style: context.typography.bodyWhite,
+            ref.watch(ordersProvider).when(
+                  data: (data) => ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: orders!.length,
+                    itemBuilder: (context, index) {
+                      return ref
+                          .watch(
+                              FetchAdsWithIdProvider(id: orders[index].adsId))
+                          .when(
+                            data: (data) => Padding(
+                              padding: EdgeInsets.only(
+                                  top: context.spaces.space_150),
+                              child: Stack(
+                                children: [
+                                  ProductCardWidget(
+                                      productName: data.data()!.productName,
+                                      price: data.data()!.price,
+                                      productLocation:
+                                          data.data()!.locationTitle,
+                                      distance: 1,
+                                      img: data.data()!.imagePath[0],
+                                      onTap: () {},
+                                      belowbtn: ''),
+                                  Positioned(
+                                    top: context.spaces.space_400,
+                                    right: -40,
+                                    child: Transform.rotate(
+                                      // angle coverted to radius
+                                      angle: context.spaces.space_600 *
+                                          (3.14159 / 180),
+                                      child: Container(
+                                        width: context.spaces.space_900 * 2,
+                                        height: context.spaces.space_250,
+                                        // label color
+                                        color: orders[index].status ==
+                                                purchaseConsts.txtCompleted
+                                            ? AppColorPalettes.green
+                                            : AppColorPalettes.blue,
+                                        child: Center(
+                                          child: Text(
+                                            // choose label text accordingly
+                                            orders[index].status ==
+                                                    purchaseConsts.txtCompleted
+                                                ? purchaseConsts.txtCompleted
+                                                : purchaseConsts.txtPending,
+                                            style: context.typography.bodyWhite,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                        ),
-                      ),
-                    ],
+                            error: (error, stackTrace) => Center(),
+                            loading: () => Center(),
+                          );
+                    },
                   ),
-                );
-              },
-            ),
+                  error: (error, stackTrace) => Center(
+                    child: Text(error.toString()),
+                  ),
+                  loading: () => Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
           ],
         ),
       ),
