@@ -2,7 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'order_summery.g.dart';
 
-class OrderSummery {
+class OrderSummeryConstants {
   final txtPickUpDate = "Pick up date";
   final txtDropUp = "Drop Up";
   final txtSelectLocation = "Select pick up location";
@@ -12,6 +12,6 @@ class OrderSummery {
 }
 
 @riverpod
-OrderSummery orderSummery(OrderSummeryRef ref) {
-  return OrderSummery();
+OrderSummeryConstants orderSummery(OrderSummeryRef ref) {
+  return OrderSummeryConstants();
 }

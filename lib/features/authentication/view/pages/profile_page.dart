@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/icon_constants.dart';
 import 'package:rent_hub/core/constants/authentication/profile_page_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/features/ads/view/pages/history/history_details_page.dart';
+import 'package:rent_hub/features/orders/view/pages/history_details_page.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
 import 'package:rent_hub/features/authentication/controller/account_details_provider/account_details_provider.dart';
 import 'package:rent_hub/features/authentication/view/pages/profile_settings_page.dart';
