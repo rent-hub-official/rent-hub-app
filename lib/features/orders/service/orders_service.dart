@@ -19,8 +19,8 @@ class OrdersService {
   }
 
   static Future<void> deleteOrder(
-    OrdersModel ordersModel,
+    String adsId,
   ) async {
-    await ordersDb.doc(ordersModel.adsId).delete();
+    await ordersDb.doc(adsId).delete();
   }
 }

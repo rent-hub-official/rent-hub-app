@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/purchase_history.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/orders/controller/fetch_ads_provider.dart';
@@ -18,7 +17,6 @@ class HistoryDetailsPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // purchase history constants
     final purchaseConsts = ref.read(purchaseHistoryConstantsProvider);
-    final orders = ref.watch(ordersProvider).value;
 
     return Scaffold(
       appBar: AppBar(
@@ -38,76 +36,81 @@ class HistoryDetailsPage extends HookConsumerWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: context.spaces.space_200),
-        child: Column(
-          children: [
-            ref.watch(ordersProvider).when(
-                  data: (data) => ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: orders!.length,
-                    itemBuilder: (context, index) {
-                      return ref
-                          .watch(
-                              FetchAdsWithIdProvider(id: orders[index].adsId))
-                          .when(
-                            data: (data) => Padding(
-                              padding: EdgeInsets.only(
-                                  top: context.spaces.space_150),
-                              child: Stack(
-                                children: [
-                                  ProductCardWidget(
+        child: ref.watch(ordersProvider).when(
+              data: (data) => data.isEmpty
+                  ? Center(
+                      child: Text('No Orders'),
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: data.length,
+                      itemBuilder: (context, index) {
+                        return  data[index]==null  ?Center(child: SizedBox.shrink()) : ref
+                            .watch(FetchAdsWithIdProvider(
+                                id: data[index]!.adsId))
+                            .when(
+                              data: (data) => Padding(
+                                padding: EdgeInsets.only(
+                                    top: context.spaces.space_150),
+                                child: Stack(
+                                  children: [
+                                    ProductCardWidget(
                                       productName: data.data()!.productName,
                                       price: data.data()!.price,
                                       productLocation:
                                           data.data()!.locationTitle,
-                                      distance: 1,
                                       img: data.data()!.imagePath[0],
-                                      onTap: () {},
-                                      belowbtn: ''),
-                                  Positioned(
-                                    top: context.spaces.space_400,
-                                    right: -40,
-                                    child: Transform.rotate(
-                                      // angle coverted to radius
-                                      angle: context.spaces.space_600 *
-                                          (3.14159 / 180),
-                                      child: Container(
-                                        width: context.spaces.space_900 * 2,
-                                        height: context.spaces.space_250,
-                                        // label color
-                                        color: orders[index].status ==
-                                                purchaseConsts.txtCompleted
-                                            ? AppColorPalettes.green
-                                            : AppColorPalettes.blue,
-                                        child: Center(
-                                          child: Text(
-                                            // choose label text accordingly
-                                            orders[index].status ==
-                                                    purchaseConsts.txtCompleted
-                                                ? purchaseConsts.txtCompleted
-                                                : purchaseConsts.txtPending,
-                                            style: context.typography.bodyWhite,
-                                          ),
-                                        ),
-                                      ),
+                                      onTap: () {
+                                        ref
+                                            .read(ordersProvider.notifier)
+                                            .deleteOrder(
+                                                adsId: data.data()!.id!);
+                                      },
+                                      belowbtn: 'Remove',
                                     ),
-                                  ),
-                                ],
+                                    // Positioned(
+                                    //   top: context.spaces.space_400,
+                                    //   right: -40,
+                                    //   child: Transform.rotate(
+                                    //     // angle coverted to radius
+                                    //     angle: context.spaces.space_600 *
+                                    //         (3.14159 / 180),
+                                    //     child: Container(
+                                    //       width: context.spaces.space_900 * 2,
+                                    //       height: context.spaces.space_250,
+                                    //       // label color
+                                    //       color: orders[index].status ==
+                                    //               purchaseConsts.txtCompleted
+                                    //           ? AppColorPalettes.green
+                                    //           : AppColorPalettes.blue,
+                                    //       child: Center(
+                                    //         child: Text(
+                                    //           // choose label text accordingly
+                                    //           orders[index].status ==
+                                    //                   purchaseConsts.txtCompleted
+                                    //               ? purchaseConsts.txtCompleted
+                                    //               : purchaseConsts.txtPending,
+                                    //           style: context.typography.bodyWhite,
+                                    //         ),
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            error: (error, stackTrace) => Center(),
-                            loading: () => Center(),
-                          );
-                    },
-                  ),
-                  error: (error, stackTrace) => Center(
-                    child: Text(error.toString()),
-                  ),
-                  loading: () => Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                )
-          ],
-        ),
+                              error: (error, stackTrace) => Center(),
+                              loading: () => Center(),
+                            );
+                      },
+                    ),
+              error: (error, stackTrace) => Center(
+                child: Text(error.toString()),
+              ),
+              loading: () => Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
       ),
     );
   }

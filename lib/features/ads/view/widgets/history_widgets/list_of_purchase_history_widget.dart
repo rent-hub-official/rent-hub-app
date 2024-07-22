@@ -4,7 +4,7 @@ import 'package:rent_hub/core/constants/ads/purchase_history.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
-import 'package:rent_hub/features/ads/view/pages/history/history_details_page.dart';
+import 'package:rent_hub/features/orders/view/pages/history_details_page.dart';
 
 class ListOfPurchaseHistoryWidget extends ConsumerWidget {
   const ListOfPurchaseHistoryWidget(
