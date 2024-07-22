@@ -1,13 +1,13 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'home_screen.g.dart';
 
-class HomeScreen {
+class HomeScreenConstants {
   final txtsub = "Near from you";
   final txtBtn = "Rent Now";
+  final txtSelectLocation = "Select location";
 }
 
-
 @riverpod
-HomeScreen homeScreen(HomeScreenRef ref) {
-  return HomeScreen();
+HomeScreenConstants homeScreenConstants(HomeScreenConstantsRef ref) {
+  return HomeScreenConstants();
 }

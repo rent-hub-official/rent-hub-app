@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
-
-
 class securityWidget extends StatelessWidget {
   const securityWidget({
     super.key,
@@ -19,9 +17,8 @@ class securityWidget extends StatelessWidget {
           size: context.spaces.space_300,
         ),
       ),
-      decoration: BoxDecoration(
-          shape: BoxShape.circle, color: context.colors.primary),
+      decoration:
+          BoxDecoration(shape: BoxShape.circle, color: context.colors.primary),
     );
   }
 }
-

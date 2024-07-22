@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/error_constants.dart';
 import 'package:rent_hub/core/constants/ads/filter_sort.dart';
@@ -8,11 +7,10 @@ import 'package:rent_hub/core/constants/ads/home_screen.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/features/ads/controller/category_controller/category_provider.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/fetch_catagary_products_provider.dart';
-import 'package:rent_hub/features/ads/view/pages/notification_page.dart';
-import 'package:rent_hub/features/ads/view/pages/search/search_page.dart';
 import 'package:rent_hub/features/ads/view/widgets/home_widgets/category_list_builder_widget.dart';
-import 'package:rent_hub/features/ads/view/widgets/home_widgets/sliverAppbar_widget.dart';
+import 'package:rent_hub/features/ads/view/widgets/home_widgets/home_appbar_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/home_widgets/tabbar_widget.dart';
+import 'package:rent_hub/features/ads/view/widgets/product_card_shimmer/product_card_shimmer_widget.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
@@ -43,17 +41,7 @@ class HomePage extends HookConsumerWidget {
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
-          SliverAppbarWidget(
-            // TODO change location details
-            currentLocTitle: 'kozhikode',
-            stateCountrySubtitle: 'kerala ,india',
-            searchBtnOnTap: () {
-              context.push(SearchPage.routePath);
-            },
-            notificationbtnOnTap: () {
-              context.push(NotificationPage.routePath);
-            },
-          ),
+          HomeAppbarWidget(),
           SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +54,7 @@ class HomePage extends HookConsumerWidget {
                     vertical: context.spaces.space_200,
                   ),
                   child: Text(
-                    ref.watch(homeScreenProvider).txtsub,
+                    ref.watch(homeScreenConstantsProvider).txtsub,
                     style: context.typography.bodySemibold,
                   ),
                 ),
@@ -112,7 +100,7 @@ class HomePage extends HookConsumerWidget {
                         ),
                       );
                     },
-                    loading: () => Center(child: CircularProgressIndicator()),
+                    loading: () => LoadingWidget(),
                   )),
           ],
         ),

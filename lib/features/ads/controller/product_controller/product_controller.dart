@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rent_hub/core/utils/snakbar/toaster_util.dart';
+import 'package:rent_hub/features/ads/controller/location_controller/location_name_reduce_provider.dart';
+import 'package:rent_hub/features/ads/controller/location_controller/place_details_provider.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/place_model/place_model.dart';
 import 'package:rent_hub/features/ads/domain/usecase/product_use_case/product_add_usecase.dart';
 import 'package:rent_hub/features/ads/domain/usecase/product_use_case/product_update_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -20,12 +24,52 @@ class Products extends _$Products {
   }
 
   // add product data
-  Future<void> addData({required AdsModel adsmodel}) async {
-    state = true;
+  Future<void> addData({
+    required List<String> imagePaths,
+    required String productName,
+    required String? category,
+    required String? description,
+    required double price,
+  }) async {
+    PlaceModel? placeModel;
 
-    await ProductAddUsecase()(adsmodel: adsmodel);
+    ref.read(placeDetailsProvider).whenData(
+      (value) {
+        placeModel = value;
+      },
+    );
 
-    state = false;
+    if (imagePaths.length < 3) {
+      ToasterUtil.showMessage(message: "Pick at least three product photos");
+    } else if (category == null) {
+      ToasterUtil.showMessage(message: "Select product category");
+    } else if (placeModel == null) {
+      ToasterUtil.showMessage(message: "Select location");
+    } else {
+      state = true;
+
+      final location = placeModel?.results?.first.geometry?.location;
+
+      await ProductAddUsecase()(
+        adsModel: AdsModel(
+          imagePath: imagePaths,
+          productName: productName,
+          category: category,
+          locationTitle: ref.read(
+            locationNameReduceProvider(
+              placeModel?.results?.first.formattedAddress,
+            ),
+          ),
+          lat: location?.lat ?? 0,
+          long: location?.lng ?? 0,
+          description: description,
+          price: price,
+          dateCreated: DateTime.now(),
+        ),
+      );
+
+      state = false;
+    }
   }
 
   // update product data

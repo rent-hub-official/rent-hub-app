@@ -7,7 +7,6 @@ class ProductCardWidget extends ConsumerWidget {
   final String productName;
   final double price;
   final String productLocation;
-  final double distance;
   final String img;
   final Function() onTap;
   final String belowbtn;
@@ -19,7 +18,6 @@ class ProductCardWidget extends ConsumerWidget {
     required this.productName,
     required this.price,
     required this.productLocation,
-    required this.distance,
     required this.img,
     required this.onTap,
     required this.belowbtn,
@@ -58,10 +56,11 @@ class ProductCardWidget extends ConsumerWidget {
                   ),
                 ),
                 child: Center(
-                    child: Text(
-                  belowbtn,
-                  style: context.typography.buttonText,
-                )),
+                  child: Text(
+                    belowbtn,
+                    style: context.typography.buttonText,
+                  ),
+                ),
               ),
             ),
             Padding(
@@ -143,13 +142,17 @@ class ProductCardWidget extends ConsumerWidget {
                                     Icons.place_outlined,
                                     size: context.spaces.space_250,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: context.spaces.space_50,
-                                        right: context.spaces.space_100),
-                                    child: Text(productLocation),
+                                  SizedBox(
+                                    width: context.spaces.space_50,
                                   ),
-                                  Text('$distance Km away')
+                                  Flexible(
+                                    flex: 1,
+                                    child: Text(
+                                      productLocation,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  SizedBox(width: context.spaces.space_300 * 4)
                                 ],
                               ),
                             )

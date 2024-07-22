@@ -31,19 +31,16 @@ class ProfilePage extends HookConsumerWidget {
                   children: [
                     Container(
                       width: double.infinity,
-                      height: context.spaces.space_800,
+                      padding: EdgeInsets.only(
+                        right: context.spaces.space_200,
+                        top: context.spaces.space_500,
+                      ),
                       color: context.colors.primary,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            right: context.spaces.space_300,
-                            top: context.spaces.space_300),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(),
-                            ThemeSwitchButton(themeSwitch: themeSwitch),
-                          ],
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ThemeSwitchButton(themeSwitch: themeSwitch),
+                        ],
                       ),
                     ),
                     ProfileHeaderWidget(

@@ -5,4 +5,3 @@ class FilePickerUseCase {
     return await FilePicker.platform.pickFiles();
   }
 }
-

@@ -17,17 +17,16 @@ final class AccountDetailsService {
 // storage instance
   static final storage = FirebaseStorage.instance.ref().child("profileImages");
 
-  static final auth = FirebaseAuth.instance;
+  static final user = FirebaseAuth.instance.currentUser;
 
 // upload image to storage
   static Future<String> uploadImage({
     required File image,
-    required String userId,
   }) async {
     try {
-      await storage.child(userId).putFile(image);
+      await storage.child(user!.phoneNumber!).putFile(image);
 
-      return await storage.child(userId).getDownloadURL();
+      return await storage.child(user!.phoneNumber!).getDownloadURL();
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
     }
@@ -35,11 +34,10 @@ final class AccountDetailsService {
 
   // add user data
   static Future<void> addData({
-    required String userId,
     required AccountDetailsModel accountDetails,
   }) async {
     try {
-      await db.doc(userId).set(accountDetails);
+      await db.doc(user!.phoneNumber).set(accountDetails);
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
     }
@@ -48,18 +46,16 @@ final class AccountDetailsService {
   //get user data
   static Future<DocumentSnapshot<AccountDetailsModel>> getData() async {
     try {
-      return await db.doc(auth.currentUser!.phoneNumber).get();
+      return await db.doc(user!.phoneNumber!).get();
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
     }
   }
 
   //delete account
-  static Future<void> deleteAccount({
-    required String userId,
-  }) async {
+  static Future<void> deleteAccount() async {
     try {
-      await db.doc(userId).delete();
+      await db.doc(user!.phoneNumber!).delete();
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
     }

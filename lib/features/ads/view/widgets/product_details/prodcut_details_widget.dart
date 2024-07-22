@@ -1,36 +1,32 @@
-// Widget to display the product details
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/product_screen.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
+import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/map_widget.dart';
 
 class ProductDetailsWidget extends HookConsumerWidget {
   const ProductDetailsWidget({
     super.key,
+    required this.adsModel,
     required this.userimage,
-    required this.onwername,
-    required this.price,
-    required this.productname,
-    required this.location,
-    required this.productdetails,
+    required this.sellerName,
     required this.chatTap,
     required this.callTap,
+    required this.onTap,
   });
 
-  // Properties for product details
+  final AdsModel adsModel;
   final String? userimage;
-  final String onwername;
-  final String productname;
-  final String location;
-  final String productdetails;
-  final double price;
+  final String sellerName;
+
   final void Function() callTap;
   final void Function() chatTap;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,6 +34,8 @@ class ProductDetailsWidget extends HookConsumerWidget {
 
     // desc text line height ctrl
     final readMoreText = useState<bool>(false);
+
+    final description = adsModel.description ?? "";
 
     return Container(
       decoration: BoxDecoration(
@@ -60,7 +58,7 @@ class ProductDetailsWidget extends HookConsumerWidget {
             // ListTile to display product name, location and price
             ListTile(
               title: Text(
-                productname,
+                adsModel.productName,
                 style: context.typography.h2SemiBold,
               ),
               subtitle: Row(
@@ -72,9 +70,13 @@ class ProductDetailsWidget extends HookConsumerWidget {
                   SizedBox(
                     width: context.spaces.space_50,
                   ), // Add space between icon and text
-                  Text(
-                    location,
-                    style: context.typography.body,
+                  Flexible(
+                    flex: 1,
+                    child: Text(
+                      adsModel.locationTitle,
+                      style: context.typography.body,
+                      overflow: TextOverflow.clip,
+                    ),
                   ),
                 ],
               ),
@@ -82,7 +84,7 @@ class ProductDetailsWidget extends HookConsumerWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "$price ",
+                      text: "${adsModel.price} ",
                       style: context.typography.h2Bold,
                     ),
                     TextSpan(
@@ -96,17 +98,20 @@ class ProductDetailsWidget extends HookConsumerWidget {
             const Divider(),
             // ListTile to display owner details
             ListTile(
-              leading: CircleAvatar(
-                radius: context.spaces.space_300,
-                backgroundImage: userimage != null
-                    ? NetworkImage(
-                        userimage!,
-                      )
-                    : null,
-                child: userimage == null ? Icon(Icons.person) : null,
+              leading: InkWell(
+                onTap: onTap,
+                child: CircleAvatar(
+                  radius: context.spaces.space_300,
+                  backgroundImage: userimage != null
+                      ? NetworkImage(
+                          userimage!,
+                        )
+                      : null,
+                  child: userimage == null ? Icon(Icons.person) : null,
+                ),
               ),
               title: Text(
-                onwername,
+                sellerName,
                 style: context.typography.bodyLargeSemiBold,
               ),
               titleAlignment: ListTileTitleAlignment.top,
@@ -141,19 +146,21 @@ class ProductDetailsWidget extends HookConsumerWidget {
             ),
             const Divider(),
             // Description text with read more functionality
+            description.isEmpty
+                ? SizedBox.shrink()
+                : Text(
+                    ref.watch(productScreenConstantsProvider).txtDescription,
+                    style: context.typography.bodyLargeSemiBold,
+                  ),
             Text(
-              ref.watch(productScreenConstantsProvider).txtDescription,
-              style: context.typography.bodyLargeSemiBold,
-            ),
-            Text(
-              productdetails,
+              description,
               style: context.typography.body,
               maxLines: readMoreText.value ? null : 4,
               overflow: readMoreText.value
                   ? TextOverflow.visible
                   : TextOverflow.ellipsis,
             ),
-            productdetails.length > 200
+            description.length > 200
                 ? TextButton(
                     onPressed: () {
                       // toggle desc text more and less
@@ -168,7 +175,9 @@ class ProductDetailsWidget extends HookConsumerWidget {
                   )
                 : SizedBox.shrink(),
             // Placeholder for map
-            MapWidget(),
+            MapWidget(
+              latLng: LatLng(adsModel.lat, adsModel.long),
+            ),
           ],
         ),
       ),

@@ -3,16 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 
-
 class OnboardingPage extends ConsumerWidget {
   const OnboardingPage({
     super.key,
-     required this.imagePath,
-     required this.heading,
-     required this.subHeading,
-     required this.skipText,
-     required this.widget,
-     required this.onTap,
+    required this.imagePath,
+    required this.heading,
+    required this.subHeading,
+    required this.skipText,
+    required this.widget,
+    required this.onTap,
   });
 
   final String imagePath;
@@ -21,6 +20,7 @@ class OnboardingPage extends ConsumerWidget {
   final String skipText;
   final Widget widget;
   final void Function()? onTap;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -36,7 +36,7 @@ class OnboardingPage extends ConsumerWidget {
             height: context.spaces.space_600 * 8,
             width: double.infinity,
             child: SvgPicture.asset(
-             imagePath,
+              imagePath,
               fit: BoxFit.cover,
             ),
           ),

@@ -12,6 +12,7 @@ import 'package:rent_hub/features/ads/controller/user_controller/user_data_provi
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/prodcut_details_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/smooth_page_Indicator_wIdget.dart';
+import 'package:rent_hub/features/chat/view/pages/seller_profile_page.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
 import 'package:rent_hub/features/orders/controller/orders_provider.dart';
 import 'package:rent_hub/features/orders/domain/model/orders_model.dart';
@@ -115,12 +116,15 @@ class ProductDetailsPage extends ConsumerWidget {
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: ProductDetailsWidget(
-                            price: adsData.data().price,
+                            onTap: () {
+                              context.push(
+                                SellerProfilePage.routePath,
+                                extra: adsData,
+                              );
+                            },
                             userimage: data.data()?.profileImage,
-                            onwername: data.data()!.userName,
-                            productname: adsData.data().productName,
-                            location: adsData.data().locationTitle,
-                            productdetails: adsData.data().description ?? '',
+                            sellerName: data.data()!.userName,
+                            adsModel: adsData.data(),
                             callTap: () async {
                               await launchUrlString("tel:${data.id}");
                             },

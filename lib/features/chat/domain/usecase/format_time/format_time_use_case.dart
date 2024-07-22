@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FormatTimeUseCase {
-   String call({required Timestamp timestamp}) {
+  String call({required Timestamp timestamp}) {
     DateTime dateTime = timestamp.toDate();
     int hour = dateTime.hour;
     int minute = dateTime.minute;

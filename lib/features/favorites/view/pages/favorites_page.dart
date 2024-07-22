@@ -31,26 +31,26 @@ class FavoritesPage extends ConsumerWidget {
                       itemBuilder: (context, index) {
                         final adsModel = data[index];
                         return ProductCardWidget(
-                            isFavorite: true,
-                            favoriteTap: () async {
-                              /// set favorite method
-                              /// add or remove from favorite colloction accordingly
-                              /// and invalidate provider which gives all favorite ads user
-                              await ref
-                                  .watch(favoriteAdsProvider.notifier)
-                                  .setFavorite(adId: data[index].id!);
+                          isFavorite: true,
+                          favoriteTap: () async {
+                            /// set favorite method
+                            /// add or remove from favorite colloction accordingly
+                            /// and invalidate provider which gives all favorite ads user
+                            await ref
+                                .watch(favoriteAdsProvider.notifier)
+                                .setFavorite(adId: data[index].id!);
 
-                              ref.invalidate(getFavoriteProvider);
-                            },
-                            productName: adsModel.productName,
-                            price: adsModel.price,
-                            productLocation: adsModel.locationTitle,
-                            distance: adsModel.lat,
-                            img: adsModel.imagePath[0],
-                            onTap: () {
-                              // TODO: rental operation
-                            },
-                            belowbtn: "Rent Now");
+                            ref.invalidate(getFavoriteProvider);
+                          },
+                          productName: adsModel.productName,
+                          price: adsModel.price,
+                          productLocation: adsModel.locationTitle,
+                          img: adsModel.imagePath[0],
+                          onTap: () {
+                            // TODO: rental operation
+                          },
+                          belowbtn: "Rent Now",
+                        );
                       },
                       separatorBuilder: (context, index) => SizedBox(
                         height: context.spaces.space_200,

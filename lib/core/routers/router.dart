@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rent_hub/core/routers/redirects.dart';
 import 'package:rent_hub/core/widgets/bottom_nav/bottom_nav_widget.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
 import 'package:rent_hub/features/orders/view/pages/history_details_page.dart';
 import 'package:rent_hub/features/ads/view/pages/home_page.dart';
+import 'package:rent_hub/features/ads/view/pages/location_search_page.dart';
+import 'package:rent_hub/features/ads/view/pages/location_selection_page.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
 import 'package:rent_hub/features/ads/view/pages/notification_page.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
@@ -166,9 +169,27 @@ final router = GoRouter(
     GoRoute(
       path: SellerProfilePage.routePath,
       builder: (context, state) {
-        return SellerProfilePage();
+        return SellerProfilePage(
+          Userdata: state.extra as QueryDocumentSnapshot<AdsModel>,
+        );
       },
       redirect: checkLoggedIn,
     ),
+    GoRoute(
+      path: LocationSearchPage.routePath,
+      builder: (context, state) {
+        return LocationSearchPage();
+      },
+      redirect: checkLoggedIn,
+    ),
+    GoRoute(
+      path: LocationSelectionPage.routePath,
+      builder: (context, state) {
+        return LocationSelectionPage(
+          latLng: state.extra as LatLng,
+        );
+      },
+      redirect: checkLoggedIn,
+    )
   ],
 );

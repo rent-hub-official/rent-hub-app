@@ -65,7 +65,7 @@ class OnboardingPages extends ConsumerWidget {
         subHeading: constants3.txtSubHeading,
         skipText: constants3.txtSkip,
         widget: LoderWidget(
-          progress: context.spaces.space_25 ,
+          progress: context.spaces.space_25,
         ),
       ),
     ];
