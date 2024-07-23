@@ -12,8 +12,11 @@ import 'package:rent_hub/features/ads/controller/user_controller/user_data_provi
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/prodcut_details_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/smooth_page_Indicator_wIdget.dart';
+import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
 import 'package:rent_hub/features/chat/view/pages/seller_profile_page.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
+import 'package:rent_hub/features/orders/controller/orders_provider.dart';
+import 'package:rent_hub/features/orders/domain/model/orders_model.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 // Main widget that displays the product details page
@@ -156,7 +159,20 @@ class ProductDetailsPage extends ConsumerWidget {
       floatingActionButton: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         child: MainBtnWidget(
-          onTap: () {},
+          onTap: () {
+            ref.read(ordersProvider.notifier).addOrder(
+                  ordersModel: OrdersModel(
+                    adsId: adsData.id,
+                    userId: ref.watch(authenticationProvider).phoneNumber!,
+                    orderPlacedOn: DateTime.now(),
+                    paymentCompletedOn: DateTime.now(),
+                    orderConfirmedOn: DateTime.now(),
+                    orderCompletedOn: DateTime.now(),
+                    status: 'active',
+                    verificationCode: '1234',
+                  ),
+                );
+          },
           btnTxt: ref.read(productScreenConstantsProvider).txtbtn,
         ),
       ),
