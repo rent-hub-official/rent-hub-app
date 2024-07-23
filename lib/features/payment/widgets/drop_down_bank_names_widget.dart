@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/payment/add_account_constants.dart';
+import 'package:rent_hub/core/theme/app_theme.dart';
 
 class DropDownBankListWidget extends HookConsumerWidget {
   DropDownBankListWidget({super.key});
@@ -22,10 +23,10 @@ class DropDownBankListWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Retrieve bank account constants
     final addBankConsts = ref.read(addBankAccountConstantsProvider);
-    
+
     // State for the selected bank index
     final selectedBankIndex = useState<int?>(null);
-    
+
     return DropdownButtonHideUnderline(
       child: DropdownButton<int>(
         hint: Text(addBankConsts.txtSelect),
@@ -41,7 +42,7 @@ class DropDownBankListWidget extends HookConsumerWidget {
           selectedBankIndex.value = newValue;
         },
         icon: Icon(Icons.keyboard_arrow_down),
-        iconSize: context.spaces.space_400, 
+        iconSize: context.spaces.space_400,
         elevation: 16,
         isExpanded: true,
         borderRadius: BorderRadius.circular(10),
