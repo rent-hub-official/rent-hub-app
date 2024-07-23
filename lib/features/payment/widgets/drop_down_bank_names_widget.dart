@@ -41,7 +41,7 @@ class DropDownBankListWidget extends HookConsumerWidget {
           selectedBankIndex.value = newValue;
         },
         icon: Icon(Icons.keyboard_arrow_down),
-        iconSize: 24, // Adjust the size as needed
+        iconSize: context.spaces.space_400, 
         elevation: 16,
         isExpanded: true,
         borderRadius: BorderRadius.circular(10),
