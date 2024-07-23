@@ -50,28 +50,11 @@ class ProfileSettingsPage extends HookConsumerWidget {
                     children: [
                       // profile picture
                       Center(
-                        child: InkWell(
-                          onTap: () {},
-                          child: ProfileImageSelectorWidget(
-                            imageDbRef: data.data()?.profileImage ?? '',
-                          ),
+                        child: ProfileImageSelectorWidget(
+                          imageDbRef: data.data()?.profileImage ?? '',
                         ),
                       ),
-                      // ProfileImgeWidget(
-                      //   profileImage: data.data()?.profileImage ?? "",
-                      //   onEdit: () {
-                      //     ref.watch(imagePickerProvider.notifier).pickImage();
-                      //     ref.read(imageProvider.notifier).upload();
 
-                      //     ref.read(accountDetailsProvider.notifier).addData(
-                      //           accountDetails: data.data(),
-                      //           userName: nameEditingController.text,
-                      //           image: ref.read(imagePickerProvider),
-                      //         );
-                      //     ref.invalidate(accountDetailsProvider);
-                      //     ref.invalidate(imagePickerProvider);
-                      //   },
-                      // ),
                       // height spacing
                       SizedBox(height: context.spaces.space_600),
                       // user name
@@ -127,16 +110,19 @@ class ProfileSettingsPage extends HookConsumerWidget {
                               .deleteAccount();
                         },
                       ),
-                      MainBtnWidget(
-                        onTap: () {
-                          ref.read(accountDetailsProvider.notifier).addData(
-                                accountDetails: data.data(),
-                                userName: nameEditingController.text,
-                                image: ref.read(imagePickerProvider),
-                              );
-                          context.pop();
-                        },
-                        btnTxt: "Save",
+                      Padding(
+                        padding: EdgeInsets.only(top: context.spaces.space_600),
+                        child: MainBtnWidget(
+                          onTap: () {
+                            ref.read(accountDetailsProvider.notifier).addData(
+                                  accountDetails: data.data(),
+                                  userName: nameEditingController.text,
+                                  image: ref.read(imagePickerProvider),
+                                );
+                            context.pop();
+                          },
+                          btnTxt: "Save",
+                        ),
                       )
                       // version
                     ],

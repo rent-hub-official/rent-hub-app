@@ -34,7 +34,6 @@ class AccountDetails extends _$AccountDetails {
     } else {
       final imageRef = await UploadImageUseCase()(
         image: File(image?.path ?? ""),
-        
       );
 
       await AddAccountDeatailsUseCase()(
