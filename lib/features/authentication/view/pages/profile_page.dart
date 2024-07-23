@@ -20,6 +20,7 @@ class ProfilePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.invalidate(getUserDetailsProvider);
     final constants = ref.watch(profilePageConstantsProvider);
 
     final themeSwitch = useState<bool>(false);

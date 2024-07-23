@@ -4,11 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/user_profile_settings.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
 import 'package:rent_hub/features/authentication/controller/account_details_provider/account_details_provider.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
 import 'package:rent_hub/features/authentication/controller/image_picker_provider.dart';
-import 'package:rent_hub/features/authentication/view/widgets/profile_image_widget.dart';
+import 'package:rent_hub/features/authentication/view/widgets/profile_image_selector_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/profile_settings_field_widget.dart';
 import 'package:rent_hub/features/payment/pages/add_bank_ac_details_page.dart';
 
@@ -48,10 +49,12 @@ class ProfileSettingsPage extends HookConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // profile picture
-                      ProfileImgeWidget(
-                        profileImage: data.data()?.profileImage ?? "",
-                        onEdit: () {},
+                      Center(
+                        child: ProfileImageSelectorWidget(
+                          imageDbRef: data.data()?.profileImage ?? '',
+                        ),
                       ),
+
                       // height spacing
                       SizedBox(height: context.spaces.space_600),
                       // user name
@@ -107,6 +110,20 @@ class ProfileSettingsPage extends HookConsumerWidget {
                               .deleteAccount();
                         },
                       ),
+                      Padding(
+                        padding: EdgeInsets.only(top: context.spaces.space_600),
+                        child: MainBtnWidget(
+                          onTap: () {
+                            ref.read(accountDetailsProvider.notifier).addData(
+                                  accountDetails: data.data(),
+                                  userName: nameEditingController.text,
+                                  image: ref.read(imagePickerProvider),
+                                );
+                            context.pop();
+                          },
+                          btnTxt: "Save",
+                        ),
+                      )
                       // version
                     ],
                   ),

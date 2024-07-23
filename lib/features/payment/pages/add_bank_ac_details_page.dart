@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/constants/payment/add_account_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/core/widgets/textfeild_widget.dart';
+import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
+import 'package:rent_hub/features/payment/controller/bank_account_details_controller.dart';
+import 'package:rent_hub/features/payment/controller/get_bank_account_details_controller.dart';
+import 'package:rent_hub/features/payment/domain/model/bank_account_details_model.dart';
 import 'package:rent_hub/features/payment/widgets/drop_down_bank_names_widget.dart';
 import 'package:rent_hub/features/payment/widgets/terms_condition_text_widget.dart';
 
@@ -25,6 +30,17 @@ class AddBankAcDetailsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final addBankConsts = ref.watch(addBankAccountConstantsProvider);
 
+    final bankAccountDetails = ref
+        .watch(GetBankAccountProvider(
+            id: ref.watch(authenticationProvider).phoneNumber!))
+        .value;
+
+    nameController.text = bankAccountDetails?.bankName ?? '';
+    ifscController.text = bankAccountDetails?.ifscCode ?? '';
+    acNumberController.text = bankAccountDetails?.accountNumber ?? '';
+    confirmAcNumberController.text =
+        bankAccountDetails?.confirmAccountNumber ?? '';
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -38,7 +54,7 @@ class AddBankAcDetailsPage extends ConsumerWidget {
               child: RoundedIconButton(
                 icon: Icons.question_mark,
                 onTap: () {
-                  // TODO navigate to previos page
+                  context.pop();
                 },
                 radius: context.spaces.space_250,
               ))
@@ -120,6 +136,9 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return '${addBankConsts.txtAcNumber} ${addBankConsts.txtCantBeNull}';
+                      } else if (confirmAcNumberController.text ==
+                          acNumberController.text) {
+                        return "Not Matching";
                       } else {
                         return null;
                       }
@@ -132,7 +151,18 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                 TermsAndConditionText(addBankConsts: addBankConsts),
                 MainBtnWidget(
                     onTap: () {
-                      // TODO add functionalities
+                      ref.watch(
+                        AddBankAccountDetailsControllerProvider(
+                          id: ref.read(authenticationProvider).phoneNumber!,
+                          bankAccountDetailsModel: BankAccountDetailsModel(
+                              bankName: nameController.text,
+                              accountNumber: acNumberController.text,
+                              confirmAccountNumber:
+                                  confirmAcNumberController.text,
+                              ifscCode: ifscController.text),
+                        ),
+                      );
+                      context.pop();
                     },
                     btnTxt: addBankConsts.txtAddAc)
               ],
