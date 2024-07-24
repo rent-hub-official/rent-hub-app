@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/constants/payment/add_account_constants.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
@@ -38,7 +39,7 @@ class AddBankAcDetailsPage extends ConsumerWidget {
               child: RoundedIconButton(
                 icon: Icons.question_mark,
                 onTap: () {
-                  // TODO navigate to previos page
+                  context.pop();
                 },
                 radius: context.spaces.space_250,
               ))

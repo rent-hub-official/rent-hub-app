@@ -141,7 +141,10 @@ class ProductDetailsPage extends ConsumerWidget {
                               await launchUrlString("tel:${data.id}");
                             },
                             chatTap: () {
-                              // TODO : Navigate seller chat page
+                              context.push(
+                                SellerProfilePage.routePath,
+                                extra: adsData,
+                              );
                             },
                           ),
                         ),
