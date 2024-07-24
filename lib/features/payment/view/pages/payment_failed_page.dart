@@ -4,8 +4,8 @@ import 'package:rent_hub/core/constants/payment/payment_failed.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
-import 'package:rent_hub/features/payment/widgets/payment/payment_info_widget.dart';
-import 'package:rent_hub/features/payment/widgets/payment/payment_failed_icon.dart';
+import 'package:rent_hub/features/payment/view/widgets/payment/payment_info_widget.dart';
+import 'package:rent_hub/features/payment/view/widgets/payment/payment_failed_icon.dart';
 
 class PaymentFailedPage extends ConsumerWidget {
   static const routePath = '/paymentfaild';

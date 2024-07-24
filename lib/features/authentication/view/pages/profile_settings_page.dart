@@ -11,7 +11,7 @@ import 'package:rent_hub/features/authentication/controller/authenticcation_prov
 import 'package:rent_hub/features/authentication/controller/image_picker_provider.dart';
 import 'package:rent_hub/features/authentication/view/widgets/profile_image_selector_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/profile_settings_field_widget.dart';
-import 'package:rent_hub/features/payment/pages/add_bank_ac_details_page.dart';
+import 'package:rent_hub/features/payment/view/pages/add_bank_ac_details_page.dart';
 
 class ProfileSettingsPage extends HookConsumerWidget {
   static const routePath = '/profileSettings';
