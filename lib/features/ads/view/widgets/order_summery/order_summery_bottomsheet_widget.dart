@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
@@ -7,11 +8,10 @@ import 'package:rent_hub/features/ads/controller/order_controller/dateprovider.d
 import 'package:rent_hub/features/ads/view/widgets/order_summery/date_select_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/order_summery/location_widget.dart';
 
-class OrderSummeryBottomSheetWidget extends ConsumerWidget {
+class OrderSummeryBottomSheetWidget extends HookConsumerWidget {
   const OrderSummeryBottomSheetWidget({
     super.key,
     required this.price,
-    required this.value,
     required this.pickordropdate,
     required this.selectpicklocation,
     required this.location,
@@ -24,8 +24,6 @@ class OrderSummeryBottomSheetWidget extends ConsumerWidget {
   });
 
   final void Function() onTap;
-  final bool value;
-
   final String pickupdatetext;
   final String btnTxt;
   final String pickordropdate;
@@ -38,6 +36,8 @@ class OrderSummeryBottomSheetWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isChecked = useState(false);
+
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -90,14 +90,16 @@ class OrderSummeryBottomSheetWidget extends ConsumerWidget {
                                   () {
                                     ref
                                         .watch(dateSelectProvider.notifier)
-                                        .showDatePickerDialog(context, ref,
-                                            ref.watch(pickDateProvider));
+                                        .showDatePickerDialog(
+                                          context,
+                                          ref,
+                                        );
                                   },
                                   typography: context.typography,
                                   spacer: context.spaces,
                                   colors: context.colors,
                                   date: pickordropdate,
-                                  selectedDate: ref.read(pickDateProvider),
+                                  selectedDate: ref.read(pickUpDateProvider),
                                 ),
                               ],
                             ),
@@ -117,14 +119,16 @@ class OrderSummeryBottomSheetWidget extends ConsumerWidget {
                                   () {
                                     ref
                                         .watch(dateSelectProvider.notifier)
-                                        .showDateDropDialog(context, ref,
-                                            ref.watch(pickDateProvider));
+                                        .showDateDropDialog(
+                                          context,
+                                          ref,
+                                        );
                                   },
                                   date: pickordropdate,
                                   typography: context.typography,
                                   spacer: context.spaces,
                                   colors: context.colors,
-                                  selectedDate: ref.watch(selectedDateProvider),
+                                  selectedDate: ref.watch(dropUpDateProvider),
                                 ),
                               ],
                             ),
@@ -151,7 +155,8 @@ class OrderSummeryBottomSheetWidget extends ConsumerWidget {
                               ),
                               color: AppColorPalettes.white500,
                               borderRadius: BorderRadius.circular(
-                                  context.spaces.space_75),
+                                context.spaces.space_75,
+                              ),
                             ),
                             child: LocationWidget(
                               location: location,
@@ -167,8 +172,10 @@ class OrderSummeryBottomSheetWidget extends ConsumerWidget {
                   child: Row(
                     children: [
                       Checkbox(
-                        value: value,
-                        onChanged: (val) {},
+                        value: isChecked.value,
+                        onChanged: (value) {
+                          isChecked.value = value!;
+                        },
                       ),
                       Text(agreetext, style: context.typography.bodySmall),
                       InkWell(
@@ -181,16 +188,29 @@ class OrderSummeryBottomSheetWidget extends ConsumerWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: context.spaces.space_500),
-                  child: Text(
-                    price,
-                    style: context.typography.h1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'per day ',
+                        style: context.typography.bodyLargeSemiBold,
+                      ),
+                      Text(
+                        price,
+                        style: context.typography.h1,
+                      ),
+                    ],
                   ),
                 ),
                 Padding(
-                    padding: EdgeInsets.only(
-                      top: context.spaces.space_200,
-                    ),
-                    child: MainBtnWidget(onTap: onTap, btnTxt: btnTxt))
+                  padding: EdgeInsets.only(
+                    top: context.spaces.space_200,
+                  ),
+                  child: MainBtnWidget(
+                    onTap: isChecked.value ? onTap : () {},
+                    btnTxt: btnTxt,
+                  ),
+                ),
               ],
             ),
           ),

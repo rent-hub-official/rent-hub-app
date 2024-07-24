@@ -11,35 +11,33 @@ class DateSelect extends _$DateSelect {
     return DateTime.now();
   }
 
-  Future<void> showDatePickerDialog(
-      BuildContext context, WidgetRef ref, DateTime selectedDate) async {
+  Future<void> showDatePickerDialog(BuildContext context, WidgetRef ref) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2100),
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 365)),
     );
 
-    if (pickedDate != null && pickedDate != selectedDate) {
-      ref.read(pickDateProvider.notifier).state = pickedDate;
+    if (pickedDate != null) {
+      ref.read(pickUpDateProvider.notifier).state = pickedDate;
     }
   }
 
-  Future<void> showDateDropDialog(
-      BuildContext context, WidgetRef ref, DateTime selectedDate) async {
+  Future<void> showDateDropDialog(BuildContext context, WidgetRef ref) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2100),
+      initialDate: DateTime.now().add(Duration(days: 1)),
+      firstDate: DateTime.now().add(Duration(days: 1)),
+      lastDate: DateTime.now().add(Duration(days: 365)),
     );
 
-    if (pickedDate != null && pickedDate != selectedDate) {
-      ref.read(selectedDateProvider.notifier).state = pickedDate;
+    if (pickedDate != null) {
+      ref.read(dropUpDateProvider.notifier).state = pickedDate;
     }
   }
 }
 
 // State providers for date selection
-final pickDateProvider = StateProvider<DateTime>((ref) => DateTime.now());
-final selectedDateProvider = StateProvider<DateTime>((ref) => DateTime.now());
+final pickUpDateProvider = StateProvider<DateTime>((ref) => DateTime.now());
+final dropUpDateProvider = StateProvider<DateTime>((ref) => DateTime.now());
