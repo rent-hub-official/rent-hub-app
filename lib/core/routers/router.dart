@@ -10,7 +10,7 @@ import 'package:rent_hub/features/ads/view/pages/home_page.dart';
 import 'package:rent_hub/features/ads/view/pages/location_search_page.dart';
 import 'package:rent_hub/features/ads/view/pages/location_selection_page.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
-import 'package:rent_hub/features/ads/view/pages/notification_page.dart';
+import 'package:rent_hub/features/notification/view/pages/notification_page.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
 import 'package:rent_hub/features/ads/view/pages/search/search_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/create_account_page.dart';

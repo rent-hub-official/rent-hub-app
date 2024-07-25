@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -74,6 +75,15 @@ class CreateAccountPage extends HookConsumerWidget {
                         child: MainBtnWidget(
                           isLoading: ref.watch(accountDetailsProvider),
                           onTap: () {
+                            FirebaseMessaging.instance.onTokenRefresh
+                                .listen((fcmToken) {
+                              // TODO: If necessary send token to application server.
+
+                              // Note: This callback is fired at each app startup and whenever a new
+                              // token is generated.
+                            }).onError((err) {
+                              // Error getting token.
+                            });
                             // name TextEditingController validation
                             if (_formKey.currentState!.validate()) {
                               // add user data

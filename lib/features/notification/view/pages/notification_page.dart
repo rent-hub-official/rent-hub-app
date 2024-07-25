@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -19,7 +20,6 @@ class NotificationPage extends ConsumerWidget {
           padding: EdgeInsets.all(context.spaces.space_50),
           child: RoundedIconButton(
             onTap: () {
-              // TODO CHECK IT
               context.pop();
             },
             icon: Icons.chevron_left,
@@ -29,6 +29,24 @@ class NotificationPage extends ConsumerWidget {
           constants.txtHeading,
           style: context.typography.h2SemiBold,
         ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(context.spaces.space_50),
+            child: RoundedIconButton(
+              onTap: () {
+                AwesomeNotifications().createNotification(
+                    content: NotificationContent(
+                  id: 10,
+                  channelKey: 'renthub_channel',
+                  actionType: ActionType.Default,
+                  title: 'Hello World!',
+                  body: 'This is my first notification!',
+                ));
+              },
+              icon: Icons.alarm,
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.all(context.spaces.space_200),
