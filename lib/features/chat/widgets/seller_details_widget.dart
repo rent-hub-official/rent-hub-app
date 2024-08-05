@@ -30,7 +30,6 @@ class SellerDetailsWidget extends ConsumerWidget {
             child: Column(
               children: [
                 Text(sellerName, style: context.typography.h1SemiBold),
-
                 Text(
                   sellerLocation,
                   textAlign: TextAlign.center,

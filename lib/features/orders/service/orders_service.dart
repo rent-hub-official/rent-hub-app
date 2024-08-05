@@ -10,7 +10,7 @@ class OrdersService {
 
   static Stream<QuerySnapshot<OrdersModel>> getAllOrders() {
     return ordersDb.snapshots();
-  }        
+  }
 
   static Future<void> putOrder(
     OrdersModel ordersModel,

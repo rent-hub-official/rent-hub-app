@@ -4,17 +4,14 @@ import 'package:rent_hub/features/orders/service/orders_service.dart';
 class GetAllOrdersUseCase {
   Stream<List<OrdersModel?>> call({required String currentUser}) {
     return OrdersService.getAllOrders().map(
-      (snapshot) => snapshot.docs
-          .map(
-            (doc) {
-              if (doc.data().userId == currentUser) {
-                return doc.data();
-                
-              }
-              return null;
-            },
-          )
-          .toList(),
+      (snapshot) => snapshot.docs.map(
+        (doc) {
+          if (doc.data().userId == currentUser) {
+            return doc.data();
+          }
+          return null;
+        },
+      ).toList(),
     );
   }
 }

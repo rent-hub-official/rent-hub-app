@@ -72,7 +72,6 @@ class PaymentService {
 
     if (generatedSignature.toString() == response.signature) {
       print("Payment was successful!");
-      
     } else {
       print("The payment was fake!");
     }

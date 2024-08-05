@@ -1,13 +1,17 @@
 import 'package:algolia/algolia.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/routers/router.dart';
 import 'package:rent_hub/core/secret_keys.dart';
 import 'package:rent_hub/core/theme/theme_provider.dart';
 import 'package:rent_hub/features/ads/service/object_box_service.dart';
+import 'package:rent_hub/features/notification/controller/notification_controller.dart';
 import 'package:rent_hub/firebase_options.dart';
 
 Future<void> main() async {
@@ -55,8 +59,8 @@ Future<void> main() async {
 
   // You may set the permission requests to "provisional" which allows the user to choose what type
   // of notifications they would like to receive once the user receives a notification.
-  final notificationSettings =
-      await FirebaseMessaging.instance.requestPermission(provisional: true);
+
+  await FirebaseMessaging.instance.requestPermission(provisional: true);
 
   // For apple platforms, ensure the APNS token is available before making any FCM plugin API calls
   final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
@@ -64,10 +68,14 @@ Future<void> main() async {
     // APNS token is available, make FCM plugin API requests...
   }
 
+  /// Listen for firebase background messages
+  FirebaseMessaging.onBackgroundMessage(
+      NotificationController.firebaseMessagingBackgroundHandler);
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends HookConsumerWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
 
   static final scaffoldMessngerKey = GlobalKey<ScaffoldMessengerState>();
@@ -81,6 +89,47 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    useEffect(() {
+      /// Request permission to send notifications
+      AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+        if (!isAllowed) {
+          AwesomeNotifications().requestPermissionToSendNotifications();
+        }
+      });
+
+      FirebaseMessaging.instance.requestPermission(provisional: true);
+
+      FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+        /// Update the token in DB
+        if (FirebaseAuth.instance.currentUser != null) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(FirebaseAuth.instance.currentUser!.phoneNumber)
+              .update({
+            'fcmToken': fcmToken,
+          });
+        }
+      }).onError((err) {
+        // Error getting token.
+      });
+
+      /// Listeners for the notification actions
+      AwesomeNotifications().setListeners(
+          onActionReceivedMethod: NotificationController.onActionReceivedMethod,
+          onNotificationCreatedMethod:
+              NotificationController.onNotificationCreatedMethod,
+          onNotificationDisplayedMethod:
+              NotificationController.onNotificationDisplayedMethod,
+          onDismissActionReceivedMethod:
+              NotificationController.onDismissActionReceivedMethod);
+
+      /// Listener for the Foreground FCM messages
+      FirebaseMessaging.onMessage
+          .listen(NotificationController.fcmForegroundHandler);
+
+      return null;
+    }, const []);
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: scaffoldMessngerKey,

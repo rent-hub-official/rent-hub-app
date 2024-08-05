@@ -143,7 +143,7 @@ final router = GoRouter(
     GoRoute(
       path: ChatDetailsPage.routePath,
       builder: (context, state) {
-        final extra = state.extra as Map<String, String>;
+        final extra = state.extra as Map;
         return ChatDetailsPage(
           image: extra['image']!,
           name: extra['name']!,

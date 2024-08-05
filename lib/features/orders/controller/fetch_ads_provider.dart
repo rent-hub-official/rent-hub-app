@@ -6,6 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'fetch_ads_provider.g.dart';
 
 @riverpod
-Future<DocumentSnapshot<AdsModel>> fetchAdsWithId( FetchAdsWithIdRef ref,{required String id}) async {
+Future<DocumentSnapshot<AdsModel>> fetchAdsWithId(FetchAdsWithIdRef ref,
+    {required String id}) async {
   return await AdsWithIdService()(id: id);
 }

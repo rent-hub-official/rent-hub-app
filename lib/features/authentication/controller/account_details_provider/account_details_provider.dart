@@ -24,12 +24,16 @@ class AccountDetails extends _$AccountDetails {
     required AccountDetailsModel? accountDetails,
     required String userName,
     required XFile? image,
+    String? fcmToken,
   }) async {
     state = true;
 
     if (accountDetails != null && image == null) {
       await AddAccountDeatailsUseCase()(
-        accountDetails: accountDetails.copyWith(userName: userName),
+        accountDetails: accountDetails.copyWith(
+          userName: userName,
+          fcmToken: fcmToken,
+        ),
       );
     } else {
       final imageRef = await UploadImageUseCase()(
@@ -40,6 +44,7 @@ class AccountDetails extends _$AccountDetails {
         accountDetails: AccountDetailsModel(
           userName: userName,
           profileImage: imageRef ?? "",
+          fcmToken: fcmToken,
         ),
       );
     }
