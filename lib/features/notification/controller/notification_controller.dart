@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -66,8 +65,6 @@ class NotificationController {
   static Future<void> _fcmHandler(RemoteMessage message) async {
     final notificationTitle = message.data['title'];
     final notificationBody = message.data['body'];
-
-    log(notificationTitle + " " + notificationBody);
 
     final payload =
         message.data.containsKey('payload') ? message.data['payload'] : "{}";

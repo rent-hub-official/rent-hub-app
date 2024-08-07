@@ -14,6 +14,9 @@ class NotificationPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final constants = ref.watch(notificationPageConstantsProvider);
+
+    final _notificationList = ref.watch(notificationList);
+
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -34,14 +37,28 @@ class NotificationPage extends ConsumerWidget {
             padding: EdgeInsets.all(context.spaces.space_50),
             child: RoundedIconButton(
               onTap: () {
-                AwesomeNotifications().createNotification(
-                    content: NotificationContent(
-                  id: 10,
-                  channelKey: 'renthub_channel',
-                  actionType: ActionType.Default,
-                  title: 'Hello World!',
-                  body: 'This is my first notification!',
-                ));
+                ref.read(notificationList.notifier).state = [
+                  {
+                    'title': 'Notification 1',
+                    'subTitle': 'This is the first notification'
+                  },
+                  {
+                    'title': 'Notification 2',
+                    'subTitle': 'This is the second notification'
+                  },
+                  {
+                    'title': 'Notification 3',
+                    'subTitle': 'This is the third notification'
+                  },
+                  {
+                    'title': 'Notification 4',
+                    'subTitle': 'This is the fourth notification'
+                  },
+                  {
+                    'title': 'Notification 5',
+                    'subTitle': 'This is the fifth notification'
+                  },
+                ];
               },
               icon: Icons.alarm,
             ),
@@ -62,11 +79,10 @@ class NotificationPage extends ConsumerWidget {
             ),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: 2,
-              itemBuilder: (context, index) => const NotificationTileWidget(
-                title: 'Lorem Ipsum',
-                subTitle:
-                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type',
+              itemCount: _notificationList.length,
+              itemBuilder: (context, index) => NotificationTileWidget(
+                title: _notificationList[index]['title'],
+                subTitle: _notificationList[index]['subTitle'],
               ),
             ),
           ],
@@ -75,3 +91,6 @@ class NotificationPage extends ConsumerWidget {
     );
   }
 }
+
+final StateProvider notificationList =
+    StateProvider<List<Map<String, String>>>((ref) => []);

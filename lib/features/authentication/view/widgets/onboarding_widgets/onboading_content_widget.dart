@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/features/authentication/view/pages/login_page.dart';
 
 class OnboardingPage extends ConsumerWidget {
   const OnboardingPage({
@@ -63,7 +65,15 @@ class OnboardingPage extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(skipText),
+                TextButton(
+                  child: Text(
+                    skipText,
+                    style: context.typography.bodyLargeSemiBold,
+                  ),
+                  onPressed: () => context.push(
+                    LoginPage.routePath,
+                  ),
+                ),
                 IconButton(
                   onPressed: onTap,
                   icon: widget,

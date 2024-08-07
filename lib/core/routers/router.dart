@@ -19,7 +19,6 @@ import 'package:rent_hub/features/authentication/view/pages/onboarding/onboardin
 import 'package:rent_hub/features/authentication/view/pages/otp_verification_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/profile_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/profile_settings_page.dart';
-import 'package:rent_hub/features/authentication/view/pages/splash_page.dart';
 import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';
 import 'package:rent_hub/features/chat/view/pages/seller_profile_page.dart';
 import 'package:rent_hub/features/favorites/view/pages/favorites_page.dart';
@@ -29,14 +28,8 @@ import 'package:rent_hub/main.dart';
 
 final router = GoRouter(
   navigatorKey: MyApp.navigatorKey,
-  initialLocation: SplashPage.routePath,
+  initialLocation: OnboardingPages.routePath,
   routes: [
-    GoRoute(
-      path: SplashPage.routePath,
-      builder: (context, state) {
-        return SplashPage();
-      },
-    ),
     GoRoute(
       path: OnboardingPages.routePath,
       builder: (context, state) {
