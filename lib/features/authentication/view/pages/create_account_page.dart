@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -92,7 +90,6 @@ class CreateAccountPage extends HookConsumerWidget {
                               final fcm = await ref
                                   .watch(fcmTokenProvider.notifier)
                                   .getFcmTokenFromMessaging();
-                              log("before add" + fcm.toString());
                               // add user data
                               ref.read(accountDetailsProvider.notifier).addData(
                                     accountDetails: data.data(),
@@ -100,7 +97,6 @@ class CreateAccountPage extends HookConsumerWidget {
                                     image: ref.read(imagePickerProvider),
                                     fcmToken: fcm.toString(),
                                   );
-                              log("saliqmon" + fcm.toString());
                             }
                           },
                           btnTxt: createAcConst.txtbtn,

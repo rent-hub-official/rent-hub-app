@@ -16,11 +16,14 @@ class ChatBody extends ConsumerWidget {
     required this.receiverId,
     required this.image,
     required this.inputMessageController,
+    required this.name,
   }) : super(key: key);
 
   final String profileImage;
   final String userId;
   final String receiverId;
+  final String name;
+
   final String image;
   final TextEditingController inputMessageController;
 
@@ -76,6 +79,8 @@ class ChatBody extends ConsumerWidget {
                   ),
             ),
             InputMessageFieldWidget(
+              img: image,
+              name: name,
               receiverId: receiverId,
               senderId: ref.watch(authenticationProvider).phoneNumber!,
               controller: inputMessageController,

@@ -9,6 +9,7 @@ class AccountDetailsModel with _$AccountDetailsModel {
   const factory AccountDetailsModel({
     required String userName,
     required String profileImage,
+    String? fcmToken,
   }) = _AccountDetailsModel;
 
   factory AccountDetailsModel.fromJson(Map<String, dynamic> json) =>

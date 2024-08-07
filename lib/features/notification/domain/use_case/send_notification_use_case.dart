@@ -2,7 +2,7 @@ import 'package:rent_hub/features/notification/domain/model/send_notification_mo
 import 'package:rent_hub/features/notification/service/push_notification.dart';
 
 class SendNotificationUseCase {
-  Future<SendNotificationModel> call({
+  Future<String> call({
     required SendNotificationModel sendNotificationModel,
     required String fcmToken,
   }) async {
