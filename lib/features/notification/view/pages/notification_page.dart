@@ -14,9 +14,7 @@ class NotificationPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final constants = ref.watch(notificationPageConstantsProvider);
-
-    final _notificationList =
-        ref.watch(notificationsListProvider).reversed.toList();
+    final notificationList = ref.watch(notificationsListProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -37,8 +35,10 @@ class NotificationPage extends ConsumerWidget {
           Padding(
             padding: EdgeInsets.all(context.spaces.space_50),
             child: RoundedIconButton(
-              onTap: () {},
-              icon: Icons.alarm,
+              onTap: () {
+                ref.read(notificationsListProvider.notifier).removeAll();
+              },
+              icon: Icons.delete_forever,
             ),
           ),
         ],
@@ -52,15 +52,36 @@ class NotificationPage extends ConsumerWidget {
               constants.txtSubHeading,
               style: context.typography.bodySemibold,
             ),
-            SizedBox(
-              height: context.spaces.space_100,
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: _notificationList.length,
-              itemBuilder: (context, index) => NotificationTileWidget(
-                title: _notificationList[index].title,
-                subTitle: _notificationList[index].subTitle,
+            SizedBox(height: context.spaces.space_100),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  ref.refresh(notificationsListProvider);
+                },
+                child: ListView.builder(
+                  itemCount: notificationList.length,
+                  itemBuilder: (context, index) {
+                    final notification = notificationList[index];
+                    return Dismissible(
+                      key: Key(notification.id.toString()),
+                      onDismissed: (direction) {
+                        ref
+                            .read(notificationsListProvider.notifier)
+                            .remove(id: notification.id);
+                      },
+                      background: Container(
+                        color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Icon(Icons.delete, color: Colors.white),
+                      ),
+                      child: NotificationTileWidget(
+                        title: notification.title,
+                        subTitle: notification.subTitle,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           ],
