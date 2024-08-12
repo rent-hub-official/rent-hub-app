@@ -23,8 +23,8 @@ import 'package:rent_hub/features/authentication/view/pages/splash_page.dart';
 import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';
 import 'package:rent_hub/features/chat/view/pages/seller_profile_page.dart';
 import 'package:rent_hub/features/favorites/view/pages/favorites_page.dart';
-import 'package:rent_hub/features/payment/pages/add_bank_ac_details_page.dart';
-import 'package:rent_hub/features/payment/pages/payment_failed_page.dart';
+import 'package:rent_hub/features/payment/view/pages/add_bank_ac_details_page.dart';
+import 'package:rent_hub/features/payment/view/pages/payment_failed_page.dart';
 import 'package:rent_hub/main.dart';
 
 final router = GoRouter(

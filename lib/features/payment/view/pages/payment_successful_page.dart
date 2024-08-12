@@ -4,9 +4,9 @@ import 'package:rent_hub/core/constants/payment/payment_successful.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
-import 'package:rent_hub/features/payment/widgets/payment/payment_info_widget.dart';
-import 'package:rent_hub/features/payment/widgets/security_widget.dart';
-import 'package:rent_hub/features/payment/widgets/successful_widget.dart';
+import 'package:rent_hub/features/payment/view/widgets/payment/payment_info_widget.dart';
+import 'package:rent_hub/features/payment/view/widgets/security_widget.dart';
+import 'package:rent_hub/features/payment/view/widgets/successful_widget.dart';
 
 class PaymentSuccessfulPage extends ConsumerWidget {
   static const routePath = '/paymentsuccessfulpage';

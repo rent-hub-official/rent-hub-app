@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/constants/ads/product_screen.dart';
+import 'package:rent_hub/core/constants/payment/order_summery.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
+import 'package:rent_hub/core/utils/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
+import 'package:rent_hub/features/ads/controller/order_controller/dateprovider.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/product_controller.dart';
 import 'package:rent_hub/features/ads/controller/user_controller/user_data_provider.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
+import 'package:rent_hub/features/ads/view/widgets/order_summery/order_summery_bottomsheet_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/prodcut_details_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/smooth_page_Indicator_wIdget.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
@@ -17,6 +21,7 @@ import 'package:rent_hub/features/chat/view/pages/seller_profile_page.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
 import 'package:rent_hub/features/orders/controller/orders_provider.dart';
 import 'package:rent_hub/features/orders/domain/model/orders_model.dart';
+import 'package:rent_hub/features/payment/controller/payment_controller.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 // Main widget that displays the product details page
@@ -32,6 +37,12 @@ class ProductDetailsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    /// orderConsts to get the order summery constants
+    final orderConsts = ref.watch(orderSummeryProvider);
+    final dateDiff =
+        ref.watch(dropUpDateProvider).difference(ref.watch(pickUpDateProvider));
+    final noOfDays = dateDiff.inDays + 1;
+
     return Scaffold(
       body: ref.watch(getUserDataProvider(adsData.data().sellerId)).when(
             data: (data) => FutureBuilder(
@@ -130,7 +141,10 @@ class ProductDetailsPage extends ConsumerWidget {
                               await launchUrlString("tel:${data.id}");
                             },
                             chatTap: () {
-                              // TODO : Navigate seller chat page
+                              context.push(
+                                SellerProfilePage.routePath,
+                                extra: adsData,
+                              );
                             },
                           ),
                         ),
@@ -160,6 +174,29 @@ class ProductDetailsPage extends ConsumerWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         child: MainBtnWidget(
           onTap: () {
+            /// show bottom sheet
+            /// add order summery bottom sheet widget
+            bottomSheetWidget(
+              context: context,
+              child: OrderSummeryBottomSheetWidget(
+                price: 'RS ${adsData.data().price}/-',
+                pickordropdate: orderConsts.txtDropUp,
+                selectpicklocation: orderConsts.txtSelectLocation,
+                location: adsData.data().locationTitle,
+                privacyPolicytext: orderConsts.txtPolicyTerms,
+                agreetext: orderConsts.txtAgree,
+                pickupdatetext: orderConsts.txtPickUpDate,
+                dropdatetext: orderConsts.txtDropUp,
+                btnTxt: orderConsts.txtBtn,
+                onTap: () {
+                  final amount = adsData.data().price.toInt() * noOfDays;
+
+                  ref.watch(PaymentProvider(amount: amount));
+                },
+              ),
+            );
+
+            /// add order to firestore
             ref.read(ordersProvider.notifier).addOrder(
                   ordersModel: OrdersModel(
                     adsId: adsData.id,

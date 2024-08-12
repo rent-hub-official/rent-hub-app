@@ -36,7 +36,6 @@ class SellerDetailsWidget extends ConsumerWidget {
                   textAlign: TextAlign.center,
                   style: context.typography.h3SemiBold,
                 ),
-                //TODO: Rating
               ],
             ),
           ),

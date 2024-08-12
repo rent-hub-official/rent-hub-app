@@ -116,7 +116,7 @@ class HistoryDetailsPage extends HookConsumerWidget {
   }
 }
 
-// change sample model classs : TODO
+// change sample model class
 class ProductModelSample {
   final bool? isCompleted;
   final String productName;

@@ -7,7 +7,8 @@ class OrderSummeryConstants {
   final txtDropUp = "Drop Up";
   final txtSelectLocation = "Select pick up location";
   final txtReturnLocation = "Return to the same location";
-  final txtPolicyTerms = "I agree to the RentHub Privacy Policy and Terms";
+  final txtAgree = "I agree to the RentHub Privacy ";
+  final txtPolicyTerms = "Policy & Terms";
   final txtBtn = "Pay";
 }
 
