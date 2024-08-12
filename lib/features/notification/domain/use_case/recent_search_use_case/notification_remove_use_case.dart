@@ -1,11 +1,10 @@
 import 'package:rent_hub/object_box_service.dart';
 
-/// Removes a recent search from the database
-/// by its id
-class RecentSearchRemoveUseCase {
+/// Removes a notification from the database
+class NotificationRemoveUseCase {
   final db = ObjectBoxService.instance;
 
   void call({required int id}) {
-    db.searchBox.remove(id);
+    db.notificationBox.remove(id);
   }
 }

@@ -4,6 +4,8 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rent_hub/features/notification/domain/use_case/recent_search_use_case/notification_add_use_case.dart';
+import 'package:rent_hub/firebase_options.dart';
 import 'package:rent_hub/main.dart';
 
 class NotificationController {
@@ -53,7 +55,8 @@ class NotificationController {
       RemoteMessage message) async {
     // If you're going to use other Firebase services in the background, such as Firestore,
     // make sure you call `initializeApp` before using other Firebase services.
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
 
     _fcmHandler(message);
   }
@@ -93,6 +96,11 @@ class NotificationController {
         body: notificationBody,
         payload: payloadMap,
       ),
+    );
+
+    NotificationAddUseCase()(
+      title: notificationTitle,
+      subTitle: notificationBody,
     );
   }
 }

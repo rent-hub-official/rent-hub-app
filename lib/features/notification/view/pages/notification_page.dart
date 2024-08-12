@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +5,7 @@ import 'package:rent_hub/core/constants/notification/notification_page_constants
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/notification_page/notification_tile_widget.dart';
+import 'package:rent_hub/features/notification/controller/notifications_list_controller.dart';
 
 class NotificationPage extends ConsumerWidget {
   static const routePath = '/notification';
@@ -15,7 +15,8 @@ class NotificationPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final constants = ref.watch(notificationPageConstantsProvider);
 
-    final _notificationList = ref.watch(notificationList);
+    final _notificationList =
+        ref.watch(notificationsListProvider).reversed.toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -36,30 +37,7 @@ class NotificationPage extends ConsumerWidget {
           Padding(
             padding: EdgeInsets.all(context.spaces.space_50),
             child: RoundedIconButton(
-              onTap: () {
-                ref.read(notificationList.notifier).state = [
-                  {
-                    'title': 'Notification 1',
-                    'subTitle': 'This is the first notification'
-                  },
-                  {
-                    'title': 'Notification 2',
-                    'subTitle': 'This is the second notification'
-                  },
-                  {
-                    'title': 'Notification 3',
-                    'subTitle': 'This is the third notification'
-                  },
-                  {
-                    'title': 'Notification 4',
-                    'subTitle': 'This is the fourth notification'
-                  },
-                  {
-                    'title': 'Notification 5',
-                    'subTitle': 'This is the fifth notification'
-                  },
-                ];
-              },
+              onTap: () {},
               icon: Icons.alarm,
             ),
           ),
@@ -81,8 +59,8 @@ class NotificationPage extends ConsumerWidget {
               shrinkWrap: true,
               itemCount: _notificationList.length,
               itemBuilder: (context, index) => NotificationTileWidget(
-                title: _notificationList[index]['title'],
-                subTitle: _notificationList[index]['subTitle'],
+                title: _notificationList[index].title,
+                subTitle: _notificationList[index].subTitle,
               ),
             ),
           ],
@@ -91,6 +69,3 @@ class NotificationPage extends ConsumerWidget {
     );
   }
 }
-
-final StateProvider notificationList =
-    StateProvider<List<Map<String, String>>>((ref) => []);

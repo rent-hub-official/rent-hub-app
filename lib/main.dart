@@ -10,7 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/routers/router.dart';
 import 'package:rent_hub/core/secret_keys.dart';
 import 'package:rent_hub/core/theme/theme_provider.dart';
-import 'package:rent_hub/features/ads/service/object_box_service.dart';
+import 'package:rent_hub/object_box_service.dart';
 import 'package:rent_hub/features/notification/controller/notification_controller.dart';
 import 'package:rent_hub/firebase_options.dart';
 

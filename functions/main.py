@@ -1,5 +1,4 @@
 import json
-import datetime
 from firebase_functions import https_fn
 from firebase_admin import initialize_app
 from firebase_admin import messaging
