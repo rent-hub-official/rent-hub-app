@@ -12,18 +12,21 @@ class GetFavoriteProductsUsecase {
     List<AdsModel> favAdsData = [];
     try {
       /// adsId from fav collection and get adsmodel assign to favAdsData
-      ///
-
       for (final favAdDetails in favAdsDataStream.docs) {
-        final data = await GetAdsByIdService.getAdsDetailsWithId(
+        final adsDataResult = await GetAdsByIdService.getAdsDetailsWithId(
             id: favAdDetails.data()['adsId']);
-        favAdsData.add(data.data()!);
+
+        // Check if adsDataResult is not null and contains valid data
+        final adsData = adsDataResult.data();
+        if (adsData != null) {
+          favAdsData.add(adsData);
+        }
       }
 
-      ///returns listof products
+      ///returns list of products
       return favAdsData;
     } catch (e) {
-      /// shows error snakbar when error occurs
+      /// shows error snackbar when error occurs
       /// and return empty list
       SnackbarUtils.showError(e.toString());
       return [];

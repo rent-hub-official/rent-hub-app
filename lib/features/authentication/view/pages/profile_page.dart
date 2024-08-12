@@ -20,9 +20,15 @@ class ProfilePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.invalidate(getUserDetailsProvider);
-    final constants = ref.watch(profilePageConstantsProvider);
+    // Use PostFrameCallback to ensure the invalidation happens after the build is complete
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.invalidate(getUserDetailsProvider);
+      });
+      return null;
+    }, []);
 
+    final constants = ref.watch(profilePageConstantsProvider);
     final themeSwitch = useState<bool>(false);
 
     return Scaffold(
@@ -47,23 +53,16 @@ class ProfilePage extends HookConsumerWidget {
                   ProfileHeaderWidget(
                     name: data.data()?.userName ?? "Unknown",
                     phone: data.id,
-
-                    child: InkWell(
-                      onTap: () {
-                        context.push(
-                          ProfileSettingsPage.routePath,
-                        );
-                      },
-                      child: ClipOval(
-                        child: Image.network(
-                          fit: BoxFit.cover,
-                          data.data()?.profileImage ?? '',
-                          height: double.infinity,
-                          width: double.infinity,
-                          errorBuilder: (context, error, stackTrace) =>
-                              Image.asset(
-                                  ref.watch(iconConstantsProvider).icProfile),
-                        ),
+                    child: ClipOval(
+                      child: Image.network(
+                        fit: BoxFit.cover,
+                        data.data()?.profileImage ??
+                            'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+                        height: double.infinity,
+                        width: double.infinity,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Image.asset(
+                                ref.watch(iconConstantsProvider).icProfile),
                       ),
                     ), //profile image
                   ),
@@ -97,7 +96,7 @@ class ProfilePage extends HookConsumerWidget {
                           text: constants.txtHelpSupport,
                           subtitle: constants.txtsubHelp,
                           onTap: () {
-                            // TODO : PRIVECY POLICY PAGE WANTED
+                            context.push(ProfileSettingsPage.routePath);
                           },
                         ),
                       ],
