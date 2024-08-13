@@ -43,5 +43,9 @@ class Theme extends _$Theme {
     } else {
       state = lighttheme;
     }
+
+    /// Save the changes to the local storage
+    _storage.write(_currentThemeKey,
+        state.brightness == Brightness.light ? 'light' : 'dark');
   }
 }

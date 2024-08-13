@@ -31,6 +31,7 @@ class ThemeSwitchButton extends ConsumerWidget {
       ),
       onChanged: (value) {
         themeSwitch.value = !themeSwitch.value;
+
         ref.read(themeProvider.notifier).switchTheme();
       },
     );
