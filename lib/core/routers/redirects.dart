@@ -32,7 +32,7 @@ class RouterRedirectServices {
   /// If the user is not opening the app for the first time, then do not redirect the user to any page.
   static String? checkFirstLaunch(BuildContext context, GoRouterState state) {
     final bool isFirstLaunch =
-        _storage.read<bool>(_isFirstLaunchStorageKey) ?? false;
+        _storage.read<bool>(_isFirstLaunchStorageKey) ?? true;
 
     if (!isFirstLaunch) {
       return MainPage.routePath;
@@ -45,7 +45,7 @@ class RouterRedirectServices {
   ///
   /// Once this is called, the user will not be redirected to the onboarding screen again.
   static void markFirstLaunchCompleted() {
-    _storage.write(_isFirstLaunchStorageKey, true);
+    _storage.write(_isFirstLaunchStorageKey, false);
   }
 
   /// Check if the user is logged in.
