@@ -10,7 +10,8 @@ class BankAccountDetailsService {
           );
 
   static Future<void> addBankAccountDetails(
-      {required BankAccountDetailsModel bankAccountDetailsModel,required String id}) async {
+      {required BankAccountDetailsModel bankAccountDetailsModel,
+      required String id}) async {
     try {
       await db.doc(id).set(bankAccountDetailsModel);
     } on FirebaseException catch (e) {
@@ -18,7 +19,8 @@ class BankAccountDetailsService {
     }
   }
 
-  static Future<BankAccountDetailsModel?> getBankAccountDetails( {required String id}) async {
+  static Future<BankAccountDetailsModel?> getBankAccountDetails(
+      {required String id}) async {
     try {
       final result = await db.doc(id).get();
       return result.data();

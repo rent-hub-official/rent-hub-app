@@ -6,7 +6,7 @@ import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/user_saved_location_provider.dart';
 import 'package:rent_hub/features/ads/view/pages/location_search_page.dart';
-import 'package:rent_hub/features/ads/view/pages/notification_page.dart';
+import 'package:rent_hub/features/notification/view/pages/notification_page.dart';
 import 'package:rent_hub/features/ads/view/pages/search/search_page.dart';
 
 class HomeAppbarWidget extends ConsumerWidget {

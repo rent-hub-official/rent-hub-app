@@ -1,4 +1,4 @@
-import 'package:rent_hub/features/ads/service/object_box_service.dart';
+import 'package:rent_hub/object_box_service.dart';
 
 /// Removes a recent search from the database
 /// by its id

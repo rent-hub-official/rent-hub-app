@@ -10,7 +10,7 @@ import 'package:rent_hub/features/ads/view/pages/home_page.dart';
 import 'package:rent_hub/features/ads/view/pages/location_search_page.dart';
 import 'package:rent_hub/features/ads/view/pages/location_selection_page.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
-import 'package:rent_hub/features/ads/view/pages/notification_page.dart';
+import 'package:rent_hub/features/notification/view/pages/notification_page.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
 import 'package:rent_hub/features/ads/view/pages/search/search_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/create_account_page.dart';
@@ -19,7 +19,6 @@ import 'package:rent_hub/features/authentication/view/pages/onboarding/onboardin
 import 'package:rent_hub/features/authentication/view/pages/otp_verification_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/profile_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/profile_settings_page.dart';
-import 'package:rent_hub/features/authentication/view/pages/splash_page.dart';
 import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';
 import 'package:rent_hub/features/chat/view/pages/seller_profile_page.dart';
 import 'package:rent_hub/features/favorites/view/pages/favorites_page.dart';
@@ -29,14 +28,8 @@ import 'package:rent_hub/main.dart';
 
 final router = GoRouter(
   navigatorKey: MyApp.navigatorKey,
-  initialLocation: SplashPage.routePath,
+  initialLocation: OnboardingPages.routePath,
   routes: [
-    GoRoute(
-      path: SplashPage.routePath,
-      builder: (context, state) {
-        return SplashPage();
-      },
-    ),
     GoRoute(
       path: OnboardingPages.routePath,
       builder: (context, state) {
@@ -143,7 +136,7 @@ final router = GoRouter(
     GoRoute(
       path: ChatDetailsPage.routePath,
       builder: (context, state) {
-        final extra = state.extra as Map<String, String>;
+        final extra = state.extra as Map;
         return ChatDetailsPage(
           image: extra['image']!,
           name: extra['name']!,

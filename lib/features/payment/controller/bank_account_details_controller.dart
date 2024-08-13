@@ -4,7 +4,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'bank_account_details_controller.g.dart';
 
 @riverpod
-Future<void> addBankAccountDetailsController(AddBankAccountDetailsControllerRef ref,
+Future<void> addBankAccountDetailsController(
+    AddBankAccountDetailsControllerRef ref,
     {required BankAccountDetailsModel bankAccountDetailsModel,
     required String id}) {
   return BankAccountDetailsUseCase()(

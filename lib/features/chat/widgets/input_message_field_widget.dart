@@ -5,18 +5,28 @@ import 'package:rent_hub/core/constants/chat/chat_box.dart';
 import 'package:rent_hub/core/theme/app_theme.dart';
 import 'package:rent_hub/features/chat/controller/send_message_controller.dart';
 import 'package:rent_hub/features/chat/domain/model/message_model.dart';
+import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';
+import 'package:rent_hub/features/notification/controller/get_fcm_token_controller.dart';
+import 'package:rent_hub/features/notification/controller/send_notification_controller.dart';
+import 'package:rent_hub/features/notification/domain/model/send_notification_model/payload.dart';
+import 'package:rent_hub/features/notification/domain/model/send_notification_model/router_state.dart';
+import 'package:rent_hub/features/notification/domain/model/send_notification_model/send_notification_model.dart';
 
 class InputMessageFieldWidget extends ConsumerWidget {
   const InputMessageFieldWidget({
     required this.controller,
     required this.senderId,
     required this.receiverId,
+    required this.img,
+    required this.name,
     super.key,
   });
 
   final TextEditingController controller;
   final String senderId;
   final String receiverId;
+  final String img;
+  final String name;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,7 +63,7 @@ class InputMessageFieldWidget extends ConsumerWidget {
                 child: Padding(
                   padding: EdgeInsets.only(left: context.spaces.space_50),
                   child: IconButton(
-                    onPressed: () {
+                    onPressed: () async {
                       controller.text.isEmpty
                           ? null
                           : ref
@@ -68,7 +78,29 @@ class InputMessageFieldWidget extends ConsumerWidget {
                                   isReceived: false,
                                 ),
                               );
-                      // TODO fucton for sent messsage
+                      final fcm = await ref
+                          .read(fcmTokenProvider.notifier)
+                          .getFcmTokenFromDb(
+                            id: receiverId,
+                          );
+
+                      ref
+                          .read(sendNotificationControllerProvider.notifier)
+                          .sendNotification(
+                            fcmToken: fcm.data()!.fcmToken!,
+                            sendNotification: SendNotificationModel(
+                              title: name,
+                              body: controller.text,
+                              payload: Payload(
+                                  routerPath: ChatDetailsPage.routePath,
+                                  routerState: RouterState(
+                                    image: img,
+                                    name: name,
+                                    receiverId: receiverId,
+                                    userId: senderId,
+                                  )),
+                            ),
+                          );
                       controller.clear();
                     },
                     icon: Icon(

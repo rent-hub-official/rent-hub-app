@@ -64,6 +64,12 @@ class ChatDetailsPage extends ConsumerWidget {
         data: (userData) {
           return ChatBody(
             profileImage: userData.data()!.profileImage,
+            name: ref
+                    .watch(getUserDataProvider(userId))
+                    .value!
+                    .data()
+                    ?.userName ??
+                '',
             userId: userId,
             receiverId: receiverId,
             image: image,

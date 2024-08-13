@@ -45,63 +45,65 @@ class HistoryDetailsPage extends HookConsumerWidget {
                       shrinkWrap: true,
                       itemCount: data.length,
                       itemBuilder: (context, index) {
-                        return  data[index]==null  ?Center(child: SizedBox.shrink()) : ref
-                            .watch(FetchAdsWithIdProvider(
-                                id: data[index]!.adsId))
-                            .when(
-                              data: (data) => Padding(
-                                padding: EdgeInsets.only(
-                                    top: context.spaces.space_150),
-                                child: Stack(
-                                  children: [
-                                    ProductCardWidget(
-                                      productName: data.data()!.productName,
-                                      price: data.data()!.price,
-                                      productLocation:
-                                          data.data()!.locationTitle,
-                                      img: data.data()!.imagePath[0],
-                                      onTap: () {
-                                        ref
-                                            .read(ordersProvider.notifier)
-                                            .deleteOrder(
-                                                adsId: data.data()!.id!);
-                                      },
-                                      belowbtn: 'Remove',
+                        return data[index] == null
+                            ? Center(child: SizedBox.shrink())
+                            : ref
+                                .watch(FetchAdsWithIdProvider(
+                                    id: data[index]!.adsId))
+                                .when(
+                                  data: (data) => Padding(
+                                    padding: EdgeInsets.only(
+                                        top: context.spaces.space_150),
+                                    child: Stack(
+                                      children: [
+                                        ProductCardWidget(
+                                          productName: data.data()!.productName,
+                                          price: data.data()!.price,
+                                          productLocation:
+                                              data.data()!.locationTitle,
+                                          img: data.data()!.imagePath[0],
+                                          onTap: () {
+                                            ref
+                                                .read(ordersProvider.notifier)
+                                                .deleteOrder(
+                                                    adsId: data.data()!.id!);
+                                          },
+                                          belowbtn: 'Remove',
+                                        ),
+                                        // Positioned(
+                                        //   top: context.spaces.space_400,
+                                        //   right: -40,
+                                        //   child: Transform.rotate(
+                                        //     // angle coverted to radius
+                                        //     angle: context.spaces.space_600 *
+                                        //         (3.14159 / 180),
+                                        //     child: Container(
+                                        //       width: context.spaces.space_900 * 2,
+                                        //       height: context.spaces.space_250,
+                                        //       // label color
+                                        //       color: orders[index].status ==
+                                        //               purchaseConsts.txtCompleted
+                                        //           ? AppColorPalettes.green
+                                        //           : AppColorPalettes.blue,
+                                        //       child: Center(
+                                        //         child: Text(
+                                        //           // choose label text accordingly
+                                        //           orders[index].status ==
+                                        //                   purchaseConsts.txtCompleted
+                                        //               ? purchaseConsts.txtCompleted
+                                        //               : purchaseConsts.txtPending,
+                                        //           style: context.typography.bodyWhite,
+                                        //         ),
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                      ],
                                     ),
-                                    // Positioned(
-                                    //   top: context.spaces.space_400,
-                                    //   right: -40,
-                                    //   child: Transform.rotate(
-                                    //     // angle coverted to radius
-                                    //     angle: context.spaces.space_600 *
-                                    //         (3.14159 / 180),
-                                    //     child: Container(
-                                    //       width: context.spaces.space_900 * 2,
-                                    //       height: context.spaces.space_250,
-                                    //       // label color
-                                    //       color: orders[index].status ==
-                                    //               purchaseConsts.txtCompleted
-                                    //           ? AppColorPalettes.green
-                                    //           : AppColorPalettes.blue,
-                                    //       child: Center(
-                                    //         child: Text(
-                                    //           // choose label text accordingly
-                                    //           orders[index].status ==
-                                    //                   purchaseConsts.txtCompleted
-                                    //               ? purchaseConsts.txtCompleted
-                                    //               : purchaseConsts.txtPending,
-                                    //           style: context.typography.bodyWhite,
-                                    //         ),
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                  ],
-                                ),
-                              ),
-                              error: (error, stackTrace) => Center(),
-                              loading: () => Center(),
-                            );
+                                  ),
+                                  error: (error, stackTrace) => Center(),
+                                  loading: () => Center(),
+                                );
                       },
                     ),
               error: (error, stackTrace) => Center(

@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rent_hub/core/exception/authentication_exception/authentication_exception.dart';
 import 'package:rent_hub/core/exception/authentication_exception/otp_verify_exception.dart';
-import 'package:rent_hub/core/exception/authentication_exception/signout_exception.dart';
-import 'package:rent_hub/core/exception/authentication_exception/signup_exception.dart';
 
 // authentication service
 
@@ -9,7 +8,6 @@ final class AuthenticationService {
   static final FirebaseAuth auth = FirebaseAuth.instance;
 
   // verify phone number
-
   static Future<void> verifyPhoneNumber({
     required String phoneNumber,
     required void Function(String verificationId, int? forceResendingToken)
@@ -24,7 +22,7 @@ final class AuthenticationService {
         codeAutoRetrievalTimeout: (verificationId) {},
       );
     } on FirebaseAuthException catch (e) {
-      throw SignupException(e.message);
+      throw AuthException(e.message);
     }
   }
 
@@ -55,7 +53,7 @@ final class AuthenticationService {
     try {
       await auth.signOut();
     } on FirebaseAuthException catch (e) {
-      throw SignOutException(e.message);
+      throw AuthException(e.message);
     }
   }
 }

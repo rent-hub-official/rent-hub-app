@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,6 +9,7 @@ import 'package:rent_hub/core/widgets/textfeild_widget.dart';
 import 'package:rent_hub/features/authentication/controller/account_details_provider/account_details_provider.dart';
 import 'package:rent_hub/features/authentication/controller/image_picker_provider.dart';
 import 'package:rent_hub/features/authentication/view/widgets/profile_image_selector_widget.dart';
+import 'package:rent_hub/features/notification/controller/get_fcm_token_controller.dart';
 
 class CreateAccountPage extends HookConsumerWidget {
   static const routePath = '/createAccount';
@@ -73,14 +75,27 @@ class CreateAccountPage extends HookConsumerWidget {
                         padding: EdgeInsets.only(top: context.spaces.space_200),
                         child: MainBtnWidget(
                           isLoading: ref.watch(accountDetailsProvider),
-                          onTap: () {
+                          onTap: () async {
+                            FirebaseMessaging.instance.onTokenRefresh
+                                .listen((fcmToken) {
+                              // TODO: If necessary send token to application server.
+
+                              // Note: This callback is fired at each app startup and whenever a new
+                              // token is generated.
+                            }).onError((err) {
+                              // Error getting token.
+                            });
                             // name TextEditingController validation
                             if (_formKey.currentState!.validate()) {
+                              final fcm = await ref
+                                  .watch(fcmTokenProvider.notifier)
+                                  .getFcmTokenFromMessaging();
                               // add user data
                               ref.read(accountDetailsProvider.notifier).addData(
                                     accountDetails: data.data(),
                                     userName: nameEditingController.text,
                                     image: ref.read(imagePickerProvider),
+                                    fcmToken: fcm.toString(),
                                   );
                             }
                           },
