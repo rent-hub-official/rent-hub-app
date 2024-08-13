@@ -25,11 +25,16 @@ class ProfilePage extends HookConsumerWidget {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ref.invalidate(getUserDetailsProvider);
       });
+
       return null;
     }, []);
 
     final constants = ref.watch(profilePageConstantsProvider);
-    final themeSwitch = useState<bool>(false);
+
+    /// Get the current theme and if it is dark set the switch to false.
+    /// Else this will be true.
+    final themeSwitch =
+        useState<bool>(Theme.of(context).brightness == Brightness.light);
 
     return Scaffold(
       body: ref.watch(getUserDetailsProvider).when(
