@@ -46,9 +46,7 @@ class FavoritesPage extends ConsumerWidget {
                           price: adsModel.price,
                           productLocation: adsModel.locationTitle,
                           img: adsModel.imagePath[0],
-                          onTap: () {
-                            // TODO: rental operation
-                          },
+                          onTap: () {},
                           belowbtn: "Rent Now",
                         );
                       },

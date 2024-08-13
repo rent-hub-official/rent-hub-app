@@ -144,16 +144,12 @@ class OrderSortBottomSheet extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   FilterBottomSheetBtn(
-                    onTap: () {
-                      // TODO
-                    },
+                    onTap: () {},
                     color: context.colors.secondary,
                     text: filterConsts.txtResetAllBtn,
                   ),
                   FilterBottomSheetBtn(
-                      onTap: () {
-                        // TODO
-                      },
+                      onTap: () {},
                       color: context.colors.primary,
                       text: filterConsts.txtApplyBtn)
                 ],

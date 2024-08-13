@@ -131,11 +131,7 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                   height: context.spaces.space_900 * 2,
                 ),
                 TermsAndConditionText(addBankConsts: addBankConsts),
-                MainBtnWidget(
-                    onTap: () {
-                      // TODO add functionalities
-                    },
-                    btnTxt: addBankConsts.txtAddAc)
+                MainBtnWidget(onTap: () {}, btnTxt: addBankConsts.txtAddAc)
               ],
             ),
           ),
