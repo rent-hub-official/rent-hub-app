@@ -17,7 +17,7 @@ class LogOutUseCase {
 
       // Navigate to login screen
       // Ensure this path matches your router setup
-      MyApp.navigatorKey.currentContext!.push(LoginPage.routePath);
+      App.navigatorKey.currentContext!.push(LoginPage.routePath);
     } on BaseException catch (e) {
       SnackbarUtils.showError(e.message);
     }

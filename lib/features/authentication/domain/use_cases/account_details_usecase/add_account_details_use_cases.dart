@@ -17,7 +17,7 @@ final class AddAccountDeatailsUseCase {
       );
 
       // navigate to home page
-      MyApp.navigatorKey.currentContext!.go(MainPage.routePath);
+      App.navigatorKey.currentContext!.go(MainPage.routePath);
     } on BaseException catch (e) {
       SnackbarUtils.showError(e.message);
     }

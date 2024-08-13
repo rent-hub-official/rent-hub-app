@@ -12,7 +12,7 @@ class ProductAddUsecase {
     try {
       await AdsService.addData(adsModel);
 
-      MyApp.navigatorKey.currentContext?.pop();
+      App.navigatorKey.currentContext?.pop();
     } on BaseException catch (e) {
       SnackbarUtils.showError(e.message);
     }

@@ -19,7 +19,7 @@ final class VerifyPhoneNumberUseCase {
           phoneNumber: phoneNumber, codeSent: codeSent);
 
       // navigate to otppage
-      MyApp.navigatorKey.currentContext!.go(OtpVerificationPage.routePath);
+      App.navigatorKey.currentContext!.go(OtpVerificationPage.routePath);
     } on BaseException catch (e) {
       SnackbarUtils.showError(e.message);
     }

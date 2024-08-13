@@ -26,6 +26,7 @@ final darktheme = ThemeData(
         iconButtonIcon: AppColorPalettes.white500,
         bottomNavBar: AppColorPalettes.grey1000,
         messageBackground: AppColorPalettes.grey800,
+        dialogBackground: AppColorPalettes.grey950,
       ),
 
       /// AppSpaceExtension

@@ -23,7 +23,7 @@ final class SigninWithOtpCredentialUseCase {
 
         if (userCredential.user != null) {
           // Navigate to create user
-          MyApp.navigatorKey.currentContext!.go(CreateAccountPage.routePath);
+          App.navigatorKey.currentContext!.go(CreateAccountPage.routePath);
         } else {
           // user credential is null
           SnackbarUtils.showError("Authentication failed please try again");
@@ -33,7 +33,7 @@ final class SigninWithOtpCredentialUseCase {
         SnackbarUtils.showError("Something went wrong please try again");
 
         // navigate to login page
-        MyApp.navigatorKey.currentContext!.go(LoginPage.routePath);
+        App.navigatorKey.currentContext!.go(LoginPage.routePath);
       }
     } on BaseException catch (e) {
       SnackbarUtils.showError(e.message);

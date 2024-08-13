@@ -26,6 +26,7 @@ final lighttheme = ThemeData(
         iconButtonBackgroud: AppColorPalettes.white500,
         iconButtonIcon: AppColorPalettes.black500,
         bottomNavBar: AppColorPalettes.grey100,
+        dialogBackground: AppColorPalettes.grey950,
       ),
 
       ///AppSpaceExtension

@@ -11,7 +11,7 @@ class DeleteAccountUseCase {
       await AccountDetailsService.deleteAccount();
 
       // navigate to home page
-      MyApp.navigatorKey.currentContext!.go(LoginPage.routePath);
+      App.navigatorKey.currentContext!.go(LoginPage.routePath);
     } on BaseException catch (e) {
       SnackbarUtils.showError(e.message);
     }

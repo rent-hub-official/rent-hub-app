@@ -21,4 +21,5 @@ class AppColorPalettes {
   static const blue = Color(0xFF2196F3);
   static const white100 = Color(0xFFD1D0CD);
   static const green = Color(0xFF4CAF50);
+  static const grey950 = Color(0xFF181616);
 }

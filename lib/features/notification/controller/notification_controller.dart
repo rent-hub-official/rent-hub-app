@@ -44,7 +44,7 @@ class NotificationController {
     final routerState = jsonDecode(payload['routerState'] ?? "");
 
     // Navigate into pages, avoiding to open the notification details page over another details page already opened
-    MyApp.navigatorKey.currentContext!.push(
+    App.navigatorKey.currentContext!.push(
       routerPath!,
       extra: routerState,
     );

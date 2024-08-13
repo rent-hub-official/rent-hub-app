@@ -69,12 +69,11 @@ Future<void> main() async {
   FirebaseMessaging.onBackgroundMessage(
       NotificationController.firebaseMessagingBackgroundHandler);
 
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: App()));
 }
 
-class MyApp extends HookConsumerWidget {
+class App extends HookConsumerWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
-
   static final scaffoldMessngerKey = GlobalKey<ScaffoldMessengerState>();
 
   static final algolia = Algolia.init(
@@ -82,7 +81,7 @@ class MyApp extends HookConsumerWidget {
     applicationId: SecretKeys.algoliaApplicationId,
   );
 
-  const MyApp({super.key});
+  const App({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

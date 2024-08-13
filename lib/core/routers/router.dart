@@ -27,7 +27,7 @@ import 'package:rent_hub/features/payment/view/pages/payment_failed_page.dart';
 import 'package:rent_hub/main.dart';
 
 final router = GoRouter(
-  navigatorKey: MyApp.navigatorKey,
+  navigatorKey: App.navigatorKey,
   initialLocation: OnboardingPage.routePath,
   routes: [
     GoRoute(

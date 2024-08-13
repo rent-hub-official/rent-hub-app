@@ -8,7 +8,7 @@ class ErrorSnackBar extends SnackBar {
       : super(
           content: Text(
             errorMessage,
-            style: Theme.of(MyApp.navigatorKey.currentContext!)
+            style: Theme.of(App.navigatorKey.currentContext!)
                 .textTheme
                 .titleMedium!
                 .copyWith(

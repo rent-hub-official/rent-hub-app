@@ -28,6 +28,6 @@ final class ToasterUtil {
         color: context.colors.secondary, // Set a nice background color
         // Add padding for better spacing
       ),
-    ).show(MyApp.navigatorKey.currentContext!);
+    ).show(App.navigatorKey.currentContext!);
   }
 }

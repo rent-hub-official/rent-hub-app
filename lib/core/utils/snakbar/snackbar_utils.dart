@@ -6,7 +6,7 @@ class SnackbarUtils {
   ///
   /// [message] Is the message to be shown to the user
   static void showError(String message) {
-    MyApp.scaffoldMessngerKey.currentState!
+    App.scaffoldMessngerKey.currentState!
         .showSnackBar(ErrorSnackBar(errorMessage: message));
   }
 }

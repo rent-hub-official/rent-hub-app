@@ -10,7 +10,7 @@ final class SaveUserSelectedLocationUsecase {
     try {
       LocationService.saveUserSelectedLocation(location);
 
-      MyApp.navigatorKey.currentContext?.pop();
+      App.navigatorKey.currentContext?.pop();
     } on BaseException catch (e) {
       SnackbarUtils.showError(e.message);
     }

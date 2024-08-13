@@ -15,6 +15,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
   final Color iconButtonBackgroud;
   final Color iconButtonIcon;
   final Color bottomNavBar;
+  final Color dialogBackground;
 
   AppColorExtension({
     required this.appBarBackground,
@@ -30,6 +31,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     required this.iconButtonBackgroud,
     required this.iconButtonIcon,
     required this.bottomNavBar,
+    required this.dialogBackground,
   });
 
   @override
@@ -47,6 +49,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     Color? iconButtonBackgroud,
     Color? iconButtonIcon,
     Color? bottomNavBar,
+    Color? dialogBackground,
   }) {
     return AppColorExtension(
       primary: primary ?? this.primary,
@@ -62,6 +65,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       iconButtonBackgroud: iconButtonBackgroud ?? this.iconButtonBackgroud,
       iconButtonIcon: iconButtonIcon ?? this.iconButtonBackgroud,
       bottomNavBar: bottomNavBar ?? this.bottomNavBar,
+      dialogBackground: dialogBackground ?? this.dialogBackground,
     );
   }
 
@@ -88,6 +92,8 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
           Color.lerp(iconButtonBackgroud, other.iconButtonBackgroud, t)!,
       iconButtonIcon: Color.lerp(iconButtonIcon, other.iconButtonIcon, t)!,
       bottomNavBar: Color.lerp(bottomNavBar, other.bottomNavBar, t)!,
+      dialogBackground:
+          Color.lerp(dialogBackground, other.dialogBackground, t)!,
     );
   }
 }
