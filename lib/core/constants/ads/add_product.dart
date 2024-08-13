@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'add_product.g.dart';
 
 class AddProductConstants {
-  final txtHeading = "ADD PRODUCT";
+  final txtHeading = "Add Product";
   final txtPhotos = "Photos";
   final txtSubHeading =
       "Include 3 to 8 photos for a full product representation";
