@@ -1,11 +1,13 @@
 import 'package:rent_hub/core/exception/base_exception.dart';
 
-final class VerifyOTPException extends BaseException {
+/// An exception that will be thwon when OTP verification fails.
+final class OTPVerificationFailedException extends BaseException {
   final int? statusCode;
   final String? error;
   final String? responseMessage;
 
-  const VerifyOTPException({this.statusCode, this.error, this.responseMessage})
+  const OTPVerificationFailedException(
+      {this.statusCode, this.error, this.responseMessage})
       : super(
           message: statusCode == null
               ? error ??

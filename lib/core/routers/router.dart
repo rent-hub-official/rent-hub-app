@@ -28,13 +28,14 @@ import 'package:rent_hub/main.dart';
 
 final router = GoRouter(
   navigatorKey: MyApp.navigatorKey,
-  initialLocation: OnboardingPages.routePath,
+  initialLocation: OnboardingPage.routePath,
   routes: [
     GoRoute(
-      path: OnboardingPages.routePath,
+      path: OnboardingPage.routePath,
       builder: (context, state) {
-        return OnboardingPages();
+        return OnboardingPage();
       },
+      redirect: RouterRedirectServices.checkFirstLaunch,
     ),
     GoRoute(
       path: OtpVerificationPage.routePath,
@@ -43,54 +44,10 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: MainPage.routePath,
-      builder: (context, state) {
-        return const MainPage();
-      },
-      redirect: checkLoggedIn,
-    ),
-    GoRoute(
       path: LoginPage.routePath,
       builder: (context, state) {
         return const LoginPage();
       },
-    ),
-    GoRoute(
-      path: HomePage.routePath,
-      builder: (context, state) {
-        return const HomePage();
-      },
-      redirect: checkLoggedIn,
-    ),
-    GoRoute(
-      path: ProductDetailsPage.routePath,
-      builder: (context, state) {
-        return ProductDetailsPage(
-          adsData: state.extra as QueryDocumentSnapshot<AdsModel>,
-        );
-      },
-      redirect: checkLoggedIn,
-    ),
-    GoRoute(
-      path: AddProductPage.routePath,
-      builder: (context, state) {
-        return const AddProductPage();
-      },
-      redirect: checkLoggedIn,
-    ),
-    GoRoute(
-      path: MyProductsPage.routePath,
-      builder: (context, state) {
-        return const MyProductsPage();
-      },
-      redirect: checkLoggedIn,
-    ),
-    GoRoute(
-      path: NotificationPage.routePath,
-      builder: (context, state) {
-        return const NotificationPage();
-      },
-      redirect: checkLoggedIn,
     ),
     GoRoute(
       path: CreateAccountPage.routePath,
@@ -99,39 +56,83 @@ final router = GoRouter(
       },
     ),
     GoRoute(
+      path: MainPage.routePath,
+      builder: (context, state) {
+        return const MainPage();
+      },
+      redirect: RouterRedirectServices.checkLoggedIn,
+    ),
+    GoRoute(
+      path: HomePage.routePath,
+      builder: (context, state) {
+        return const HomePage();
+      },
+      redirect: RouterRedirectServices.checkLoggedIn,
+    ),
+    GoRoute(
+      path: ProductDetailsPage.routePath,
+      builder: (context, state) {
+        return ProductDetailsPage(
+          adsData: state.extra as QueryDocumentSnapshot<AdsModel>,
+        );
+      },
+      redirect: RouterRedirectServices.checkLoggedIn,
+    ),
+    GoRoute(
+      path: AddProductPage.routePath,
+      builder: (context, state) {
+        return const AddProductPage();
+      },
+      redirect: RouterRedirectServices.checkLoggedIn,
+    ),
+    GoRoute(
+      path: MyProductsPage.routePath,
+      builder: (context, state) {
+        return const MyProductsPage();
+      },
+      redirect: RouterRedirectServices.checkLoggedIn,
+    ),
+    GoRoute(
+      path: NotificationPage.routePath,
+      builder: (context, state) {
+        return const NotificationPage();
+      },
+      redirect: RouterRedirectServices.checkLoggedIn,
+    ),
+    GoRoute(
       path: ProfilePage.routePath,
       builder: (context, state) {
         return const ProfilePage();
       },
-      redirect: checkLoggedIn,
+      redirect: RouterRedirectServices.checkLoggedIn,
     ),
     GoRoute(
       path: ProfileSettingsPage.routePath,
       builder: (context, state) {
         return const ProfileSettingsPage();
       },
-      redirect: checkLoggedIn,
+      redirect: RouterRedirectServices.checkLoggedIn,
     ),
     GoRoute(
       path: FavoritesPage.routePath,
       builder: (context, state) {
         return const FavoritesPage();
       },
-      redirect: checkLoggedIn,
+      redirect: RouterRedirectServices.checkLoggedIn,
     ),
     GoRoute(
       path: SearchPage.routePath,
       builder: (context, state) {
         return const SearchPage();
       },
-      redirect: checkLoggedIn,
+      redirect: RouterRedirectServices.checkLoggedIn,
     ),
     GoRoute(
       path: AddBankAcDetailsPage.routePath,
       builder: (context, state) {
         return AddBankAcDetailsPage();
       },
-      redirect: checkLoggedIn,
+      redirect: RouterRedirectServices.checkLoggedIn,
     ),
     GoRoute(
       path: ChatDetailsPage.routePath,
@@ -144,20 +145,21 @@ final router = GoRouter(
           userId: extra['userId']!,
         );
       },
+      redirect: RouterRedirectServices.checkLoggedIn,
     ),
     GoRoute(
       path: PaymentFailedPage.routePath,
       builder: (context, state) {
         return PaymentFailedPage();
       },
-      redirect: checkLoggedIn,
+      redirect: RouterRedirectServices.checkLoggedIn,
     ),
     GoRoute(
       path: HistoryDetailsPage.routePath,
       builder: (context, state) {
         return HistoryDetailsPage();
       },
-      redirect: checkLoggedIn,
+      redirect: RouterRedirectServices.checkLoggedIn,
     ),
     GoRoute(
       path: SellerProfilePage.routePath,
@@ -166,14 +168,14 @@ final router = GoRouter(
           Userdata: state.extra as QueryDocumentSnapshot<AdsModel>,
         );
       },
-      redirect: checkLoggedIn,
+      redirect: RouterRedirectServices.checkLoggedIn,
     ),
     GoRoute(
       path: LocationSearchPage.routePath,
       builder: (context, state) {
         return LocationSearchPage();
       },
-      redirect: checkLoggedIn,
+      redirect: RouterRedirectServices.checkLoggedIn,
     ),
     GoRoute(
       path: LocationSelectionPage.routePath,
@@ -182,7 +184,7 @@ final router = GoRouter(
           latLng: state.extra as LatLng,
         );
       },
-      redirect: checkLoggedIn,
+      redirect: RouterRedirectServices.checkLoggedIn,
     )
   ],
 );
