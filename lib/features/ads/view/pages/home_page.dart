@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/error_constants.dart';
 import 'package:rent_hub/core/constants/ads/filter_sort.dart';
 import 'package:rent_hub/core/constants/ads/home_screen.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/features/ads/controller/category_controller/category_provider.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/fetch_catagary_products_provider.dart';
 import 'package:rent_hub/features/ads/view/widgets/home_widgets/category_list_builder_widget.dart';

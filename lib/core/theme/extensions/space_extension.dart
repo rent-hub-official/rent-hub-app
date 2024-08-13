@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+/// This is the ThemeExtension used to add custom white space size values
+/// into the app theme
 class AppSpaceExtension extends ThemeExtension<AppSpaceExtension> {
   final double space_25;
   final double space_50;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/features/ads/controller/image_controller/image_provider.dart';
 import 'package:rent_hub/features/ads/view/widgets/add_product_page/image_widget.dart';
 

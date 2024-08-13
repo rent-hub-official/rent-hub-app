@@ -6,7 +6,7 @@ import 'package:rent_hub/core/constants/authentication/onboarding1.dart';
 import 'package:rent_hub/core/constants/authentication/onboarding2.dart';
 import 'package:rent_hub/core/constants/authentication/onboarding3.dart';
 import 'package:rent_hub/core/routers/redirects.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/features/authentication/view/pages/login_page.dart';
 import 'package:rent_hub/features/authentication/view/widgets/onboarding_widgets/loder_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/onboarding_widgets/onboading_content_widget.dart';

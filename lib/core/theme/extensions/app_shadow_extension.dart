@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// This is the ThemeExtension used to add custom shadows into the app theme
 class ShadowExtension extends ThemeExtension<ShadowExtension> {
   final BoxShadow primary;
   final BoxShadow secondary;

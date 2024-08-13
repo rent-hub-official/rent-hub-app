@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/user_search_details.dart';
 import 'package:rent_hub/core/constants/error_constants.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/utils/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:rent_hub/features/ads/controller/search_controller/recent_search_controller.dart';

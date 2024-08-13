@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MainBtnWidget extends StatelessWidget {

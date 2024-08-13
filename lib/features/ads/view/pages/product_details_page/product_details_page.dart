@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/constants/ads/product_screen.dart';
 import 'package:rent_hub/core/constants/payment/order_summery.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/utils/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';

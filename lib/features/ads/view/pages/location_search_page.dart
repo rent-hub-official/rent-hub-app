@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/user_search_detailes.dart';
 import 'package:rent_hub/core/constants/error_constants.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/location_search_provider.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/user_saved_location_provider.dart';
 import 'package:rent_hub/features/ads/view/widgets/places_tile_loading_widget.dart';

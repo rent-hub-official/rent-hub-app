@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/filter_sort.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/features/ads/view/widgets/search_filter_widgets/bottom_sheet_btn_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/search_filter_widgets/check_box_filter_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/search_filter_widgets/choose_location_field_widget.dart';

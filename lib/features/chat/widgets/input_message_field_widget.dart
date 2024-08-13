@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/chat/chat_box.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/features/chat/controller/send_message_controller.dart';
 import 'package:rent_hub/features/chat/domain/model/message_model.dart';
 import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';

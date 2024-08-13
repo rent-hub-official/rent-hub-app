@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_hub/core/constants/ads/add_product.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 
 class DescriptionFeildWidget extends StatelessWidget {

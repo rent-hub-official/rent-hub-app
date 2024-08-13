@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-// App default colors
-
+/// This is the ThemeExtension used to add custom colors into the app theme
 class AppColorExtension extends ThemeExtension<AppColorExtension> {
   final Color primary;
   final Color secondary;

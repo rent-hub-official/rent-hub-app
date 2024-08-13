@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// These are the color constants used in the app themes.
 class AppColorPalettes {
   static const white500 = Color(0xFFFFFFFF);
   static const black500 = Color(0xFF000000);
