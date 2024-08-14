@@ -6,7 +6,7 @@ import 'package:rent_hub/core/constants/ads/product_screen.dart';
 import 'package:rent_hub/core/constants/payment/order_summery.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
-import 'package:rent_hub/core/utils/bottom_sheet/bottom_sheet_widget.dart';
+import 'package:rent_hub/core/utils/bottom_sheet_utils.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/ads/controller/order_controller/dateprovider.dart';
@@ -176,9 +176,8 @@ class ProductDetailsPage extends ConsumerWidget {
           onTap: () {
             /// show bottom sheet
             /// add order summery bottom sheet widget
-            bottomSheetWidget(
-              context: context,
-              child: OrderSummeryBottomSheetWidget(
+            BottomSheetUtils.show(
+              OrderSummeryBottomSheetWidget(
                 price: 'RS ${adsData.data().price}/-',
                 pickordropdate: orderConsts.txtDropUp,
                 selectpicklocation: orderConsts.txtSelectLocation,
