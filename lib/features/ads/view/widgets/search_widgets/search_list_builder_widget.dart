@@ -7,7 +7,7 @@ import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/fetch_catagary_products_provider.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
 

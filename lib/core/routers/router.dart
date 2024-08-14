@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rent_hub/core/routers/redirects.dart';
 import 'package:rent_hub/features/navigation/view/pages/navigation_page.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
 import 'package:rent_hub/features/orders/view/pages/history_details_page.dart';
 import 'package:rent_hub/features/ads/view/pages/home_page.dart';

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/animation_constants.dart';
@@ -7,12 +8,13 @@ import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/fetch_catagary_products_provider.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_card_shimmer/product_card_shimmer_widget.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
+import 'package:rent_hub/features/navigation/view/pages/navigation_page.dart';
 
-class CategoryListBuilderWidget extends ConsumerWidget {
+class CategoryListBuilderWidget extends HookConsumerWidget {
   const CategoryListBuilderWidget({
     super.key,
     required this.productsList,
@@ -22,13 +24,35 @@ class CategoryListBuilderWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final bottomNavBarHeight = useState<double>(0);
     final lottieConsts = ref.read(animationConstantsProvider);
+
+    /// Get the height of the bottom navigation bar to add padding to the bottom
+    /// of the list
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        bottomNavBarHeight.value = (NavigationPage
+                    .bottomNavBarKey.currentContext?.size?.height ??
+                0.0) +
+            (NavigationPage.floatingActionBtnKey.currentContext?.size?.height ??
+                    0.0) /
+                2;
+      });
+
+      return null;
+    }, []);
 
     return productsList.isNotEmpty
         ? ListView.builder(
-            itemCount: productsList.length,
+            itemCount: productsList.length + 1,
             padding: EdgeInsets.zero,
             itemBuilder: (context, index) {
+              if (index == productsList.length) {
+                return SizedBox(
+                  height: bottomNavBarHeight.value,
+                );
+              }
+
               //future builder for cehceks ads if favorite or not
               return FutureBuilder(
                   future: ref

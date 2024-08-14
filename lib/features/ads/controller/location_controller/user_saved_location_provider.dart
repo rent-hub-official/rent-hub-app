@@ -1,5 +1,5 @@
 import 'package:rent_hub/core/utils/toast_utils.dart';
-import 'package:rent_hub/features/ads/domain/entity/selected_location_entity.dart';
+import 'package:rent_hub/features/ads/service/entity/selected_location_entity.dart';
 import 'package:rent_hub/features/ads/domain/usecase/get_user_selected_location_usecase.dart';
 import 'package:rent_hub/features/ads/domain/usecase/save_user_selected_location_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

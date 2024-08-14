@@ -8,7 +8,7 @@ import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
 import 'package:rent_hub/features/chat/controller/get_user_details_controller.dart';
 import 'package:rent_hub/features/chat/controller/seller_product_controller.dart';

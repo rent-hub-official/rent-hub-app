@@ -8,20 +8,22 @@ import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/features/ads/controller/category_controller/category_provider.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/fetch_catagary_products_provider.dart';
 import 'package:rent_hub/features/ads/view/widgets/home_widgets/category_list_builder_widget.dart';
-import 'package:rent_hub/features/ads/view/widgets/home_widgets/home_appbar_widget.dart';
-import 'package:rent_hub/features/ads/view/widgets/home_widgets/tabbar_widget.dart';
+import 'package:rent_hub/features/ads/view/widgets/home_widgets/home_app_bar_widget.dart';
+import 'package:rent_hub/features/ads/view/widgets/home_widgets/tab_bar_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_card_shimmer/product_card_shimmer_widget.dart';
 
 class HomePage extends HookConsumerWidget {
-  const HomePage({super.key});
   static const routePath = '/home';
+
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // tab controller
-    final tabController = useTabController(initialLength: 5);
-    // List of available category
+    /// List of available category
     final categoryList = ref.watch(filterSortConstantsProvider).productType;
+
+    /// Controler used for the tab view.
+    final tabController = useTabController(initialLength: categoryList.length);
 
     // update when tabs changes
     tabController.addListener(() {
@@ -29,9 +31,10 @@ class HomePage extends HookConsumerWidget {
           tabController.index;
     });
 
-    ///get all catagorised ads
-    ///by selecting tabbar
-    ///if selected all catagory fetch all ads in firbase
+    /// Get the ads that are part of the selected category.
+    ///
+    /// If the selected category index is 0, then we need to fetch all the ads.
+    /// Otherwise we will fetch the ads of the selected category name
     final products = ref.watch(fetchCatagorisedProductsProvider(
       catagory: ref.watch(categoryItemSelectedIndexProvider) != 0
           ? categoryList[ref.watch(categoryItemSelectedIndexProvider)]
@@ -40,13 +43,14 @@ class HomePage extends HookConsumerWidget {
 
     return Scaffold(
       body: NestedScrollView(
+        floatHeaderSlivers: true,
         headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
-          HomeAppbarWidget(),
+          HomeAppBarWidget(),
           SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TabbarWidget(
+                TabBarWidget(
                     tabController: tabController, categoryList: categoryList),
                 Padding(
                   padding: EdgeInsets.symmetric(

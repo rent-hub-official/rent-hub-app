@@ -12,6 +12,8 @@ import 'package:rent_hub/features/favorites/view/pages/favorites_page.dart';
 
 class NavigationPage extends ConsumerWidget {
   static const routePath = '/nav';
+  static final GlobalKey bottomNavBarKey = GlobalKey();
+  static final GlobalKey floatingActionBtnKey = GlobalKey();
 
   const NavigationPage({super.key});
 
@@ -44,6 +46,7 @@ class NavigationPage extends ConsumerWidget {
         ],
       ),
       floatingActionButton: Padding(
+        key: floatingActionBtnKey,
         padding: EdgeInsets.only(top: context.spaces.space_50),
         child: FloatingActionButton(
           shape: RoundedRectangleBorder(
@@ -62,6 +65,7 @@ class NavigationPage extends ConsumerWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar(
+        key: bottomNavBarKey,
         backgroundColor: context.colors.bottomNavBar,
         height: context.spaces.space_800,
         onTap: (int index) {

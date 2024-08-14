@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:rent_hub/features/ads/domain/usecase/product_use_case/get_products_data_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

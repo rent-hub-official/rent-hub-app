@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/utils/toast_utils.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/location_name_reduce_provider.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/place_details_provider.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:rent_hub/features/ads/domain/model/place_model/place_model.dart';
 import 'package:rent_hub/features/ads/domain/usecase/product_use_case/product_add_usecase.dart';
 import 'package:rent_hub/features/ads/domain/usecase/product_use_case/product_update_usecase.dart';

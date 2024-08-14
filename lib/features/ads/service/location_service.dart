@@ -7,7 +7,7 @@ import 'package:rent_hub/core/exception/google_map_exception/google_map_exceptio
 import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart'
     as exception;
 import 'package:rent_hub/core/secret_keys.dart';
-import 'package:rent_hub/features/ads/domain/entity/selected_location_entity.dart';
+import 'package:rent_hub/features/ads/service/entity/selected_location_entity.dart';
 import 'package:rent_hub/object_box_service.dart';
 import 'package:rent_hub/objectbox.g.dart';
 
