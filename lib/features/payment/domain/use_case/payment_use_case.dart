@@ -1,4 +1,4 @@
-import 'package:rent_hub/core/utils/snakbar/snackbar_utils.dart';
+import 'package:rent_hub/core/utils/snackbar_utils.dart';
 import 'package:rent_hub/features/payment/service/payment_service.dart';
 
 class PaymentUseCase {

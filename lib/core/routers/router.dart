@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rent_hub/core/routers/redirects.dart';
-import 'package:rent_hub/core/widgets/bottom_nav/bottom_nav_widget.dart';
+import 'package:rent_hub/features/navigation/view/pages/navigation_page.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
 import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
 import 'package:rent_hub/features/orders/view/pages/history_details_page.dart';
@@ -56,9 +56,9 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: MainPage.routePath,
+      path: NavigationPage.routePath,
       builder: (context, state) {
-        return const MainPage();
+        return const NavigationPage();
       },
       redirect: RouterRedirectServices.checkLoggedIn,
     ),

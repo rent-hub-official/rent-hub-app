@@ -100,8 +100,8 @@ class PaymentSuccessfulPage extends ConsumerWidget {
               padding: EdgeInsets.only(
                   top:
                       context.spaces.space_800), // Padding for the retry button
-              child: MainBtnWidget(
-                  onTap: () {}, btnTxt: constant.txtBtn), // Retry button
+              child: PrimaryBtnWidget(
+                  onTap: () {}, label: constant.txtBtn), // Retry button
             )
           ],
         ),

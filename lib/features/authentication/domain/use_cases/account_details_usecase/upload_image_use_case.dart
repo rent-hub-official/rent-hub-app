@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:rent_hub/core/exception/base_exception.dart';
-import 'package:rent_hub/core/utils/snakbar/snackbar_utils.dart';
+import 'package:rent_hub/core/utils/snackbar_utils.dart';
 import 'package:rent_hub/features/authentication/service/account_details_service.dart';
 
 //upload image for cloud storage

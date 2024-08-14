@@ -3,16 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/enums/bottom_nav_items_enum.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
-import 'package:rent_hub/core/widgets/bottom_nav/animated_bottom_nav/animated_bottom_nav_bar.dart';
+import 'package:rent_hub/core/widgets/bottom_nav_bar/animated_bottom_nav_bar.dart';
 import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
 import 'package:rent_hub/features/ads/view/pages/home_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/profile_page.dart';
 import 'package:rent_hub/features/chat/view/pages/chat_list_page.dart';
 import 'package:rent_hub/features/favorites/view/pages/favorites_page.dart';
 
-class MainPage extends ConsumerWidget {
-  static const routePath = '/bottomNav';
-  const MainPage({super.key});
+class NavigationPage extends ConsumerWidget {
+  static const routePath = '/nav';
+
+  const NavigationPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

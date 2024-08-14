@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/add_product.dart';
 import 'package:rent_hub/core/constants/error_constants.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
-import 'package:rent_hub/core/widgets/textfeild_widget.dart';
+import 'package:rent_hub/core/widgets/textfield_widget.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/location_name_reduce_provider.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/place_details_provider.dart';
 import 'package:rent_hub/features/ads/view/pages/location_selection_page.dart';
@@ -33,11 +33,11 @@ class LocationFeilddWidget extends ConsumerWidget {
                   ),
                 );
               },
-              child: TextFeildWidget(
+              child: TextFieldWidget.TextFielddWidget(
                 validator: (value) {
                   return null;
                 },
-                labeltxt: ref.watch(addProductConstantsProvider).txtLocation,
+                label: ref.watch(addProductConstantsProvider).txtLocation,
                 textController: TextEditingController(
                   text: ref.watch(
                     locationNameReduceProvider(
@@ -45,7 +45,7 @@ class LocationFeilddWidget extends ConsumerWidget {
                     ),
                   ),
                 ),
-                enabled: false,
+                isEnabled: false,
               ),
             );
           },
@@ -53,12 +53,12 @@ class LocationFeilddWidget extends ConsumerWidget {
             onTap: () {
               context.push(LocationSelectionPage.routePath);
             },
-            child: TextFeildWidget(
-              labeltxt: ref.watch(addProductConstantsProvider).txtLocation,
+            child: TextFieldWidget.TextFielddWidget(
+              label: ref.watch(addProductConstantsProvider).txtLocation,
               textController: TextEditingController(
                 text: ref.watch(errorConstantsProvider).txtWentWrong,
               ),
-              enabled: false,
+              isEnabled: false,
             ),
           ),
           loading: () => Shimmer.fromColors(

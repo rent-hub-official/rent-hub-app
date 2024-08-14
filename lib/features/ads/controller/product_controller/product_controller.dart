@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/utils/snakbar/toaster_util.dart';
+import 'package:rent_hub/core/utils/toast_utils.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/location_name_reduce_provider.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/place_details_provider.dart';
 import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
@@ -40,11 +40,11 @@ class Products extends _$Products {
     );
 
     if (imagePaths.length < 3) {
-      ToasterUtil.showMessage(message: "Pick at least three product photos");
+      ToastUtils.showMessage(message: "Pick at least three product photos");
     } else if (category == null) {
-      ToasterUtil.showMessage(message: "Select product category");
+      ToastUtils.showMessage(message: "Select product category");
     } else if (placeModel == null) {
-      ToasterUtil.showMessage(message: "Select location");
+      ToastUtils.showMessage(message: "Select location");
     } else {
       state = true;
 

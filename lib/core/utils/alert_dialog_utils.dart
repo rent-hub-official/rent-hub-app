@@ -76,7 +76,7 @@ class AlertDialogUtils {
                                   ),
                                 ),
                               ),
-                              onPressed: actions.values.first,
+                              onPressed: actions.entries.elementAt(i).value,
                               child: Text(
                                 actions.entries.elementAt(i).key,
                                 style: context.typography.buttonText,

@@ -172,7 +172,7 @@ class ProductDetailsPage extends ConsumerWidget {
           ),
       floatingActionButton: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: MainBtnWidget(
+        child: PrimaryBtnWidget(
           onTap: () {
             /// show bottom sheet
             /// add order summery bottom sheet widget
@@ -209,7 +209,7 @@ class ProductDetailsPage extends ConsumerWidget {
                   ),
                 );
           },
-          btnTxt: ref.read(productScreenConstantsProvider).txtbtn,
+          label: ref.read(productScreenConstantsProvider).txtbtn,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

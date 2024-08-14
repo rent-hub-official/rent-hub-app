@@ -57,18 +57,17 @@ class HistoryDetailsPage extends HookConsumerWidget {
                                     child: Stack(
                                       children: [
                                         ProductCardWidget(
-                                          productName: data.data()!.productName,
+                                          name: data.data()!.productName,
                                           price: data.data()!.price,
-                                          productLocation:
-                                              data.data()!.locationTitle,
-                                          img: data.data()!.imagePath[0],
+                                          location: data.data()!.locationTitle,
+                                          image: data.data()!.imagePath[0],
                                           onTap: () {
                                             ref
                                                 .read(ordersProvider.notifier)
                                                 .deleteOrder(
                                                     adsId: data.data()!.id!);
                                           },
-                                          belowbtn: 'Remove',
+                                          actionBtnLabel: 'Remove',
                                         ),
                                         // Positioned(
                                         //   top: context.spaces.space_400,

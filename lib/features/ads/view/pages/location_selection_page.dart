@@ -99,7 +99,7 @@ class LocationSelectionPage extends HookConsumerWidget {
           : Padding(
               padding:
                   EdgeInsets.symmetric(horizontal: context.spaces.space_100),
-              child: MainBtnWidget(
+              child: PrimaryBtnWidget(
                 onTap: () {
                   ref
                       .read(placeDetailsProvider.notifier)
@@ -107,7 +107,7 @@ class LocationSelectionPage extends HookConsumerWidget {
 
                   context.pop();
                 },
-                btnTxt: ref.watch(locationSelectionConstantsProvider).txtBtn,
+                label: ref.watch(locationSelectionConstantsProvider).txtBtn,
               ),
             ),
     );

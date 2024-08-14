@@ -92,17 +92,16 @@ class SellerProfilePage extends ConsumerWidget {
                                                   const EdgeInsets.symmetric(
                                                       vertical: 8.0),
                                               child: ProductCardWidget(
-                                                productName: data.docs[index]
+                                                name: data.docs[index]
                                                     .data()
                                                     .productName,
                                                 price: data.docs[index]
                                                     .data()
                                                     .price,
-                                                productLocation: data
-                                                    .docs[index]
+                                                location: data.docs[index]
                                                     .data()
                                                     .locationTitle,
-                                                img: data.docs[index]
+                                                image: data.docs[index]
                                                     .data()
                                                     .imagePath[0],
                                                 onTap: () {
@@ -112,7 +111,8 @@ class SellerProfilePage extends ConsumerWidget {
                                                     extra: data.docs[index],
                                                   );
                                                 },
-                                                belowbtn: constans.txtContinue,
+                                                actionBtnLabel:
+                                                    constans.txtContinue,
                                               ),
                                             );
                                           },

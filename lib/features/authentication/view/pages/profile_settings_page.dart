@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/user_profile_settings.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
-import 'package:rent_hub/core/widgets/textfeild_widget.dart';
+import 'package:rent_hub/core/widgets/textfield_widget.dart';
 import 'package:rent_hub/features/authentication/controller/account_details_provider/account_details_provider.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
 import 'package:rent_hub/features/authentication/controller/image_picker_provider.dart';
@@ -62,7 +62,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
                         ref.watch(userProfileSettingsConstantsProvider).txtName,
                         style: context.typography.bodyLarge,
                       ),
-                      TextFeildWidget(
+                      TextFieldWidget.TextFielddWidget(
                         suffix: IconButton(
                             onPressed: () {
                               ref.invalidate(accountDetailsProvider);
@@ -112,7 +112,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: context.spaces.space_600),
-                        child: MainBtnWidget(
+                        child: PrimaryBtnWidget(
                           onTap: () {
                             ref.read(accountDetailsProvider.notifier).addData(
                                   accountDetails: data.data(),
@@ -121,7 +121,7 @@ class ProfileSettingsPage extends HookConsumerWidget {
                                 );
                             context.pop();
                           },
-                          btnTxt: "Save",
+                          label: "Save",
                         ),
                       )
                       // version

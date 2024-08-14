@@ -206,9 +206,9 @@ class OrderSummeryBottomSheetWidget extends HookConsumerWidget {
                   padding: EdgeInsets.only(
                     top: context.spaces.space_200,
                   ),
-                  child: MainBtnWidget(
+                  child: PrimaryBtnWidget(
                     onTap: isChecked.value ? onTap : () {},
-                    btnTxt: btnTxt,
+                    label: btnTxt,
                   ),
                 ),
               ],

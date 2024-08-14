@@ -5,7 +5,7 @@ import 'package:rent_hub/core/constants/payment/add_account_constants.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
-import 'package:rent_hub/core/widgets/textfeild_widget.dart';
+import 'package:rent_hub/core/widgets/textfield_widget.dart';
 import 'package:rent_hub/features/payment/view/widgets/drop_down_bank_names_widget.dart';
 import 'package:rent_hub/features/payment/view/widgets/terms_condition_text_widget.dart';
 
@@ -41,7 +41,6 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                 onTap: () {
                   context.pop();
                 },
-                radius: context.spaces.space_250,
               ))
         ],
       ),
@@ -71,9 +70,9 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                 DropDownBankListWidget(),
 
                 /// Text fields for enter bank account details
-                TextFeildWidget(
-                  labeltxt: addBankConsts.txtName,
-                  hinttxt: addBankConsts.txtAcHolder,
+                TextFieldWidget.TextFielddWidget(
+                  label: addBankConsts.txtName,
+                  hintText: addBankConsts.txtAcHolder,
                   textController: nameController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -86,9 +85,9 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: context.spaces.space_400),
-                  child: TextFeildWidget(
-                    labeltxt: addBankConsts.txtIfsc,
-                    hinttxt: addBankConsts.txtAcHolder,
+                  child: TextFieldWidget.TextFielddWidget(
+                    label: addBankConsts.txtIfsc,
+                    hintText: addBankConsts.txtAcHolder,
                     textController: ifscController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -99,9 +98,9 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                     },
                   ),
                 ),
-                TextFeildWidget(
-                  labeltxt: addBankConsts.txtAcNumber,
-                  hinttxt: addBankConsts.txtAcNumber,
+                TextFieldWidget.TextFielddWidget(
+                  label: addBankConsts.txtAcNumber,
+                  hintText: addBankConsts.txtAcNumber,
                   textController: acNumberController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -114,9 +113,9 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: context.spaces.space_400),
-                  child: TextFeildWidget(
-                    labeltxt: addBankConsts.txtConfirm,
-                    hinttxt: addBankConsts.txtConfirm,
+                  child: TextFieldWidget.TextFielddWidget(
+                    label: addBankConsts.txtConfirm,
+                    hintText: addBankConsts.txtConfirm,
                     textController: confirmAcNumberController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -131,7 +130,7 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                   height: context.spaces.space_900 * 2,
                 ),
                 TermsAndConditionText(addBankConsts: addBankConsts),
-                MainBtnWidget(onTap: () {}, btnTxt: addBankConsts.txtAddAc)
+                PrimaryBtnWidget(onTap: () {}, label: addBankConsts.txtAddAc)
               ],
             ),
           ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_hub/core/widgets/bottom_nav/animated_bottom_nav/bubble_selection_painter.dart';
+import 'package:rent_hub/core/widgets/bottom_nav_bar/bubble_selection_painter.dart';
 
 class NavigationBarItem extends StatelessWidget {
   final bool isActive;

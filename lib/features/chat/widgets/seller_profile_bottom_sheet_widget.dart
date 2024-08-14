@@ -60,8 +60,8 @@ class BottomSheetContent extends ConsumerWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.all(context.spaces.space_400),
-                    child: MainBtnWidget(
-                        onTap: ontap, btnTxt: constants.txtContinue),
+                    child: PrimaryBtnWidget(
+                        onTap: ontap, label: constants.txtContinue),
                   )
                 ],
               ),

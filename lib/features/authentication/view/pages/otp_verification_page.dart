@@ -65,12 +65,12 @@ class OtpVerificationPage extends HookConsumerWidget {
           SizedBox(height: context.spaces.space_200),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: context.spaces.space_200),
-            child: MainBtnWidget(
+            child: PrimaryBtnWidget(
               isLoading: ref.read(authenticationProvider).isLoading,
               onTap: () {
                 context.push(LoginPage.routePath);
               },
-              btnTxt:
+              label:
                   ref.watch(loginOtpVerificationConstantsProvider).txtRetryBtn,
             ),
           ),

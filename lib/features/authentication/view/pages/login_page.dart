@@ -72,7 +72,7 @@ class LoginPage extends HookConsumerWidget {
                     '+${country.dialCode}';
               },
             ),
-            MainBtnWidget(
+            PrimaryBtnWidget(
               onTap: () {
                 // alert box for edit number or continue
                 if (phoneNumberController.text.isNotEmpty &&
@@ -96,7 +96,7 @@ class LoginPage extends HookConsumerWidget {
                   );
                 }
               },
-              btnTxt: constants.txtOtpBtn,
+              label: constants.txtOtpBtn,
             ),
             Spacer(),
           ],

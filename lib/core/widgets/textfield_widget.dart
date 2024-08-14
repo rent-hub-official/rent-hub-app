@@ -2,30 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 
-class TextFeildWidget extends StatelessWidget {
-  final String? labeltxt;
-  final String? hinttxt;
-  final Icon? suffixicon;
-  final Icon? prefixicon;
+class TextFieldWidget extends StatelessWidget {
+  final String? label;
+  final String? hintText;
+  final Icon? suffixIcon;
+  final Icon? prefixIcon;
   final TextEditingController textController;
   final String? Function(String?)? validator;
   final void Function(String)? onFieldSubmitted;
   final Widget? suffix;
   final TextInputType? keyboardType;
-  final bool enabled;
+  final bool isEnabled;
 
-  const TextFeildWidget({
+  const TextFieldWidget.TextFielddWidget({
     super.key,
-    this.suffix,
-    this.labeltxt,
-    this.hinttxt,
     required this.textController,
-    this.suffixicon,
-    this.prefixicon,
+    this.suffix,
+    this.label,
+    this.hintText,
+    this.suffixIcon,
+    this.prefixIcon,
     this.onFieldSubmitted,
     this.validator,
     this.keyboardType,
-    this.enabled = true,
+    this.isEnabled = true,
   });
 
   @override
@@ -35,20 +35,20 @@ class TextFeildWidget extends StatelessWidget {
       validator: validator ??
           (value) {
             if (value == null || value.isEmpty) {
-              return "Enter your values";
+              return "This field is required";
             }
             return null;
           },
       controller: textController,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-        enabled: enabled,
-        prefixIcon: prefixicon,
-        labelText: labeltxt,
+        enabled: isEnabled,
+        prefixIcon: prefixIcon,
+        labelText: label,
         labelStyle: context.typography.body,
-        hintText: hinttxt,
+        hintText: hintText,
         hintStyle: context.typography.body,
-        suffixIcon: suffixicon,
+        suffixIcon: suffixIcon,
         suffix: suffix,
         errorBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: AppColorPalettes.red500),

@@ -59,12 +59,11 @@ class CategoryListBuilderWidget extends ConsumerWidget {
                       ),
                       // product card
                       child: ProductCardWidget(
-                        productName: productsList[index].data().productName,
+                        name: productsList[index].data().productName,
                         price: productsList[index].data().price,
                         isFavorite: snapshot.data!,
-                        productLocation:
-                            productsList[index].data().locationTitle,
-                        img: productsList[index].data().imagePath[0],
+                        location: productsList[index].data().locationTitle,
+                        image: productsList[index].data().imagePath[0],
                         onTap: () {
                           //navigate to details page
                           context.push(
@@ -72,7 +71,7 @@ class CategoryListBuilderWidget extends ConsumerWidget {
                             extra: productsList[index],
                           );
                         },
-                        favoriteTap: () async {
+                        onFavoriteTap: () async {
                           /// toggle favorite status
                           /// invalidate provider for rebuild ui
                           await ref
@@ -81,7 +80,7 @@ class CategoryListBuilderWidget extends ConsumerWidget {
 
                           ref.invalidate(fetchCatagorisedProductsProvider);
                         },
-                        belowbtn: 'rent Now',
+                        actionBtnLabel: 'rent Now',
                       ),
                     );
                   });

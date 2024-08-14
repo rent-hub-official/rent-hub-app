@@ -4,11 +4,11 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:rent_hub/core/widgets/bottom_nav/animated_bottom_nav/around_custum_painter.dart';
-import 'package:rent_hub/core/widgets/bottom_nav/animated_bottom_nav/circular_notch_and_corner_clipper.dart';
-import 'package:rent_hub/core/widgets/bottom_nav/animated_bottom_nav/circular_notched_and_cornered_shape.dart';
-import 'package:rent_hub/core/widgets/bottom_nav/animated_bottom_nav/exceptions.dart';
-import 'package:rent_hub/core/widgets/bottom_nav/animated_bottom_nav/navigation_bar_item.dart';
+import 'package:rent_hub/core/widgets/bottom_nav_bar/around_custum_painter.dart';
+import 'package:rent_hub/core/widgets/bottom_nav_bar/circular_notch_and_corner_clipper.dart';
+import 'package:rent_hub/core/widgets/bottom_nav_bar/circular_notched_and_cornered_shape.dart';
+import 'package:rent_hub/core/widgets/bottom_nav_bar/exceptions.dart';
+import 'package:rent_hub/core/widgets/bottom_nav_bar/navigation_bar_item.dart';
 
 /// Signature for a function that creates a widget for a given index & state.
 /// Used by [AnimatedBottomNavigationBar.builder].

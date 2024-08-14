@@ -23,12 +23,12 @@ class ListOfBookingHistoryWidget extends ConsumerWidget {
           child: Stack(
             children: [
               ProductCardWidget(
-                productName: productModelSample[index].productName,
+                name: productModelSample[index].productName,
                 price: productModelSample[index].price,
-                productLocation: productModelSample[index].productLocation,
-                img: productModelSample[index].img,
+                location: productModelSample[index].productLocation,
+                image: productModelSample[index].img,
                 onTap: productModelSample[index].onTap,
-                belowbtn: productModelSample[index].belowbtn,
+                actionBtnLabel: productModelSample[index].belowbtn,
               ),
               // choose reject or accept widget
               RejectOrAcceptWidget(

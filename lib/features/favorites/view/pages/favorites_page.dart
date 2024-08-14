@@ -32,7 +32,7 @@ class FavoritesPage extends ConsumerWidget {
                         final adsModel = data[index];
                         return ProductCardWidget(
                           isFavorite: true,
-                          favoriteTap: () async {
+                          onFavoriteTap: () async {
                             /// set favorite method
                             /// add or remove from favorite colloction accordingly
                             /// and invalidate provider which gives all favorite ads user
@@ -42,12 +42,12 @@ class FavoritesPage extends ConsumerWidget {
 
                             ref.invalidate(getFavoriteProvider);
                           },
-                          productName: adsModel.productName,
+                          name: adsModel.productName,
                           price: adsModel.price,
-                          productLocation: adsModel.locationTitle,
-                          img: adsModel.imagePath[0],
+                          location: adsModel.locationTitle,
+                          image: adsModel.imagePath[0],
                           onTap: () {},
-                          belowbtn: "Rent Now",
+                          actionBtnLabel: "Rent Now",
                         );
                       },
                       separatorBuilder: (context, index) => SizedBox(

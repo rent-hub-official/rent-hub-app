@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/animation.dart';
 import 'package:flutter/painting.dart';
-import 'package:rent_hub/core/widgets/bottom_nav/animated_bottom_nav/animated_bottom_nav_bar.dart';
+import 'package:rent_hub/core/widgets/bottom_nav_bar/animated_bottom_nav_bar.dart';
 
 import 'exceptions.dart';
 

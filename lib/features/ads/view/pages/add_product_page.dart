@@ -7,7 +7,7 @@ import 'package:rent_hub/core/constants/error_constants.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
-import 'package:rent_hub/core/widgets/textfeild_widget.dart';
+import 'package:rent_hub/core/widgets/textfield_widget.dart';
 import 'package:rent_hub/features/ads/controller/category_controller/category_provider.dart';
 import 'package:rent_hub/features/ads/controller/image_controller/image_provider.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/fetch_catagary_products_provider.dart';
@@ -76,17 +76,17 @@ class AddProductPage extends HookConsumerWidget {
                         SizedBox(
                           height: context.spaces.space_100,
                         ),
-                        TextFeildWidget(
-                          labeltxt: constants.txtProductName,
-                          hinttxt: constants.txtGiveItemName,
+                        TextFieldWidget.TextFielddWidget(
+                          label: constants.txtProductName,
+                          hintText: constants.txtGiveItemName,
                           textController: productNamecontroller,
                         ),
                         SizedBox(
                           height: context.spaces.space_100,
                         ),
-                        TextFeildWidget(
-                          labeltxt: constants.txtPrice,
-                          hinttxt: constants.txtItemPrice,
+                        TextFieldWidget.TextFielddWidget(
+                          label: constants.txtPrice,
+                          hintText: constants.txtItemPrice,
                           textController: priceController,
                           keyboardType: TextInputType.number,
                         ),
@@ -108,7 +108,7 @@ class AddProductPage extends HookConsumerWidget {
                         SizedBox(
                           height: context.spaces.space_600,
                         ),
-                        MainBtnWidget(
+                        PrimaryBtnWidget(
                           onTap: () {
                             if (formKey.value.currentState!.validate()) {
                               // add products data
@@ -124,7 +124,7 @@ class AddProductPage extends HookConsumerWidget {
                               ref.invalidate(fetchCatagorisedProductsProvider);
                             }
                           },
-                          btnTxt: constants.txtBtn,
+                          label: constants.txtBtn,
                         )
                       ],
                     ),

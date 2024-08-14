@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rent_hub/core/widgets/bottom_nav/bottom_nav_widget.dart';
+import 'package:rent_hub/features/navigation/view/pages/navigation_page.dart';
 import 'package:rent_hub/features/authentication/view/pages/login_page.dart';
 
 /// A service class that is used to redirect the user to a specific page.
@@ -35,7 +35,7 @@ class RouterRedirectServices {
         _storage.read<bool>(_isFirstLaunchStorageKey) ?? true;
 
     if (!isFirstLaunch) {
-      return MainPage.routePath;
+      return NavigationPage.routePath;
     }
 
     return null;
