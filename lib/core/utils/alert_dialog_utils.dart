@@ -9,7 +9,6 @@ class AlertDialogUtils {
   static void show({
     required String title,
     required String description,
-    required String phoneNumber,
 
     /// Each action should have a string as key. (This string will be displayed
     /// as a button in the alert dialog) and a void callback as value. (This is the
@@ -41,45 +40,34 @@ class AlertDialogUtils {
                       title,
                       style: context.typography.h2SemiBold.copyWith(
                         decoration: TextDecoration.none,
-                        color: AppColorPalettes.white500,
+                        color: AppColorPalettes.grey100,
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: context.spaces.space_100),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            description,
-                            style: context.typography.bodyLarge.copyWith(
-                              decoration: TextDecoration.none,
-                              color: AppColorPalettes.white500,
-                            ),
-                          ),
-                          Text(
-                            phoneNumber,
-                            style: context.typography.bodyLarge.copyWith(
-                              decoration: TextDecoration.none,
-                              color: AppColorPalettes.white500,
-                            ),
-                          ),
-                        ],
+                      child: Text(
+                        description,
+                        style: context.typography.bodyLarge.copyWith(
+                          decoration: TextDecoration.none,
+                          color: AppColorPalettes.grey100,
+                        ),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: context.spaces.space_400),
                       child: Row(
                         children: [
-                          const Spacer(
-                              // flex: 1,
-                              ),
-                          SizedBox(
-                            width: 98,
-                            height: 37,
-                            child: ElevatedButton(
+                          const Spacer(),
+                          for (int i = 0; i < actions.length; i++) ...[
+                            SizedBox(
+                              width: context.spaces.space_150,
+                            ),
+                            ElevatedButton(
                               style: ButtonStyle(
                                 backgroundColor: WidgetStateProperty.all<Color>(
-                                    context.colors.secondary),
+                                    i == actions.length - 1
+                                        ? context.colors.primary
+                                        : context.colors.secondary),
                                 shape: WidgetStateProperty.all<
                                     RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
@@ -90,39 +78,11 @@ class AlertDialogUtils {
                               ),
                               onPressed: actions.values.first,
                               child: Text(
-                                actions.keys.first,
+                                actions.entries.elementAt(i).key,
                                 style: context.typography.buttonText,
                               ),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsets.only(left: context.spaces.space_100),
-                            child: SizedBox(
-                              width: context.spaces.space_300 * 4,
-                              height: 37,
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      WidgetStateProperty.all<Color>(
-                                          context.colors.primary),
-                                  shape: WidgetStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          context.spaces.space_250),
-                                    ),
-                                  ),
-                                ),
-                                onPressed: actions.values.last,
-                                child: Text(
-                                  actions.keys.last,
-                                  style: context.typography.buttonText.copyWith(
-                                      color: AppColorPalettes.black500),
-                                ),
-                              ),
-                            ),
-                          )
+                            )
+                          ],
                         ],
                       ),
                     )

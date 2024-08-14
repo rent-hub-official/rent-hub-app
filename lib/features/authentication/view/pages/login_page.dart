@@ -79,9 +79,8 @@ class LoginPage extends HookConsumerWidget {
                     phoneNumberController.text.length == 10) {
                   AlertDialogUtils.show(
                     title: alertConsts.txtHeading,
-                    description: alertConsts.txtSubHeading,
-                    phoneNumber:
-                        "${ref.read(coutryCodeProvider)} ${phoneNumberController.text}",
+                    description: alertConsts.txtSubHeading +
+                        ' ${ref.read(coutryCodeProvider)}${phoneNumberController.text}',
                     actions: {
                       alertConsts.txteditBtn: () => context.pop(),
                       alertConsts.txtcontinueBtn: () {
