@@ -111,7 +111,7 @@ class CategoryListBuilderWidget extends HookConsumerWidget {
 
                             ref.invalidate(fetchCatagorisedProductsProvider);
                           },
-                          actionBtnLabel: 'rent Now',
+                          actionBtnLabel: 'Rent Now',
                         ),
                       );
                     });

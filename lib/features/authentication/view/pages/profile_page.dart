@@ -100,9 +100,7 @@ class ProfilePage extends HookConsumerWidget {
                           icon: Icons.help,
                           text: constants.txtHelpSupport,
                           subtitle: constants.txtsubHelp,
-                          onTap: () {
-                            context.push(ProfileSettingsPage.routePath);
-                          },
+                          onTap: () {},
                         ),
                       ],
                     ),
