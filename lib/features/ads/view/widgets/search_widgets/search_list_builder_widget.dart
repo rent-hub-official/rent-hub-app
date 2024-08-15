@@ -79,7 +79,7 @@ class SearchListBuilderWidget extends ConsumerWidget {
 
                           ref.invalidate(fetchCatagorisedProductsProvider);
                         },
-                        actionBtnLabel: 'rent Now',
+                        actionBtnLabel: 'Rent Now',
                       ),
                     );
                   });
@@ -88,9 +88,19 @@ class SearchListBuilderWidget extends ConsumerWidget {
         : LayoutBuilder(
             builder: (context, constraints) {
               return Center(
-                child: Lottie.asset(
-                  lottieConsts.animationEmpty,
-                  height: constraints.maxHeight * .4,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset(
+                      lottieConsts.animationEmpty,
+                      height: constraints.maxHeight * .4,
+                    ),
+                    SizedBox(height: context.spaces.space_200),
+                    Text(
+                      'Nothing found',
+                      style: context.typography.bodyLargeSemiBold,
+                    ),
+                  ],
                 ),
               );
             },
