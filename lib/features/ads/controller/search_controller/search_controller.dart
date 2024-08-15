@@ -6,9 +6,22 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'search_controller.g.dart';
 
 @riverpod
-Future<List<DocumentSnapshot<AdsModel>>> searchAds(
-  SearchAdsRef ref, {
-  required String queryText,
-}) async {
-  return await GetAdsWithIdUseCase()(queryText);
+class SearchAds extends _$SearchAds {
+  @override
+  FutureOr<List<DocumentSnapshot<AdsModel>>?> build() async {
+    return null;
+  }
+
+  /// Search for the given query text in the ads collection
+  /// and update the searched products state
+  Future<void> searchAds(String queryText) async {
+    try {
+      state = AsyncLoading();
+
+      final searchResults = await GetAdsWithIdUseCase()(queryText);
+      state = AsyncData(searchResults);
+    } catch (e, s) {
+      state = AsyncError(e, s);
+    }
+  }
 }

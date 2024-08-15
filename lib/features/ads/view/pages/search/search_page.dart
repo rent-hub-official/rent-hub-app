@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/user_search_details.dart';
-import 'package:rent_hub/core/constants/error_constants.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/utils/bottom_sheet_utils.dart';
 import 'package:rent_hub/features/ads/controller/search_controller/recent_search_controller.dart';
@@ -18,14 +17,14 @@ class SearchPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchController = useTextEditingController();
-    final isSearched = useState(false);
+
+    final seachedProducts = ref.watch(searchAdsProvider);
 
     /// The key use to identify the search field in the app bar.
     final GlobalKey searchFieldKey = useMemoized(() => GlobalKey());
 
     void performSearch() {
-      isSearched.value = false;
-      isSearched.value = true;
+      ref.read(searchAdsProvider.notifier).searchAds(searchController.text);
     }
 
     return Scaffold(
@@ -76,8 +75,10 @@ class SearchPage extends HookConsumerWidget {
           SizedBox(width: context.spaces.space_200),
         ],
       ),
-      body: !isSearched.value
-          ? Builder(builder: (context) {
+      body: seachedProducts.hasValue &&
+              (seachedProducts.asData?.value?.isNotEmpty ?? false)
+          ? SearchListBuilderWidget(queryText: searchController.text)
+          : Builder(builder: (context) {
               final recentSearchValues = ref.watch(recentSearchProvider);
 
               return Padding(
@@ -150,36 +151,7 @@ class SearchPage extends HookConsumerWidget {
                   ],
                 ),
               );
-            })
-          : ref.watch(searchAdsProvider(queryText: searchController.text)).when(
-                data: (data) => SearchListBuilderWidget(
-                  productsList: data,
-                ),
-                error: (error, stackTrace) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          ref.read(errorConstantsProvider).txtWentWrong,
-                          style: context.typography.bodySemibold,
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            performSearch();
-                          },
-                          icon: Icon(Icons.refresh),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                loading: () {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-              ),
+            }),
     );
   }
 }
