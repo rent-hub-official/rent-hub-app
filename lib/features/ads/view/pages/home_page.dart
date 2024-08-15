@@ -60,6 +60,7 @@ class HomePage extends HookConsumerWidget {
             // category List
             for (int i = 0; i < categoryList.length; i++)
               RefreshIndicator(
+                color: context.colors.primary,
                 onRefresh: () async {
                   // refresh fetch products
                   ref.invalidate(fetchCatagorisedProductsProvider);

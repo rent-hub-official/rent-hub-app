@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 
-class ProductCardWidget extends ConsumerWidget {
+class ProductCardWidget extends HookConsumerWidget {
   final String name;
   final double price;
   final String location;
@@ -11,7 +12,7 @@ class ProductCardWidget extends ConsumerWidget {
   final VoidCallback onTap;
   final String actionBtnLabel;
   final bool isFavorite;
-  final VoidCallback? onFavoriteTap;
+  final Future<void> Function()? onFavoriteTap;
 
   const ProductCardWidget({
     super.key,
@@ -27,6 +28,8 @@ class ProductCardWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isFavorite = useState(this.isFavorite);
+
     return InkWell(
       borderRadius: BorderRadius.circular(context.spaces.space_200),
       onTap: onTap,
@@ -61,7 +64,10 @@ class ProductCardWidget extends ConsumerWidget {
                         : Align(
                             alignment: Alignment.topLeft,
                             child: InkWell(
-                              onTap: onFavoriteTap,
+                              onTap: () async {
+                                await onFavoriteTap?.call();
+                                isFavorite.value = !isFavorite.value;
+                              },
                               child: CircleAvatar(
                                 radius: context.spaces.space_200,
                                 backgroundColor: context
@@ -70,7 +76,7 @@ class ProductCardWidget extends ConsumerWidget {
                                 child: Center(
                                   child: Icon(
                                     Icons.favorite,
-                                    color: isFavorite
+                                    color: isFavorite.value
                                         ? AppColorPalettes.red500
                                         : AppColorPalettes.white500,
                                   ),

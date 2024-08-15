@@ -6,7 +6,6 @@ import 'package:rent_hub/core/constants/error_constants.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rent_hub/features/ads/controller/product_controller/fetch_catagary_products_provider.dart';
 import 'package:rent_hub/features/ads/controller/search_controller/search_controller.dart';
 import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
@@ -74,13 +73,9 @@ class SearchListBuilderWidget extends ConsumerWidget {
                               );
                             },
                             onFavoriteTap: () async {
-                              /// toggle favorite status
-                              /// invalidate provider for rebuild ui
                               await ref
                                   .watch(favoriteAdsProvider.notifier)
                                   .setFavorite(adId: productsList[index].id);
-
-                              ref.invalidate(fetchCatagorisedProductsProvider);
                             },
                             actionBtnLabel: 'Rent Now',
                           ),
