@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -33,7 +32,7 @@ class ProductDetailsPage extends ConsumerWidget {
     required this.adsData,
   });
 
-  final QueryDocumentSnapshot<AdsModel> adsData;
+  final AdsModel adsData;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -44,10 +43,10 @@ class ProductDetailsPage extends ConsumerWidget {
     final noOfDays = dateDiff.inDays + 1;
 
     return Scaffold(
-      body: ref.watch(getUserDataProvider(adsData.data().sellerId)).when(
+      body: ref.watch(getUserDataProvider(adsData.sellerId)).when(
             data: (data) => FutureBuilder(
                 future:
-                    ref.watch(favoriteAdsProvider.notifier).isFav(adsData.id),
+                    ref.watch(favoriteAdsProvider.notifier).isFav(adsData.id!),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return Container(
@@ -79,9 +78,9 @@ class ProductDetailsPage extends ConsumerWidget {
                         child: PageView.builder(
                           controller: ref.watch(pageControllerProvider),
                           itemBuilder: (context, index) => Image.network(
-                            adsData.data().imagePath[index],
+                            adsData.imagePath[index],
                           ),
-                          itemCount: adsData.data().imagePath.length,
+                          itemCount: adsData.imagePath.length,
                         ),
                       ),
                       // top bar icons
@@ -104,7 +103,7 @@ class ProductDetailsPage extends ConsumerWidget {
                                 /// invalidate provider for rebuild ui
                                 await ref
                                     .watch(favoriteAdsProvider.notifier)
-                                    .setFavorite(adId: adsData.id);
+                                    .setFavorite(adId: adsData.id!);
                                 ref.invalidate(getUserDataProvider);
                               },
                               icon: Icons.favorite,
@@ -121,7 +120,7 @@ class ProductDetailsPage extends ConsumerWidget {
                         right: 16.0,
                         left: 16.0,
                         child: SmoothPageIndicatorWIdget(
-                            imageCount: adsData.data().imagePath.length),
+                            imageCount: adsData.imagePath.length),
                       ),
                       Positioned(
                         top: MediaQuery.of(context).size.height * 0.36,
@@ -136,7 +135,7 @@ class ProductDetailsPage extends ConsumerWidget {
                             },
                             userimage: data.data()?.profileImage,
                             sellerName: data.data()!.userName,
-                            adsModel: adsData.data(),
+                            adsModel: adsData,
                             callTap: () async {
                               await launchUrlString("tel:${data.id}");
                             },
@@ -178,17 +177,17 @@ class ProductDetailsPage extends ConsumerWidget {
             /// add order summery bottom sheet widget
             BottomSheetUtils.show(
               OrderSummeryBottomSheetWidget(
-                price: 'RS ${adsData.data().price}/-',
+                price: 'RS ${adsData.price}/-',
                 pickordropdate: orderConsts.txtDropUp,
                 selectpicklocation: orderConsts.txtSelectLocation,
-                location: adsData.data().locationTitle,
+                location: adsData.locationTitle,
                 privacyPolicytext: orderConsts.txtPolicyTerms,
                 agreetext: orderConsts.txtAgree,
                 pickupdatetext: orderConsts.txtPickUpDate,
                 dropdatetext: orderConsts.txtDropUp,
                 btnTxt: orderConsts.txtBtn,
                 onTap: () {
-                  final amount = adsData.data().price.toInt() * noOfDays;
+                  final amount = adsData.price.toInt() * noOfDays;
 
                   ref.watch(PaymentProvider(amount: amount));
                 },
@@ -198,7 +197,7 @@ class ProductDetailsPage extends ConsumerWidget {
             /// add order to firestore
             ref.read(ordersProvider.notifier).addOrder(
                   ordersModel: OrdersModel(
-                    adsId: adsData.id,
+                    adsId: adsData.id!,
                     userId: ref.watch(authenticationProvider).phoneNumber!,
                     orderPlacedOn: DateTime.now(),
                     paymentCompletedOn: DateTime.now(),

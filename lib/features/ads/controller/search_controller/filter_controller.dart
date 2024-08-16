@@ -19,7 +19,7 @@ class FilterControllerState with _$FilterControllerState {
   }) = _FilterControllerState;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class FilterController extends _$FilterController {
   @override
   FilterControllerState build() {
@@ -85,7 +85,8 @@ class FilterController extends _$FilterController {
       bool needToAdd = true;
 
       /// Check the product type filter
-      if (!(state.productType?.contains(ad.category) ?? true)) {
+      if ((state.productType?.isNotEmpty ?? false) &&
+          !(state.productType?.contains(ad.category) ?? true)) {
         needToAdd = false;
       }
 
@@ -96,8 +97,8 @@ class FilterController extends _$FilterController {
       }
 
       /// Check the price range filter
-      if (!(ad.price <= state.priceRange.minValue &&
-          ad.price >= state.priceRange.maxValue)) {
+      if (!(ad.price <= state.priceRange.maxValue &&
+          ad.price >= state.priceRange.minValue)) {
         needToAdd = false;
       }
 

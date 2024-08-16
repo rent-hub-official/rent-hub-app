@@ -73,7 +73,7 @@ final router = GoRouter(
       path: ProductDetailsPage.routePath,
       builder: (context, state) {
         return ProductDetailsPage(
-          adsData: state.extra as QueryDocumentSnapshot<AdsModel>,
+          adsData: state.extra as AdsModel,
         );
       },
       redirect: RouterRedirectServices.checkLoggedIn,
