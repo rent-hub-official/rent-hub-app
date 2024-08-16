@@ -64,7 +64,7 @@ class CategoryListBuilderWidget extends HookConsumerWidget {
                 return FutureBuilder(
                     future: ref
                         .watch(favoriteAdsProvider.notifier)
-                        .isFav(productsList[index].id),
+                        .isFav(productsList[index].id!),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         return Container(
@@ -90,11 +90,11 @@ class CategoryListBuilderWidget extends HookConsumerWidget {
                         ),
                         // product card
                         child: ProductCardWidget(
-                          name: productsList[index].data().productName,
-                          price: productsList[index].data().price,
+                          name: productsList[index].productName,
+                          price: productsList[index].price,
                           isFavorite: snapshot.data!,
-                          location: productsList[index].data().locationTitle,
-                          image: productsList[index].data().imagePath[0],
+                          location: productsList[index].locationTitle,
+                          image: productsList[index].imagePath[0],
                           onTap: () {
                             //navigate to details page
                             context.push(
@@ -107,7 +107,7 @@ class CategoryListBuilderWidget extends HookConsumerWidget {
                             /// invalidate provider for rebuild ui
                             await ref
                                 .watch(favoriteAdsProvider.notifier)
-                                .setFavorite(adId: productsList[index].id);
+                                .setFavorite(adId: productsList[index].id!);
 
                             ref.invalidate(fetchCatagorisedProductsProvider);
                           },

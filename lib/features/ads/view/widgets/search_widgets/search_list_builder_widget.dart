@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/animation_constants.dart';
-import 'package:rent_hub/core/constants/error_constants.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:lottie/lottie.dart';
@@ -22,121 +21,98 @@ class SearchListBuilderWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lottieConsts = ref.read(animationConstantsProvider);
-    final seachedProducts = ref.watch(searchAdsProvider);
+    final searchedProducts = ref.watch(searchAdsProvider);
 
-    return switch (seachedProducts) {
-      AsyncData(value: final searchedProducts) => Builder(
-          builder: (context) {
-            /// Filter the products
-            final filteredProducts = ref
-                .read(filterControllerProvider.notifier)
-                .filterAds(searchedProducts
-                        ?.map((e) => e.data()!.copyWith(id: e.id))
-                        .toList() ??
-                    []);
+    /// Watch for any filter changes and reload the UI
+    ref.watch(filterControllerProvider);
 
-            return filteredProducts.isNotEmpty
-                ? ListView.builder(
-                    itemCount: filteredProducts.length,
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) {
-                      //future builder for cehceks ads if favorite or not
-                      return FutureBuilder(
-                          future: ref
-                              .watch(favoriteAdsProvider.notifier)
-                              .isFav(filteredProducts[index].id!),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasError) {
-                              return Container(
-                                height: 100,
-                                width: double.infinity,
-                                child: Text('ERROR'),
+    return Builder(
+      builder: (context) {
+        /// Filter the products
+        final filteredProducts = ref
+            .read(filterControllerProvider.notifier)
+            .filterAds(searchedProducts);
+
+        return filteredProducts.isNotEmpty
+            ? ListView.builder(
+                itemCount: filteredProducts.length,
+                padding: EdgeInsets.zero,
+                itemBuilder: (context, index) {
+                  //future builder for cehceks ads if favorite or not
+                  return FutureBuilder(
+                      future: ref
+                          .watch(favoriteAdsProvider.notifier)
+                          .isFav(filteredProducts[index].id!),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Container(
+                            height: 100,
+                            width: double.infinity,
+                            child: Text('ERROR'),
+                          );
+                        }
+
+                        /// snapshot has no data return circular indicator
+                        if (!snapshot.hasData) {
+                          return Container(
+                            height: 100,
+                            width: double.infinity,
+                            child: Center(child: CircularProgressIndicator()),
+                          );
+                        }
+
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: context.spaces.space_200,
+                            vertical: context.spaces.space_100,
+                          ),
+                          // product card
+                          child: ProductCardWidget(
+                            name: filteredProducts[index].productName,
+                            price: filteredProducts[index].price,
+                            isFavorite: snapshot.data!,
+                            location: filteredProducts[index].locationTitle,
+                            image: filteredProducts[index].imagePath[0],
+                            onTap: () {
+                              //navigate to details page
+                              context.push(
+                                ProductDetailsPage.routePath,
+                                extra: filteredProducts[index],
                               );
-                            }
-
-                            /// snapshot has no data return circular indicator
-                            if (!snapshot.hasData) {
-                              return Container(
-                                height: 100,
-                                width: double.infinity,
-                                child:
-                                    Center(child: CircularProgressIndicator()),
-                              );
-                            }
-
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: context.spaces.space_200,
-                                vertical: context.spaces.space_100,
-                              ),
-                              // product card
-                              child: ProductCardWidget(
-                                name: filteredProducts[index].productName,
-                                price: filteredProducts[index].price,
-                                isFavorite: snapshot.data!,
-                                location: filteredProducts[index].locationTitle,
-                                image: filteredProducts[index].imagePath[0],
-                                onTap: () {
-                                  //navigate to details page
-                                  context.push(
-                                    ProductDetailsPage.routePath,
-                                    extra: filteredProducts[index],
-                                  );
-                                },
-                                onFavoriteTap: () async {
-                                  await ref
-                                      .watch(favoriteAdsProvider.notifier)
-                                      .setFavorite(
-                                          adId: filteredProducts[index].id!);
-                                },
-                                actionBtnLabel: 'Rent Now',
-                              ),
-                            );
-                          });
-                    },
-                  )
-                : LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Lottie.asset(
-                              lottieConsts.animationEmpty,
-                              height: constraints.maxHeight * .4,
-                            ),
-                            SizedBox(height: context.spaces.space_200),
-                            Text(
-                              'Nothing found',
-                              style: context.typography.bodyLargeSemiBold,
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-          },
-        ),
-      AsyncError() => Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                ref.read(errorConstantsProvider).txtWentWrong,
-                style: context.typography.bodySemibold,
-              ),
-              IconButton(
-                onPressed: () {
-                  ref.read(searchAdsProvider.notifier).searchAds(queryText);
+                            },
+                            onFavoriteTap: () async {
+                              await ref
+                                  .watch(favoriteAdsProvider.notifier)
+                                  .setFavorite(
+                                      adId: filteredProducts[index].id!);
+                            },
+                            actionBtnLabel: 'Rent Now',
+                          ),
+                        );
+                      });
                 },
-                icon: Icon(Icons.refresh),
-              ),
-            ],
-          ),
-        ),
-      _ => Center(
-          child: CircularProgressIndicator(),
-        )
-    };
+              )
+            : LayoutBuilder(
+                builder: (context, constraints) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Lottie.asset(
+                          lottieConsts.animationEmpty,
+                          height: constraints.maxHeight * .4,
+                        ),
+                        SizedBox(height: context.spaces.space_200),
+                        Text(
+                          'Nothing found',
+                          style: context.typography.bodyLargeSemiBold,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+      },
+    );
   }
 }

@@ -1,11 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rent_hub/core/exception/base_exception.dart';
 import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:rent_hub/features/ads/service/ads_service.dart';
 
 // get Categarised products usecase
 class GetProductsDataUsecase {
-  Future<List<QueryDocumentSnapshot<AdsModel>>> call({String? catagory}) async {
+  Future<List<AdsModel>> call({String? catagory}) async {
     try {
       // get catagory id with catagory name
       String categoryId = '';
@@ -25,12 +24,16 @@ class GetProductsDataUsecase {
         // fetch all products details
         final data = await AdsService.getProducts();
 
-        return data.docs;
+        return data.docs.map((element) {
+          return element.data();
+        }).toList();
       } else {
         // fetch all categorised products
         final data = await AdsService.getCategorisedProducts(categoryId);
 
-        return data.docs;
+        return data.docs.map((element) {
+          return element.data();
+        }).toList();
       }
     } on BaseException catch (e) {
       throw e.message;

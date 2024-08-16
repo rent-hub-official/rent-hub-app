@@ -75,7 +75,7 @@ class SearchPage extends HookConsumerWidget {
           SizedBox(width: context.spaces.space_200),
         ],
       ),
-      body: seachedProducts.hasValue && (seachedProducts.asData?.value != null)
+      body: seachedProducts.isNotEmpty && searchController.text.isNotEmpty
           ? SearchListBuilderWidget(queryText: searchController.text)
           : Builder(builder: (context) {
               final recentSearchValues = ref.watch(recentSearchProvider);
