@@ -7,7 +7,7 @@ import 'package:rent_hub/core/utils/bottom_sheet_utils.dart';
 import 'package:rent_hub/features/ads/controller/search_controller/recent_search_controller.dart';
 import 'package:rent_hub/features/ads/controller/search_controller/search_controller.dart';
 import 'package:rent_hub/features/ads/view/widgets/search_field_widget.dart';
-import 'package:rent_hub/features/ads/view/widgets/search_filter_widgets/order_sort_bottom_sheet.dart.dart';
+import 'package:rent_hub/features/ads/view/widgets/search_filter_widgets/ads_filter_bottom_sheet_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/search_widgets/search_list_builder_widget.dart';
 
 class SearchPage extends HookConsumerWidget {
@@ -47,7 +47,7 @@ class SearchPage extends HookConsumerWidget {
         actions: [
           InkWell(
             onTap: () {
-              BottomSheetUtils.show(OrderSortBottomSheet());
+              BottomSheetUtils.show(AdsFilterBottomSheetWidget());
             },
             borderRadius: BorderRadius.circular(context.spaces.space_300),
             child: HookBuilder(builder: (context) {

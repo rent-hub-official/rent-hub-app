@@ -20,16 +20,29 @@ class FilterSortConstants {
     "Sort by",
     "Order"
   ];
-  final productType = ["All", "Houses", "Vehicle", "Cloths", "Tools"];
+  final productType = [
+    "Houses",
+    "Vehicle",
+    "Cloths",
+    "Tools",
+  ];
   final priceRange = [
+    "None",
     "0-999",
     "1000-9999",
     "10000-99999",
     "100000-999999",
     "1000000-9999999"
   ];
-  final sortBy = ["Title", "Date Created", "Date Modified"];
-  final orderedBy = ["Ascending", "Descending"];
+  final sortBy = [
+    "Title",
+    "Date Created",
+    "Date Modified",
+  ];
+  final orderedBy = [
+    "Ascending",
+    "Descending",
+  ];
 }
 
 @riverpod

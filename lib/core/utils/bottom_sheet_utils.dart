@@ -13,12 +13,13 @@ final class BottomSheetUtils {
 
     showModalBottomSheet(
       context: context,
+      backgroundColor: context.colors.cardBackground,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
         side: BorderSide(width: 1.5, color: context.colors.border),
         borderRadius: BorderRadius.only(
-          topRight: Radius.circular(context.spaces.space_500),
-          topLeft: Radius.circular(context.spaces.space_500),
+          topRight: Radius.circular(context.spaces.space_300),
+          topLeft: Radius.circular(context.spaces.space_300),
         ),
       ),
       builder: (context) {

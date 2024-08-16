@@ -10,6 +10,8 @@ final lighttheme = ThemeData(
     scaffoldBackgroundColor: AppColorPalettes.grey100,
     appBarTheme: const AppBarTheme(backgroundColor: AppColorPalettes.grey100),
     fontFamily: 'Poppins',
+    primaryColor: AppColorPalettes.yellow600,
+    colorScheme: ColorScheme.fromSeed(seedColor: AppColorPalettes.yellow600),
     extensions: [
       /// AppColorExtension
       AppColorExtension(

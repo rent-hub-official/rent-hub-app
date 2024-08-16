@@ -10,15 +10,17 @@ class FilterSctnWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-          top: context.spaces.space_150, bottom: context.spaces.space_150),
+      padding: EdgeInsets.symmetric(
+          vertical: context.spaces.space_150,
+          horizontal: context.spaces.space_200),
       child: Container(
-        padding: EdgeInsets.only(
-            top: context.spaces.space_250, left: context.spaces.space_200),
+        padding: EdgeInsets.symmetric(
+            horizontal: context.spaces.space_200,
+            vertical: context.spaces.space_200),
         width: double.infinity,
         decoration: BoxDecoration(
           border: Border.all(width: 1, color: context.colors.border),
-          borderRadius: BorderRadius.circular(context.spaces.space_150),
+          borderRadius: BorderRadius.circular(context.spaces.space_100),
         ),
         child: child,
       ),
