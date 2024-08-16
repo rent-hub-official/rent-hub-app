@@ -13,6 +13,7 @@ import 'package:rent_hub/features/ads/view/widgets/search_filter_widgets/choose_
 import 'package:rent_hub/features/ads/view/widgets/search_filter_widgets/filter_sctn_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/search_filter_widgets/radio_button_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/search_filter_widgets/search_filter_tab_bar_widget.dart';
+import 'package:go_router/go_router.dart';
 
 class AdsFilterBottomSheetWidget extends HookConsumerWidget {
   const AdsFilterBottomSheetWidget({super.key});
@@ -22,15 +23,47 @@ class AdsFilterBottomSheetWidget extends HookConsumerWidget {
     // filter constants
     final filterConsts = ref.read(filterSortConstantsProvider);
 
-    // text editing controller
-    final locationController = useTextEditingController();
-
     /// Filter options currently selected by the user
     final filterOptions = ref.watch(filterControllerProvider);
 
-    final productTypes = useState<List<bool>>(
-      [for (int i = 0; i < filterConsts.productType.length; i++) false],
-    );
+    // text editing controller
+    final locationController = useTextEditingController();
+
+    /// Store the status of the product category filter check boxes
+    final productTypes =
+        useState<Set<String>>(filterOptions.productType?.toSet() ?? {});
+
+    /// Currently selected price range filter
+    final priceRange = useState<PriceRangeEnum>(filterOptions.priceRange);
+
+    /// Currently selected sort by filter
+    final sortBy = useState<SortByEnum>(filterOptions.sortBy);
+
+    /// Currently selected sort order filter
+    final sortOrder = useState<SortTypeEnum>(filterOptions.sortOrder);
+
+    /// Reset all the filters
+    void resetFilters() {
+      ref.invalidate(filterControllerProvider);
+
+      productTypes.value = {};
+      priceRange.value = PriceRangeEnum.none;
+      sortBy.value = SortByEnum.title;
+      sortOrder.value = SortTypeEnum.ascending;
+      locationController.clear();
+    }
+
+    /// Apply the filters
+    void applyFilters() {
+      ref.read(filterControllerProvider.notifier).applyFilters(
+          priceRange: priceRange.value,
+          sortBy: sortBy.value,
+          sortOrder: sortOrder.value,
+          location: locationController.text,
+          productType: productTypes.value.toList());
+
+      context.pop();
+    }
 
     return DefaultTabController(
       length: 5,
@@ -57,16 +90,7 @@ class AdsFilterBottomSheetWidget extends HookConsumerWidget {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {
-                        ref.invalidate(filterControllerProvider);
-                        locationController.clear();
-                        productTypes.value = [
-                          for (int i = 0;
-                              i < filterConsts.productType.length;
-                              i++)
-                            false
-                        ];
-                      },
+                      onPressed: resetFilters,
                       child: Text(
                         filterConsts.txtResetAllBtn,
                       ),
@@ -79,136 +103,114 @@ class AdsFilterBottomSheetWidget extends HookConsumerWidget {
               /// Tabs for the filter
               const SearchFilterTabBarWidget(),
               Expanded(
-                child: TabBarView(
-                  children: [
-                    FilterSctnWidget(
-                      child: ListView.separated(
-                        itemCount: filterConsts.productType.length,
-                        separatorBuilder: (context, index) => SizedBox(
-                          height: context.spaces.space_150,
+                child: HookBuilder(builder: (context) {
+                  return TabBarView(
+                    children: [
+                      FilterSctnWidget(
+                        child: ListView.separated(
+                          itemCount: filterConsts.productType.length,
+                          separatorBuilder: (context, index) => SizedBox(
+                            height: context.spaces.space_150,
+                          ),
+                          itemBuilder: (context, index) => CheckBoxFilterWidget(
+                            text: filterConsts.productType[index],
+                            onChanged: (status) {
+                              final updatedCategories = {...productTypes.value};
+
+                              if (status!) {
+                                updatedCategories
+                                    .add(filterConsts.productType[index]);
+                              } else {
+                                updatedCategories
+                                    .remove(filterConsts.productType[index]);
+                              }
+
+                              productTypes.value = updatedCategories;
+                            },
+                            value: productTypes.value
+                                .contains(filterConsts.productType[index]),
+                          ),
                         ),
-                        itemBuilder: (context, index) => CheckBoxFilterWidget(
-                          text: filterConsts.productType[index],
-                          onChanged: (status) {
-                            productTypes.value[index] = status!;
-                            status
-                                ? ref
-                                    .watch(filterControllerProvider.notifier)
-                                    .addProductTypeFilter(
-                                      filterConsts.productType[index],
-                                    )
-                                : ref
-                                    .watch(filterControllerProvider.notifier)
-                                    .removeProductTypeFilter(
-                                      filterConsts.productType[index],
-                                    );
-                          },
-                          value: productTypes.value[index],
+                      ),
+
+                      /// location based filter
+                      FilterSctnWidget(
+                        child: ChooseLocationFieldWidget(
+                          controller: locationController,
+                          hintText: filterConsts.txtEnterLocation,
                         ),
                       ),
-                    ),
-                    // location based filter
-                    FilterSctnWidget(
-                      child: ChooseLocationFieldWidget(
-                        controller: locationController,
-                        hintText: filterConsts.txtEnterLocation,
-                        onChanged: (value) {
-                          value.isNotEmpty
-                              ? ref
-                                  .watch(filterControllerProvider.notifier)
-                                  .addLocationFilter(value)
-                              : ref
-                                  .watch(filterControllerProvider.notifier)
-                                  .removeLocationFilter();
-                        },
-                      ),
-                    ),
-                    // filter with price range
-                    FilterSctnWidget(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          for (int i = 0;
-                              i < filterConsts.priceRange.length;
-                              i++)
-                            Padding(
-                              padding: EdgeInsets.all(context.spaces.space_75),
-                              child: RadioButtonWidget<PriceRangeEnum>(
-                                label: filterConsts.priceRange[i],
-                                groupValue: filterOptions.priceRange,
-                                onChanged: (value) {
-                                  value != PriceRangeEnum.none
-                                      ? ref
-                                          .watch(
-                                              filterControllerProvider.notifier)
-                                          .setPriceRangeFilter(value!)
-                                      : ref
-                                          .watch(
-                                              filterControllerProvider.notifier)
-                                          .removePriceRangeFilter();
-                                },
-                                value: PriceRangeEnum.values[i],
+
+                      /// filter with price range
+                      FilterSctnWidget(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            for (int i = 0;
+                                i < filterConsts.priceRange.length;
+                                i++)
+                              Padding(
+                                padding:
+                                    EdgeInsets.all(context.spaces.space_75),
+                                child: RadioButtonWidget<PriceRangeEnum>(
+                                  label: filterConsts.priceRange[i],
+                                  groupValue: priceRange.value,
+                                  onChanged: (value) {
+                                    priceRange.value = value!;
+                                  },
+                                  value: PriceRangeEnum.values[i],
+                                ),
                               ),
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    // sorting
-                    FilterSctnWidget(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          for (int i = 0; i < filterConsts.sortBy.length; i++)
-                            Padding(
-                              padding: EdgeInsets.all(context.spaces.space_75),
-                              child: RadioButtonWidget<SortByEnum>(
-                                label: filterConsts.sortBy[i],
-                                groupValue: filterOptions.sortBy,
-                                onChanged: (value) {
-                                  value != SortByEnum.title
-                                      ? ref
-                                          .watch(
-                                              filterControllerProvider.notifier)
-                                          .addSortByFilter(value!)
-                                      : ref
-                                          .watch(
-                                              filterControllerProvider.notifier)
-                                          .removeSortByFilter();
-                                },
-                                value: SortByEnum.values[i],
+                      // sorting
+                      FilterSctnWidget(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            for (int i = 0; i < filterConsts.sortBy.length; i++)
+                              Padding(
+                                padding:
+                                    EdgeInsets.all(context.spaces.space_75),
+                                child: RadioButtonWidget<SortByEnum>(
+                                  label: filterConsts.sortBy[i],
+                                  groupValue: sortBy.value,
+                                  onChanged: (value) {
+                                    sortBy.value = value!;
+                                  },
+                                  value: SortByEnum.values[i],
+                                ),
                               ),
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    // choose order
-                    FilterSctnWidget(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          for (int i = 0;
-                              i < filterConsts.orderedBy.length;
-                              i++)
-                            Padding(
-                              padding: EdgeInsets.all(context.spaces.space_75),
-                              child: RadioButtonWidget<SortTypeEnum>(
-                                label: filterConsts.orderedBy[i],
-                                groupValue: filterOptions.sortOrder,
-                                onChanged: (value) {
-                                  ref
-                                      .watch(filterControllerProvider.notifier)
-                                      .addSortOrderFilter(
-                                        value ?? SortTypeEnum.ascending,
-                                      );
-                                },
-                                value: SortTypeEnum.values[i],
+                      // choose order
+                      FilterSctnWidget(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            for (int i = 0;
+                                i < filterConsts.orderedBy.length;
+                                i++)
+                              Padding(
+                                padding:
+                                    EdgeInsets.all(context.spaces.space_75),
+                                child: RadioButtonWidget<SortTypeEnum>(
+                                  label: filterConsts.orderedBy[i],
+                                  groupValue: sortOrder.value,
+                                  onChanged: (value) {
+                                    sortOrder.value = value!;
+                                  },
+                                  value: SortTypeEnum.values[i],
+                                ),
                               ),
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  );
+                }),
               ),
 
               /// Bottom section buttons for the filters
@@ -216,10 +218,7 @@ class AdsFilterBottomSheetWidget extends HookConsumerWidget {
                 padding:
                     EdgeInsets.symmetric(horizontal: context.spaces.space_200),
                 child: PrimaryBtnWidget(
-                  onTap: () {
-                    // close the bottom sheet
-                    Navigator.of(context).pop();
-                  },
+                  onTap: applyFilters,
                   label: filterConsts.txtApplyBtn,
                 ),
               )

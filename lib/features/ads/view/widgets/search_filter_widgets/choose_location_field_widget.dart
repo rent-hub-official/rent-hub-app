@@ -6,7 +6,7 @@ class ChooseLocationFieldWidget extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.controller,
-    required this.onChanged,
+    this.onChanged,
   });
   final String hintText;
   final TextEditingController controller;

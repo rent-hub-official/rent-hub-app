@@ -30,49 +30,25 @@ class FilterController extends _$FilterController {
     );
   }
 
-  /// Add product category to the filter list
-  void addProductTypeFilter(String productType) {
+  /// Apply the given filters
+  void applyFilters({
+    List<String>? productType,
+    String? location,
+    required PriceRangeEnum priceRange,
+    required SortByEnum sortBy,
+    required SortTypeEnum sortOrder,
+  }) {
+    if (location != null && location.trim().isEmpty) {
+      location = null;
+    }
+
     state = state.copyWith(
-      productType: [...state.productType ?? [], productType],
+      productType: productType,
+      location: location,
+      priceRange: priceRange,
+      sortBy: sortBy,
+      sortOrder: sortOrder,
     );
-  }
-
-  void removeProductTypeFilter(String productType) {
-    state = state.copyWith(
-      productType: state.productType?.where((e) => e != productType).toList(),
-    );
-  }
-
-  void addLocationFilter(String location) {
-    state = state.copyWith(location: location);
-  }
-
-  void removeLocationFilter() {
-    state = state.copyWith(location: null);
-  }
-
-  void setPriceRangeFilter(PriceRangeEnum priceRange) {
-    state = state.copyWith(priceRange: priceRange);
-  }
-
-  void removePriceRangeFilter() {
-    state = state.copyWith(priceRange: PriceRangeEnum.none);
-  }
-
-  void addSortByFilter(SortByEnum sortBy) {
-    state = state.copyWith(sortBy: sortBy);
-  }
-
-  void removeSortByFilter() {
-    state = state.copyWith(sortBy: SortByEnum.title);
-  }
-
-  void addSortOrderFilter(SortTypeEnum sortOrder) {
-    state = state.copyWith(sortOrder: sortOrder);
-  }
-
-  void removeSortOrderFilter() {
-    state = state.copyWith(sortOrder: SortTypeEnum.ascending);
   }
 
   /// Get the filtered products
