@@ -37,7 +37,9 @@ class SearchFieldWidget extends StatelessWidget {
         border: getSearchFieldBorder(context.colors.border),
         enabledBorder: getSearchFieldBorder(context.colors.border),
         focusedBorder: getSearchFieldBorder(context.colors.border),
-        contentPadding: EdgeInsets.all(context.spaces.space_100),
+        contentPadding: EdgeInsets.symmetric(
+            vertical: context.spaces.space_100,
+            horizontal: context.spaces.space_200),
         prefixIcon: prefixIcon,
       ),
     );

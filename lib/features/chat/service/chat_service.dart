@@ -45,7 +45,7 @@ class ChatService {
     return ChatService.messageCollection.orderBy("time").snapshots();
   }
 
-  static Stream<QuerySnapshot<AccountDetailsModel>> getAllUser() {
-    return AccountDetailsService.db.snapshots();
+  static Future<QuerySnapshot<AccountDetailsModel>> getAllUser() {
+    return AccountDetailsService.db.get();
   }
 }

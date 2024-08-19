@@ -1,12 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rent_hub/core/exception/base_exception.dart';
 import 'package:rent_hub/features/authentication/domain/model/account_details_model.dart';
 import 'package:rent_hub/features/chat/service/chat_service.dart';
 
 class GetUserUseCase {
-  Stream<QuerySnapshot<AccountDetailsModel>> call() {
+  Future<List<AccountDetailsModel>> call() async {
     try {
-      return ChatService.getAllUser();
+      final users = await ChatService.getAllUser();
+      return users.docs.map((e) => e.data()).toList();
     } on BaseException catch (e) {
       throw e.message;
     }

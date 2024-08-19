@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rent_hub/features/authentication/domain/model/account_details_model.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/account_details_usecase/add_account_details_use_cases.dart';
@@ -43,6 +44,7 @@ class AccountDetails extends _$AccountDetails {
       await AddAccountDeatailsUseCase()(
         accountDetails: AccountDetailsModel(
           userName: userName,
+          userId: FirebaseAuth.instance.currentUser!.uid,
           profileImage: imageRef ?? "",
           fcmToken: fcmToken,
         ),

@@ -7,6 +7,7 @@ part 'account_details_model.freezed.dart';
 @freezed
 class AccountDetailsModel with _$AccountDetailsModel {
   const factory AccountDetailsModel({
+    required String userId,
     required String userName,
     required String profileImage,
     String? fcmToken,
@@ -18,11 +19,17 @@ class AccountDetailsModel with _$AccountDetailsModel {
   factory AccountDetailsModel.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
-    return AccountDetailsModel.fromJson(snapshot.data()!);
+    final dataMap = snapshot.data()!;
+    dataMap['userId'] = snapshot.id;
+
+    return AccountDetailsModel.fromJson(dataMap);
   }
 
   static Map<String, dynamic> toFirestore(
       AccountDetailsModel contact, SetOptions? options) {
-    return contact.toJson();
+    final json = contact.toJson();
+    json.remove('userId');
+
+    return json;
   }
 }
