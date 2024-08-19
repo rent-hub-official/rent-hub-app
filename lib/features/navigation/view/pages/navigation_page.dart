@@ -26,10 +26,8 @@ class NavigationPage extends ConsumerWidget {
 
     // Function to handle page changes in a PageView
     void handlePageChange(int value) {
-      pageController.animateToPage(
+      pageController.jumpToPage(
         value,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeIn,
       );
     }
 
