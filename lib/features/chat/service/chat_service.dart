@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart';
 import 'package:rent_hub/features/authentication/domain/model/account_details_model.dart';
@@ -35,6 +36,7 @@ class ChatService {
         downloadUrl = await uploadAttachment(attachment);
         message = message.copyWith(attachment: downloadUrl);
       }
+
       await ChatService.messageCollection.doc().set(message);
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
@@ -46,16 +48,42 @@ class ChatService {
   }
 
   /// Get all messages of a current user with [userId]
-  static Future<QuerySnapshot<MessageModel>> getMessages(String userId) async {
+  static Stream<QuerySnapshot<MessageModel>> getMessages(String userId) {
     try {
-      final messages = await ChatService.messageCollection
+      final loggedInUserId = FirebaseAuth.instance.currentUser!.phoneNumber!;
+
+      final messages = messageCollection
           .where(
             Filter.or(
-              Filter('receiverId', isEqualTo: userId),
-              Filter('senderId', isEqualTo: userId),
+              Filter.and(Filter('receiverId', isEqualTo: userId),
+                  Filter('senderId', isEqualTo: loggedInUserId)),
+              Filter.and(Filter('receiverId', isEqualTo: loggedInUserId),
+                  Filter('senderId', isEqualTo: userId)),
+            ),
+          )
+          .orderBy('time')
+          .snapshots();
+
+      return messages;
+    } on FirebaseException catch (e) {
+      throw StorageException(e.message);
+    }
+  }
+
+  /// Get all messages of a current user
+  static Future<QuerySnapshot<MessageModel>> getAllMessages() async {
+    try {
+      final loggedInUserId = FirebaseAuth.instance.currentUser!.phoneNumber!;
+
+      final messages = await messageCollection
+          .where(
+            Filter.or(
+              Filter('receiverId', isEqualTo: loggedInUserId),
+              Filter('senderId', isEqualTo: loggedInUserId),
             ),
           )
           .get();
+
       return messages;
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
@@ -65,8 +93,4 @@ class ChatService {
   static Future<QuerySnapshot<AccountDetailsModel>> getUser(String userId) {
     return AccountDetailsService.db.where('userId', isEqualTo: userId).get();
   }
-
-  // static Future<QuerySnapshot<AccountDetailsModel>> getAllUser() {
-  //   return AccountDetailsService.db.get();
-  // }
 }

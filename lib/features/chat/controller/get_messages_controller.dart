@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'get_messages_controller.g.dart';
 
 @riverpod
-Future<List<MessageModel>> getMessages(GetMessagesRef,
-    {required String userId}) async {
+Stream<List<MessageModel>> getMessages(GetMessagesRef,
+    {required String userId}) {
   return GetMessagesUseCase()(userId);
 }

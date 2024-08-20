@@ -2,8 +2,8 @@ import 'package:rent_hub/features/chat/service/chat_service.dart';
 
 class GetUsersUseCase {
   Future<List<String>> call(String userId) async {
-    /// Get all messages of a current user with [userId]
-    final messages = await ChatService.getMessages(userId);
+    /// Get all messages of a current user
+    final messages = await ChatService.getAllMessages();
 
     final Set<String> messageSet = {};
 

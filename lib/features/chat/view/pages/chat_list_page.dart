@@ -9,6 +9,7 @@ import 'package:rent_hub/features/ads/view/widgets/search_field_widget.dart';
 import 'package:rent_hub/features/chat/controller/get_users_controller.dart';
 import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';
 import 'package:rent_hub/features/chat/widgets/chat_list_loading_widget.dart';
+import 'package:rent_hub/features/chat/widgets/no_users_found_widget.dart';
 
 class ChatListPage extends HookConsumerWidget {
   const ChatListPage({super.key});
@@ -35,6 +36,13 @@ class ChatListPage extends HookConsumerWidget {
       searchFieldOpacity.value = 0;
       searchFieldHeight.value = 0;
     }
+
+    /// Relaod the chat detials when opening this page
+    useEffect(() {
+      ref.read(getUserControllerProvider.notifier).updateChatUsersList(true);
+
+      return null;
+    }, []);
 
     return Scaffold(
       appBar: AppBar(
@@ -109,9 +117,21 @@ class ChatListPage extends HookConsumerWidget {
 
               if (snapshot.hasData) {
                 if (snapshot.data != null && snapshot.data!.isEmpty) {
-                  return Center(
-                    child: Text('Nothing found'),
-                  );
+                  return Expanded(
+                      child: Center(
+                          child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      NoUsersFoundWidget(),
+                      SizedBox(
+                        height: context.spaces.space_100,
+                      ),
+                      Text(
+                        'No users found',
+                        style: context.typography.bodySemibold,
+                      ),
+                    ],
+                  )));
                 }
 
                 return ListView.builder(

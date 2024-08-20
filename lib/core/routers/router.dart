@@ -138,8 +138,8 @@ final router = GoRouter(
       builder: (context, state) {
         final extra = state.extra as Map;
         return ChatDetailsPage(
-          image: extra['image']!,
-          name: extra['name']!,
+          userImage: extra['image']!,
+          userName: extra['name']!,
           receiverId: extra['receiverId']!,
         );
       },

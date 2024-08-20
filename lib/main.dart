@@ -27,6 +27,10 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // FirebaseFirestore.instance.settings = Settings(
+  //   persistenceEnabled: false,
+  // );
   await FirebaseAppCheck.instance.activate(
       appleProvider: AppleProvider.debug,
       androidProvider: AndroidProvider.debug);

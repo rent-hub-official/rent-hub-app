@@ -16,6 +16,7 @@ import 'package:rent_hub/features/ads/view/widgets/order_summery/order_summery_b
 import 'package:rent_hub/features/ads/view/widgets/product_details/prodcut_details_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/smooth_page_Indicator_wIdget.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
+import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';
 import 'package:rent_hub/features/chat/view/pages/seller_profile_page.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
 import 'package:rent_hub/features/orders/controller/orders_provider.dart';
@@ -141,8 +142,12 @@ class ProductDetailsPage extends ConsumerWidget {
                             },
                             chatTap: () {
                               context.push(
-                                SellerProfilePage.routePath,
-                                extra: adsData,
+                                ChatDetailsPage.routePath,
+                                extra: {
+                                  'image': data.profileImage,
+                                  'name': data.userName,
+                                  'receiverId': data.userId,
+                                },
                               );
                             },
                           ),

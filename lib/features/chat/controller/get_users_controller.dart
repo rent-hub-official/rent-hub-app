@@ -15,8 +15,8 @@ class GetUserController extends _$GetUserController {
     return null;
   }
 
-  Future<bool> updateChatUsersList() async {
-    if (state != null) return true;
+  Future<bool> updateChatUsersList([bool forceUpdate = false]) async {
+    if (!forceUpdate && state != null) return true;
 
     final users = await GetUsersUseCase()(
         FirebaseAuth.instance.currentUser!.phoneNumber!);

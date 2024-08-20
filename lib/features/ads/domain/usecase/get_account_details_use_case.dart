@@ -6,6 +6,7 @@ final class GetAccountDetailsUseCase {
   Future<AccountDetailsModel> call(String userId) async {
     try {
       final accountDetails = (await UserDetailsService.getData(userId)).data();
+
       return (AccountDetailsModel(
         profileImage: accountDetails?.profileImage ?? '',
         userId: accountDetails?.userId ?? '',
