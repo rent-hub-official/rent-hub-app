@@ -8,6 +8,7 @@ import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/search_field_widget.dart';
 import 'package:rent_hub/features/chat/controller/get_users_controller.dart';
 import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';
+import 'package:rent_hub/features/chat/widgets/chat_list_loading_widget.dart';
 
 class ChatListPage extends HookConsumerWidget {
   const ChatListPage({super.key});
@@ -163,9 +164,7 @@ class ChatListPage extends HookConsumerWidget {
                 );
               }
 
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+              return Expanded(child: ChatListLoadingWidget());
             },
           ),
         ],
