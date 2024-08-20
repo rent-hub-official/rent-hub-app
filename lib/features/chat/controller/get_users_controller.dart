@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rent_hub/features/ads/domain/usecase/get_account_details_use_case.dart';
 import 'package:rent_hub/features/authentication/domain/model/account_details_model.dart';
 import 'package:rent_hub/features/chat/domain/usecase/get_users_use_case.dart';
@@ -10,12 +11,15 @@ part 'get_users_controller.g.dart';
 @riverpod
 class GetUserController extends _$GetUserController {
   @override
-  void build() {
+  List<AccountDetailsModel>? build() {
     return null;
   }
 
-  Future<List<AccountDetailsModel?>> getUser(String userId) async {
-    final users = await GetUsersUseCase()(userId);
+  Future<bool> updateChatUsersList() async {
+    if (state != null) return true;
+
+    final users = await GetUsersUseCase()(
+        FirebaseAuth.instance.currentUser!.phoneNumber!);
 
     final usersList = <AccountDetailsModel>[];
 
@@ -27,6 +31,23 @@ class GetUserController extends _$GetUserController {
       }
     }
 
-    return usersList;
+    state = usersList;
+    return true;
+  }
+
+  /// Return the users list that matches with the search term
+  Future<List<AccountDetailsModel>?> searchUsers(String searchTerm) async {
+    await updateChatUsersList();
+
+    if (searchTerm.isEmpty) {
+      return state;
+    }
+
+    if (state == null) return null;
+
+    return state
+        ?.where((user) =>
+            user.userName.toLowerCase().contains(searchTerm.toLowerCase()))
+        .toList();
   }
 }

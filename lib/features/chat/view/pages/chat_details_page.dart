@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
@@ -12,19 +13,18 @@ class ChatDetailsPage extends ConsumerWidget {
   ChatDetailsPage({
     super.key,
     required this.receiverId,
-    required this.userId,
     required this.image,
     required this.name,
   });
 
   final TextEditingController inputMessageController = TextEditingController();
-  final String userId;
   final String receiverId;
   final String image;
   final String name;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final userId = FirebaseAuth.instance.currentUser!.phoneNumber!;
     final userDataAsyncValue = ref.watch(getUserDataProvider(userId));
 
     return Scaffold(

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -15,15 +14,10 @@ class ChatListPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final searchController = useTextEditingController();
     final isSearchVisible = useState(false);
     final searchFieldHeight = useState(0.0);
     final searchFieldOpacity = useState(0.0);
-
-    final currentUserId = FirebaseAuth.instance.currentUser!.phoneNumber;
-
-    final users =
-        ref.read(getUserControllerProvider.notifier).getUser(currentUserId!);
+    final searchTermState = useState<String>('');
 
     /// Open the search panel
     void openSearchField() {
@@ -83,14 +77,16 @@ class ChatListPage extends HookConsumerWidget {
                 child: isSearchVisible.value
                     ? SearchFieldWidget(
                         hintText: 'Search...',
-                        controller: searchController,
+                        onChanged: (value) => searchTermState.value = value,
                       )
                     : SizedBox(),
               ),
             ),
           ),
           FutureBuilder(
-            future: users,
+            future: ref
+                .read(getUserControllerProvider.notifier)
+                .searchUsers(searchTermState.value),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Center(
@@ -111,11 +107,17 @@ class ChatListPage extends HookConsumerWidget {
               }
 
               if (snapshot.hasData) {
+                if (snapshot.data != null && snapshot.data!.isEmpty) {
+                  return Center(
+                    child: Text('Nothing found'),
+                  );
+                }
+
                 return ListView.builder(
                   shrinkWrap: true,
-                  itemCount: snapshot.data!.length,
+                  itemCount: snapshot.data?.length ?? 0,
                   itemBuilder: (context, index) {
-                    final doc = snapshot.data![index]!;
+                    final doc = snapshot.data![index];
 
                     return Card(
                       child: ListTile(
@@ -123,14 +125,13 @@ class ChatListPage extends HookConsumerWidget {
                           final image = doc.profileImage;
                           final name = doc.userName;
                           final receiverId = doc.userId;
-                          final userId = currentUserId;
+
                           context.push(
                             ChatDetailsPage.routePath,
                             extra: {
                               'image': image,
                               'name': name,
                               'receiverId': receiverId,
-                              'userId': userId,
                             },
                           );
                         },

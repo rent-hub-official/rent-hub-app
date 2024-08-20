@@ -141,7 +141,6 @@ final router = GoRouter(
           image: extra['image']!,
           name: extra['name']!,
           receiverId: extra['receiverId']!,
-          userId: extra['userId']!,
         );
       },
       redirect: RouterRedirectServices.checkLoggedIn,
