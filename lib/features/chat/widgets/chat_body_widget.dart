@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
 import 'package:rent_hub/features/chat/controller/format_time_controller.dart';
-import 'package:rent_hub/features/chat/controller/get_all_chat_controller.dart';
+import 'package:rent_hub/features/chat/controller/get_messages_controller.dart';
 import 'package:rent_hub/features/chat/widgets/input_message_field_widget.dart';
 import 'package:rent_hub/features/chat/widgets/received_message_widget.dart';
 import 'package:rent_hub/features/chat/widgets/sent_message_widget.dart';
@@ -45,7 +45,7 @@ class ChatBody extends ConsumerWidget {
         child: Column(
           children: [
             Expanded(
-              child: ref.watch(getAllMessageProvider).when(
+              child: ref.watch(GetMessagesProvider(userId: userId)).when(
                     data: (data) {
                       return ListView.builder(
                         itemCount: data.length,

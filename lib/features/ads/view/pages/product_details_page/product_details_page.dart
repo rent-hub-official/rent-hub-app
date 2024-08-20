@@ -133,11 +133,11 @@ class ProductDetailsPage extends ConsumerWidget {
                                 extra: adsData,
                               );
                             },
-                            userimage: data.data()?.profileImage,
-                            sellerName: data.data()!.userName,
+                            userimage: data.profileImage,
+                            sellerName: data.userName,
                             adsModel: adsData,
                             callTap: () async {
-                              await launchUrlString("tel:${data.id}");
+                              await launchUrlString("tel:${data.userId}");
                             },
                             chatTap: () {
                               context.push(

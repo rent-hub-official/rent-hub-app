@@ -45,7 +45,28 @@ class ChatService {
     return ChatService.messageCollection.orderBy("time").snapshots();
   }
 
-  static Future<QuerySnapshot<AccountDetailsModel>> getAllUser() {
-    return AccountDetailsService.db.get();
+  /// Get all messages of a current user with [userId]
+  static Future<QuerySnapshot<MessageModel>> getMessages(String userId) async {
+    try {
+      final messages = await ChatService.messageCollection
+          .where(
+            Filter.or(
+              Filter('receiverId', isEqualTo: userId),
+              Filter('senderId', isEqualTo: userId),
+            ),
+          )
+          .get();
+      return messages;
+    } on FirebaseException catch (e) {
+      throw StorageException(e.message);
+    }
   }
+
+  static Future<QuerySnapshot<AccountDetailsModel>> getUser(String userId) {
+    return AccountDetailsService.db.where('userId', isEqualTo: userId).get();
+  }
+
+  // static Future<QuerySnapshot<AccountDetailsModel>> getAllUser() {
+  //   return AccountDetailsService.db.get();
+  // }
 }

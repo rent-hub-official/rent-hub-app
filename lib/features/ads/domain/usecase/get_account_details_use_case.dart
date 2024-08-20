@@ -1,12 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rent_hub/core/exception/base_exception.dart';
-import 'package:rent_hub/features/ads/domain/model/account_details/account_details_model.dart';
 import 'package:rent_hub/features/ads/service/user_details_service.dart';
+import 'package:rent_hub/features/authentication/domain/model/account_details_model.dart';
 
 final class GetAccountDetailsUseCase {
-  Future<DocumentSnapshot<AccountDetailsModel>> call(String userId) async {
+  Future<AccountDetailsModel> call(String userId) async {
     try {
-      return UserDetailsService.getData(userId);
+      final accountDetails = (await UserDetailsService.getData(userId)).data();
+      return (AccountDetailsModel(
+        profileImage: accountDetails?.profileImage ?? '',
+        userId: accountDetails?.userId ?? '',
+        userName: accountDetails?.userName ?? '',
+        fcmToken: accountDetails?.fcmToken,
+      ));
     } on BaseException catch (e) {
       throw e.message;
     }

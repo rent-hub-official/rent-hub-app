@@ -9,6 +9,7 @@ class AccountDetailsModel with _$AccountDetailsModel {
   const factory AccountDetailsModel({
     required String userName,
     required String profileImage,
+    required String userId,
     String? fcmToken,
   }) = _AccountDetailsModel;
 
@@ -18,11 +19,16 @@ class AccountDetailsModel with _$AccountDetailsModel {
   factory AccountDetailsModel.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
-    return AccountDetailsModel.fromJson(snapshot.data()!);
+    final data = snapshot.data();
+    data!['userId'] = snapshot.id;
+
+    return AccountDetailsModel.fromJson(data);
   }
 
   static Map<String, dynamic> toFirestore(
       AccountDetailsModel contact, SetOptions? options) {
-    return contact.toJson();
+    final json = contact.toJson();
+    json.remove('userId');
+    return json;
   }
 }

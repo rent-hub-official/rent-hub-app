@@ -63,13 +63,8 @@ class ChatDetailsPage extends ConsumerWidget {
       body: userDataAsyncValue.when(
         data: (userData) {
           return ChatBody(
-            profileImage: userData.data()!.profileImage,
-            name: ref
-                    .watch(getUserDataProvider(userId))
-                    .value!
-                    .data()
-                    ?.userName ??
-                '',
+            profileImage: userData.profileImage,
+            name: ref.watch(getUserDataProvider(userId)).value!.userName,
             userId: userId,
             receiverId: receiverId,
             image: image,

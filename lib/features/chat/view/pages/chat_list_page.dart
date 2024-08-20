@@ -7,7 +7,7 @@ import 'package:rent_hub/core/constants/chat/chat_box.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/search_field_widget.dart';
-import 'package:rent_hub/features/chat/controller/get_all_user_conroller.dart';
+import 'package:rent_hub/features/chat/controller/get_users_controller.dart';
 import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';
 
 class ChatListPage extends HookConsumerWidget {
@@ -21,6 +21,9 @@ class ChatListPage extends HookConsumerWidget {
     final searchFieldOpacity = useState(0.0);
 
     final currentUserId = FirebaseAuth.instance.currentUser!.phoneNumber;
+
+    final users =
+        ref.read(getUserControllerProvider.notifier).getUser(currentUserId!);
 
     /// Open the search panel
     void openSearchField() {
@@ -86,79 +89,84 @@ class ChatListPage extends HookConsumerWidget {
               ),
             ),
           ),
-
-          /// Listview
-          ref.watch(getAllUserProvider).when(
-                data: (data) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: data.length,
-                    itemBuilder: (context, index) {
-                      final doc = data[index];
-
-                      return currentUserId != doc.userId
-                          ? Card(
-                              child: ListTile(
-                                onTap: () {
-                                  final image = doc.profileImage;
-                                  final name = doc.userName;
-                                  final receiverId = doc.userId;
-                                  final userId = currentUserId;
-                                  context.push(
-                                    ChatDetailsPage.routePath,
-                                    extra: {
-                                      'image': image,
-                                      'name': name,
-                                      'receiverId': receiverId,
-                                      'userId': userId,
-                                    },
-                                  );
-                                },
-                                leading: CircleAvatar(
-                                    maxRadius: 24,
-                                    // Placeholder background color
-                                    child: ClipOval(
-                                      child: Image.network(
-                                        width: double.infinity,
-                                        height: double.infinity,
-                                        doc.profileImage,
-                                        fit: BoxFit.cover,
-                                        errorBuilder:
-                                            (context, error, stackTrace) =>
-                                                Center(
-                                          child: Icon(Icons.person),
-                                        ),
-                                      ),
-                                    )
-                                    // Placeholder icon if no profile image URL
-                                    ),
-                                title: Text(
-                                  doc.userName,
-                                ),
-                              ),
-                              color: Colors.transparent,
-                              shadowColor: Colors.transparent,
-                            )
-                          : SizedBox.shrink();
-                    },
-                  );
-                },
-                error: (error, stackTrace) => Center(
+          FutureBuilder(
+            future: users,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Center(
                   child: Column(
                     children: [
-                      Text("Reload"),
+                      Text(
+                        "Error" + snapshot.error.toString(),
+                      ),
                       IconButton(
-                          onPressed: () {
-                            ref.invalidate(getAllUserProvider);
-                          },
-                          icon: Icon(Icons.refresh))
+                        onPressed: () {
+                          ref.invalidate(getUserControllerProvider);
+                        },
+                        icon: Icon(Icons.refresh),
+                      )
                     ],
                   ),
-                ),
-                loading: () => Expanded(
-                  child: Center(child: CircularProgressIndicator()),
-                ),
-              ),
+                );
+              }
+
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    final doc = snapshot.data![index]!;
+
+                    return Card(
+                      child: ListTile(
+                        onTap: () {
+                          final image = doc.profileImage;
+                          final name = doc.userName;
+                          final receiverId = doc.userId;
+                          final userId = currentUserId;
+                          context.push(
+                            ChatDetailsPage.routePath,
+                            extra: {
+                              'image': image,
+                              'name': name,
+                              'receiverId': receiverId,
+                              'userId': userId,
+                            },
+                          );
+                        },
+                        leading: CircleAvatar(
+                            maxRadius: 24,
+                            // Placeholder background color
+                            child: ClipOval(
+                              child: Image.network(
+                                width: double.infinity,
+                                height: double.infinity,
+                                doc.profileImage,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Center(
+                                  child: Icon(Icons.person),
+                                ),
+                              ),
+                            )
+                            // Placeholder icon if no profile image URL
+                            ),
+                        title: Text(
+                          doc.userName,
+                        ),
+                      ),
+                      color: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                    );
+                  },
+                );
+              }
+
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
         ],
       ),
     );
