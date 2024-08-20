@@ -33,6 +33,7 @@ class NavigationPage extends ConsumerWidget {
 
     return Scaffold(
       extendBody: true,
+      resizeToAvoidBottomInset: false,
       body: PageView(
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),

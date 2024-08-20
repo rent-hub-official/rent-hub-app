@@ -8,7 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'get_users_controller.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class GetUserController extends _$GetUserController {
   @override
   List<AccountDetailsModel>? build() {
