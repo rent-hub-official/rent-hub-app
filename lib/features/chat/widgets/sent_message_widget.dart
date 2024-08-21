@@ -32,15 +32,19 @@ class SentMessageWidget extends ConsumerWidget {
           children: [
             Container(
               padding: EdgeInsets.all(context.spaces.space_150),
+
               width: max(0, context.spaces.space_900 * 3),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(context.spaces.space_600),
-                      topLeft: Radius.circular(context.spaces.space_600),
-                      topRight: Radius.circular(context.spaces.space_600)),
+                      bottomLeft: Radius.circular(context.spaces.space_200),
+                      topLeft: Radius.circular(context.spaces.space_200),
+                      topRight: Radius.circular(context.spaces.space_200)),
                   color: context.colors.messageBackground),
               // message
-              child: Text(message, style: context.typography.body),
+              child: Padding(
+                padding: EdgeInsets.all(context.spaces.space_100),
+                child: Text(message, style: context.typography.body),
+              ),
             ),
             // sent message time
             Text(time, style: context.typography.bodySmall)

@@ -147,6 +147,7 @@ class ProductDetailsPage extends ConsumerWidget {
                                   'image': data.profileImage,
                                   'name': data.userName,
                                   'receiverId': data.userId,
+                                  'lastSeen': data.lastSeen,
                                 },
                               );
                             },

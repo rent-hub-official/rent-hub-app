@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/features/chat/controller/format_time_controller.dart';
 import 'package:rent_hub/features/chat/controller/get_messages_controller.dart';
-import 'package:rent_hub/features/chat/widgets/input_message_field_widget.dart';
 import 'package:rent_hub/features/chat/widgets/received_message_widget.dart';
 import 'package:rent_hub/features/chat/widgets/sent_message_widget.dart';
 
@@ -24,13 +23,12 @@ class ChatBody extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController();
-    final inputMessageController = useTextEditingController();
     final isUserScrolled = useState(false);
 
     final currentUserId = FirebaseAuth.instance.currentUser!.phoneNumber!;
 
     return Padding(
-      padding: EdgeInsets.all(context.spaces.space_200),
+      padding: EdgeInsets.symmetric(horizontal: context.spaces.space_200),
       child: Column(
         children: [
           Expanded(
@@ -55,8 +53,8 @@ class ChatBody extends HookConsumerWidget {
                           };
                         }, []);
 
-                        return ListView.builder(
-                          itemCount: data.length,
+                        return ListView.separated(
+                          itemCount: data.length + 1,
                           controller: scrollController,
                           itemBuilder: (context, index) {
                             WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -65,6 +63,11 @@ class ChatBody extends HookConsumerWidget {
                                     scrollController.position.maxScrollExtent);
                               }
                             });
+
+                            if (index == data.length) {
+                              return SizedBox(
+                                  height: context.spaces.space_100 * 10);
+                            }
 
                             final message = data[index];
                             if (currentUserId == message.senderId &&
@@ -85,6 +88,9 @@ class ChatBody extends HookConsumerWidget {
                             }
                             return SizedBox.shrink();
                           },
+                          separatorBuilder: (context, index) => SizedBox(
+                            height: context.spaces.space_100,
+                          ),
                         );
                       });
                     },
@@ -94,16 +100,6 @@ class ChatBody extends HookConsumerWidget {
                     loading: () => Center(child: CircularProgressIndicator()),
                   );
             }),
-          ),
-          SizedBox(
-            height: context.spaces.space_150,
-          ),
-          InputMessageFieldWidget(
-            recieverImage: recieverImage,
-            recieverName: recieverName,
-            receiverId: receiverId,
-            senderId: FirebaseAuth.instance.currentUser!.phoneNumber!,
-            controller: inputMessageController,
           ),
         ],
       ),

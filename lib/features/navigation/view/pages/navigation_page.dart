@@ -1,16 +1,23 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/enums/bottom_nav_items_enum.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/bottom_nav_bar/animated_bottom_nav_bar.dart';
 import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
 import 'package:rent_hub/features/ads/view/pages/home_page.dart';
+import 'package:rent_hub/features/authentication/controller/account_details_provider/account_details_provider.dart';
 import 'package:rent_hub/features/authentication/view/pages/profile_page.dart';
 import 'package:rent_hub/features/chat/view/pages/chat_list_page.dart';
 import 'package:rent_hub/features/favorites/view/pages/favorites_page.dart';
 
-class NavigationPage extends ConsumerWidget {
+class NavigationPage extends HookConsumerWidget {
   static const routePath = '/nav';
   static final GlobalKey bottomNavBarKey = GlobalKey();
   static final GlobalKey floatingActionBtnKey = GlobalKey();
@@ -30,6 +37,16 @@ class NavigationPage extends ConsumerWidget {
         value,
       );
     }
+
+    useEffect(() {
+      Timer.periodic(const Duration(seconds: 30), (timer) {
+        //update last seen
+        ref.read(accountDetailsProvider.notifier).updateLastSeen(
+            //get current time
+            Timestamp.now());
+      });
+      return () {};
+    }, []);
 
     return Scaffold(
       extendBody: true,

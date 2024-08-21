@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:rent_hub/features/ads/domain/model/account_details/account_details_model.dart';
+import 'package:rent_hub/features/authentication/domain/model/account_details_model.dart';
 
 class NotificationService {
   static final _firebaseMessaging = FirebaseMessaging.instance;
