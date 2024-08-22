@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
-import 'package:rent_hub/features/chat/controller/format_time_controller.dart';
+import 'package:rent_hub/core/utils/format_utils.dart';
 import 'package:rent_hub/features/chat/controller/last_seen_controller.dart';
 import 'package:rent_hub/features/chat/widgets/chat_body_widget.dart';
 import 'package:rent_hub/features/chat/widgets/input_message_field_widget.dart';
@@ -63,20 +63,18 @@ class ChatDetailsPage extends HookConsumerWidget {
                     }, []);
 
                     return userStatus.when(
-                      data: (data) {
+                      data: (userDetails) {
                         final currentTime = Timestamp.now();
 
                         final diff = currentTime
                             .toDate()
-                            .difference(data.lastSeen.toDate())
-                            .inSeconds;
+                            .difference(userDetails.lastSeen.toDate());
 
                         return Text(
-                          diff <= 60
+                          diff.inSeconds <= 60
                               ? "Online"
-                              : 'Last seen at ${ref.read(
-                                  FormatTimeProvider(timestamp: data.lastSeen),
-                                )}',
+                              : FormatUtils.formatLastSeen(
+                                  userDetails.lastSeen),
                           style: context.typography.body,
                         );
                       },
