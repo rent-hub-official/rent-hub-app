@@ -8,6 +8,7 @@ import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/textfield_widget.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/location_name_reduce_provider.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/place_details_provider.dart';
+import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:rent_hub/features/ads/view/pages/location_selection_page.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -15,7 +16,10 @@ import 'package:shimmer/shimmer.dart';
 class LocationFeilddWidget extends ConsumerWidget {
   LocationFeilddWidget({
     super.key,
+    this.adsModel,
   });
+
+  final AdsModel? adsModel;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,9 +30,11 @@ class LocationFeilddWidget extends ConsumerWidget {
                 context.push(
                   LocationSelectionPage.routePath,
                   extra: LatLng(
-                    data?.results?.first.geometry?.location?.lat ??
+                    adsModel?.lat ??
+                        data?.results?.first.geometry?.location?.lat ??
                         22.715702381914507,
-                    data?.results?.first.geometry?.location?.lng ??
+                    adsModel?.long ??
+                        data?.results?.first.geometry?.location?.lng ??
                         79.1712949052453,
                   ),
                 );
@@ -41,7 +47,8 @@ class LocationFeilddWidget extends ConsumerWidget {
                 textController: TextEditingController(
                   text: ref.watch(
                     locationNameReduceProvider(
-                      data?.results?.first.formattedAddress,
+                      adsModel?.locationTitle ??
+                          data?.results?.first.formattedAddress,
                     ),
                   ),
                 ),

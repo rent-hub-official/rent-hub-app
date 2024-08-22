@@ -9,8 +9,10 @@ class CategoryDropDownWidget extends ConsumerWidget {
     super.key,
     required this.itemSelector,
     required this.categoryList,
+    this.category,
   });
 
+  final String? category;
   final ValueNotifier<String?> itemSelector;
   final List<CategoryModel> categoryList;
 
@@ -25,7 +27,7 @@ class CategoryDropDownWidget extends ConsumerWidget {
         ),
         DropdownButton<String>(
           isExpanded: true,
-          value: itemSelector.value,
+          value: category ?? itemSelector.value,
           hint: Text(
             ref.watch(addProductConstantsProvider).txtSelectCategory,
             style: context.typography.body,

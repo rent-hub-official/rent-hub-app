@@ -80,7 +80,9 @@ final router = GoRouter(
     GoRoute(
       path: AddProductPage.routePath,
       builder: (context, state) {
-        return const AddProductPage();
+        return AddProductPage(
+          adsModel: state.extra as AdsModel?,
+        );
       },
       redirect: RouterRedirectServices.checkLoggedIn,
     ),
