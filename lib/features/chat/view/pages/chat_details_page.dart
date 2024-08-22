@@ -9,6 +9,7 @@ import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/utils/format_utils.dart';
 import 'package:rent_hub/features/chat/controller/last_seen_controller.dart';
 import 'package:rent_hub/features/chat/widgets/chat_body_widget.dart';
+import 'package:rent_hub/features/chat/widgets/chat_date_indicator_widget.dart';
 import 'package:rent_hub/features/chat/widgets/input_message_field_widget.dart';
 
 class ChatDetailsPage extends HookConsumerWidget {
@@ -91,10 +92,20 @@ class ChatDetailsPage extends HookConsumerWidget {
           ],
         ),
       ),
-      body: ChatBody(
-        receiverId: receiverId,
-        recieverImage: userImage,
-        recieverName: userName,
+      body: Stack(
+        children: [
+          ChatBody(
+            receiverId: receiverId,
+            recieverImage: userImage,
+            recieverName: userName,
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: ChatDateIndicatorWidget(
+              date: DateTime.now(),
+            ),
+          ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
