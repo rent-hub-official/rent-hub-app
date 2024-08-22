@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -26,6 +28,10 @@ class ChatBody extends HookConsumerWidget {
     final scrollController = useScrollController();
     final isUserScrolled = useState(false);
 
+    final floatingDateIndicatorKey = useMemoized(() => GlobalKey());
+    final floatingDateIndicatorVisible = useState(true);
+    final dateIndicatorValue = useState<DateTime>(DateTime.now());
+
     final currentUserId = FirebaseAuth.instance.currentUser!.phoneNumber!;
 
     return Padding(
@@ -37,14 +43,76 @@ class ChatBody extends HookConsumerWidget {
               return ref.watch(GetMessagesProvider(userId: receiverId)).when(
                     data: (data) {
                       return HookBuilder(builder: (context) {
-                        /// To make the listview scroll to the bottom automatically when the user is not scrolling manually
-                        useEffect(() {
-                          void scrollListener() {
-                            if (scrollController.position.extentAfter != 0) {
-                              isUserScrolled.value = true;
+                        /// Sorted keys of the messages based on the date
+                        final sortedKeys = data.keys.toList()
+                          ..sort((a, b) => a.compareTo(b));
+
+                        /// Keys for the date labels
+                        final dateIndicatorKeys = useMemoized(
+                            () => List.generate(
+                                sortedKeys.length, (i) => GlobalKey()),
+                            [sortedKeys.length]);
+
+                        /// Update the date indicator value based on the scroll position
+                        void checkDateIndicatorVisibility() {
+                          final dateIndicatorRenderBoxe =
+                              floatingDateIndicatorKey.currentContext
+                                  ?.findRenderObject() as RenderBox?;
+                          final dateIndicatorPosition = dateIndicatorRenderBoxe
+                              ?.localToGlobal(Offset.zero)
+                              .dy;
+
+                          DateTime? dateForIndicator;
+                          for (int i = 0; i < dateIndicatorKeys.length; i++) {
+                            final renderBox = dateIndicatorKeys[i]
+                                .currentContext
+                                ?.findRenderObject() as RenderBox?;
+                            final currentIndicatorPosition =
+                                renderBox?.localToGlobal(Offset.zero).dy;
+
+                            if (currentIndicatorPosition != null) {
+                              if (currentIndicatorPosition ==
+                                  dateIndicatorPosition) {
+                                dateForIndicator = sortedKeys[i];
+                              } else if (dateIndicatorPosition != null &&
+                                  currentIndicatorPosition >
+                                      dateIndicatorPosition) {
+                                dateForIndicator = sortedKeys[i - 1];
+                              }
+
+                              if (dateForIndicator != null) {
+                                dateIndicatorValue.value = dateForIndicator;
+
+                                break;
+                              }
                             }
                           }
 
+                          if (dateForIndicator == null) {
+                            dateForIndicator = sortedKeys.last;
+                            dateIndicatorValue.value = dateForIndicator;
+                          }
+
+                          /// Hide the indicator if the date is today
+                          final now = DateTime.now();
+                          final today = DateTime(now.year, now.month, now.day);
+                          if (dateForIndicator == today) {
+                            floatingDateIndicatorVisible.value = false;
+                          } else {
+                            floatingDateIndicatorVisible.value = true;
+                          }
+                        }
+
+                        void scrollListener() {
+                          checkDateIndicatorVisibility();
+
+                          if (scrollController.position.extentAfter != 0) {
+                            isUserScrolled.value = true;
+                          }
+                        }
+
+                        /// To make the listview scroll to the bottom automatically when the user is not scrolling manually
+                        useEffect(() {
                           WidgetsBinding.instance.addPostFrameCallback((_) {
                             scrollController.position
                                 .addListener(scrollListener);
@@ -55,57 +123,76 @@ class ChatBody extends HookConsumerWidget {
                           };
                         }, []);
 
-                        /// Sorted keys of the messages based on the date
-                        final sortedKeys = data.keys.toList()
-                          ..sort((a, b) => a.compareTo(b));
-
-                        return ListView(
-                          controller: scrollController,
+                        return Stack(
                           children: [
-                            for (final key in sortedKeys) ...[
-                              Center(
-                                child: ChatDateIndicatorWidget(date: key),
-                              ),
-                              ListView.separated(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: data[key]!.length,
-                                itemBuilder: (context, index) {
-                                  /// Automatically scroll to the bottom when the user is not scrolling manually
-                                  WidgetsBinding.instance
-                                      .addPostFrameCallback((_) {
-                                    if (!isUserScrolled.value) {
-                                      scrollController.jumpTo(scrollController
-                                          .position.maxScrollExtent);
-                                    }
-                                  });
+                            ListView(
+                              controller: scrollController,
+                              children: [
+                                for (int i = 0; i < sortedKeys.length; i++) ...[
+                                  Center(
+                                    child: ChatDateIndicatorWidget(
+                                      date: sortedKeys[i],
+                                      key: dateIndicatorKeys[i],
+                                    ),
+                                  ),
+                                  ListView.separated(
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemCount: data[sortedKeys[i]]!.length,
+                                    itemBuilder: (context, index) {
+                                      /// Automatically scroll to the bottom when the user is not scrolling manually
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        checkDateIndicatorVisibility();
 
-                                  final message = data[key]![index];
-                                  if (currentUserId == message.senderId &&
-                                      receiverId == message.receiverId) {
-                                    return SentMessageWidget(
-                                      message: message.message ?? '',
-                                      time: ref.watch(FormatTimeProvider(
-                                          timestamp: message.time)),
-                                    );
-                                  } else if (currentUserId ==
-                                          message.receiverId &&
-                                      receiverId == message.senderId) {
-                                    return ReceviedMessageWidget(
-                                      image: recieverImage,
-                                      message: message.message ?? '',
-                                      time: ref.watch(FormatTimeProvider(
-                                          timestamp: message.time)),
-                                    );
-                                  }
-                                  return SizedBox.shrink();
-                                },
-                                separatorBuilder: (context, index) => SizedBox(
-                                  height: context.spaces.space_100,
+                                        if (!isUserScrolled.value) {
+                                          scrollController.jumpTo(
+                                              scrollController
+                                                  .position.maxScrollExtent);
+                                        }
+                                      });
+
+                                      final message =
+                                          data[sortedKeys[i]]![index];
+                                      if (currentUserId == message.senderId &&
+                                          receiverId == message.receiverId) {
+                                        return SentMessageWidget(
+                                          message: message.message ?? '',
+                                          time: ref.watch(FormatTimeProvider(
+                                              timestamp: message.time)),
+                                        );
+                                      } else if (currentUserId ==
+                                              message.receiverId &&
+                                          receiverId == message.senderId) {
+                                        return ReceviedMessageWidget(
+                                          image: recieverImage,
+                                          message: message.message ?? '',
+                                          time: ref.watch(FormatTimeProvider(
+                                              timestamp: message.time)),
+                                        );
+                                      }
+                                      return SizedBox.shrink();
+                                    },
+                                    separatorBuilder: (context, index) =>
+                                        SizedBox(
+                                      height: context.spaces.space_100,
+                                    ),
+                                  ),
+                                ],
+                                SizedBox(height: context.spaces.space_100 * 10),
+                              ],
+                            ),
+                            Opacity(
+                              opacity:
+                                  floatingDateIndicatorVisible.value ? 1 : 0,
+                              child: Align(
+                                alignment: Alignment.topCenter,
+                                child: ChatDateIndicatorWidget(
+                                  key: floatingDateIndicatorKey,
+                                  date: dateIndicatorValue.value,
                                 ),
                               ),
-                            ],
-                            SizedBox(height: context.spaces.space_100 * 10),
+                            ),
                           ],
                         );
                       });
