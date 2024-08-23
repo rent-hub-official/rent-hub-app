@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
+import 'package:rent_hub/features/ads/controller/image_cache/image_cache_controller.dart';
 
 class ProductCardWidget extends HookConsumerWidget {
   final String name;
@@ -30,6 +31,17 @@ class ProductCardWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isFavorite = useState(this.isFavorite);
 
+    useEffect(() {
+      ref.read(imageCacheControllerProvider.notifier).getCachedImage(image);
+
+      return null;
+    }, []);
+
+    final imageCache = ref.watch(imageCacheControllerProvider);
+    final DecorationImage? decorationImage = imageCache[image] != null
+        ? DecorationImage(image: imageCache[image]!, fit: BoxFit.cover)
+        : null;
+
     return InkWell(
       borderRadius: BorderRadius.circular(context.spaces.space_200),
       onTap: onTap,
@@ -54,8 +66,7 @@ class ProductCardWidget extends HookConsumerWidget {
                     height: context.spaces.space_400 * 4,
                     padding: EdgeInsets.all(context.spaces.space_100),
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(image), fit: BoxFit.cover),
+                      image: decorationImage,
                       borderRadius:
                           BorderRadius.circular(context.spaces.space_100),
                     ),
