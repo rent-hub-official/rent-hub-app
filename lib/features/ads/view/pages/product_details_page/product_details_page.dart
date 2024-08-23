@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,6 @@ import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:rent_hub/features/ads/view/widgets/order_summery/order_summery_bottomsheet_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/prodcut_details_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/smooth_page_Indicator_wIdget.dart';
-import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
 import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';
 import 'package:rent_hub/features/chat/view/pages/seller_profile_page.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
@@ -193,18 +193,12 @@ class ProductDetailsPage extends ConsumerWidget {
                 dropdatetext: orderConsts.txtDropUp,
                 btnTxt: orderConsts.txtBtn,
                 onTap: () {
-                  /// calculate amount
-                  final amount = adsData.price * noOfDays;
-
-                  /// set amount to payment provider
-                  ref.watch(PaymentProvider(amount: amount));
-
                   /// add order to firestore
                   ref.read(ordersProvider.notifier).addOrder(
                         ordersModel: OrdersModel(
                           adsId: adsData.id!,
                           userId:
-                              ref.watch(authenticationProvider).phoneNumber!,
+                              FirebaseAuth.instance.currentUser!.phoneNumber!,
                           orderPlacedOn: DateTime.now(),
                           paymentCompletedOn: DateTime.now(),
                           orderConfirmedOn: DateTime.now(),
@@ -213,6 +207,12 @@ class ProductDetailsPage extends ConsumerWidget {
                           verificationCode: '1234',
                         ),
                       );
+
+                  /// calculate amount
+                  final amount = adsData.price * noOfDays;
+
+                  /// set amount to payment provider
+                  ref.watch(PaymentProvider(amount: amount));
                 },
               ),
             );

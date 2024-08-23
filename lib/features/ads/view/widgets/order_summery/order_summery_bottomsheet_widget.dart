@@ -98,9 +98,6 @@ class OrderSummeryBottomSheetWidget extends HookConsumerWidget {
                                           ref,
                                         );
                                   },
-                                  typography: context.typography,
-                                  spacer: context.spaces,
-                                  colors: context.colors,
                                   date: pickordropdate,
                                   selectedDate: ref.read(pickUpDateProvider),
                                 ),
@@ -128,9 +125,6 @@ class OrderSummeryBottomSheetWidget extends HookConsumerWidget {
                                         );
                                   },
                                   date: pickordropdate,
-                                  typography: context.typography,
-                                  spacer: context.spaces,
-                                  colors: context.colors,
                                   selectedDate: ref.watch(dropUpDateProvider),
                                 ),
                               ],
@@ -156,7 +150,7 @@ class OrderSummeryBottomSheetWidget extends HookConsumerWidget {
                                 color: context.colors.border,
                                 width: .5,
                               ),
-                              color: AppColorPalettes.white500,
+                              color: context.colors.cardBackground,
                               borderRadius: BorderRadius.circular(
                                 context.spaces.space_75,
                               ),
@@ -182,10 +176,11 @@ class OrderSummeryBottomSheetWidget extends HookConsumerWidget {
                       ),
                       Text(agreetext, style: context.typography.bodySmall),
                       InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            //TODO: Add the privacy policy link
+                          },
                           child: Text(privacyPolicytext,
-                              style: context.typography.bodySmall
-                                  .copyWith(color: context.colors.secondary)))
+                              style: context.typography.bodySmallSemiBold))
                     ],
                   ),
                 ),

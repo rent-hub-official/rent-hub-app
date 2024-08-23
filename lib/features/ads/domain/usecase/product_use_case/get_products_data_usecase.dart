@@ -32,7 +32,8 @@ class GetProductsDataUsecase {
       }).toList();
     } else {
       // fetch all categorised products
-      final data = await AdsService.getCategorisedProducts(categoryId);
+      final data =
+          await AdsService.getCategorisedProducts(categoryId, lastItem);
 
       return data.docs.map((element) {
         return element.data();

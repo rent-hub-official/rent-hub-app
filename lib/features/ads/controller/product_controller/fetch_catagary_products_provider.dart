@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:rent_hub/features/ads/controller/location_controller/user_saved_location_provider.dart';
 import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:rent_hub/features/ads/domain/usecase/product_use_case/get_products_data_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -33,7 +34,28 @@ class FetchProducts extends _$FetchProducts {
   Future<void> fetchCatagorisedProducts() async {
     try {
       final products = await GetProductsDataUsecase()(catagory: catagory);
-      state = state.copyWith(products: products, isLoading: false);
+      final userLocation = ref.watch(userSavedLocationProvider);
+
+      final nearByAds = <AdsModel>[];
+      if (userLocation != null && userLocation.secondaryText.isNotEmpty) {
+        final userLocationTitle =
+            userLocation.secondaryText.split(',').getRange(0, 2).toList();
+
+        userLocationTitle.insert(0, userLocation.mainText);
+
+        for (final product in products) {
+          if (product.locationTitle.contains(userLocationTitle[0]) ||
+              product.locationTitle.contains(userLocationTitle[1]) ||
+              product.locationTitle.contains(userLocationTitle[2])) {
+            nearByAds.add(product);
+          }
+        }
+        state = state.copyWith(
+            products: nearByAds.isEmpty ? products : nearByAds,
+            isLoading: false);
+      } else {
+        state = state.copyWith(products: products, isLoading: false);
+      }
     } catch (e) {
       state = state.copyWith(error: e.toString(), isLoading: false);
     }

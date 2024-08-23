@@ -32,7 +32,7 @@ class ChatDateIndicatorWidget extends StatelessWidget {
             vertical: context.spaces.space_100,
           ),
           decoration: BoxDecoration(
-            color: context.colors.secondary,
+            color: context.colors.cardBackground,
             borderRadius: BorderRadius.all(
               Radius.circular(context.spaces.space_400),
             ),

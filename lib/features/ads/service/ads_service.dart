@@ -113,9 +113,19 @@ final class AdsService {
 
   // get categorised products
   static Future<QuerySnapshot<AdsModel>> getCategorisedProducts(
-      String categoryId) async {
+      String categoryId, AdsModel? lastItem) async {
     try {
-      return await adsDb.where('category', isEqualTo: categoryId).get();
+      if (lastItem == null) {
+        return await adsDb
+            .where('category', isEqualTo: categoryId)
+            .limit(10)
+            .get();
+      }
+      return await adsDb
+          .where('category', isEqualTo: categoryId)
+          .startAfterDocument(await adsDb.doc(lastItem.id!).get())
+          .limit(10)
+          .get();
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
     }

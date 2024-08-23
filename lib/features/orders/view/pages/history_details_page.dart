@@ -5,6 +5,7 @@ import 'package:rent_hub/core/constants/ads/purchase_history.dart';
 import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
+import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
 import 'package:rent_hub/features/orders/controller/fetch_ads_provider.dart';
 import 'package:rent_hub/features/orders/controller/orders_provider.dart';
 
@@ -62,11 +63,11 @@ class HistoryDetailsPage extends HookConsumerWidget {
                                           location: data.locationTitle,
                                           image: data.imagePath[0],
                                           onTap: () {
-                                            ref
-                                                .read(ordersProvider.notifier)
-                                                .deleteOrder(adsId: data.id!);
+                                            context.push(
+                                                ProductDetailsPage.routePath,
+                                                extra: data);
                                           },
-                                          actionBtnLabel: 'Remove',
+                                          actionBtnLabel: 'Reorder',
                                         ),
                                       ],
                                     ),
