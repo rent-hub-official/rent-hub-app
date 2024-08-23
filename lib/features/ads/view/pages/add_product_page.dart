@@ -40,7 +40,7 @@ class AddProductPage extends HookConsumerWidget {
     Future<void> postOrUpdateProduct() async {
       if (formKey.currentState!.validate()) {
         // add products data
-        ref.read(productsProvider.notifier).addData(
+        await ref.read(productsProvider.notifier).addData(
               category: dropDownItem.value,
               description: descriptionController.text,
               imagePaths: imagesState.value,
@@ -48,7 +48,7 @@ class AddProductPage extends HookConsumerWidget {
               productName: productNamecontroller.text,
             );
 
-        ref.invalidate(fetchCatagorisedProductsProvider);
+        ref.invalidate(fetchProductsProvider(catagory: dropDownItem.value));
       }
     }
 

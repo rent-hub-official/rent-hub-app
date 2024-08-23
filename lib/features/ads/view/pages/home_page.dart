@@ -63,7 +63,9 @@ class HomePage extends HookConsumerWidget {
                 color: context.colors.primary,
                 onRefresh: () async {
                   // refresh fetch products
-                  ref.invalidate(fetchCatagorisedProductsProvider);
+                  ref.invalidate(fetchProductsProvider(
+                    catagory: i == 0 ? null : categoryList[i],
+                  ));
                   return Future.delayed(Duration(seconds: 1));
                 },
                 child: CategoryListBuilderWidget(

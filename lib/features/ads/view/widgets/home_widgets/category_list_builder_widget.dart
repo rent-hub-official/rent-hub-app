@@ -12,6 +12,7 @@ import 'package:rent_hub/features/ads/view/pages/product_details_page/product_de
 import 'package:rent_hub/features/ads/view/widgets/product_card_shimmer/product_card_shimmer_widget.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
 import 'package:rent_hub/features/navigation/view/pages/navigation_page.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CategoryListBuilderWidget extends HookConsumerWidget {
   final String? categoryName;
@@ -44,107 +45,152 @@ class CategoryListBuilderWidget extends HookConsumerWidget {
     /// Get the ads that are part of the selected category.
     ///
     /// If the category name is null, then fetch all category products
-    final products = ref.watch(fetchCatagorisedProductsProvider(
+    final productsState = ref.watch(fetchProductsProvider(
       catagory: categoryName,
     ));
 
-    return switch (products) {
-      AsyncData(value: final productsList) => productsList.isNotEmpty
-          ? ListView.builder(
-              itemCount: productsList.length + 1,
-              padding: EdgeInsets.zero,
-              itemBuilder: (context, index) {
-                if (index == productsList.length) {
-                  return SizedBox(
+    if (productsState.products != null) {
+      final productsList = productsState.products!;
+
+      /// Empty products list check
+      if (productsList.isEmpty) {
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            return Center(
+              child: Lottie.asset(
+                lottieConsts.animationEmpty,
+                height: constraints.maxHeight * .4,
+              ),
+            );
+          },
+        );
+      }
+
+      /// Show products list
+      return NotificationListener<ScrollUpdateNotification>(
+        onNotification: (notification) {
+          if (notification.metrics.extentAfter < 10) {
+            ref
+                .read(fetchProductsProvider(catagory: categoryName).notifier)
+                .fetchNextPageData();
+          }
+
+          return true;
+        },
+        child: ListView.builder(
+          /// An extra item length is added to show a gap at the end of the list
+          itemCount: productsList.length + 1,
+          padding: EdgeInsets.zero,
+          itemBuilder: (context, index) {
+            if (index == productsList.length)
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  /// Show a shimmer at the end of the list if new page is about to load
+                  if (productsState.isLoading)
+                    Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16),
+                        child: Container(
+                          width: double.infinity,
+                          height: 220, // Adjust the height as needed
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(
+                                12), // Adjust border radius as needed
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  /// To add some extra space to avoid ads card being hidden behind the bottom navigation bar
+                  SizedBox(
                     height: bottomNavBarHeight.value,
-                  );
-                }
-
-                //future builder for cehceks ads if favorite or not
-                return FutureBuilder(
-                    future: ref
-                        .read(favoriteAdsProvider.notifier)
-                        .isFav(productsList[index].id!),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Container(
-                          height: 100,
-                          width: double.infinity,
-                          child: Text('ERROR'),
-                        );
-                      }
-
-                      /// snapshot has no data return circular indicator
-                      if (!snapshot.hasData) {
-                        return Container(
-                          height: 100,
-                          width: double.infinity,
-                          child: LoadingWidget(),
-                        );
-                      }
-
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: context.spaces.space_200,
-                          vertical: context.spaces.space_100,
-                        ),
-                        // product card
-                        child: ProductCardWidget(
-                          name: productsList[index].productName,
-                          price: productsList[index].price,
-                          isFavorite: snapshot.data!,
-                          location: productsList[index].locationTitle,
-                          image: productsList[index].imagePath[0],
-                          onTap: () {
-                            //navigate to details page
-                            context.push(
-                              ProductDetailsPage.routePath,
-                              extra: productsList[index],
-                            );
-                          },
-                          onFavoriteTap: () async {
-                            /// toggle favorite status
-                            /// invalidate provider for rebuild ui
-                            await ref
-                                .read(favoriteAdsProvider.notifier)
-                                .setFavorite(adId: productsList[index].id!);
-
-                            ref.invalidate(fetchCatagorisedProductsProvider);
-                          },
-                          actionBtnLabel: 'Rent Now',
-                        ),
-                      );
-                    });
-              },
-            )
-          : LayoutBuilder(
-              builder: (context, constraints) {
-                return Center(
-                  child: Lottie.asset(
-                    lottieConsts.animationEmpty,
-                    height: constraints.maxHeight * .4,
                   ),
-                );
-              },
-            ),
-      AsyncError() => Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                ref.read(errorConstantsProvider).txtWentWrong,
-                style: context.typography.bodySemibold,
-              ),
-              IconButton(
-                onPressed: () {
-                  ref.invalidate(fetchCatagorisedProductsProvider);
-                },
-                icon: Icon(Icons.refresh),
-              ),
-            ],
-          ),
+                ],
+              );
+
+            //future builder for checks ads if favorite or not
+            return FutureBuilder(
+                future: ref
+                    .read(favoriteAdsProvider.notifier)
+                    .isFav(productsList[index].id!),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Container(
+                      height: 100,
+                      width: double.infinity,
+                      child: Text('ERROR'),
+                    );
+                  }
+
+                  /// snapshot has no data return circular indicator
+                  if (!snapshot.hasData) {
+                    return Container(
+                      height: 100,
+                      width: double.infinity,
+                      child: LoadingWidget(),
+                    );
+                  }
+
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.spaces.space_200,
+                      vertical: context.spaces.space_100,
+                    ),
+                    // product card
+                    child: ProductCardWidget(
+                      name: productsList[index].productName,
+                      price: productsList[index].price,
+                      isFavorite: snapshot.data!,
+                      location: productsList[index].locationTitle,
+                      image: productsList[index].imagePath[0],
+                      onTap: () {
+                        //navigate to details page
+                        context.push(
+                          ProductDetailsPage.routePath,
+                          extra: productsList[index],
+                        );
+                      },
+                      onFavoriteTap: () async {
+                        /// toggle favorite status
+                        /// invalidate provider for rebuild ui
+                        await ref
+                            .read(favoriteAdsProvider.notifier)
+                            .setFavorite(adId: productsList[index].id!);
+                      },
+                      actionBtnLabel: 'Rent Now',
+                    ),
+                  );
+                });
+          },
         ),
-      _ => LoadingWidget(),
-    };
+      );
+    } else if (productsState.error != null) {
+      /// Show error message
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              ref.read(errorConstantsProvider).txtWentWrong,
+              style: context.typography.bodySemibold,
+            ),
+            IconButton(
+              onPressed: () {
+                ref.invalidate(fetchProductsProvider(catagory: categoryName));
+              },
+              icon: Icon(Icons.refresh),
+            ),
+          ],
+        ),
+      );
+    } else {
+      /// Not loaded yet
+      return LoadingWidget();
+    }
   }
 }

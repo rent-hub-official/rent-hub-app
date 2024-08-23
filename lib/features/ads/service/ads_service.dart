@@ -96,9 +96,16 @@ final class AdsService {
   }
 
   // get products
-  static Future<QuerySnapshot<AdsModel>> getProducts() async {
+  static Future<QuerySnapshot<AdsModel>> getProducts(AdsModel? lastItem) async {
     try {
-      return await adsDb.get();
+      if (lastItem == null) {
+        return await adsDb.limit(10).get();
+      } else {
+        return await adsDb
+            .startAfterDocument(await adsDb.doc(lastItem.id!).get())
+            .limit(10)
+            .get();
+      }
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
     }

@@ -4,7 +4,7 @@ import 'package:rent_hub/features/ads/service/ads_service.dart';
 
 // get Categarised products usecase
 class GetProductsDataUsecase {
-  Future<List<AdsModel>> call({String? catagory}) async {
+  Future<List<AdsModel>> call({String? catagory, AdsModel? lastItem}) async {
     // get catagory id with catagory name
     String categoryId = '';
 
@@ -21,7 +21,7 @@ class GetProductsDataUsecase {
 
     if (catagory == null) {
       // fetch all products details
-      final data = await AdsService.getProducts();
+      final data = await AdsService.getProducts(lastItem);
 
       if (data.metadata.isFromCache) {
         throw BaseException(message: 'Cannot get ads');
