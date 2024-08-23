@@ -104,31 +104,33 @@ class AdsFilterBottomSheetWidget extends HookConsumerWidget {
               const SearchFilterTabBarWidget(),
               Expanded(
                 child: HookBuilder(builder: (context) {
+                  final filterOptions = filterConsts.productType
+                      .where((item) => item.toLowerCase() != "all")
+                      .toList();
+
                   return TabBarView(
                     children: [
                       FilterSctnWidget(
                         child: ListView.separated(
-                          itemCount: filterConsts.productType.length,
+                          itemCount: filterOptions.length,
                           separatorBuilder: (context, index) => SizedBox(
                             height: context.spaces.space_150,
                           ),
                           itemBuilder: (context, index) => CheckBoxFilterWidget(
-                            text: filterConsts.productType[index],
+                            text: filterOptions[index],
                             onChanged: (status) {
                               final updatedCategories = {...productTypes.value};
 
                               if (status!) {
-                                updatedCategories
-                                    .add(filterConsts.productType[index]);
+                                updatedCategories.add(filterOptions[index]);
                               } else {
-                                updatedCategories
-                                    .remove(filterConsts.productType[index]);
+                                updatedCategories.remove(filterOptions[index]);
                               }
 
                               productTypes.value = updatedCategories;
                             },
                             value: productTypes.value
-                                .contains(filterConsts.productType[index]),
+                                .contains(filterOptions[index]),
                           ),
                         ),
                       ),

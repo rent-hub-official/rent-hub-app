@@ -21,6 +21,7 @@ class FilterSortConstants {
     "Order"
   ];
   final productType = [
+    "All",
     "Houses",
     "Vehicle",
     "Cloths",
