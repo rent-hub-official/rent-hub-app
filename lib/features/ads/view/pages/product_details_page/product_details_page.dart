@@ -193,26 +193,29 @@ class ProductDetailsPage extends ConsumerWidget {
                 dropdatetext: orderConsts.txtDropUp,
                 btnTxt: orderConsts.txtBtn,
                 onTap: () {
-                  final amount = adsData.price.toInt() * noOfDays;
+                  /// calculate amount
+                  final amount = adsData.price * noOfDays;
 
+                  /// set amount to payment provider
                   ref.watch(PaymentProvider(amount: amount));
+
+                  /// add order to firestore
+                  ref.read(ordersProvider.notifier).addOrder(
+                        ordersModel: OrdersModel(
+                          adsId: adsData.id!,
+                          userId:
+                              ref.watch(authenticationProvider).phoneNumber!,
+                          orderPlacedOn: DateTime.now(),
+                          paymentCompletedOn: DateTime.now(),
+                          orderConfirmedOn: DateTime.now(),
+                          orderCompletedOn: DateTime.now(),
+                          status: 'active',
+                          verificationCode: '1234',
+                        ),
+                      );
                 },
               ),
             );
-
-            /// add order to firestore
-            ref.read(ordersProvider.notifier).addOrder(
-                  ordersModel: OrdersModel(
-                    adsId: adsData.id!,
-                    userId: ref.watch(authenticationProvider).phoneNumber!,
-                    orderPlacedOn: DateTime.now(),
-                    paymentCompletedOn: DateTime.now(),
-                    orderConfirmedOn: DateTime.now(),
-                    orderCompletedOn: DateTime.now(),
-                    status: 'active',
-                    verificationCode: '1234',
-                  ),
-                );
           },
           label: ref.read(productScreenConstantsProvider).txtbtn,
         ),

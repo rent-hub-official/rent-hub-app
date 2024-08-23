@@ -130,6 +130,9 @@ class AddBankAcDetailsPage extends ConsumerWidget {
                   height: context.spaces.space_900 * 2,
                 ),
                 TermsAndConditionText(addBankConsts: addBankConsts),
+                SizedBox(
+                  height: context.spaces.space_100,
+                ),
                 PrimaryBtnWidget(onTap: () {}, label: addBankConsts.txtAddAc)
               ],
             ),

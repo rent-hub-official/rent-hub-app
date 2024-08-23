@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/my_products_constants.dart';
@@ -7,6 +9,8 @@ import 'package:rent_hub/features/ads/controller/my_products_controller/my_produ
 import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
+import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MyProductCardWidget extends ConsumerWidget {
   const MyProductCardWidget({super.key, required this.ad});
@@ -27,9 +31,20 @@ class MyProductCardWidget extends ConsumerWidget {
       context.push(AddProductPage.routePath, extra: ad);
     }
 
-    Future<void> shareProductBtnCallback() async {}
+    Future<void> shareProductBtnCallback() async {
+      final result = await Share.share(
+        'Check out this product on RentHub  ${ad.productName} for just ${ad.price} per day',
+      );
 
-    return InkWell(
+      if (result.status == ShareResultStatus.success) {
+        log('Product shared successfully');
+      }
+    }
+
+    return GestureDetector(
+      onTap: () {
+        context.push(ProductDetailsPage.routePath, extra: ad);
+      },
       child: Container(
         width: double.infinity,
         padding: EdgeInsets.all(context.spaces.space_150),
@@ -118,10 +133,18 @@ class MyProductCardWidget extends ConsumerWidget {
                   style: context.typography.h3SemiBold,
                   overflow: TextOverflow.ellipsis,
                 ),
-                Text(
-                  ad.description!,
-                  style: context.typography.body,
-                  overflow: TextOverflow.ellipsis,
+                SizedBox(
+                  height: context.spaces.space_100,
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.location_on),
+                    Text(
+                      ad.locationTitle,
+                      style: context.typography.body,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -27,7 +27,7 @@ class ProfilePage extends HookConsumerWidget {
       });
 
       return null;
-    }, []);
+    }, [ref.watch(getUserDetailsProvider)]);
 
     final constants = ref.watch(profilePageConstantsProvider);
 

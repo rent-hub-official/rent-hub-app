@@ -61,6 +61,9 @@ class OrderSummeryBottomSheetWidget extends HookConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.spaces.space_100,
+                  ),
                   width: double.infinity,
                   decoration: BoxDecoration(
                       borderRadius:
@@ -151,7 +154,7 @@ class OrderSummeryBottomSheetWidget extends HookConsumerWidget {
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: context.colors.border,
-                                width: context.spaces.space_25 * 0.25,
+                                width: .5,
                               ),
                               color: AppColorPalettes.white500,
                               borderRadius: BorderRadius.circular(

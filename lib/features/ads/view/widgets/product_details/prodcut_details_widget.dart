@@ -115,11 +115,6 @@ class ProductDetailsWidget extends HookConsumerWidget {
                 style: context.typography.bodyLargeSemiBold,
               ),
               titleAlignment: ListTileTitleAlignment.top,
-              subtitle: const Row(
-                children: [
-                  //Todo Rating
-                ],
-              ),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

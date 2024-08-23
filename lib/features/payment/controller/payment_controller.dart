@@ -4,6 +4,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'payment_controller.g.dart';
 
 @riverpod
-void payment(PaymentRef ref, {required int amount}) {
+void payment(PaymentRef ref, {required double amount}) {
   return PaymentUseCase()(amount);
 }
