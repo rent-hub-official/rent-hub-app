@@ -63,7 +63,7 @@ class CategoryListBuilderWidget extends HookConsumerWidget {
                 //future builder for cehceks ads if favorite or not
                 return FutureBuilder(
                     future: ref
-                        .watch(favoriteAdsProvider.notifier)
+                        .read(favoriteAdsProvider.notifier)
                         .isFav(productsList[index].id!),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
@@ -106,7 +106,7 @@ class CategoryListBuilderWidget extends HookConsumerWidget {
                             /// toggle favorite status
                             /// invalidate provider for rebuild ui
                             await ref
-                                .watch(favoriteAdsProvider.notifier)
+                                .read(favoriteAdsProvider.notifier)
                                 .setFavorite(adId: productsList[index].id!);
 
                             ref.invalidate(fetchCatagorisedProductsProvider);

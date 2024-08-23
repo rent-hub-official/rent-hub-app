@@ -16,6 +16,7 @@ final class AuthenticationService {
     try {
       await auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
+        timeout: const Duration(seconds: 0),
         verificationCompleted: (phoneAuthCredential) {},
         verificationFailed: (error) {},
         codeSent: codeSent,
