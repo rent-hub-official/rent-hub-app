@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/user_search_details.dart';
-import 'package:rent_hub/core/constants/error_constants.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/core/theme/color_palette.dart';
-import 'package:rent_hub/core/utils/bottom_sheet/bottom_sheet_widget.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
+import 'package:rent_hub/core/utils/bottom_sheet_utils.dart';
 import 'package:rent_hub/features/ads/controller/search_controller/recent_search_controller.dart';
 import 'package:rent_hub/features/ads/controller/search_controller/search_controller.dart';
 import 'package:rent_hub/features/ads/view/widgets/search_field_widget.dart';
-import 'package:rent_hub/features/ads/view/widgets/search_filter_widgets/order_sort_bottom_sheet.dart.dart';
+import 'package:rent_hub/features/ads/view/widgets/search_filter_widgets/ads_filter_bottom_sheet_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/search_widgets/search_list_builder_widget.dart';
 
 class SearchPage extends HookConsumerWidget {
@@ -19,29 +16,22 @@ class SearchPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final searchController = TextEditingController();
-    final isSearched = useState(false);
-    final searchQuery = useState(''); // Use a state to store the query text
+    final searchController = useTextEditingController();
 
-    void performSearch(String query) {
-      searchQuery.value = query;
-      isSearched.value = true;
+    final seachedProducts = ref.watch(searchAdsProvider);
+
+    /// The key use to identify the search field in the app bar.
+    final GlobalKey searchFieldKey = useMemoized(() => GlobalKey());
+
+    void performSearch() {
+      ref.read(searchAdsProvider.notifier).searchAds(searchController.text);
     }
 
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: context.spaces.space_900,
-        automaticallyImplyLeading: false,
-        leading: Padding(
-          padding: EdgeInsets.only(left: context.spaces.space_300),
-          child: IconButton(
-            onPressed: () {
-              context.pop();
-            },
-            icon: const Icon(Icons.arrow_back_ios),
-          ),
-        ),
         title: SearchFieldWidget(
+          key: searchFieldKey,
           controller: searchController,
           hintText: ref.watch(userSearchDetailsConstantsProvider).txtSearch,
           onChanged: (value) {},
@@ -49,130 +39,118 @@ class SearchPage extends HookConsumerWidget {
             ref
                 .read(recentSearchProvider.notifier)
                 .add(recentSearch: searchController.text);
-            performSearch(searchController.text);
-            searchController.clear();
+
+            performSearch();
           },
           prefixIcon: Icon(Icons.search),
         ),
         actions: [
-          Container(
-            width: context.spaces.space_800,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(context.spaces.space_300),
-              ),
-              border: Border.all(color: AppColorPalettes.grey150),
-            ),
-            child: IconButton(
-              icon: const Icon(Icons.tune),
-              onPressed: () {
-                bottomSheetWidget(
-                  context: context,
-                  child: OrderSortBottomSheet(),
-                );
-              },
-            ),
+          InkWell(
+            onTap: () {
+              BottomSheetUtils.show(AdsFilterBottomSheetWidget());
+            },
+            borderRadius: BorderRadius.circular(context.spaces.space_300),
+            child: HookBuilder(builder: (context) {
+              final heightOfSearchField = useState<double>(0);
+
+              useEffect(() {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  heightOfSearchField.value =
+                      searchFieldKey.currentContext!.size!.height;
+                });
+                return null;
+              });
+
+              return Container(
+                height: heightOfSearchField.value,
+                width: context.spaces.space_800,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(context.spaces.space_300),
+                  border: Border.all(color: context.colors.border),
+                ),
+                child: const Icon(Icons.tune),
+              );
+            }),
           ),
           SizedBox(width: context.spaces.space_200),
         ],
       ),
-      body: !isSearched.value
-          ? Padding(
-              padding: EdgeInsets.all(context.spaces.space_200),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        ref
-                            .watch(userSearchDetailsConstantsProvider)
-                            .txtRecentSearch,
-                        style: context.typography.h3SemiBold,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          ref.read(recentSearchProvider.notifier).removeAll();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(context.spaces.space_150),
-                          ),
-                          backgroundColor: AppColorPalettes.grey200,
-                        ),
-                        child: Text(
-                          ref.watch(userSearchDetailsConstantsProvider).txtbtn,
-                          style: context.typography.bodySmall,
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: context.spaces.space_200),
-                  Wrap(
-                    spacing: context.spaces.space_150,
-                    runSpacing: context.spaces.space_100,
-                    children: ref.watch(recentSearchProvider).map((search) {
-                      return InkWell(
-                        onTap: () {
-                          searchController.text = search.recentSearch;
-                        },
-                        child: Chip(
-                          label: Text(search.recentSearch),
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(context.spaces.space_150),
-                            side: const BorderSide(
-                                color: AppColorPalettes.grey200),
-                          ),
-                          backgroundColor: context.colors.cardBackground,
-                          deleteIcon: Icon(
-                            Icons.close,
-                            size: context.spaces.space_200,
-                          ),
-                          visualDensity: VisualDensity.comfortable,
-                          onDeleted: () {
-                            ref
-                                .read(recentSearchProvider.notifier)
-                                .remove(id: search.id);
-                          },
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ],
-              ),
-            )
-          : ref.watch(searchAdsProvider(queryText: searchQuery.value)).when(
-                data: (data) => SearchListBuilderWidget(
-                  productsList: data,
-                ),
-                error: (error, stackTrace) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+      body: seachedProducts.isNotEmpty && searchController.text.isNotEmpty
+          ? SearchListBuilderWidget(queryText: searchController.text)
+          : Builder(builder: (context) {
+              final recentSearchValues = ref.watch(recentSearchProvider);
+
+              return Padding(
+                padding: EdgeInsets.all(context.spaces.space_200),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          ref.read(errorConstantsProvider).txtWentWrong,
-                          style: context.typography.bodySemibold,
+                          ref
+                              .watch(userSearchDetailsConstantsProvider)
+                              .txtRecentSearch,
+                          style: context.typography.h3SemiBold,
                         ),
-                        IconButton(
-                          onPressed: () {
-                            performSearch(searchQuery.value);
-                          },
-                          icon: Icon(Icons.refresh),
-                        ),
+                        if (recentSearchValues.isNotEmpty)
+                          TextButton(
+                            onPressed: () {
+                              ref
+                                  .read(recentSearchProvider.notifier)
+                                  .removeAll();
+                            },
+                            style: ButtonStyle(
+                                overlayColor: WidgetStatePropertyAll(
+                                    context.colors.messageBackground)),
+                            child: Text(
+                                ref
+                                    .watch(userSearchDetailsConstantsProvider)
+                                    .txtbtn,
+                                style: context.typography.body),
+                          ),
                       ],
                     ),
-                  );
-                },
-                loading: () {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-              ),
+                    SizedBox(height: context.spaces.space_200),
+                    Wrap(
+                      spacing: context.spaces.space_150,
+                      runSpacing: context.spaces.space_100,
+                      children: recentSearchValues.map((search) {
+                        return GestureDetector(
+                          onTap: () {
+                            searchController.text = search.recentSearch;
+                            performSearch();
+                          },
+                          child: Chip(
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            label: Text(search.recentSearch),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  context.spaces.space_150),
+                              side: BorderSide(
+                                color: context.colors.border,
+                              ),
+                            ),
+                            backgroundColor: context.colors.cardBackground,
+                            deleteIcon: Icon(
+                              Icons.close,
+                              size: context.spaces.space_200,
+                            ),
+                            onDeleted: () {
+                              ref
+                                  .read(recentSearchProvider.notifier)
+                                  .remove(id: search.id);
+                            },
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+              );
+            }),
     );
   }
 }

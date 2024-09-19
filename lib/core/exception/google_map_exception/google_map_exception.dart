@@ -1,5 +1,7 @@
 import 'package:rent_hub/core/exception/base_exception.dart';
 
+/// Any exception that occurs during the Google Map API request or displaying
+/// the google map in the app.
 final class GoogleMapException extends BaseException {
   final int? statusCode;
   final String? error;

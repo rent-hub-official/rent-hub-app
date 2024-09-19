@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/main.dart';
 
 class ErrorSnackBar extends SnackBar {
@@ -8,7 +9,7 @@ class ErrorSnackBar extends SnackBar {
       : super(
           content: Text(
             errorMessage,
-            style: Theme.of(MyApp.navigatorKey.currentContext!)
+            style: Theme.of(App.navigatorKey.currentContext!)
                 .textTheme
                 .titleMedium!
                 .copyWith(
@@ -16,7 +17,8 @@ class ErrorSnackBar extends SnackBar {
                 ),
           ),
           behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.all(16),
+          margin:
+              EdgeInsets.all(App.navigatorKey.currentContext!.spaces.space_200),
           backgroundColor: Colors.redAccent[700],
         );
 }

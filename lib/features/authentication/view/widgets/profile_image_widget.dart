@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 
 class ProfileImgeWidget extends ConsumerWidget {

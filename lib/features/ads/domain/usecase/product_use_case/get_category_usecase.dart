@@ -1,5 +1,5 @@
 import 'package:rent_hub/core/exception/base_exception.dart';
-import 'package:rent_hub/features/ads/domain/model/category_model/category_model.dart';
+import 'package:rent_hub/features/ads/domain/model/category/category_model.dart';
 import 'package:rent_hub/features/ads/service/ads_service.dart';
 
 // get category

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/seller_profile.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/features/chat/widgets/seller_profile_widget.dart';
 
@@ -60,8 +60,8 @@ class BottomSheetContent extends ConsumerWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.all(context.spaces.space_400),
-                    child: MainBtnWidget(
-                        onTap: ontap, btnTxt: constants.txtContinue),
+                    child: PrimaryBtnWidget(
+                        onTap: ontap, label: constants.txtContinue),
                   )
                 ],
               ),

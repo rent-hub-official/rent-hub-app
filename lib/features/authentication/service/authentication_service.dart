@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rent_hub/core/exception/authentication_exception/authentication_exception.dart';
-import 'package:rent_hub/core/exception/authentication_exception/otp_verify_exception.dart';
+import 'package:rent_hub/core/exception/authentication_exception/otp_verification_failed_exception.dart';
 
 // authentication service
 
@@ -16,6 +16,7 @@ final class AuthenticationService {
     try {
       await auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
+        timeout: const Duration(seconds: 0),
         verificationCompleted: (phoneAuthCredential) {},
         verificationFailed: (error) {},
         codeSent: codeSent,
@@ -41,7 +42,7 @@ final class AuthenticationService {
 
       return await auth.signInWithCredential(phoneAuthCredential);
     } on FirebaseAuthException catch (e) {
-      throw VerifyOTPException(
+      throw OTPVerificationFailedException(
         error: e.message,
       );
     }

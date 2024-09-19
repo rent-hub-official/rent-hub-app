@@ -1,4 +1,4 @@
-import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:rent_hub/features/ads/domain/usecase/my_product_upadate_usecase.dart';
 import 'package:rent_hub/features/ads/domain/usecase/my_product_usecase.dart';
 import 'package:rent_hub/features/ads/domain/usecase/product_use_case/my_product_delete_usecase.dart';

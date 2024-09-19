@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/icon_constants.dart';
 import 'package:rent_hub/core/constants/authentication/profile_page_constants.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/features/orders/view/pages/history_details_page.dart';
 import 'package:rent_hub/features/ads/view/pages/my_products_page.dart';
 import 'package:rent_hub/features/authentication/controller/account_details_provider/account_details_provider.dart';
@@ -25,11 +25,16 @@ class ProfilePage extends HookConsumerWidget {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ref.invalidate(getUserDetailsProvider);
       });
+
       return null;
-    }, []);
+    }, [ref.watch(getUserDetailsProvider)]);
 
     final constants = ref.watch(profilePageConstantsProvider);
-    final themeSwitch = useState<bool>(false);
+
+    /// Get the current theme and if it is dark set the switch to false.
+    /// Else this will be true.
+    final themeSwitch =
+        useState<bool>(Theme.of(context).brightness == Brightness.light);
 
     return Scaffold(
       body: ref.watch(getUserDetailsProvider).when(
@@ -95,9 +100,7 @@ class ProfilePage extends HookConsumerWidget {
                           icon: Icons.help,
                           text: constants.txtHelpSupport,
                           subtitle: constants.txtsubHelp,
-                          onTap: () {
-                            context.push(ProfileSettingsPage.routePath);
-                          },
+                          onTap: () {},
                         ),
                       ],
                     ),

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rent_hub/core/constants/favourites/favourites.dart';
 import 'package:rent_hub/core/constants/image_constants.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 
 class NoFavoritesWidget extends ConsumerWidget {
   const NoFavoritesWidget({

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/payment/payment_successful.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/features/payment/view/widgets/payment/payment_info_widget.dart';
@@ -100,8 +100,8 @@ class PaymentSuccessfulPage extends ConsumerWidget {
               padding: EdgeInsets.only(
                   top:
                       context.spaces.space_800), // Padding for the retry button
-              child: MainBtnWidget(
-                  onTap: () {}, btnTxt: constant.txtBtn), // Retry button
+              child: PrimaryBtnWidget(
+                  onTap: () {}, label: constant.txtBtn), // Retry button
             )
           ],
         ),

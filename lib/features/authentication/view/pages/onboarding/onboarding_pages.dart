@@ -5,15 +5,16 @@ import 'package:rent_hub/core/constants/image_constants.dart';
 import 'package:rent_hub/core/constants/authentication/onboarding1.dart';
 import 'package:rent_hub/core/constants/authentication/onboarding2.dart';
 import 'package:rent_hub/core/constants/authentication/onboarding3.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/routers/redirects.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/features/authentication/view/pages/login_page.dart';
 import 'package:rent_hub/features/authentication/view/widgets/onboarding_widgets/loder_widget.dart';
 import 'package:rent_hub/features/authentication/view/widgets/onboarding_widgets/onboading_content_widget.dart';
 
-class OnboardingPages extends ConsumerWidget {
-  static const routePath = '/onboardingpage';
+class OnboardingPage extends ConsumerWidget {
+  static const routePath = '/onboarding';
 
-  const OnboardingPages({super.key});
+  const OnboardingPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,7 +25,7 @@ class OnboardingPages extends ConsumerWidget {
     final pageController = PageController(initialPage: 0);
 
     final onboardingPages = [
-      OnboardingPage(
+      OnboardingContentWidget(
         onTap: () {
           pageController.animateToPage(
             1,
@@ -40,7 +41,7 @@ class OnboardingPages extends ConsumerWidget {
           progress: context.spaces.space_25 / 4,
         ),
       ),
-      OnboardingPage(
+      OnboardingContentWidget(
         onTap: () {
           pageController.animateToPage(
             2,
@@ -56,8 +57,11 @@ class OnboardingPages extends ConsumerWidget {
           progress: context.spaces.space_25 / 3,
         ),
       ),
-      OnboardingPage(
+      OnboardingContentWidget(
         onTap: () {
+          /// Mark the onboarding as completed
+          RouterRedirectServices.markFirstLaunchCompleted();
+
           GoRouter.of(context).go(LoginPage.routePath);
         },
         imagePath: image.imgOnboarding3,

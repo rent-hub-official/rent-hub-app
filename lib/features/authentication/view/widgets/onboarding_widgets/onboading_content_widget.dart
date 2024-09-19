@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/routers/redirects.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/features/authentication/view/pages/login_page.dart';
 
-class OnboardingPage extends ConsumerWidget {
-  const OnboardingPage({
+class OnboardingContentWidget extends ConsumerWidget {
+  const OnboardingContentWidget({
     super.key,
     required this.imagePath,
     required this.heading,
@@ -70,9 +71,14 @@ class OnboardingPage extends ConsumerWidget {
                     skipText,
                     style: context.typography.bodyLargeSemiBold,
                   ),
-                  onPressed: () => context.push(
-                    LoginPage.routePath,
-                  ),
+                  onPressed: () {
+                    /// Mark the onboarding as completed
+                    RouterRedirectServices.markFirstLaunchCompleted();
+
+                    context.push(
+                      LoginPage.routePath,
+                    );
+                  },
                 ),
                 IconButton(
                   onPressed: onTap,

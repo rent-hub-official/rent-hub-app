@@ -6,8 +6,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
 import 'package:rent_hub/core/exception/base_exception.dart';
 import 'package:rent_hub/core/exception/storage_exception/storage_exception.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
-import 'package:rent_hub/features/ads/domain/model/category_model/category_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/category/category_model.dart';
 
 // Add product service
 final class AdsService {
@@ -96,9 +96,16 @@ final class AdsService {
   }
 
   // get products
-  static Future<QuerySnapshot<AdsModel>> getProducts() async {
+  static Future<QuerySnapshot<AdsModel>> getProducts(AdsModel? lastItem) async {
     try {
-      return await adsDb.get();
+      if (lastItem == null) {
+        return await adsDb.limit(10).get();
+      } else {
+        return await adsDb
+            .startAfterDocument(await adsDb.doc(lastItem.id!).get())
+            .limit(10)
+            .get();
+      }
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
     }
@@ -106,9 +113,19 @@ final class AdsService {
 
   // get categorised products
   static Future<QuerySnapshot<AdsModel>> getCategorisedProducts(
-      String categoryId) async {
+      String categoryId, AdsModel? lastItem) async {
     try {
-      return await adsDb.where('category', isEqualTo: categoryId).get();
+      if (lastItem == null) {
+        return await adsDb
+            .where('category', isEqualTo: categoryId)
+            .limit(10)
+            .get();
+      }
+      return await adsDb
+          .where('category', isEqualTo: categoryId)
+          .startAfterDocument(await adsDb.doc(lastItem.id!).get())
+          .limit(10)
+          .get();
     } on FirebaseException catch (e) {
       throw StorageException(e.message);
     }

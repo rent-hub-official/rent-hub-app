@@ -1,0 +1,4 @@
+enum SortTypeEnum {
+  ascending,
+  descending;
+}

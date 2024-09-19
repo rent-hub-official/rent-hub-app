@@ -1,22 +1,22 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/constants/ads/product_screen.dart';
 import 'package:rent_hub/core/constants/payment/order_summery.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
-import 'package:rent_hub/core/utils/bottom_sheet/bottom_sheet_widget.dart';
+import 'package:rent_hub/core/utils/bottom_sheet_utils.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/ads/controller/order_controller/dateprovider.dart';
 import 'package:rent_hub/features/ads/controller/product_controller/product_controller.dart';
 import 'package:rent_hub/features/ads/controller/user_controller/user_data_provider.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:rent_hub/features/ads/view/widgets/order_summery/order_summery_bottomsheet_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/prodcut_details_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/smooth_page_Indicator_wIdget.dart';
-import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
+import 'package:rent_hub/features/chat/view/pages/chat_details_page.dart';
 import 'package:rent_hub/features/chat/view/pages/seller_profile_page.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
 import 'package:rent_hub/features/orders/controller/orders_provider.dart';
@@ -33,7 +33,7 @@ class ProductDetailsPage extends ConsumerWidget {
     required this.adsData,
   });
 
-  final QueryDocumentSnapshot<AdsModel> adsData;
+  final AdsModel adsData;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -44,10 +44,10 @@ class ProductDetailsPage extends ConsumerWidget {
     final noOfDays = dateDiff.inDays + 1;
 
     return Scaffold(
-      body: ref.watch(getUserDataProvider(adsData.data().sellerId)).when(
+      body: ref.watch(getUserDataProvider(adsData.sellerId)).when(
             data: (data) => FutureBuilder(
                 future:
-                    ref.watch(favoriteAdsProvider.notifier).isFav(adsData.id),
+                    ref.watch(favoriteAdsProvider.notifier).isFav(adsData.id!),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return Container(
@@ -79,9 +79,9 @@ class ProductDetailsPage extends ConsumerWidget {
                         child: PageView.builder(
                           controller: ref.watch(pageControllerProvider),
                           itemBuilder: (context, index) => Image.network(
-                            adsData.data().imagePath[index],
+                            adsData.imagePath[index],
                           ),
-                          itemCount: adsData.data().imagePath.length,
+                          itemCount: adsData.imagePath.length,
                         ),
                       ),
                       // top bar icons
@@ -104,7 +104,7 @@ class ProductDetailsPage extends ConsumerWidget {
                                 /// invalidate provider for rebuild ui
                                 await ref
                                     .watch(favoriteAdsProvider.notifier)
-                                    .setFavorite(adId: adsData.id);
+                                    .setFavorite(adId: adsData.id!);
                                 ref.invalidate(getUserDataProvider);
                               },
                               icon: Icons.favorite,
@@ -121,7 +121,7 @@ class ProductDetailsPage extends ConsumerWidget {
                         right: 16.0,
                         left: 16.0,
                         child: SmoothPageIndicatorWIdget(
-                            imageCount: adsData.data().imagePath.length),
+                            imageCount: adsData.imagePath.length),
                       ),
                       Positioned(
                         top: MediaQuery.of(context).size.height * 0.36,
@@ -134,16 +134,21 @@ class ProductDetailsPage extends ConsumerWidget {
                                 extra: adsData,
                               );
                             },
-                            userimage: data.data()?.profileImage,
-                            sellerName: data.data()!.userName,
-                            adsModel: adsData.data(),
+                            userimage: data.profileImage,
+                            sellerName: data.userName,
+                            adsModel: adsData,
                             callTap: () async {
-                              await launchUrlString("tel:${data.id}");
+                              await launchUrlString("tel:${data.userId}");
                             },
                             chatTap: () {
                               context.push(
-                                SellerProfilePage.routePath,
-                                extra: adsData,
+                                ChatDetailsPage.routePath,
+                                extra: {
+                                  'image': data.profileImage,
+                                  'name': data.userName,
+                                  'receiverId': data.userId,
+                                  'lastSeen': data.lastSeen,
+                                },
                               );
                             },
                           ),
@@ -172,45 +177,47 @@ class ProductDetailsPage extends ConsumerWidget {
           ),
       floatingActionButton: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: MainBtnWidget(
+        child: PrimaryBtnWidget(
           onTap: () {
             /// show bottom sheet
             /// add order summery bottom sheet widget
-            bottomSheetWidget(
-              context: context,
-              child: OrderSummeryBottomSheetWidget(
-                price: 'RS ${adsData.data().price}/-',
+            BottomSheetUtils.show(
+              OrderSummeryBottomSheetWidget(
+                price: 'RS ${adsData.price}/-',
                 pickordropdate: orderConsts.txtDropUp,
                 selectpicklocation: orderConsts.txtSelectLocation,
-                location: adsData.data().locationTitle,
+                location: adsData.locationTitle,
                 privacyPolicytext: orderConsts.txtPolicyTerms,
                 agreetext: orderConsts.txtAgree,
                 pickupdatetext: orderConsts.txtPickUpDate,
                 dropdatetext: orderConsts.txtDropUp,
                 btnTxt: orderConsts.txtBtn,
                 onTap: () {
-                  final amount = adsData.data().price.toInt() * noOfDays;
+                  /// add order to firestore
+                  ref.read(ordersProvider.notifier).addOrder(
+                        ordersModel: OrdersModel(
+                          adsId: adsData.id!,
+                          userId:
+                              FirebaseAuth.instance.currentUser!.phoneNumber!,
+                          orderPlacedOn: DateTime.now(),
+                          paymentCompletedOn: DateTime.now(),
+                          orderConfirmedOn: DateTime.now(),
+                          orderCompletedOn: DateTime.now(),
+                          status: 'active',
+                          verificationCode: '1234',
+                        ),
+                      );
 
+                  /// calculate amount
+                  final amount = adsData.price * noOfDays;
+
+                  /// set amount to payment provider
                   ref.watch(PaymentProvider(amount: amount));
                 },
               ),
             );
-
-            /// add order to firestore
-            ref.read(ordersProvider.notifier).addOrder(
-                  ordersModel: OrdersModel(
-                    adsId: adsData.id,
-                    userId: ref.watch(authenticationProvider).phoneNumber!,
-                    orderPlacedOn: DateTime.now(),
-                    paymentCompletedOn: DateTime.now(),
-                    orderConfirmedOn: DateTime.now(),
-                    orderCompletedOn: DateTime.now(),
-                    status: 'active',
-                    verificationCode: '1234',
-                  ),
-                );
           },
-          btnTxt: ref.read(productScreenConstantsProvider).txtbtn,
+          label: ref.read(productScreenConstantsProvider).txtbtn,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

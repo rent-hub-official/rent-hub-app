@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rent_hub/core/utils/snakbar/snackbar_utils.dart';
+import 'package:rent_hub/core/utils/snackbar_utils.dart';
 import 'package:rent_hub/features/favorites/service/favorite_ads_service.dart';
 
 /// usecse for checks weather it is favorite or not

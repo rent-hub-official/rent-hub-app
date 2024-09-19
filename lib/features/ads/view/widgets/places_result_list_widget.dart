@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rent_hub/core/constants/error_constants.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/location_search_provider.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/place_lat_long_provider.dart';
 import 'package:rent_hub/features/ads/view/widgets/places_tile_loading_widget.dart';

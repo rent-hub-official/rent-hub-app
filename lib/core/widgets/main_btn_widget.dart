@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
-class MainBtnWidget extends StatelessWidget {
+class PrimaryBtnWidget extends StatelessWidget {
   final Function() onTap;
-  final String btnTxt;
+  final String label;
   final bool isLoading;
 
-  const MainBtnWidget({
+  const PrimaryBtnWidget({
     super.key,
     required this.onTap,
-    required this.btnTxt,
+    required this.label,
     this.isLoading = false,
   });
 
@@ -35,7 +35,7 @@ class MainBtnWidget extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onTap,
               style: ElevatedButton.styleFrom(
-                shadowColor: Colors.white,
+                shadowColor: Colors.transparent,
                 backgroundColor: context.colors.primary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(context.spaces.space_100),
@@ -46,7 +46,7 @@ class MainBtnWidget extends StatelessWidget {
                 ),
               ),
               child: Text(
-                btnTxt,
+                label,
                 style: context.typography.buttonText,
               ),
             ),

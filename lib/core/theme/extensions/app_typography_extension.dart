@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-// App default typographys
-
+/// This is the ThemeExtension used to add custom typography into the app theme
 class AppTypographyExtension extends ThemeExtension<AppTypographyExtension> {
   final TextStyle body;
   final TextStyle bodyWhite;

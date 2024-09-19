@@ -16,7 +16,7 @@ class PaymentService {
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
-  Future<dynamic> createOrder(int amount) async {
+  Future<dynamic> createOrder(double amount) async {
     final dio = Dio(BaseOptions(baseUrl: 'https://api.razorpay.com'));
 
     _uuid = const Uuid().v4();
@@ -46,7 +46,7 @@ class PaymentService {
     }
   }
 
-  void doPayment(int amount) async {
+  void doPayment(double amount) async {
     final orderData = await createOrder(amount);
 
     var options = {

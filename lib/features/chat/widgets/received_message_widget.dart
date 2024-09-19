@@ -1,9 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/features/chat/view/pages/seller_profile_page.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 
 class ReceviedMessageWidget extends StatelessWidget {
   const ReceviedMessageWidget({
@@ -27,23 +25,19 @@ class ReceviedMessageWidget extends StatelessWidget {
               padding: EdgeInsets.only(
                   bottom: context.spaces.space_250,
                   right: context.spaces.space_100),
-              child: InkWell(
-                  onTap: () {
-                    context.push(SellerProfilePage.routePath);
-                  },
-                  child: CircleAvatar(
-                      radius: context.spaces.space_200,
-                      child: ClipOval(
-                        child: Image.network(
-                          width: double.infinity,
-                          height: double.infinity,
-                          image,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) => Center(
-                            child: Icon(Icons.person),
-                          ),
-                        ),
-                      ))),
+              child: CircleAvatar(
+                  radius: context.spaces.space_200,
+                  child: ClipOval(
+                    child: Image.network(
+                      width: double.infinity,
+                      height: double.infinity,
+                      image,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Center(
+                        child: Icon(Icons.person),
+                      ),
+                    ),
+                  )),
             ),
           ],
         ),
@@ -52,15 +46,18 @@ class ReceviedMessageWidget extends StatelessWidget {
           children: [
             Container(
               width: max(0, context.spaces.space_900 * 3),
-              padding: EdgeInsets.all(context.spaces.space_250),
+              padding: EdgeInsets.all(context.spaces.space_150),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(context.spaces.space_600),
-                      topLeft: Radius.circular(context.spaces.space_600),
-                      topRight: Radius.circular(context.spaces.space_600)),
+                      bottomRight: Radius.circular(context.spaces.space_200),
+                      topLeft: Radius.circular(context.spaces.space_200),
+                      topRight: Radius.circular(context.spaces.space_200)),
                   color: context.colors.messageBackground),
               // recevied message
-              child: Text(message, style: context.typography.body),
+              child: Padding(
+                padding: EdgeInsets.all(context.spaces.space_100),
+                child: Text(message, style: context.typography.body),
+              ),
             ),
             // recevied message time
             Text(

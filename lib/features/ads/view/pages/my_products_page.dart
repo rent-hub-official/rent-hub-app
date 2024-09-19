@@ -4,9 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rent_hub/core/constants/ads/my_products_constants.dart';
 import 'package:rent_hub/core/constants/animation_constants.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/features/ads/controller/my_products_controller/my_products_controller.dart';
-import 'package:rent_hub/features/ads/view/pages/add_product_page.dart';
 import 'package:rent_hub/features/ads/view/widgets/my_product_card/my_product_card_widget.dart';
 
 class MyProductsPage extends ConsumerWidget {
@@ -55,23 +54,7 @@ class MyProductsPage extends ConsumerWidget {
                             horizontal: context.spaces.space_200,
                             vertical: context.spaces.space_100),
                         child: MyProductCardWidget(
-                          editonTap: () {
-                            ref
-                                .watch(myProductsProvider.notifier)
-                                .updateMyProduct(
-                                  id: data[index].id!,
-                                  adsmodel: data[index],
-                                );
-
-                            context.push(AddProductPage.routePath);
-                          },
-                          id: data[index].id!,
-                          description: data[index].description ?? "",
-                          myProductsOnTap: () {},
-                          onSelected: (value) {},
-                          Productimage: data[index].imagePath[1],
-                          poductPrice: data[index].price,
-                          productName: data[index].productName,
+                          ad: data[index],
                         ),
                       ),
                     );

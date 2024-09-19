@@ -47,5 +47,15 @@
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow access to photo library</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>You need this to pick product images</string>
+	<key>NSCameraUsageDescription</key>
+	<string>You need this to take photo for the product</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>You need this to take photo for the product</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tel</string>
+	</array>
 </dict>
 </plist>

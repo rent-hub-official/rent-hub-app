@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:rent_hub/core/constants/image_constants.dart';
 import 'package:rent_hub/core/constants/authentication/login_page_alertbox.dart';
 import 'package:rent_hub/core/constants/authentication/login_page_constants.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/core/utils/alert_box/alert_box.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
+import 'package:rent_hub/core/utils/alert_dialog_utils.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
 
@@ -71,35 +72,31 @@ class LoginPage extends HookConsumerWidget {
                     '+${country.dialCode}';
               },
             ),
-            MainBtnWidget(
+            PrimaryBtnWidget(
               onTap: () {
                 // alert box for edit number or continue
                 if (phoneNumberController.text.isNotEmpty &&
                     phoneNumberController.text.length == 10) {
-                  showAlertDialog(
-                    context: context,
-                    titile: alertConsts.txtHeading,
-                    subtitile: alertConsts.txtSubHeading,
-                    phoneNumber:
-                        "${ref.read(coutryCodeProvider)} ${phoneNumberController.text}",
-                    editButtonText: alertConsts.txteditBtn,
-                    continueButtonText: alertConsts.txtcontinueBtn,
-                    editButtononPressed: () {
-                      Navigator.pop(context);
-                    },
-                    continueButtononPressed: () {
-                      // verify phone number
-                      ref
-                          .read(authenticationProvider.notifier)
-                          .verifyPhoneNumber(
-                            phoneNumber:
-                                "${ref.read(coutryCodeProvider)}${phoneNumberController.text}",
-                          );
+                  AlertDialogUtils.show(
+                    title: alertConsts.txtHeading,
+                    description: alertConsts.txtSubHeading +
+                        ' ${ref.read(coutryCodeProvider)}${phoneNumberController.text}',
+                    actions: {
+                      alertConsts.txteditBtn: () => context.pop(),
+                      alertConsts.txtcontinueBtn: () {
+                        // verify phone number
+                        ref
+                            .read(authenticationProvider.notifier)
+                            .verifyPhoneNumber(
+                              phoneNumber:
+                                  "${ref.read(coutryCodeProvider)}${phoneNumberController.text}",
+                            );
+                      },
                     },
                   );
                 }
               },
-              btnTxt: constants.txtOtpBtn,
+              label: constants.txtOtpBtn,
             ),
             Spacer(),
           ],

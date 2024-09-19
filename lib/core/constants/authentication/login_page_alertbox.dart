@@ -4,7 +4,7 @@ part 'login_page_alertbox.g.dart';
 
 class LoginPageAlertBoxConstants {
   final txtHeading = "Confirm your number";
-  final txtSubHeading = "check your phone number";
+  final txtSubHeading = "Check your phone number";
   final txteditBtn = "Edit";
   final txtcontinueBtn = "Continue";
 }

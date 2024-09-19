@@ -1,18 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/favourites/favourites.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:rent_hub/features/favorites/controller/favorite_ads_controller.dart';
 import 'package:rent_hub/features/favorites/controller/get_all_favorite_ads_controller.dart';
 import 'package:rent_hub/features/favorites/view/widgets/no_favorites_widget.dart';
+import 'package:rent_hub/features/navigation/view/pages/navigation_page.dart';
 
-class FavoritesPage extends ConsumerWidget {
+class FavoritesPage extends HookConsumerWidget {
   const FavoritesPage({super.key});
   static final routePath = '/favoritespage';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final bottomNavBarHeight = useState<double>(0);
+
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        bottomNavBarHeight.value = (NavigationPage
+                    .bottomNavBarKey.currentContext?.size?.height ??
+                0.0) +
+            (NavigationPage.floatingActionBtnKey.currentContext?.size?.height ??
+                    0.0) /
+                2;
+      });
+
+      return null;
+    }, []);
     return Scaffold(
       appBar: AppBar(
         title: Text(ref.watch(favouritesConstantsProvider).txtFavourite),
@@ -28,11 +44,17 @@ class FavoritesPage extends ConsumerWidget {
                         right: context.spaces.space_200,
                         top: context.spaces.space_100,
                       ),
+                      itemCount: data.length + 1,
                       itemBuilder: (context, index) {
+                        if (index == data.length) {
+                          return SizedBox(
+                            height: bottomNavBarHeight.value,
+                          );
+                        }
                         final adsModel = data[index];
                         return ProductCardWidget(
                           isFavorite: true,
-                          favoriteTap: () async {
+                          onFavoriteTap: () async {
                             /// set favorite method
                             /// add or remove from favorite colloction accordingly
                             /// and invalidate provider which gives all favorite ads user
@@ -42,20 +64,17 @@ class FavoritesPage extends ConsumerWidget {
 
                             ref.invalidate(getFavoriteProvider);
                           },
-                          productName: adsModel.productName,
+                          name: adsModel.productName,
                           price: adsModel.price,
-                          productLocation: adsModel.locationTitle,
-                          img: adsModel.imagePath[0],
-                          onTap: () {
-                            // TODO: rental operation
-                          },
-                          belowbtn: "Rent Now",
+                          location: adsModel.locationTitle,
+                          image: adsModel.imagePath[0],
+                          onTap: () {},
+                          actionBtnLabel: "Rent Now",
                         );
                       },
                       separatorBuilder: (context, index) => SizedBox(
                         height: context.spaces.space_200,
                       ),
-                      itemCount: data.length,
                     );
             },
             error: (error, stackTrace) => Center(

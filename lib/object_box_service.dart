@@ -1,7 +1,7 @@
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:rent_hub/features/ads/domain/entity/recent_search_entity.dart';
-import 'package:rent_hub/features/ads/domain/entity/selected_location_entity.dart';
+import 'package:rent_hub/features/ads/service/entity/recent_search_entity.dart';
+import 'package:rent_hub/features/ads/service/entity/selected_location_entity.dart';
 import 'package:rent_hub/features/notification/domain/entity/notification_entity.dart';
 import 'package:rent_hub/objectbox.g.dart';
 

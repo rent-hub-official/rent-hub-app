@@ -60,4 +60,20 @@ final class AccountDetailsService {
       throw StorageException(e.message);
     }
   }
+
+  //update user last seen
+  static Future<void> updateLastSeen(Timestamp lastSeen) async {
+    try {
+      await db.doc(user!.phoneNumber!).update({
+        'lastSeen': lastSeen,
+      });
+    } on FirebaseException catch (e) {
+      throw StorageException(e.message);
+    }
+  }
+
+  static Stream<DocumentSnapshot<AccountDetailsModel>> getUserDetails(
+      String userId) {
+    return db.doc(userId).snapshots();
+  }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/features/ads/controller/order_controller/dateprovider.dart';
@@ -61,6 +61,9 @@ class OrderSummeryBottomSheetWidget extends HookConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.spaces.space_100,
+                  ),
                   width: double.infinity,
                   decoration: BoxDecoration(
                       borderRadius:
@@ -95,9 +98,6 @@ class OrderSummeryBottomSheetWidget extends HookConsumerWidget {
                                           ref,
                                         );
                                   },
-                                  typography: context.typography,
-                                  spacer: context.spaces,
-                                  colors: context.colors,
                                   date: pickordropdate,
                                   selectedDate: ref.read(pickUpDateProvider),
                                 ),
@@ -125,9 +125,6 @@ class OrderSummeryBottomSheetWidget extends HookConsumerWidget {
                                         );
                                   },
                                   date: pickordropdate,
-                                  typography: context.typography,
-                                  spacer: context.spaces,
-                                  colors: context.colors,
                                   selectedDate: ref.watch(dropUpDateProvider),
                                 ),
                               ],
@@ -151,9 +148,9 @@ class OrderSummeryBottomSheetWidget extends HookConsumerWidget {
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: context.colors.border,
-                                width: context.spaces.space_25 * 0.25,
+                                width: .5,
                               ),
-                              color: AppColorPalettes.white500,
+                              color: context.colors.cardBackground,
                               borderRadius: BorderRadius.circular(
                                 context.spaces.space_75,
                               ),
@@ -179,10 +176,11 @@ class OrderSummeryBottomSheetWidget extends HookConsumerWidget {
                       ),
                       Text(agreetext, style: context.typography.bodySmall),
                       InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            //TODO: Add the privacy policy link
+                          },
                           child: Text(privacyPolicytext,
-                              style: context.typography.bodySmall
-                                  .copyWith(color: context.colors.secondary)))
+                              style: context.typography.bodySmallSemiBold))
                     ],
                   ),
                 ),
@@ -206,9 +204,9 @@ class OrderSummeryBottomSheetWidget extends HookConsumerWidget {
                   padding: EdgeInsets.only(
                     top: context.spaces.space_200,
                   ),
-                  child: MainBtnWidget(
+                  child: PrimaryBtnWidget(
                     onTap: isChecked.value ? onTap : () {},
-                    btnTxt: btnTxt,
+                    label: btnTxt,
                   ),
                 ),
               ],

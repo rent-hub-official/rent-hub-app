@@ -3,10 +3,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/product_screen.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:rent_hub/features/ads/view/widgets/product_details/map_widget.dart';
 
 class ProductDetailsWidget extends HookConsumerWidget {
@@ -115,11 +115,6 @@ class ProductDetailsWidget extends HookConsumerWidget {
                 style: context.typography.bodyLargeSemiBold,
               ),
               titleAlignment: ListTileTitleAlignment.top,
-              subtitle: const Row(
-                children: [
-                  //Todo Rating
-                ],
-              ),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

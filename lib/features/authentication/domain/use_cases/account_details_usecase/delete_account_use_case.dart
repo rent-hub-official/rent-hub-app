@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/exception/base_exception.dart';
-import 'package:rent_hub/core/utils/snakbar/snackbar_utils.dart';
+import 'package:rent_hub/core/utils/snackbar_utils.dart';
 import 'package:rent_hub/features/authentication/service/account_details_service.dart';
 import 'package:rent_hub/features/authentication/view/pages/login_page.dart';
 import 'package:rent_hub/main.dart';
@@ -11,7 +11,7 @@ class DeleteAccountUseCase {
       await AccountDetailsService.deleteAccount();
 
       // navigate to home page
-      MyApp.navigatorKey.currentContext!.go(LoginPage.routePath);
+      App.navigatorKey.currentContext!.go(LoginPage.routePath);
     } on BaseException catch (e) {
       SnackbarUtils.showError(e.message);
     }

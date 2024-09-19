@@ -26,9 +26,7 @@ dependencies:
   flutter_hooks: ^0.20.5
   hooks_riverpod: ^2.5.1
   delightful_toast: ^1.1.0
-  file_picker: ^8.0.3
   path: ^1.9.0
-  qr_flutter: ^4.1.0
   lottie: 
   url_launcher: ^6.3.0
   objectbox: ^4.0.1
@@ -46,8 +44,11 @@ dependencies:
   awesome_notifications: ^0.9.3+1
   firebase_messaging: ^15.0.3
   firebase_analytics: ^11.2.0
-  shared_preferences_foundation: ^2.5.0
-  shared_preferences: ^2.3.1
+  get_storage: ^2.1.1
+  firebase_app_check: ^0.3.0+4
+  share_plus: ^10.0.0
+  shared_preferences_foundation: ^2.5.2
+ 
 
 dev_dependencies:
   flutter_test:

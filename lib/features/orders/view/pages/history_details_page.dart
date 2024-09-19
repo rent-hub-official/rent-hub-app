@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/purchase_history.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/product_card_widget.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
+import 'package:rent_hub/features/ads/view/pages/product_details_page/product_details_page.dart';
 import 'package:rent_hub/features/orders/controller/fetch_ads_provider.dart';
 import 'package:rent_hub/features/orders/controller/orders_provider.dart';
 
@@ -57,47 +58,17 @@ class HistoryDetailsPage extends HookConsumerWidget {
                                     child: Stack(
                                       children: [
                                         ProductCardWidget(
-                                          productName: data.data()!.productName,
-                                          price: data.data()!.price,
-                                          productLocation:
-                                              data.data()!.locationTitle,
-                                          img: data.data()!.imagePath[0],
+                                          name: data!.productName,
+                                          price: data.price,
+                                          location: data.locationTitle,
+                                          image: data.imagePath[0],
                                           onTap: () {
-                                            ref
-                                                .read(ordersProvider.notifier)
-                                                .deleteOrder(
-                                                    adsId: data.data()!.id!);
+                                            context.push(
+                                                ProductDetailsPage.routePath,
+                                                extra: data);
                                           },
-                                          belowbtn: 'Remove',
+                                          actionBtnLabel: 'Reorder',
                                         ),
-                                        // Positioned(
-                                        //   top: context.spaces.space_400,
-                                        //   right: -40,
-                                        //   child: Transform.rotate(
-                                        //     // angle coverted to radius
-                                        //     angle: context.spaces.space_600 *
-                                        //         (3.14159 / 180),
-                                        //     child: Container(
-                                        //       width: context.spaces.space_900 * 2,
-                                        //       height: context.spaces.space_250,
-                                        //       // label color
-                                        //       color: orders[index].status ==
-                                        //               purchaseConsts.txtCompleted
-                                        //           ? AppColorPalettes.green
-                                        //           : AppColorPalettes.blue,
-                                        //       child: Center(
-                                        //         child: Text(
-                                        //           // choose label text accordingly
-                                        //           orders[index].status ==
-                                        //                   purchaseConsts.txtCompleted
-                                        //               ? purchaseConsts.txtCompleted
-                                        //               : purchaseConsts.txtPending,
-                                        //           style: context.typography.bodyWhite,
-                                        //         ),
-                                        //       ),
-                                        //     ),
-                                        //   ),
-                                        // ),
                                       ],
                                     ),
                                   ),

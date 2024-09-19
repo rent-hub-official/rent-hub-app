@@ -1,5 +1,5 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rent_hub/core/utils/snakbar/toaster_util.dart';
+import 'package:rent_hub/core/utils/toast_utils.dart';
 import 'package:rent_hub/features/ads/domain/model/place_model/place_model.dart';
 import 'package:rent_hub/features/ads/domain/usecase/location_use_case/get_place_details_from_latlng_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -23,7 +23,7 @@ class PlaceDetails extends _$PlaceDetails {
         },
       );
     } else {
-      ToasterUtil.showMessage(message: "Select your location");
+      ToastUtils.showMessage(message: "Select your location");
     }
   }
 }

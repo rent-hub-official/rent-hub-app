@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/add_product.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/features/ads/domain/model/category_model/category_model.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
+import 'package:rent_hub/features/ads/domain/model/category/category_model.dart';
 
 class CategoryDropDownWidget extends ConsumerWidget {
   const CategoryDropDownWidget({
     super.key,
     required this.itemSelector,
     required this.categoryList,
+    this.category,
   });
 
+  final String? category;
   final ValueNotifier<String?> itemSelector;
   final List<CategoryModel> categoryList;
 
@@ -25,7 +27,7 @@ class CategoryDropDownWidget extends ConsumerWidget {
         ),
         DropdownButton<String>(
           isExpanded: true,
-          value: itemSelector.value,
+          value: category ?? itemSelector.value,
           hint: Text(
             ref.watch(addProductConstantsProvider).txtSelectCategory,
             style: context.typography.body,

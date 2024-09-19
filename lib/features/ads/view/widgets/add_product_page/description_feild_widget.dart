@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_hub/core/constants/ads/add_product.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
-import 'package:rent_hub/core/theme/color_palette.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 
 class DescriptionFeildWidget extends StatelessWidget {
   const DescriptionFeildWidget({
@@ -18,14 +17,24 @@ class DescriptionFeildWidget extends StatelessWidget {
     return TextFormField(
       controller: descriptionController,
       decoration: InputDecoration(
-        fillColor: AppColorPalettes.silver300,
+        fillColor: context.colors.cardBackground,
         filled: true,
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+          color: context.colors.border,
+        )),
         border: OutlineInputBorder(
             borderSide: BorderSide(
           color: context.colors.border,
         )),
         labelText: constants.txtDescription,
+        labelStyle: TextStyle(
+          color: context.colors.border,
+        ),
         hintText: constants.txtDescriptionProduct,
+        hintStyle: TextStyle(
+          color: context.colors.border,
+        ),
       ),
       maxLines: 4,
     );

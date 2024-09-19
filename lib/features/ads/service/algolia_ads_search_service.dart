@@ -9,8 +9,7 @@ final class AlgoliaAdsSearchService {
     String searchKeyword,
   ) async {
     /// Querying the Algolia index
-    final query =
-        MyApp.algolia.instance.index('ads_index').query(searchKeyword);
+    final query = App.algolia.instance.index('ads_index').query(searchKeyword);
 
     /// Getting the search results
     final result = await query.getObjects();

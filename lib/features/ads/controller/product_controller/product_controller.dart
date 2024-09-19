@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/utils/snakbar/toaster_util.dart';
+import 'package:rent_hub/core/utils/toast_utils.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/location_name_reduce_provider.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/place_details_provider.dart';
-import 'package:rent_hub/features/ads/domain/model/ads_model/ads_model.dart';
+import 'package:rent_hub/features/ads/domain/model/ads/ads_model.dart';
 import 'package:rent_hub/features/ads/domain/model/place_model/place_model.dart';
+import 'package:rent_hub/features/ads/domain/usecase/product_use_case/delete_image_usecase.dart';
 import 'package:rent_hub/features/ads/domain/usecase/product_use_case/product_add_usecase.dart';
+import 'package:rent_hub/features/ads/domain/usecase/product_use_case/product_image_upload_usecase.dart';
 import 'package:rent_hub/features/ads/domain/usecase/product_use_case/product_update_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -31,6 +33,8 @@ class Products extends _$Products {
     required String? description,
     required double price,
   }) async {
+    state = true;
+
     PlaceModel? placeModel;
 
     ref.read(placeDetailsProvider).whenData(
@@ -40,19 +44,38 @@ class Products extends _$Products {
     );
 
     if (imagePaths.length < 3) {
-      ToasterUtil.showMessage(message: "Pick at least three product photos");
+      ToastUtils.showMessage(message: "Pick at least three product photos");
     } else if (category == null) {
-      ToasterUtil.showMessage(message: "Select product category");
+      ToastUtils.showMessage(message: "Select product category");
     } else if (placeModel == null) {
-      ToasterUtil.showMessage(message: "Select location");
+      ToastUtils.showMessage(message: "Select location");
     } else {
-      state = true;
-
       final location = placeModel?.results?.first.geometry?.location;
+
+      /// Upload all images
+      final List<String> uploadedImages = [];
+
+      for (final image in imagePaths) {
+        final url = await ProductImageUploadUseCase()(image);
+
+        if (url != null) {
+          uploadedImages.add(url);
+        } else {
+          for (final uploadedImage in uploadedImages) {
+            await DeleteImageUsecase()(imagePath: uploadedImage);
+          }
+
+          ToastUtils.showMessage(
+              message: "Cannot upload images. Try again later.");
+          state = false;
+
+          return;
+        }
+      }
 
       await ProductAddUsecase()(
         adsModel: AdsModel(
-          imagePath: imagePaths,
+          imagePath: uploadedImages,
           productName: productName,
           category: category,
           locationTitle: ref.read(
@@ -67,9 +90,9 @@ class Products extends _$Products {
           dateCreated: DateTime.now(),
         ),
       );
-
-      state = false;
     }
+
+    state = false;
   }
 
   // update product data

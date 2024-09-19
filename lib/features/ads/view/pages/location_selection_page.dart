@@ -5,7 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/constants/ads/location_selection.dart';
 import 'package:rent_hub/core/constants/error_constants.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/main_btn_widget.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/place_details_provider.dart';
 import 'package:rent_hub/features/ads/controller/location_controller/place_lat_long_provider.dart';
@@ -99,7 +99,7 @@ class LocationSelectionPage extends HookConsumerWidget {
           : Padding(
               padding:
                   EdgeInsets.symmetric(horizontal: context.spaces.space_100),
-              child: MainBtnWidget(
+              child: PrimaryBtnWidget(
                 onTap: () {
                   ref
                       .read(placeDetailsProvider.notifier)
@@ -107,7 +107,7 @@ class LocationSelectionPage extends HookConsumerWidget {
 
                   context.pop();
                 },
-                btnTxt: ref.watch(locationSelectionConstantsProvider).txtBtn,
+                label: ref.watch(locationSelectionConstantsProvider).txtBtn,
               ),
             ),
     );

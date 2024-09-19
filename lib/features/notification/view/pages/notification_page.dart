@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rent_hub/core/constants/notification/notification_page_constants.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/widgets/rounded_btn_widget.dart';
 import 'package:rent_hub/features/ads/view/widgets/notification_page/notification_tile_widget.dart';
 import 'package:rent_hub/features/notification/controller/notifications_list_controller.dart';
@@ -56,7 +56,7 @@ class NotificationPage extends ConsumerWidget {
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () async {
-                  ref.refresh(notificationsListProvider);
+                  ref.invalidate(notificationsListProvider);
                 },
                 child: ListView.builder(
                   itemCount: notificationList.length,

@@ -1,34 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rent_hub/core/theme/app_theme.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rent_hub/core/extensions/app_theme_extension.dart';
 import 'package:rent_hub/core/theme/color_palette.dart';
+import 'package:rent_hub/features/ads/controller/image_cache/image_cache_controller.dart';
 
-class ProductCardWidget extends ConsumerWidget {
-  final String productName;
+class ProductCardWidget extends HookConsumerWidget {
+  final String name;
   final double price;
-  final String productLocation;
-  final String img;
-  final Function() onTap;
-  final String belowbtn;
+  final String location;
+  final String image;
+  final VoidCallback onTap;
+  final String actionBtnLabel;
   final bool isFavorite;
-  final void Function()? favoriteTap;
+  final Future<void> Function()? onFavoriteTap;
 
   const ProductCardWidget({
     super.key,
-    required this.productName,
+    required this.name,
     required this.price,
-    required this.productLocation,
-    required this.img,
+    required this.location,
+    required this.image,
     required this.onTap,
-    required this.belowbtn,
+    required this.actionBtnLabel,
     this.isFavorite = false,
-    this.favoriteTap,
+    this.onFavoriteTap,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isFavorite = useState(this.isFavorite);
+
+    useEffect(() {
+      ref.read(imageCacheControllerProvider.notifier).getCachedImage(image);
+
+      return null;
+    }, []);
+
+    final imageCache = ref.watch(imageCacheControllerProvider);
+    final DecorationImage? decorationImage = imageCache[image] != null
+        ? DecorationImage(image: imageCache[image]!, fit: BoxFit.cover)
+        : null;
+
     return InkWell(
-      borderRadius: BorderRadius.all(Radius.circular(context.spaces.space_200)),
+      borderRadius: BorderRadius.circular(context.spaces.space_200),
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
@@ -39,130 +54,118 @@ class ProductCardWidget extends ConsumerWidget {
           color: context.colors.cardBackground,
         ),
         width: double.infinity,
-        // height: 200,
         child: Stack(
           children: [
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: Container(
-                width: context.spaces.space_300 * 4,
-                height: context.spaces.space_400,
-                decoration: BoxDecoration(
-                  color: context.colors.primary,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(context.spaces.space_200),
-                    bottomRight: Radius.circular(context.spaces.space_200),
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    belowbtn,
-                    style: context.typography.buttonText,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(context.spaces.space_100),
-              child: Stack(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: context.spaces.space_400 * 4,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(img), fit: BoxFit.cover),
-                          borderRadius:
-                              BorderRadius.circular(context.spaces.space_100),
-                        ),
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              top: context.spaces.space_100,
-                              left: context.spaces.space_100,
-                              child: InkWell(
-                                onTap: favoriteTap,
-                                child: CircleAvatar(
-                                  radius: context.spaces.space_200,
-                                  backgroundColor: AppColorPalettes.white500
-                                      .withOpacity(0.4),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(context.spaces.space_100),
+                  child: Container(
+                    width: double.infinity,
+                    height: context.spaces.space_400 * 4,
+                    padding: EdgeInsets.all(context.spaces.space_100),
+                    decoration: BoxDecoration(
+                      image: decorationImage,
+                      borderRadius:
+                          BorderRadius.circular(context.spaces.space_100),
+                    ),
+                    child: onFavoriteTap == null
+                        ? null
+                        : Align(
+                            alignment: Alignment.topLeft,
+                            child: InkWell(
+                              onTap: () async {
+                                await onFavoriteTap?.call();
+                                isFavorite.value = !isFavorite.value;
+                              },
+                              child: CircleAvatar(
+                                radius: context.spaces.space_200,
+                                backgroundColor: context
+                                    .colors.messageBackground
+                                    .withAlpha(100),
+                                child: Center(
                                   child: Icon(
                                     Icons.favorite,
-                                    color: isFavorite
+                                    color: isFavorite.value
                                         ? AppColorPalettes.red500
                                         : AppColorPalettes.white500,
                                   ),
                                 ),
                               ),
                             ),
-                          ],
+                          ),
+                  ),
+                ),
+                SizedBox(height: context.spaces.space_100),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: context.spaces.space_100),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          name,
+                          style: context.typography.h3SemiBold,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: context.spaces.space_100,
-                            left: context.spaces.space_100,
-                            right: context.spaces.space_100),
-                        child: Column(
+                      RichText(
+                        text: TextSpan(
+                          style: context.typography.bodyLargeSemiBold,
                           children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    productName,
-                                    style: context.typography.h3SemiBold,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                RichText(
-                                  text: TextSpan(
-                                    style: context.typography.bodyLargeSemiBold,
-                                    children: [
-                                      TextSpan(text: '₹ $price'),
-                                      TextSpan(
-                                        text: '/Day',
-                                        style: context.typography.bodySmall,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                            TextSpan(text: '₹ $price'),
+                            TextSpan(
+                              text: '/day',
+                              style: context.typography.bodySmall,
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: context.spaces.space_125,
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.place_outlined,
-                                    size: context.spaces.space_250,
-                                  ),
-                                  SizedBox(
-                                    width: context.spaces.space_50,
-                                  ),
-                                  Flexible(
-                                    flex: 1,
-                                    child: Text(
-                                      productLocation,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  SizedBox(width: context.spaces.space_300 * 4)
-                                ],
-                              ),
-                            )
                           ],
                         ),
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+                SizedBox(height: context.spaces.space_100),
+                Row(
+                  children: [
+                    SizedBox(width: context.spaces.space_100),
+                    Icon(
+                      Icons.place_outlined,
+                      size: context.spaces.space_200,
+                    ),
+                    SizedBox(
+                      width: context.spaces.space_50,
+                    ),
+                    Expanded(
+                      child: Text(
+                        location,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    SizedBox(width: context.spaces.space_100),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: context.spaces.space_300,
+                        vertical: context.spaces.space_100,
+                      ),
+                      decoration: BoxDecoration(
+                        color: context.colors.primary,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(context.spaces.space_200),
+                          bottomRight:
+                              Radius.circular(context.spaces.space_200),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          actionBtnLabel,
+                          style: context.typography.buttonText,
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
             ),
           ],
         ),

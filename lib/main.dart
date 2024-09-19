@@ -1,11 +1,13 @@
 import 'package:algolia/algolia.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rent_hub/core/routers/router.dart';
 import 'package:rent_hub/core/secret_keys.dart';
@@ -17,12 +19,23 @@ import 'package:rent_hub/firebase_options.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  /// Initialize the local storage
+  await GetStorage.init();
   await ObjectBoxService.create();
 
+  /// Initialize the firebase app
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  // FirebaseFirestore.instance.settings = Settings(
+  //   persistenceEnabled: false,
+  // );
+  await FirebaseAppCheck.instance.activate(
+      appleProvider: AppleProvider.debug,
+      androidProvider: AndroidProvider.debug);
+
+  /// Initialize the notification channels and groups
   AwesomeNotifications().initialize(
     // set the icon to null if you want to use the default app icon
     null,
@@ -46,38 +59,25 @@ Future<void> main() async {
     debug: true,
   );
 
+  /// Request permission to send notifications
   AwesomeNotifications().isNotificationAllowed().then(
     (isAllowed) {
       if (!isAllowed) {
-        // This is just a basic example. For real apps, you must show some
-        // friendly dialog box before call the request method.
-        // This is very important to not harm the user experience
         AwesomeNotifications().requestPermissionToSendNotifications();
       }
     },
   );
-
-  // You may set the permission requests to "provisional" which allows the user to choose what type
-  // of notifications they would like to receive once the user receives a notification.
-
   await FirebaseMessaging.instance.requestPermission(provisional: true);
-
-  // For apple platforms, ensure the APNS token is available before making any FCM plugin API calls
-  final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
-  if (apnsToken != null) {
-    // APNS token is available, make FCM plugin API requests...
-  }
 
   /// Listen for firebase background messages
   FirebaseMessaging.onBackgroundMessage(
       NotificationController.firebaseMessagingBackgroundHandler);
 
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: App()));
 }
 
-class MyApp extends HookConsumerWidget {
+class App extends HookConsumerWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
-
   static final scaffoldMessngerKey = GlobalKey<ScaffoldMessengerState>();
 
   static final algolia = Algolia.init(
@@ -85,7 +85,7 @@ class MyApp extends HookConsumerWidget {
     applicationId: SecretKeys.algoliaApplicationId,
   );
 
-  const MyApp({super.key});
+  const App({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

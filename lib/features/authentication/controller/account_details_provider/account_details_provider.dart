@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rent_hub/features/authentication/domain/model/account_details_model.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/account_details_usecase/add_account_details_use_cases.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/account_details_usecase/delete_account_use_case.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/account_details_usecase/get_user_details_usecase.dart';
+import 'package:rent_hub/features/authentication/domain/use_cases/account_details_usecase/update_last_seen_use_case.dart';
 import 'package:rent_hub/features/authentication/domain/use_cases/account_details_usecase/upload_image_use_case.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -43,8 +45,12 @@ class AccountDetails extends _$AccountDetails {
       await AddAccountDeatailsUseCase()(
         accountDetails: AccountDetailsModel(
           userName: userName,
+          userId: FirebaseAuth.instance.currentUser!.uid,
           profileImage: imageRef ?? "",
           fcmToken: fcmToken,
+          lastSeen: Timestamp.fromDate(
+            DateTime(DateTime.april),
+          ),
         ),
       );
     }
@@ -57,6 +63,17 @@ class AccountDetails extends _$AccountDetails {
     state = true;
 
     await DeleteAccountUseCase()();
+
+    state = false;
+  }
+
+  ///update user last seen
+  Future<void> updateLastSeen(Timestamp lastSeen) async {
+    state = true;
+
+    UpdateLastSeenUseCase()(
+      lastSeen,
+    );
 
     state = false;
   }

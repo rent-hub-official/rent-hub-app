@@ -1,4 +1,4 @@
-import 'package:rent_hub/features/authentication/controller/authenticcation_provider/authentication_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rent_hub/features/orders/domain/model/orders_model.dart';
 import 'package:rent_hub/features/orders/domain/usecase/add_order_use_case.dart';
 import 'package:rent_hub/features/orders/domain/usecase/delete_order_use_case.dart';
@@ -11,7 +11,7 @@ part 'orders_provider.g.dart';
 class Orders extends _$Orders {
   Stream<List<OrdersModel?>> build() {
     return GetAllOrdersUseCase()(
-        currentUser: ref.read(authenticationProvider).phoneNumber!);
+        currentUser: FirebaseAuth.instance.currentUser!.phoneNumber!);
   }
 
   void addOrder({required OrdersModel ordersModel}) {
